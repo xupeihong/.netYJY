@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style type="text/css">
+        li {
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <p title="水果">你喜欢的水果？</p>
+    <ul>
+        <li>苹果</li>
+        <li>香蕉</li>
+        <li title="橘子">橘子</li>
+    </ul>
+
+    <script src="Scripts/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+           // var $li = $("<li>例子</li>");
+           // var $li2 = $("<li>枣子</li>");
+            var $title = $("<li title='香蕉'></li>");
+            var $title2 = $("<li title='苹果'></li>");
+            //$("ul").append($li).append($li2);
+            $("ul").append($title).append($title2);
+        })
+    </script>
+</body>
+</html>

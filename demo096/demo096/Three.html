@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style type="text/css">
+        li {
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>fds</li>
+        <li>fds3</li>
+        <li>fds21</li>
+        <li>fds1222</li>
+        <li>fds</li>
+        <li>fds</li>
+        <li>fds</li>
+    </ul>
+    <script src="Scripts/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //var $li = $("ul li:eq(1)").remove();
+            //$li.appendTo("ul");
+            $("ul li").click(function () {
+                $(this).clone(true).appendTo("ul");
+            })
+        })
+    </script>
+</body>
+</html>

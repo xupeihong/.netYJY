@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style type="text/css">
+        li {
+            list-style: none;
+            float: left;
+        }
+
+        a {
+            margin-left:20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul>
+            <li><a href="#">佳能</a><i>(3000)</i></li>
+            <li><a href="#">佳能</a><i>(3000)</i></li>
+            <li><a href="#">佳能</a><i>(3000)</i></li>
+            <li><a href="#">佳能</a><i>(3000)</i></li>
+            <li><a href="#">佳能</a><i>(3000)</i></li>
+            <li><a href="#">佳能</a><i>(3000)</i></li>
+            <li><a href="#">索尼</a><i>(3000)</i></li>
+            <li><a href="#">佳能</a><i>(3000)</i></li>
+            <li><a href="#">佳能</a><i>(3000)</i></li>
+            <li><a href="#">佳能</a><i>(3000)</i></li>
+            <li><a href="#">佳能</a><i>(3000)</i></li>
+            <li><a href="#">佳能</a><i>(3000)</i></li>
+            <li><a href="#">佳能</a><i>(3000)</i></li>
+            <li><a href="#">佳能</a><i>(3000)</i></li>
+        </ul>
+        <div class="showmore">
+            <a href="#"><span>显示全部品牌</span></a>
+        </div>
+    </div>
+    <script src="Scripts/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var $vas = $('ul li:gt(5):not(:last)');
+            $vas.hide();
+            var $togl = $('div.showmore>a');
+            $togl.click(function () {
+                if ($vas.is(":visible")) {
+                    $vas.hide();
+                    $('.showmore a span')
+                    .css("background", "url(img/up.gif) no-repeat 0 0").text("显示全部");
+                    $('ul li ').removeClass("promoted");
+                } else {
+                    $vas.show();
+                    $('.showmore a span')
+                    .css("background", "url(img/up.gif) no-repeat 0 0")
+                    .text("精简版");
+                    $('ul li ').filter(":contains('佳能')").addClass("promoted");
+                    return false;
+                }
+            })
+        })
+
+    </script>
+</body>
+</html>
