@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var table = document.getElementById("tb");
+            var tbody = table.getElementsByTagName("tbody")[0];
+            var tr = tbody.getElementsByTagName("tr");
+            for (var i = 0; i < tr.length; i++) {
+                if (i % 2 == 0) {
+                    tr[i].style.backgroundColor = "red";
+                }
+            }
+            $("input:eq(1)")
+
+        })
+        $(function (btn) {
+            var btn = document.getElementById("btn");
+            btn.click = function () {
+                var arr = new Array();
+                var ck = document.getElementsByName("check");
+                for (i = 0; i < ck.length; i++) {
+                    if (ck[i].checked) {
+                        arr.push(ck[i].value);
+                    }
+                }
+                alert("选中了" + arr.length);
+            }
+        })
+    </script>
+</head>
+<body>
+    <table id="tb">
+        <tbody>
+            <tr>
+                <td>测试</td>
+            </tr>
+            <tr>
+                <td>测试</td>
+            </tr>
+            <tr>
+                <td>测试</td>
+            </tr>
+            <tr>
+                <td>测试</td>
+
+            </tr>
+        </tbody>
+
+    </table>
+    <input type="checkbox" value="1" name="check" checked />
+    <input type="checkbox" value="2" name="check" />
+    <input type="checkbox" value="3" name="check" checked />
+    <input type="checkbox" value="4" name="check" />
+    <input type="checkbox" value="5" name="check" checked />
+    <input type="button" value="选中" id="btn" onclick="btn()" />
+</body>
+</html>

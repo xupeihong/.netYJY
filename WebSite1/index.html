@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+    <!--<script src="Scripts/index.js"></script>-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var $vc = $("#ck");
+            var ck = $vc[0];
+            if (ck.checked) {
+                alert("fsfdsfd");
+            }
+            $("#ck").css("color", "red");
+            //$vc.click(function () {
+            //    if ($vc.is(":checked")) {
+            //        alert("fsdfewe");
+            //    }
+            //    else {
+            //        alert("没选中");
+            //    }
+            //})
+
+
+        })
+    </script>
+</head>
+<body>
+    <div>
+        <input type="checkbox" id="ck" />我已阅读上述内容
+    </div>
+</body>
+</html>
