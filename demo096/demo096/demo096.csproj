@@ -187,6 +187,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="five.html" />
     <Content Include="four.html" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bullet.png" />
@@ -234,6 +235,7 @@
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Second.html" />
+    <Content Include="six.html" />
     <Content Include="Three.html" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />

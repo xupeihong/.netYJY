@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#single").val("选择2号");
+            $("#multiple").val(["选择3号", "选择4号"]);
+        })
+    </script>
+</head>
+<body>
+    <select id="single">
+        <option>选择1号</option>
+        <option>选择2号</option>
+        <option>选择3号</option>
+    </select>
+    <select id="multiple" multiple="multiple" style="height:120px;">
+        <option>选择2号</option>
+        <option>选择3号</option>
+        <option>选择4号</option>
+        <option selected="selected">选择5号</option>
+    </select>
+    <input type="checkbox" value="check1" />多选1
+    <input type="checkbox" value="check1" />多选12
+    <input type="checkbox" value="check1" />多选13
+    <input type="checkbox" value="check1" />多选14
+    <input type="radio" value="radio1" />单选1
+    <input type="radio" value="radio2" />单选3
+    <input type="radio" value="radio3" />单选4
+
+</body>
+</html>
