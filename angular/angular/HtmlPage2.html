@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myapp" ng-controller="percontrl">
+        数量：<input type="number" ng-model="num" />
+        价格：<input type="number" ng-model="price" />
+        <p>总价{{num*price|currency}}</p>
+    </div>
+    <script type="text/javascript">
+        var app = angular.module('myapp', []);
+        app.controller('percontrl', function ($scope) {
+            $scope.num = 1;
+            $scope.price = 5.3;
+        })
+    </script>
+</body>
+</html>
