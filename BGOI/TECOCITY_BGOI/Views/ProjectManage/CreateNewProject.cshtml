@@ -1,0 +1,75 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+
+@model tk_ProjectPre
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>Warn</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ProjectManage/CreateNewProject.js")" type="text/javascript"></script>
+   <style>
+       .ui-jqgrid tr.jqgrow td {
+        white-space: normal !important;
+        height:auto;
+        vertical-align:text-top;
+        padding-top:2px;
+        }
+       </style>
+</head>
+   
+<body>
+    @using (Html.BeginForm("CreateNewProject", "ProjectManage", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+    {
+        
+    <div id="pageContent">
+       
+    <div id="tabTitile"><span style="margin-left:20px;">项目编号：@Model.StrPID</span></div>@Html.HiddenFor(model => model.StrPID)
+        <table class="tabInfo" style="width: 97%;margin-left:10px;margin-top:10px;">
+        <tr>
+            <td class="textLeft" style="width:100px;">内部编号</td><td class="textRight">@Html.TextBoxFor(model => model.StrProID, new {@class="txtCss" }) <span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.StrProID)</td>
+        </tr>
+        <tr>
+            <td class="textLeft">项目名称</td><td class="textRight">@Html.TextBoxFor(model => model.StrPname, new {style="width:90%" })<span style="color:red;"> * </span> @Html.ValidationMessageFor(model => model.StrPname)</td>
+        </tr>
+        <tr>
+            <td class="textLeft">项目来源</td><td class="textRight">@Html.DropDownListFor(model => model.StrPsource,ProjectMan.GetNewPsource(), new {@class="txtCss" }) <span style="color:red;"> * </span> @Html.ValidationMessageFor(model => model.StrPsource)</td>
+       </tr>
+          <tr>
+            <td class="textLeft">客户名称</td><td class="textRight">@Html.TextBoxFor(model => model.StrCustomerName, new {style="width:90%"}) <span style="color:red;"> * </span> @Html.ValidationMessageFor(model => model.StrCustomerName)</td>
+        </tr>
+       @* <tr>
+            <td class="textLeft">项目目标</td><td class="textRight">@Html.TextAreaFor(model => model.StrGoal, new { style="width:90%;height:100px;"}) <span style="color:red;"> * </span> @Html.ValidationMessageFor(model => model.StrGoal)</td>
+        </tr>*@
+       <tr>
+            <td class="textLeft">项目主要内容</td><td class="textRight">@Html.TextAreaFor(model => model.StrMainContent, new { style="width:90%;height:150px;"}) <span style="color:red;"> * </span> @Html.ValidationMessageFor(model => model.StrMainContent)</td>
+        </tr>
+    </table>
+       <div style="margin-top:10px;margin-left:75%">
+             <input class="btn" type="submit"  id="charge" value="确定"/>
+       </div> 
+   
+    </div>
+    }
+</body>
+</html>

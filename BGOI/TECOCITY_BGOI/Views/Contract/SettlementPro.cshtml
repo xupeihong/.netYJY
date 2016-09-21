@@ -1,0 +1,70 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "";
+}
+@using TECOCITY_BGOI;
+@model CSettlement
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Contract/SettlementPro.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+
+</head>
+@using (Html.BeginForm("SettlementPro", "Contract", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+{
+    <body>@Html.Hidden("PID",@ViewData["PID"])
+        <div id="hole" style="overflow-y: auto;">
+            <div id="tabTitile"><span style="margin-left: 10px;">合同ID：@Model.StrCID</span></div>@Html.HiddenFor(model => model.StrCID)
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+
+                <tr>
+                    <td class="textLeft">结项日期</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrFinishDate, new { @class = "txtCss", onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })" })<span style="color: red;">*</span>  @Html.ValidationMessageFor(model => model.StrFinishDate)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">是否欠款</td>
+                    <td class="textRight" colspan="3">@Html.RadioButton("Debt", 0) 否 @Html.RadioButton("Debt", 1) 是</td>
+                    @Html.HiddenFor(model => model.StrIsDebt)
+                </tr>
+                <tr>
+                    <td class="textLeft">欠款金额</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrDebtAmount, new { @class = "txtCss", @ReadOnly = "ReadOnly", onkeypress = "return !(event.keyCode==8)", onkeydown = "return !(event.keyCode==8)" })</td>
+                </tr>
+                <tr id="reason">
+                    <td class="textLeft">欠款原因</td>
+                    <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.StrDebtReason, new { style = "width:80%;height:100px;" })  @Html.ValidationMessageFor(model => model.StrDebtReason)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">备注</td>
+                    <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.StrRemark, new { style = "width:80%;height:100px;" })  @Html.ValidationMessageFor(model => model.StrRemark)</td>
+                </tr>
+            </table>
+            <div style="margin-top: 10px; margin-left: 80%">
+                <input class="btn" type="submit" id="charge" value="确定" />
+            </div>
+
+
+        </div>
+    </body>
+       
+}
+</html>

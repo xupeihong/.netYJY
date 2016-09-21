@@ -1,0 +1,75 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Submithuifu</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/Submithuifu.js")" type="text/javascript"></script>
+</head>
+<body>
+    @using (Html.BeginForm("Submithuifu", "SupplyManage", FormMethod.Post, new { id = "GForm" }))
+    { 
+        @Html.Hidden("RelevanceID", @ViewData["RelevanceID"])
+        <div id="pageContent">
+            <div id="tabTitile"><span style="margin-left: 20px;">流水号：@ViewData["RelevanceID"]</span></div>
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">准出申请原因</td>
+                    <td class="textright" colspan="4">@Html.Hidden("Reason") @ViewData["Reason"]</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">处理意见：</td>
+                    <td class="textright" colspan="4">
+                        @Html.Hidden("Opinions", @ViewData["Opinions"])
+                        @Html.RadioButton("Opinions", "0", new { disabled = "disabled" })
+                        停止供货
+                        @Html.RadioButton("Opinions", "1", new { disabled = "disabled" })
+                        暂停供货
+                        @Html.RadioButton("Opinions", "2", new { disabled = "disabled" })
+                        淘汰该供应商
+                    </td>
+                </tr>
+
+            </table>
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">是否同意</td>
+                    <td class="textright" colspan="4">
+                        @Html.RadioButton("ISAgree", 0)是
+                          @Html.RadioButton("ISAgree", 1)否
+                        <span style="color: red;">*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">部门负责人意见：</td>
+                    <td class="textRight" colspan="3">@Html.TextArea("OpinionsD", new { @class = "txtCss", maxlength = "200", style = "height:100px;width:750px;" })<span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">部门负责人：</td>
+                    <td class="textRight">@Html.Hidden("Approval1User", "", new { @class = "txtCss" }) @ViewData["UserName"] </td>
+                    <td class="textLeft">处理日期：</td>
+                    <td class="textRight">@Html.Hidden("ApprovalTime1", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" }) @ViewData["time"]</td>
+                </tr>
+            </table>
+
+            <div style="margin-left: 80%; margin-top: 5%;">
+                <input class="btn" type="button" id="charge" value="确定" />
+            </div>
+        </div>
+    }
+</body>
+</html>

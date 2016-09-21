@@ -1,0 +1,12 @@
+E:\BGOI\Models\bin\Release\Models.dll
+E:\BGOI\Models\bin\Release\Models.pdb
+E:\BGOI\Models\bin\Release\Common.dll
+E:\BGOI\Models\bin\Release\NPOI.dll
+E:\BGOI\Models\bin\Release\log4net.dll
+E:\BGOI\Models\bin\Release\Ionic.Zip.dll
+E:\BGOI\Models\bin\Release\Common.pdb
+E:\BGOI\Models\obj\Release\Models.csprojResolveAssemblyReference.cache
+E:\BGOI\Models\obj\Release\TECOCITY_BGOI.Resources.ErrorMsg.resources
+E:\BGOI\Models\obj\Release\Models.csproj.GenerateResource.Cache
+E:\BGOI\Models\obj\Release\Models.dll
+E:\BGOI\Models\obj\Release\Models.pdb

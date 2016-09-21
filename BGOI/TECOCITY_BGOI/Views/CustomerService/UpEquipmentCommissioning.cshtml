@@ -1,0 +1,249 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_EquipmentDebugging
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>UpEquipmentCommissioning</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Inventory/AddStockIn.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+@*  <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>*@
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/CustomerServiceManage/UpEquipmentCommissioning.js")" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <form>
+        <div id="tabTitile"><span style="margin-left: 10px; float: left;">编号：@Model.TRID </span></div>@Html.HiddenFor(model => model.TRID)
+
+        <div style="width:800px;height:20px;float: left;" id="shijian">
+            <span style="margin-left: 480px; float: left;">登录日期:</span><div id="localtime" style="float: right;"></div>
+        </div>
+        <div style="width: 100%; height: 350px; text-align: left; overflow-y: auto;">
+            <table class="tabInfo" style="width: 100%; margin-left: 8px; margin-top: 10px;">
+               
+                <tr>
+                    <td class="textLeft">用户名称</td>
+                    <td class="textRight" colspan="5">@Html.TextBoxFor(model => model.UserName, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.UserName)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">用户地址</td>
+                    <td class="textRight" colspan="5">@Html.TextBoxFor(model => model.Address, new { @class = "txtCss", @style = "width:720px;" })@Html.ValidationMessageFor(model => model.Address)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">联系人</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.ContactPerson, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ContactPerson)</td>
+                    <td class="textLeft">联系电话</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.Tel, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Tel)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">施工单位</td>
+                    <td class="textRight" colspan="5">@Html.TextBoxFor(model => model.ConstructionUnit, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ConstructionUnit)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">联系人</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.CUnitPer, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.CUnitPer)</td>
+                    <td class="textLeft">联系电话</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.CUnitTel, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.CUnitTel)</td>
+                </tr>
+                <tr style="text-align: center; font: bold;">
+                    <td colspan="6">设备管理方式</td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        @Html.RadioButton("EquManType", "0")自管 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                        @Html.RadioButton("EquManType", "1")厂家代管                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.RadioButton("EquManType", "2")输配公司代管                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.RadioButton("EquManType", "3")燃气施工方式代管              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.RadioButton("EquManType", "4")其它公司代管   
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">单位名称</td>
+                    <td class="textRight" colspan="5">@Html.TextBoxFor(model => model.UnitName, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.UnitName)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">联系人</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.UnitTel, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.UnitTel)</td>
+                    <td class="textLeft">电话</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.UnitPer, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.UnitPer)</td>
+                </tr>
+                <tr style="text-align: center; font: bold;">
+                    <td colspan="6">基本资料</td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                       <input type="button" class="btn" onclick="CheckDetail();" style="display:none" value="添加"
+                            id="btnAdd" name="btnAdd" />
+
+                        <input type="button" class="btn" onclick="addKonghang();" value="添加"
+                            id="btnAdd1" name="btnAdd1" />&nbsp;
+                        <div style="overflow-y: scroll;">
+                            <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                                <tr align="center" valign="middle" style="background-color: #88c9e9;">
+                                    <th style="width: 5%;" class="th">序号
+                                    </th>
+                                     <th style="width: 10%;" class="th">产品编号
+                                    </th>
+                                    <th style="width: 10%;" class="th">产品名称
+                                    </th>
+                                    <th style="width: 20%;" class="th">规格型号
+                                    </th>
+                                    <th style="width: 20%;" class="th">操作
+                                    </th>
+                                </tr>
+                                <tbody id="DetailInfo"></tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr id="BX" style="display: none">
+                    <td colspan="6">
+                        <div style="overflow-y: scroll;">
+                            <table id="myTable1" cellpadding="0" cellspacing="0" class="tabInfo">
+                                <tr align="center" valign="middle">
+                                    <th style="width: 10%;" class="th">报修编号
+                                    </th>
+                                </tr>
+                                <tbody id="DetailInfoi"></tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>设备形式</td>
+                    <td colspan="5">
+                        @Html.CheckBox("ProductForm", new { @value = "0" })调压器&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.CheckBox("ProductForm", new { @value = "1" })箱    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.CheckBox("ProductForm", new { @value = "2" })装置  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.CheckBox("ProductForm", new { @value = "3" })单    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.CheckBox("ProductForm", new { @value = "4" })双    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.CheckBox("ProductForm", new { @value = "5" })切换  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.CheckBox("ProductForm", new { @value = "6" })球    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.CheckBox("ProductForm", new { @value = "7" })油    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.CheckBox("ProductForm", new { @value = "8" })蝶
+                    </td>
+                </tr>
+                <tr>
+                    <td>气种</td>
+                    <td colspan="5">
+                        @Html.RadioButton("Gas", "0")天然气       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.RadioButton("Gas", "1")人工煤气     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.RadioButton("Gas", "2")液化石油气   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.RadioButton("Gas", "3")混气         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.RadioButton("Gas", "4")沼气         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.RadioButton("Gas", "5")压缩天然气   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.RadioButton("Gas", "6")其它  
+                    </td>
+                </tr>
+                <tr>
+                    <td>用户类别</td>
+                    <td colspan="5">
+                        @Html.RadioButton("UserType", "0")锅炉   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.RadioButton("UserType", "1")直燃机 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.RadioButton("UserType", "2")公福   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.RadioButton("UserType", "3")居民户 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.RadioButton("UserType", "4")其它
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">调试人员</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.DebPerson, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.DebPerson)</td>
+                    <td class="textLeft">调试日期</td>
+                    <td class="textRight" colspan="3">
+                        <input type="text" id="DebTime" onclick="WdatePicker()" class="Wdate" style="width: 170px;" /></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">上台（前台）编号：</td>
+                    <td class="textRight">@Html.TextBox("PowerNumber", "", new { @class = "txtCss" })</td>
+                    <td class="textLeft">生产日期：</td>
+                    <td class="textRight">
+                        <input type="text" id="PowerTime" onclick="WdatePicker()" class="Wdate" style="width: 170px;" /></td>
+                    <td class="textLeft">初始P</td>
+                    <td class="textRight">@Html.TextBox("PowerInitialP", "", new { @class = "txtCss" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">下台（前台）编号:</td>
+                    <td class="textRight">@Html.TextBox("StepDownNumber", "", new { @class = "txtCss" })</td>
+                    <td class="textLeft">生产日期</td>
+                    <td class="textRight">
+                        <input type="text" id="StepDownTime" onclick="WdatePicker()" class="Wdate" style="width: 170px;" /></td>
+                    <td class="textLeft">初始P</td>
+                    <td class="textRight">@Html.TextBox("StepDownInitialP", "", new { @class = "txtCss" })</td>
+                </tr>
+                <tr>
+                    <td colspan="6">现场调试情况</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">进口压力P1</td>
+                    <td class="textRight" colspan="2">@Html.TextBox("InletPreP1", "", new { @class = "txtCss" }) &nbsp;</td>
+                    <td class="textLeft">放散压力Pf</td>
+                    <td class="textRight" colspan="2">@Html.TextBox("BleedingpreP1", "", new { @class = "txtCss" }) &nbsp; </td>
+                </tr>
+                <tr>
+                    <td colspan="6">上台（高台）</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">出口压力P2</td>
+                    <td class="textRight">@Html.TextBox("PowerExportPreP2", "", new { @class = "txtCss" })&nbsp;</td>
+                    <td class="textLeft">关闭压力Pb</td>
+                    <td class="textRight">@Html.TextBox("PowerOffPrePb", "", new { @class = "txtCss" }) &nbsp;</td>
+                    <td class="textLeft">切断压力Pq</td>
+                    <td class="textRight">@Html.TextBox("PowerCutOffPrePq", "", new { @class = "txtCss" }) &nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="6">下台（低台）</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">出口压力P2</td>
+                    <td class="textRight">@Html.TextBox("SDExportPreP2", "", new { @class = "txtCss" })&nbsp;</td>
+                    <td class="textLeft">关闭压力Pb</td>
+                    <td class="textRight">@Html.TextBox("SDPowerOffPrePb", "", new { @class = "txtCss" }) &nbsp;</td>
+                    <td class="textLeft">切断压力Pq</td>
+                    <td class="textRight">@Html.TextBox("SDCutOffPrePq", "", new { @class = "txtCss" }) &nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">现场故障情况：</td>
+                    <td class="textRight" colspan="5">@Html.TextAreaFor(model => model.FieldFailure, new { @class = "txtCss", @style = "width:720px;height:50px;" })@Html.ValidationMessageFor(model => model.FieldFailure)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">备注</td>
+                    <td class="textRight" colspan="5">@Html.TextAreaFor(model => model.Remark, new { @class = "txtCss", @style = "width:720px;height:50px;" })@Html.ValidationMessageFor(model => model.Remark)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">登陆人：</td>
+                    <td class="textRight" colspan="5">@Html.TextBoxFor(model => model.CreateUser, new { @class = "txtCss", @readonly = "true"  })</td>
+                </tr>
+            </table>
+        </div>
+        <div style="margin-top: 5px; margin-left: 75%">
+            
+            <input class="btn" type="button" id="btnSave" value="保存" />
+            <input class="btn" type="button" id="Cancel" value="取消" />
+        </div>
+    </form>
+</body>
+</html>

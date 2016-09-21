@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/COM_Approval/Approval.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+
+</head>
+@using (Html.BeginForm("Approval", "COM_Approval", FormMethod.Post, new { id = "ProjectformInfo" }))
+{
+    <body>
+        @Html.Hidden("webkey", @ViewData["webkey"])   @Html.Hidden("folderBack", @ViewData["folderBack"])  @Html.Hidden("PID", @ViewData["PID"]) @Html.Hidden("RelevanceID", @ViewData["RelevanceID"])
+        <div id="hole" style="overflow-y: auto;">
+            <div id="tabTitile"><span style="margin-left: 10px;">审批编号：@ViewData["PID"]</span></div>
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">是否通过审批</td>
+                    <td class="textRight" colspan="3">@Html.RadioButton("IsReturn", "是") 是 @Html.RadioButton("IsReturn", "否") 否 </td>
+                    @Html.Hidden("IsPass")
+                </tr>
+                <tr>
+                    <td class="textLeft">审批意见</td>
+                    <td class="textRight" colspan="3">@Html.TextArea("Opinion", new { style = "width:90%;height:100px;" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">备注</td>
+                    <td class="textRight" colspan="3">@Html.TextArea("Remark", new { style = "width:90%;height:100px;" })</td>
+                </tr>
+            </table>
+            <div style="margin-top: 10px; margin-left: 80%">
+                <input class="btn" type="button" id="charge" value="确定" />
+            </div>
+        </div>
+    </body>
+}
+</html>

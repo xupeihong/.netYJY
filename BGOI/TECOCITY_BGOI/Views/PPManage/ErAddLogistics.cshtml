@@ -1,0 +1,217 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model PP_Logistics
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>ScrapManagementOut</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Inventory/AddStockIn.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/PP/ProjectPP/ErAddLogistics.js")" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <form>
+        <div id="createAll" style="background-color: #ffffff; width: 100%; ">
+            <div id="biaoti">
+                <h1 class="title">新建物流单</h1>
+            </div>
+            <div id="danhao" class="PPtitle">
+
+            </div>
+            <div>
+                <table border="0" cellpadding="0" cellspacing="0" width="98%" class="tabInfo">
+                    <tr>
+                        
+                        <td>
+                            物流单号：@Model.ID @Html.HiddenFor(model => model.ID)
+                        </td>
+                        
+
+                        
+
+                        @*<td>
+                <input type="button" id="upLoad" class="btn" name="btnSel" value="上传" />
+            </td>*@
+                    </tr>
+                    <tr>
+                        <td>
+                            授权公司:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  @Html.TextBox("SQCompany", "", new { style = "width:250px;" })
+                        </td>
+
+                        <td>
+                            提货公司:&nbsp;&nbsp; @Html.TextBox("THCompany", "", new { style = "width:250px;" })
+                        </td>
+
+                        @*<td>
+                                <input type="button" id="upLoad" class="btn" name="btnSel" value="上传" />
+                            </td>*@
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+
+        <table cellpadding="0" cellspacing="0" class="tabInfo" style="margin-top:5px;">
+            <tr class="PPtr">
+                <td colspan="4">   货物名称</td>
+            </tr>
+            <tr>
+
+                <td>
+                    <input type="button" class="btn" style="margin-top:3px;" value="添加" onclick="AddNewBasic()" id="btnAdd" name="btnAdd" />&nbsp;
+                    <input type="button" id="btnDel" class="btn" name="btnDel" value="删除" onclick="DelRow();" />
+                    <div style="overflow-y: scroll;max-height:200px;">
+                        <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                            <tr align="center" valign="middle">
+                                <th style="width: 5%;" class="th">
+                                    序号
+                                </th>
+                                <th class="th">
+                                    物品名称
+                                </th> 
+                                <th class="th">
+                                    规格型号
+                                </th> 
+                                <th class="th">
+                                    数量
+                                </th> 
+                            </tr> 
+                            <tbody id="GXInfo"></tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+
+
+        </table>
+        @*<div id="shangcuan" style="width: 90%; height: 270px; padding-left: 15px; margin-top: 5px; overflow-y: auto; display:none">
+            <table id="tabStatisticTotal" class="tabInfo" style="width: 99%; ">
+                <tr id="line1" style="height: 30px; text-align: center;"></tr>
+                <tbody id="tabStatistic" style="text-align: center;"></tbody>
+            </table>
+        </div>*@
+
+        <table id="tablelists" cellpadding="0" cellspacing="0" class="tabInfo" style="margin-top:5px; ">
+            <tr class="PPtr">
+                <td colspan="10">   相关约定</td>
+            </tr>
+
+            <tr>
+
+                <td colspan="3">
+                    收货地址
+                </td>
+                <td colspan="2">
+                    @Html.TextBox("SHaddress", "", new { })
+                </td>
+
+                <td colspan="3">
+                    收货联系人
+                </td>
+                <td colspan="2">
+                    @Html.TextBox("SHContacts", "", new { })
+                </td>
+            </tr>
+
+            <tr>
+               
+            </tr>
+            <tr>
+                <td>
+                    收货人电话
+                </td>
+                <td colspan="4">
+                    @Html.TextBox("SHTel", "", new { style = "width:170px;" })
+                </td>
+                <td>
+                    发货人
+                </td>
+                <td colspan="4">
+                    @Html.TextBox("FHConsignor", "", new { style = "width:170px;" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    发货人电话
+                </td>
+                <td colspan="4">
+                    @Html.TextBox("FHTel", "", new { style = "width:170px;" })
+                </td>
+                <td>
+                    发货人传真
+                </td>
+                <td colspan="4">
+                    @Html.TextBox("FHFax", "", new { style = "width:170px;" })
+                </td>
+            </tr>
+            
+            <tr>
+                <td colspan="2">
+                    物流公司联系人
+                </td>
+                <td colspan="3">
+                    @Html.TextBox("LogisticsS", "", new { style = "width:170px;" })
+                </td>
+                <td colspan="2">
+                    物流公司联系人电话
+                </td>
+                <td colspan="3">
+                    @Html.TextBox("LogisticsSTel", "", new { style = "width:170px;" })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    物流公司联系人传真
+                </td>
+                <td colspan="7">
+                    @Html.TextBox("LogisticsSFax", "", new { style = "width:980px;" })
+                </td>
+            </tr>
+        </table>
+
+
+        <div style="width: 100%; margin-top:20px; height: 30px;">
+            <table cellpadding="0" cellspacing="0" class="tabInfo"></table>
+        </div>
+
+        @*<div style="width: 100%; height: 70px;">
+            <table cellpadding="0" cellspacing="0" class="tabInfo" style="margin-top:5px;">
+                <tr class="PPtr">
+                    <td colspan="4">   订购人信息</td>
+                </tr>
+                <tr>
+                    <td class="textleft">
+                        订购人
+                    </td>
+                    <td class="textright" colspan="3">
+                        @Html.DropDownList("OrderContacts", PPManage.GetUserId(), new { @class = "txtCss" })
+                    </td>
+                </tr>
+            </table>
+        </div>*@
+
+        <div style="width: 98%; margin-right: 10px; height: 36px; text-align: right;margin-top:10px;">
+            <input id="btnSubmit" type="button" class="btn" value="保存" />
+            @*<input class="btn" type="button" id="btnSav1e" value="保存"  style="width: 90px;" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*@
+        </div>
+    </form>
+</body>
+</html>

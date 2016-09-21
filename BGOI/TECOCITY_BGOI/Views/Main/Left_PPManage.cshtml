@@ -1,0 +1,231 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Left_PPManage</title>
+
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-leftmenu.js")" type="text/javascript"></script>
+</head>
+<body>
+    @{
+        string exjob = GAccount.GetAccountInfo().Exjob;
+        string unitID = GAccount.GetAccountInfo().UnitID;
+    }
+    <dl id="wenzhang">
+       
+@{
+    if (unitID != "47")
+    {
+         @*<dd>
+         <dl >
+                    <dt><span onclick="TurnTo('../PPManage/Index')"> ▪ 请购</span></dt>
+                    <dd>
+                        <ul>
+                            <li onclick="TurnTo('../PPManage/CreatePurchase')"><span> ▪ 新建请购单</span></li>
+                            <li onclick="TurnTo('../PPManage/Index')"><span> ▪ 请购单管理</span></li>
+                        </ul>
+                    </dd>
+                </dl>
+            </dd>
+            <dd>
+                <dl>
+                    <dt><span> ▪ 询价</span></dt>
+                    <dd>
+                        <ul>
+                            <li onclick="TurnTo('../PPManage/Inquiry')"><span> ▪ 新建询价单</span></li>
+                            <li onclick="TurnTo('../PPManage/IndexInquiry')"><span> ▪ 询价单管理</span></li>
+
+                        </ul>
+                    </dd>
+                </dl>
+            </dd>*@
+    }
+    }
+        @if (exjob != "")
+        {
+            <dd>
+                <dl>
+                    <dt><span> ▪ 采购审批</span></dt>
+                    <dd>
+                        <ul>
+                            @* <li onclick="TurnTo('../PPManage/SPxj')"><span> ▪ 询价审批</span></li>*@
+                            <li onclick="TurnTo('../PPManage/SPdd')"><span> ▪ 订单审批</span></li>
+                        </ul>
+                    </dd>
+                </dl>
+            </dd>
+        } 
+
+        <dd>
+            <dl>
+                <dt><span> ▪ 订购</span></dt>
+                <dd>
+                    <ul>
+                        @{
+                            if (unitID == "47")
+                            {
+                                <li onclick="TurnTo('../PPManage/Order')"><span> ▪ 新建成品订购单</span></li>
+                                <li onclick="TurnTo('../PPManage/SanOrder')"><span> ▪ 新建零件订购单</span></li>
+
+                                <li onclick="TurnTo('../PPManage/IndexOrder')"><span> ▪ 订购单管理</span></li>
+                            }
+                            if (unitID == "37")
+                            {
+                                <li onclick="TurnTo('../PPManage/ErOrder')"><span> ▪  新建订购单</span></li>
+
+                                <li onclick="TurnTo('../PPManage/IndexOrder')"><span> ▪ 订购单管理</span></li>
+                            }
+                            if (unitID == "36")
+                            {
+                                <li onclick="TurnTo('../PPManage/SanOrder')"><span> ▪ 新建订购单</span></li>
+                                <li onclick="TurnTo('../PPManage/IndexOrder')"><span> ▪ 订购单管理</span></li>
+                            }
+                            if (unitID != "36"  && unitID != "37"  && unitID != "47"  )
+                            {
+                                <li onclick="TurnTo('../PPManage/Order')"><span> ▪ 新建成品订购单</span></li>
+                                <li onclick="TurnTo('../PPManage/SanOrder')"><span> ▪ 新建零件订购单</span></li>
+
+                                <li onclick="TurnTo('../PPManage/IndexOrder')"><span> ▪ 订购单管理</span></li>
+                            }
+                        }
+
+
+                    </ul>
+                </dd>
+            </dl>
+        </dd>
+        <dd>
+            <dl>
+                <dt><span> ▪ 收货</span></dt>
+                <dd>
+                    <ul>
+                        @*<li onclick="TurnTo('../PPManage/ReceiptGoods')"><span> ▪ 新建收货单</span></li>*@
+                        <li onclick="TurnTo('../PPManage/IndexSH')"><span> ▪ 收货单管理</span></li>
+                        @*<li onclick="TurnTo('../PPManage/ReturnGoods')"><span> ▪ 新建退货单</span></li>*@
+                        @*<li onclick="TurnTo('../PPManage/IndexTH')"><span> ▪ 退货单管理</span></li>*@
+                    </ul>
+                </dd>
+            </dl>
+        </dd>
+        @{
+            if (unitID == "47")
+            {
+                <dd>
+                    <dl>
+                        <dt><span> ▪ 零件交接单</span></dt>
+                        <dd>
+                            <ul>
+                                <li onclick="TurnTo('../PPManage/IndexTransfer')"><span> ▪ 交接单管理</span></li>
+
+                            </ul>
+                        </dd>
+                    </dl>
+                </dd>
+            }
+        }
+        @{
+            if (unitID == "37")
+            {
+                <dd>
+                    <dl>
+                        <dt><span> ▪ 物流管理</span></dt>
+                        <dd>
+                            <ul>
+
+                                <li onclick="TurnTo('../PPManage/ErAddLogistics')"><span> ▪ 新建物流</span></li>
+                                <li onclick="TurnTo('../PPManage/ErLogistics')"><span> ▪ 物流</span></li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </dd>
+            }
+        }
+
+        <dd>
+            <dl>
+                <dt><span> ▪ 入库登记</span></dt>
+                <dd>
+                    <ul>
+                        @*<li onclick="TurnTo('../PPManage/AddStorage')"><span> ▪ 新建采购入库单</span></li>*@
+                        <li onclick="TurnTo('../PPManage/IndexRK')"><span> ▪ 入库单管理</span></li>
+
+                    </ul>
+                </dd>
+            </dl>
+        </dd>
+        <dd>
+            <dl>
+                <dt><span> ▪ 付款</span></dt>
+                <dd>
+                    <ul>
+                        @*<li onclick="TurnTo('../PPManage/Payment')"><span> ▪ 新建付款记录</span></li>*@
+                        <li onclick="TurnTo('../PPManage/IndexFK')"><span> ▪ 付款记录管理</span></li>
+                        @*<li onclick="TurnTo('../PPManage/PurchaseApplication')"><span> ▪ 新建发票记录</span></li>
+                            <li onclick="TurnTo('../PPManage/PurchaseApplication')"><span> ▪ 发票记录管理</span></li>*@
+                    </ul>
+                </dd>
+            </dl>
+        </dd>
+        <dd>
+            <dl>
+                <dt><span> ▪ 采购提醒</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../PPManage/CGRemind')"><span> ▪ 采购提醒</span></li>
+                    </ul>
+                </dd>
+            </dl>
+        </dd>
+
+        <dd>
+            <dl>
+                <dt><span> ▪ 信息查询</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../PPManage/InventoryFirstPage')"><span> ▪ 库存查询</span></li>
+                        @*<li onclick="TurnTo('')"><span> ▪ 采购订货单查询</span></li>
+                            <li onclick="TurnTo('')"><span> ▪ 采购到货单查询</span></li>
+                            <li onclick="TurnTo('')"><span> ▪ 退货情况查询</span></li>*@
+                    </ul>
+                </dd>
+            </dl>
+        </dd>
+        <dd>
+            <dl>
+                <dt><span> ▪ 系统设置</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../System/AppSet?id=BGOI_PP/AppContent')"><span> ▪ 审批设置</span></li>
+                        <li onclick="TurnTo('../PPManage/XTSZ')"><span> ▪ 系统设置</span></li>
+                    </ul>
+                </dd>
+            </dl>
+        </dd>
+
+        <dd>
+            <dl>
+                <dt><span> ▪ 统计</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../PPManage/DGMX')"><span> ▪ 订购明细表</span></li>
+                        @*<li onclick="TurnTo('../PPManage/CGKXHZ')"><span> ▪ 采购款项汇总</span></li>
+                            <li onclick="TurnTo('../PPManage/STH')"><span> ▪ 物品收退货明细表</span></li>
+                            <li onclick="TurnTo('../PPManage/TJghmx')"><span> ▪ 供应商供货明细表</span></li>*@
+                    </ul>
+                </dd>
+            </dl>
+        </dd>
+
+      
+
+    </dl>
+</body>
+</html>

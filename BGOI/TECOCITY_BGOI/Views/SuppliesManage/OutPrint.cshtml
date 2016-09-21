@@ -1,0 +1,67 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model  Tk_SupplierBas
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>准出供应商打印</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Table_Fix.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_PrintPageSet.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/OutPrint.js")" type="text/javascript"></script>
+    <style type="text/css" media="print">
+        .Noprint {
+            DISPLAY: none;
+        }
+
+        .pageContent {
+            page-break-after: always;
+        }
+    </style>
+</head>
+<body style="margin: 0 0 0 0; background-color: white;">
+    <div id="pageContent" style="margin-left: 2px; margin-right: 2px; margin-top: 2px; overflow-y: auto;">
+        @* <div id="tabTitile"><span style="margin-left: 10px;">流水号：@Model.Sid</span></div>@Html.HiddenFor(model => model.Sid)*@
+        <div style="margin-top: 10px; font-size: 20px; font: 900; text-align: center; font-weight: bold">
+            年度评审信息表
+        </div>
+        @Html.Hidden("Sid", @ViewData["SID"])
+        @Html.Hidden("SupplierType", @ViewData["type"])
+        @Html.Hidden("COMNameC", @ViewData["name"])
+        @Html.Hidden("COMArea", @ViewData["area"])
+        @Html.Hidden("State", ViewData["state"])
+
+        <div style="height: auto; margin-left: 8px; width: 98.5%; margin-top: 10px;">
+            <table id="myTable" class="tabInfo" style="text-align: center;">
+                <tr style="text-align: center;">
+                    <td style="width: auto"><b>供应商编号</b></td>
+                    <td style="width: auto;"><b>供应商类别</b></td>
+                    <td style="width: auto;"><b>公司名称</b></td>
+                    <td style="width: auto;"><b>公司简称</b></td>
+                    <td style="width: auto;"><b>所属国家</b></td>
+                    <td style="width: auto;"><b>所属城市</b></td>
+                    <td style="width: auto;"><b>公司注册地址</b></td>
+                    <td style="width: auto;"><b>公司创建时间</b></td>
+                    <td style="width: auto;"><b>税务登记号</b></td>
+                    <td style="width: auto;"><b>营业执照号码</b></td>
+                    <td style="width: auto;"><b>公司办公地址</b> </td>
+                </tr>
+                <tbody id="DetailInfo" class="tabInfo"></tbody>
+
+            </table>
+        </div>
+        <div style="text-align: right; margin-top: 15px; width: 99%;">
+            <input type="button" id="btnPrint" value="打 印" class="Noprint" />
+            <br />
+        </div>
+    </div>
+</body>
+</html>

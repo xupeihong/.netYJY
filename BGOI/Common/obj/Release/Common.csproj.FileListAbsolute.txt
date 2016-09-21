@@ -1,0 +1,7 @@
+E:\BGOI\Common\bin\Release\Common.dll
+E:\BGOI\Common\bin\Release\Common.pdb
+E:\BGOI\Common\bin\Release\log4net.dll
+E:\BGOI\Common\bin\Release\NPOI.dll
+E:\BGOI\Common\bin\Release\Ionic.Zip.dll
+E:\BGOI\Common\obj\Release\Common.dll
+E:\BGOI\Common\obj\Release\Common.pdb

@@ -1,0 +1,238 @@
+﻿@{
+    ViewBag.Title = "AddOrderF";
+}
+@using TECOCITY_BGOI;
+@model OrdersInfo
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AddOffer</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Sales/AddOrderInfoF.js")" type="text/javascript"></script>
+    <style>
+        .RowClass {
+            background-color: #efd2d2;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("AddOrderF", "SalesManage", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+    {
+        <form id="form1" method="post">
+            <div id="tabTitile"><span style="margin-left: 10px; float: left;">订单编号：@Model.OrderID</span></div>
+            @Html.HiddenFor(model => Model.OrderID)  @Html.HiddenFor(model => Model.ISF) @Html.HiddenFor(model => Model.ISHT)
+            <div style="height: 525px; overflow-y:auto;">
+                <div id="div1">
+                    <table class="tabInfo" cellpadding=" 0" style=" width :98% ;" id="ShowPlist">
+                        <tr>
+                            <td colspan=4>备案编号：@Model.PID</td>
+                    </table>
+                </div>
+                <div id="div2">
+                    <table class="tabInfo" cellpadding=" 0" style=" width :98% ;" id="ShowClist">
+                        <tr>
+                            <td colspan="4">合同编号：@Model.ContractID  @Html.HiddenFor(model => Model.ContractID)</td>
+                        </tr>
+                    </table>
+                </div>
+                <table class="tabInfo" cellpadding="0" style=" width :98% ;">
+                    <tr>
+                        <td>订单单位:</td>
+                        <td>
+                            @Html.TextBoxFor(model => Model.OrderUnit)<span style="color:red;"> * </span>
+                            @*@Html.ValidationMessageFor(model => model.OrderUnit)*@
+                        </td>
+                        <td>联系人:</td>
+                        <td>
+                            @Html.TextBoxFor(model => Model.OrderContactor)
+                            @*@Html.ValidationMessageFor(model => model.OrderContactor)*@
+                        </td>
+                        <td>联系电话:</td>
+                        <td>
+                            @Html.TextBoxFor(model => Model.OrderTel)
+                            @Html.ValidationMessageFor(model => model.OrderTel)
+                        </td>
+                        <td>地址:</td>
+                        <td>
+                            @Html.TextBoxFor(model => Model.OrderAddress)
+                            @Html.ValidationMessageFor(model => model.OrderAddress)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>使用单位:</td>
+                        <td>
+                            @Html.TextBoxFor(model => Model.UseUnit)
+                            @*@Html.ValidationMessageFor(model => model.UseUnit)*@
+                        </td>
+                        <td>联系人:</td>
+                        <td>
+                            @Html.TextBoxFor(model => Model.UseContactor)
+                            @*@Html.ValidationMessageFor(model => model.UseContactor)*@
+                        </td>
+                        <td>联系电话:</td>
+                        <td>
+                            @Html.TextBoxFor(model => Model.UseTel)
+                            @*@Html.ValidationMessageFor(model => model.UseTel)*@
+                        </td>
+                        <td> 地址:</td>
+                        <td>
+                            @Html.TextBoxFor(model => Model.UseAddress)
+                            @*@Html.ValidationMessageFor(model => model.UseAddress)*@
+                        </td>
+
+
+                    </tr>
+                    <tr>
+                        <td>
+                            交货时间:
+                        </td>
+                        <td colspan="7">
+                            @Html.TextBoxFor(model => Model.DeliveryTime, new { @class = "txtCss", @readonly = "readonly", Value = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now), onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss'})" })
+                        </td>
+
+                    </tr>
+                </table>
+
+                <input type="button" class="btn" onclick="FDetail()" value="添加" id="btnAddF" name="btnAddF" />
+                <input type="button" class="btn" onclick="DeleteRow();" value="删除" id="btnDel" name="btnDel" />
+                <div>
+                    <div style=" width: 960px; overflow-x: auto;">
+                        <table id="myTable" cellpadding=" 0" cellspacing="0" class="tabInfo" style=" width: 960px;">
+                            <tr style="background-color: #88c9e9;" align="center" valign="middle">
+                                <th style="width: 60px;" class="th">
+                                    序号
+                                </th>
+                                <th style="width: 60px; " class="th">
+                                    产品编号
+                                </th>
+                                <th style="width: 60px; " class="th">
+                                    产品名称
+                                </th>
+                                <th style="width: 60px; " class="th">
+                                    规格型号
+                                </th>
+                                <th style="width: 60px; " class="th">
+                                    单位
+                                </th>
+                                <th style="width: 60px; " class="th">
+                                    数量
+                                </th>
+                                <th style="width: 60px; " class="th">
+                                    供应商
+                                </th>
+                                <th style="width: 60px; " class="th">
+                                    单价
+                                </th>
+                                @*<th style="width:200px;" class="th">
+                                        进价
+                                    </th>
+                                    <th style="width:200px;" class="th">
+                                        税率
+                                    </th>*@
+                                <th style="width: 60px; " class="th">
+                                    小计
+                                </th>
+                                <th style="width: 60px; " class="th">
+                                    单位成本
+                                </th>
+                                <th style="width: 60px; " class="th">
+                                    累计成本
+                                </th>
+                                <th style="width: 60px; " class="th">
+                                    技术要求或参数
+                                </th>
+                                <th style="width: 60px; " class="th">
+                                    销售单号
+                                </th>
+                                <th style="width: 60px; " class="th">
+                                    工程项目号
+                                </th>
+                                <th style="width: 60px; " class="th">
+                                    工程项目名称
+                                </th>
+                                @*<th style="width: 200px;" class="th">
+                                        交货时间
+                                    </th>*@
+                                @*<th style="width: 200px;" class="th">
+                                        PID
+                                    </th>*@
+                            </tr>
+                            <tbody id="DetailInfo"></tbody>
+                        </table>
+                    </div>
+                    <table id="Botom" class=" tabInfo" style=" width :98% ;">
+                        <tr>
+                            <td>合计:人民币</td>
+                            <td colspan="6">
+                                @Html.TextBoxFor(model => Model.Total, new { style = "width:98%", @readonly = "readonly" })￥
+                                @*@Html.ValidationMessageFor(model => model.Total )*@
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>付款方式</td>
+                            <td colspan="6">
+                                @Html.DropDownListFor(model => Model.PayWay, SalesManage.Methods(), new { style = "width:98%" })
+                                @*@Html.ValidationMessageFor(model => model.PayWay)*@
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>产品保修期</td>
+                            <td colspan="6">
+                                @*@Html.TextBoxFor(model => Model.Guarantee, new { @class = "txtCss", style = "width:98%", @readonly = "readonly", onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})" })*@
+                                @Html.TextBoxFor(model => Model.Guarantee, new { @class = "txtCss", style = "width:98%" })
+                                <span style="color:red;"> * </span>
+                                @*@Html.ValidationMessageFor(model => model.Guarantee)*@
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>预计回款日期</td>
+                            <td colspan="6">
+                                @Html.TextBoxFor(model => Model.ExpectedReturnDate, new { @class = "txtCss", style = "width:98%", @readonly = "readonly", onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss'})" })<span style="color:red;"> * </span>
+                                @*@Html.ValidationMessageFor(model => model.Guarantee)*@
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">供方</td>
+                            <td>单位</td>
+                            <td>
+                                @Html.TextBoxFor(model => Model.Provider, new { style = "width:98%" })
+                                @Html.ValidationMessageFor(model => model.Provider)
+                            </td>
+                            <td rowspan="2"> 需方 </td>
+                            <td>单位</td>
+                            <td>@Html.TextBoxFor(model => Model.Demand, new { style = "width:98%" })@Html.ValidationMessageFor(model => model.Demand)</td>
+                        </tr>
+                        <tr>
+                            <td>负责人：</td>
+                            <td> @Html.DropDownListFor(model => Model.ProvidManager, SalesManage.GetUM_USER(GAccount.GetAccountInfo().UnitID), new { style = "width:98%" })<span style="color:red;"> * </span>@*@Html.ValidationMessageFor(model => model.ProvidManager)*@</td>
+                            <td>负责人：</td>
+                            <td>@Html.TextBoxFor(model => Model.DemandManager, new { style = "width:98%" })@*@Html.ValidationMessageFor(model => model.DemandManager)*@</td>
+                        </tr>
+                        <tr><td>备注：</td><td colspan="6">@Html.TextAreaFor(model => Model.Remark, new { style = "height:20px;width:98%" })@*@Html.ValidationMessageFor(model => model.Remark)*@</td></tr>
+                        <tr><td>业务渠道：</td><td colspan="6">@Html.TextAreaFor(model => Model.ChannelsFrom, new { style = "height:20px;width:98%" })</td></tr>
+                        <tr>
+                            <td colspan="7" style=" text-align:center">
+                                <input type="button" class="btn" id="btnSaveOrder" value="保存" />
+                                <input type="button" class="btn" id="btnExit" value="取消" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+        </form>
+    }
+</body>
+</html>

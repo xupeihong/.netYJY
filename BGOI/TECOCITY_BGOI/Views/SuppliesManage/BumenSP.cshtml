@@ -1,0 +1,72 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model Tk_SupplierBas
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <title>BumenSP</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/BumenSP.js")" type="text/javascript"></script>
+</head>
+@using (Html.BeginForm("BumenSP", "SuppliesManage", FormMethod.Post, new { id = "BumenSPInfo" }))
+{
+    <body>
+        <div id="hole">
+            <div id="tabTitile"><span style="margin-left: 10px;">流水号：@Html.HiddenFor(model => model.Sid)@ViewBag.sid</span></div>
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">质量管理体系得分</td>
+                    <td class="textright">@Html.Hidden("Score1")@ViewData["Score1"] 分
+                    </td>
+                    <td class="textLeft">价格得分</td>
+                    <td class="textright">@Html.Hidden("Score2") @ViewData["Score2"] 分</td>
+                    <td class="textLeft">供货及时率得分</td>
+                    <td class="textright">@Html.Hidden("Score3") @ViewData["Score3"] 分</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">服务得分</td>
+                    <td class="textright">@Html.Hidden("Score4") @ViewData["Score4"] 分</td>
+                    <td class="textLeft">得分总计</td>
+                    <td class="textright">@Html.Hidden("Score5") @ViewData["Score5"] 分 </td>
+                    <td class="textLeft">评价结果</td>
+                    <td class="textright">
+                        @Html.Hidden("Result", @ViewData["Result"])
+                        @Html.RadioButton("Result", "0", new { disabled = "disabled" }) 合格
+                        @Html.RadioButton("Result", "1", new { disabled = "disabled" }) 待改进
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">是否同意通过部门年审</td>
+                    <td class="textright" colspan="5">
+                        @Html.RadioButton("ISAgree", 0)是
+                          @Html.RadioButton("ISAgree", 1)否
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">部门负责人意见：</td>
+                    <td class="textright" colspan="5">@Html.TextArea("OpinionsD", new { @class = "txtCss", maxlength = "200", style = "height:100px;width:750px;" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">部门负责人：</td>
+                    <td class="textright">@Html.Hidden("Approval1User", "", new { @class = "txtCss" }) @ViewData["UserName"] </td>
+                    <td class="textLeft">处理日期：</td>
+                    <td class="textright" colspan="4">@Html.Hidden("ApprovalTime1", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" }) @ViewData["time"]</td>
+                </tr>
+            </table>
+            <div style="margin-left: 80%; margin-top: 5%;">
+                <input class="btn" type="button" id="charge" value="确定" />
+            </div>
+        </div>
+    </body>
+}
+</html>

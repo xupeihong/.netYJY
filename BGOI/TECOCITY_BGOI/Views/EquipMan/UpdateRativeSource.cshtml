@@ -1,0 +1,71 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "";
+}
+@using TECOCITY_BGOI;
+@model RativeSource
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/EquipMan/UpdateRativeSource.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+
+</head>
+@using (Html.BeginForm("UpdateRativeSource", "EquipMan", FormMethod.Post, new { id = "ProjectformInfo" }))
+{
+    <body>@Html.Hidden("ID", @ViewData["ID"])
+        <div id="hole" style="overflow-y: auto;">
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">内部编号</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrRID, new { @class = "txtCss" })<span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">设备编号</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrEquipID, new { @class = "txtCss" })<span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">产品型号</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrProModel, new { @class = "txtCss" })<span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">源项</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrSource, new { @class = "txtCss" })<span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">生产厂家</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrManufacturer, new { @class = "txtCss" })<span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">标称活度</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrNominal, new { @class = "txtCss" })<span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">放射源编码</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrSourceNumber, new { @class = "txtCss" })<span style="color: red;">*</span></td>
+                </tr>
+            </table>
+
+
+            <div style="margin-top: 10px; margin-left: 80%">
+                <input class="btn" type="button" id="charge" value="确定" />
+            </div>
+
+        </div>
+    </body>
+       
+}
+</html>

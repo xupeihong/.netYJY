@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "";
+}
+@model TECOCITY_BGOI.tk_SFileInfo
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DetailPS</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_PrintPageSet.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/DetailPSuUnit.js")"></script>
+</head>
+@using (Html.BeginForm("DetailPS", "SuppliesManage", FormMethod.Post, new { id = "DetailSugestion" }))
+{ 
+   
+    <body style="overflow-y: auto;">
+        @Html.Hidden("FID")
+        @Html.HiddenFor(model => model.MfFilename)
+        @Html.HiddenFor(model => Model.Sid)
+    </body>
+}
+</html>

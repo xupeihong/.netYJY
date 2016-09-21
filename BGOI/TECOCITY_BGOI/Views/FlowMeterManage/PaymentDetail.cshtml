@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_Payment
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PaymentDetail</title>
+
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/PaymentDetail.js")" type="text/javascript"></script>
+</head>
+<body>
+    <div id="pageContent" style="overflow-y:auto;">
+       <div style="width:98%;margin-left:5px;margin-top:5px;">
+           <table class="tabInfo" id="content" style="width:98%;" align="center" >
+               <tr style="height:30px;"> 
+                    <td colspan="4" style="text-align:center; font-size:20px; font-weight:bold;">缴费单详细信息</td>
+               </tr>
+               <tr style="height:30px;"> 
+                    <td class="textLeftL">缴费单号</td>
+                    <td class="textRightL">@Model.StrPayID</td>
+               </tr>
+               <tr style="height:30px;"> 
+                    <td class="textLeftL">缴费单位</td>
+                    <td class="textRightL">@Model.StrPayUnit</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">缴费人</td>
+                    <td class="textRightL">@Model.StrPayPerson</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">缴费金额</td>
+                    <td class="textRightL">@Model.StrPayMount</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">缴费时间</td>
+                    <td class="textRightL">@Model.StrPayDate</td>
+                </tr>
+                <tr style="height:60px;"> 
+                    <td class="textLeftL">备注</td>
+                    <td class="textRightL">@Model.StrComments</td>
+                </tr>
+            </table>
+        </div>  
+    </div>
+</body>
+</html>

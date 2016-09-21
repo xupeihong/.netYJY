@@ -1,0 +1,74 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model  tk_SProducts
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>AddmanagePro</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/UpdataPro.js")"></script>
+</head>
+@using (Html.BeginForm("AddmanagePro", "SuppliesManage", FormMethod.Post, new { id = "ManPro", action = "Addmpro", enctype = "multipart/form-data" }))
+{
+    <body>
+        @Html.Hidden("msg", @ViewData["msg"])
+        @Html.Hidden("SID", @ViewData["SID"])
+        <div id="hole" style="overflow-y: auto;">
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">流水号</td>
+                    <td class="textRight">@Html.Hidden("ID", @ViewData["ID"]) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">产品编号</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Productid, new { @class = "txtCss" }) <span style="color:red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">产品名称</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Productname, new { @class = "txtCss" }) <span style="color:red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">规格型号</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Standard, new { @class = "txtCss" }) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">单位</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Measureunit, new { @class = "txtCss" }) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">详细说明</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Detaildesc, new { @class = "txtCss" }) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">参考价格</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Price, new { @class = "txtCss" }) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">产地</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Originplace, new { @class = "txtCss" }) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">用途</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Purpose, new { @class = "txtCss" }) </td>
+                </tr>
+            </table>
+            <div style="margin-top: 10px; margin-left: 80%">
+                <input class="btn" type="button" id="charge" value="确定" />
+            </div>
+        </div>
+    </body>
+}
+
+</html>

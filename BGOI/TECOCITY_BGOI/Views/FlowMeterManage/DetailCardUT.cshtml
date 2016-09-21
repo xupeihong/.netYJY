@@ -1,0 +1,235 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model RepairCardUT
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DetailCardUT</title>
+
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Table_Fix.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/TableMergeCell.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/DetailCardUT.js")" type="text/javascript"></script>
+</head>
+<body>
+    <div id="pageContent" style="overflow-y: auto;">
+        <div style="width: 98%; margin-left: 10px; margin-top: 5px;">
+            <table class="tabInfo" id="content" style="text-align: center;">
+                <tr>
+                    <td colspan="4" style="text-align: center; font-size: 20px; font-weight: bold;">超声波流量计登记卡</td>
+                </tr>
+                <tr>
+                    <td class="textRightL" colspan="4" style="text-align: left; height: 25px;">基本信息</td>
+                </tr>
+                <tr>
+                    @Html.Hidden("RIDUT", ViewData["RID"])
+                    <td class="textLeftL">维修编号</td>
+                    <td class="textRightL">@Model.strRepairIDUT</td>
+                    <td class="textLeftL">客户名称</td>
+                    <td class="textRightL">@Model.strCustomerNameUT</td>
+                </tr>
+                <tr>
+                    <td class="textLeftL">客户地址</td>
+                    <td class="textRightL">@Model.strCustomerAddrUT</td>
+                    <td class="textLeftL">送表人/物流单位</td>
+                    <td class="textRightL">@Model.strS_NameUT</td>
+                </tr>
+                <tr>
+                    <td class="textLeftL">联系电话</td>
+                    <td class="textRightL">@Model.strS_TelUT</td>
+                    <td class="textLeftL">送表日期</td>
+                    <td class="textRightL">@Model.strS_DateUT</td>
+                </tr>
+                <tr>
+                    <td class="textLeftL">隶属单位</td>
+                    <td class="textRightL">@Model.strSubUnitUT</td>
+                    <td class="textLeftL">仪表类型</td>
+                    <td class="textRightL">超声波</td>
+                </tr>
+                <tr>
+                    <td class="textLeftL">仪表编号</td>
+                    <td class="textRightL">@Model.strMeterIDUT</td>
+                    <td class="textLeftL">仪表名称</td>
+                    <td class="textRightL">@Model.strMeterNameUT</td>
+                </tr>
+                <tr>
+                    <td class="textLeftL">证书编号</td>
+                    <td class="textRightL">@Model.strCertifIDUT</td>
+                    <td class="textLeftL">生产厂家</td>
+                    <td class="textRightL">@Model.strManufacturerUT</td>
+                </tr>
+                <tr>
+                    <td class="textLeftL">电路板编号</td>
+                    <td class="textRightL">@Model.strCirNumUT</td>
+                    <td class="textLeftL">电路板版本</td>
+                    <td class="textRightL">@Model.strCirVersionUT</td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td class="textLeftL">仪表型号</td>
+                    <td class="textRightL">@ViewData["Model"]</td>
+                    <td class="textLeftL">出厂日期</td>
+                    <td class="textRightL">@Model.strFactoryDateUT</td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td class="textLeftL">流量范围</td>
+                    <td class="textRightL">@Model.strFlowRangeUT </td>
+                    <td class="textLeftL">承压等级</td>
+                    <td class="textRightL">@Model.strPressureUT </td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td class="textLeftL">口径DN</td>
+                    <td class="textRightL">@Model.strCaliberUT </td>
+                    <td class="textLeftL">仪表性质</td>
+                    <td class="textRightL">@ViewData["ModelProperty"] </td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td class="textRightL" style="text-align: left;" colspan="4">探头信息</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <table class="tabInfo" style="width: 98%;" align="center">
+                            <tr style="height: 30px; text-align: center;">
+                                <td class="textLeftL">声道</td>
+                                <td class="textLeftL">1</td>
+                                <td class="textLeftL">2</td>
+                                <td class="textLeftL">3</td>
+                                <td class="textLeftL">4</td>
+                                <td class="textLeftL">5</td>
+                                <td class="textLeftL">6</td>
+                                <td class="textLeftL">备注</td>
+                            </tr>
+                            <tr style="height: 30px;">
+                                <td style="text-align: center;">A</td>
+                                <td class="textRightL">@Model.strTrackA1UT </td>
+                                <td class="textRightL">@Model.strTrackA2UT </td>
+                                <td class="textRightL">@Model.strTrackA3UT </td>
+                                <td class="textRightL">@Model.strTrackA4UT </td>
+                                <td class="textRightL">@Model.strTrackA5UT </td>
+                                <td class="textRightL">@Model.strTrackA6UT </td>
+                                <td rowspan="2" class="textRightL">@Model.strComments1UT </td>
+                            </tr>
+                            <tr style="height: 30px;">
+                                <td style="text-align: center;">B</td>
+                                <td class="textRightL">@Model.strTrackB1UT </td>
+                                <td class="textRightL">@Model.strTrackB2UT </td>
+                                <td class="textRightL">@Model.strTrackB3UT </td>
+                                <td class="textRightL">@Model.strTrackB4UT </td>
+                                <td class="textRightL">@Model.strTrackB5UT </td>
+                                <td class="textRightL">@Model.strTrackB6UT </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
+
+                <tr style="height: 30px;">
+                    <td class="textRightL" style="text-align: left;" colspan="4">外观检查</td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td class="textLeftL">进厂检验员</td>
+                    <td class="textRightL" colspan="3" style="text-align: left;">
+                        @Model.strCheckUserUT
+                    </td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td class="textLeftL">是否送外部检测</td>
+                    <td class="textRightL" style="text-align: center;">@ViewData["IsOutUT"]</td>
+                    <td class="textLeftL" id="OutTitleUT">第三方检测单位</td>
+                    <td class="textRightL" id="OutUnitUT">@Model.strOutUnitUT </td>
+                </tr>
+
+                <tbody class="tabInfo" id="CheckItemsUT">
+                </tbody>
+
+                <tr style="height: 30px;">
+                    <td class="textLeftL">外观检查其他项</td>
+                    <td colspan="3" class="textRightL">@Model.strFaceOtherUT </td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td class="textLeftL">维修内容</td>
+                    <td colspan="3" class="textRightL">@Model.strRepairContentUT </td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td class="textRightL" style="text-align: left;" colspan="4">测试过程</td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td class="textLeftL">首次测试</td>
+                    <td class="textRightL">@ViewData["FirstCheck"]</td>
+                    <td class="textLeftL">测试日期</td>
+                    <td class="textRightL">@Model.strFirstDateUT </td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td class="textLeftL">二次测试</td>
+                    <td class="textRightL">@ViewData["SecondCheck"]</td>
+                    <td class="textLeftL">测试日期</td>
+                    <td class="textRightL">@Model.strSecondDateUT </td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td class="textLeftL">三次测试</td>
+                    <td class="textRightL">@ViewData["ThirdCheck"]</td>
+                    <td class="textLeftL">测试日期</td>
+                    <td class="textRightL">@Model.strThirdDateUT </td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td class="textRightL" style="text-align: left;" colspan="4">出库记录</td>
+                </tr>
+                <tr>@Html.Hidden("HideType",ViewData["GetTypeModelUT"])
+                    <td class="textLeftL">取表方式</td>
+                    <td class="textRightL">@ViewData["GetTypeModelUT"]</td>
+                    <td class="textLeftL">取表日期</td>
+                    <td class="textRightL">@Model.strG_DateUT</td>
+                </tr>
+                <tr style="display: none;" id="LogisticUT">
+                    <td class="textLeftL">物流信息</td>
+                    <td colspan="3" class="textRightL">
+                        @Html.TextAreaFor(model => model.strLogisticUT, new { style = " width:70%; height:45px;" })
+                    </td>
+                </tr>
+                <tr style="display: none;" id="UserInfoUT">
+                    <td class="textLeftL">取表人</td>
+                    <td class="textRightL">@Model.strG_NameUT </td>
+                    <td class="textLeftL">联系电话</td>
+                    <td class="textRightL">@Model.strG_TelUT </td>
+                </tr>
+                <tr style="height: 30px;">
+                    <td class="textLeftL">备注</td>
+                    <td colspan="3" class="textRightL">@Model.strTextUT </td>
+                </tr>
+                @Html.Hidden("State", ViewData["State"])
+                @Html.Hidden("HTitleUT")
+                @Html.Hidden("HCheckedUT")
+            </table>
+        </div>
+        <div style="width: 98%; margin-left: 10px; margin-top: 5px; height: 300px; overflow-y: auto;">
+            <table class="tabInfoO" id="operateLog">
+                <thead>
+                    <tr>
+                        <td colspan="6" style="text-align: left; height: 25px;">操作历史记录</td>
+                    </tr>
+                    <tr style="text-align: center; height: 25px; background-color: #f1f1f1;">
+                        <td>序号</td>
+                        <td>操作标题</td>
+                        <td>操作记录</td>
+                        <td>操作时间</td>
+                        <td>操作人</td>
+                    </tr>
+                </thead>
+                <tbody id="OperateList" class="tabInfoO" style="height: 200px;">
+                </tbody>
+
+            </table>
+            <br />
+            <br />
+        </div>
+    </div>
+</body>
+</html>

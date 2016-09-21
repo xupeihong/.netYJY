@@ -1,0 +1,49 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UpdatePwd</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/CommonFun.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Main/ResetPwd.js")" type="text/javascript"></script>    
+    
+</head>
+<body>
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "UpdatePwd" }))
+{ <div id="pageContent" style="overflow-y:auto;">
+    @Html.Hidden("UserID")
+        <table style="width: 95%;margin-left:8px;margin-top:10px;" id="content">
+            <tr>
+                <td style="width:70px">请输入用户登录名：</td>
+                <td colspan="3" align="left">
+                   @Html.TextBox("LoginName", "", new { @class = "txtCss" })<label style="color:red">*</label><label id="oldAlert" style="color: red; display: none">请输入用户登录名</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:70px">用户姓名：</td>
+                <td colspan="3" align="left">
+                    @Html.TextBox("UserName", "", new { @class = "txtCss", @ReadOnly = "ReadOnly",onkeypress="return !(event.keyCode==8)",onkeydown="return !(event.keyCode==8)"})<label style="color:red">*</label><label id="NewAlert" style="color:red;display:none">没有该用户信息</label>
+                  
+                </td>
+            </tr>
+           
+            <tr>
+                <td colspan="4" align="center"><input class="btn" type="button" value="重 置" id="savebtn" />&nbsp;&nbsp;&nbsp;&nbsp;<input class="btn" type="button" value="取 消" id="cancel" /></td>
+
+            </tr>
+        </table>
+    </div>
+}
+</body>
+</html>

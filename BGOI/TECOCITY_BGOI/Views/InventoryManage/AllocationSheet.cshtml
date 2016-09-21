@@ -1,0 +1,148 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+@model AllocationSheetQuery
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>AllocationSheet</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/InventoryManage/AllocationSheet.js")" type="text/javascript"></script>
+    @{
+        Acc_Account unitname = GAccount.GetAccountInfo();
+        string Rights = unitname.Rights;
+        string UnitIDo = unitname.Path;
+        string UnitIDnew = unitname.UnitID;
+    }
+    @Html.Hidden("UnitIDnew", UnitIDnew)
+    @Html.Hidden("UnitIDo", UnitIDo)
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+
+        #ulGJ li:hover {
+            background: #bcf492;
+        }
+
+        .selDiv {
+            /*margin-left:-100%;*/
+            background: #f5f5f5;
+            text-align: center;
+            display: none;
+            width: 165px;
+            max-height: 73px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: absolute;
+            border: 1px solid #7f9cba;
+        }
+
+        .selDivp {
+            /*margin-left:-100%;*/
+            background: #f5f5f5;
+            text-align: center;
+            display: none;
+            width: 150px;
+            max-height: 73px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: absolute;
+            border: 1px solid #7f9cba;
+        }
+    </style>
+</head>
+
+<body>
+    @using (Html.BeginForm("AllocationSheetToExcel", "InventoryManage", FormMethod.Post, new { id = "GForm" }))
+    {
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">库存管理</span>>>发货单
+            </div>
+            <div id="search" style="height: 70px;">
+                <table class="tabSearch" cellpadding="0" cellspacing="0">
+                    <tr style="height: 30px;">
+                        <td>发货编号</td>@Html.Hidden("IDN","")
+                        <td>@Html.TextBox("ID", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ID)</td>
+                        <td>入库仓库</td>
+                        <td>@Html.DropDownList("HouseID", InventoryMan.GetHouseSYID(), new { @class = "txtCss" })</td>
+
+                        <td>规格型号</td>
+                        @* <td>@Html.DropDownList("Spec", InventoryMan.GetSpec(), new { @class = "txtCss", style = "width:167px;" })</td>*@
+                        <td>@Html.TextBox("SpecsModels", "", new { style = "width:165px;", onpropertychange = "BuildUnitkey()" })
+                            <div id="divGJ" class="selDiv" onmouseover="isOut=false;" onmouseout="isOut=true;">
+                                <ul id="ulGJ" style="list-style: none;">
+                                </ul>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td>单据日期</td>
+                        <td>@Html.TextBox("Begin", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })</td>
+                        <td>至</td>
+                        <td>@Html.TextBox("End", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })</td>
+                        @*   @if (UnitIDo.IndexOf(".37.") >= 0)
+                        {
+                            <td>规格型号</td>
+                            <td>@Html.TextBox("SpecsModels", "", new { @class = "txtCss" })</td>
+                        }
+                        else
+                        {
+                            <td>规格型号</td>
+                            <td>@Html.DropDownList("SpecsModels", InventoryMan.GetSpec(), new { @class = "txtCss" })</td>
+                        }*@
+                        <td>产品名称</td>
+                        <td>@Html.TextBox("OrderContent", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.OrderContent)</td>
+
+                        <td style="text-align: center;">
+                            <input type="button" id="CX" class="btn" value="查询" onclick="Search()" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="margin-top: 5px; margin-left: 10px; height: 30px">
+                @if (Rights.IndexOf(",Y1,") >= 0)
+                {
+                    <input class="btnL" type="button" value="新增发货单" onclick="AddInventoryAddPro()" />
+                }
+                <input type="button" class="btn" style="float: right; margin-right: 15px;" id="btnPrint" value="打  印" />
+                 <input class="btn" type="submit" style="float: right; margin-right: 15px;" id="DaoOut" onclick="FX()"  value="导出"/> 
+            </div>
+
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+            <div id="bor1" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list1" class="scroll" style="width: 100%;"></table>
+                <div id="pager1" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+        </div>
+    }
+</body>
+</html>

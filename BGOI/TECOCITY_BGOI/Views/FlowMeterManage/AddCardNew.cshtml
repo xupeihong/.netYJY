@@ -1,0 +1,663 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model RepairCardNew
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddCardNew</title>
+
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/AddCardNew.js")" type="text/javascript"></script>
+
+    <style>
+        .ul li:hover {
+            background-color: blue;
+        }
+
+        .selDiv {
+            background: white;
+            text-align: left;
+            display: none;
+            width: 150px;
+            max-height: 120px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: absolute;
+            z-index: 200;
+            border: 1px solid #7f9cba;
+        }
+    </style>
+
+</head>
+<body>
+    @using (Html.BeginForm("AddCardNew", "FlowMeterManage", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+    { 
+               
+        <div id="pageContent" style="overflow-y: auto;">
+            <div style="margin-top: 3px; margin-left: 10px;">
+                <input type="button" id="QTdiv" class="btnTw" style="margin-left: 10px; width: 100px;" value=" 其 它 " />
+                <input type="button" id="UTdiv" class="btnTh" style="width: 100px;" value=" 超声波 " />
+            </div>
+
+            <div id="QTList" style="width: 98%; margin-left: 10px;">
+                <table class="tabInfo" id="content">
+                    <tr style="height: 30px;">
+                        <td colspan="6" style="text-align: center; font-size: 20px; font-weight: bold;">流量计维修登记卡</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textRightL" style="text-align: left;" colspan="4">基本信息</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        @Html.HiddenFor(model => model.strRID)
+                        <td class="textLeftL">维修编号</td>
+                        <td class="textRightL" colspan="3">
+                            @Html.TextBoxFor(model => model.strRepairID, new { @class = "txtCss", style = "width:70%;" })
+                            <span style="color: red;">* </span>@Html.ValidationMessageFor(model => model.strRepairID)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="textLeftL">客户名称</td>
+                        <td class="textRightL" colspan="3">
+                            @Html.TextBoxFor(model => model.strCustomerName, new { @class = "txtCss", style = "width:70%;" })
+                            <span style="color: red;">* </span>@Html.ValidationMessageFor(model => model.strCustomerName)
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">客户地址</td>
+                        <td class="textRightL" colspan="3">
+                            @Html.TextBoxFor(model => model.strCustomerAddr, new { @class = "txtCss", style = "width:70%;" })
+                            <span style="color: red;">* </span>@Html.ValidationMessageFor(model => model.strCustomerAddr)
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">送表人/物流单位</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strS_Name, new { @class = "txtCss" })
+                            <span style="color: red;">* </span>@Html.ValidationMessageFor(model => model.strS_Name)
+                        </td>
+                        <td class="textLeftL">联系电话</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strS_Tel, new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">送表日期</td>
+                        <td class="textRightL" colspan="3">
+                            @Html.TextBoxFor(model => model.strS_Date, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })
+                            <span style="color: red;">* </span>@Html.ValidationMessageFor(model => model.strS_Date)
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textRightL" style="text-align: left;" colspan="4">仪表信息</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">仪表类型</td>
+                        <td class="textRightL">
+                            @Html.DropDownListFor(model => model.strModelType, FlowMeterMan.getConfigContentNew("CardType"), new { @class = "txtCss", @onchange = "GetMeterName();" })
+                            <span style="color: red;">* </span>@Html.ValidationMessageFor(model => model.strModelType)
+                        </td>
+                        <td class="textLeftL">仪表编号</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strMeterID, new { @class = "txtCss", onmouseout = "CheckMeterInfo();" })
+                            <span style="color: red;">* </span>@Html.ValidationMessageFor(model => model.strMeterID)
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">仪表名称</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strMeterName, new { @class = "txtCss" })
+                            <span style="color: red;">* </span>@Html.ValidationMessageFor(model => model.strMeterName)
+                        </td>
+                        <td class="textLeftL">隶属单位</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strSubUnit, new { @class = "txtCss" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">证书编号</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strCertifID, new { @class = "txtCss" })
+                            <span style="color: red;">* </span>@Html.ValidationMessageFor(model => model.strCertifID)
+                        </td>
+                        <td class="textLeftL">生产厂家</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strManufacturer, new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">精度等级</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strPrecision, new { @class = "txtCss" })
+                            <span style="color: red;">* </span>@Html.ValidationMessageFor(model => model.strPrecision)
+                        </td>
+                        <td class="textLeftL">仪表型号</td>
+                        <td class="textRightL">
+                            @Html.DropDownListFor(model => model.strModel, FlowMeterMan.getConfigContent("YBModel"), new { @class = "txtCss" })
+                            <span style="color: red;">* </span>@Html.ValidationMessageFor(model => model.strModel)
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">出厂日期</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strFactoryDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">字轮读数</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strRecordNum, new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">流量范围</td>
+                        <td style="position: relative;">
+                            <input type="text" id="SelFlowRange" class="txtCss" />
+                            <div id="divSelFlowRange" class="selDiv" style="top: 22px;" onmouseover="isOut=false;" onmouseout="isOut=true;">
+                                <ul id="ulSelFlowRange" style="list-style: none; color: blue; padding-left: 0;">
+                                </ul>
+                            </div>
+                        </td>
+                        @*<td class="textRightL">@Html.TextBoxFor(model => model.strFlowRange, new { @class = "txtCss" })</td>*@
+                        <td class="textLeftL">承压等级</td>
+                        <td style="position: relative;">
+                            <input type="text" id="SelPressure" class="txtCss" />
+                            <div id="divSelPressure" class="selDiv" style="top: 22px;" onmouseover="isOut=false;" onmouseout="isOut=true;">
+                                <ul id="ulSelPressure" style="list-style: none; color: blue; padding-left: 0;">
+                                </ul>
+                            </div>
+                        </td>
+                        @*<td class="textRightL">@Html.TextBoxFor(model => model.strPressure, new { @class = "txtCss" })</td>*@
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">口径DN</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strCaliber, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">仪表性质</td>
+                        <td class="textRightL">
+                            @Html.DropDownListFor(model => model.strModelProperty, FlowMeterMan.getConfigContent("ModelProperty"), new { @class = "txtCss" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">基表原使用单位/安装地点</td>
+                        <td colspan="3" class="textRightL">
+                            @Html.TextBoxFor(model => model.strPreUnit, new { @class = "txtCss", style = "width:70%;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">基表现使用单位/安装地点</td>
+                        <td colspan="3" class="textRightL">
+                            @Html.TextBoxFor(model => model.strNewUnit, new { @class = "txtCss", style = "width:70%;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textRightL" style="text-align: left;" colspan="4">修正仪信息</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">修正仪编号</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strX_ID, new { @class = "txtCss" })
+                            <span style="color: red;">* </span>@Html.ValidationMessageFor(model => model.strX_ID)
+                        </td>
+                        <td class="textLeftL">修正仪型号</td>
+                        <td class="textRightL">
+                            @Html.DropDownListFor(model => model.strX_Model, FlowMeterMan.getConfigContent("XZYModel"), new { @class = "txtCss" })
+                            <span style="color: red;">* </span>@Html.ValidationMessageFor(model => model.strX_Model)
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">证书编号</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strX_CertifID, new { @class = "txtCss" })
+                            <span style="color: red;">* </span>@Html.ValidationMessageFor(model => model.strX_CertifID)
+                        </td>
+                        <td class="textLeftL">生产厂家</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strX_Manufacturer, new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">标况累积</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strX_Standard, new { @class = "txtCss" })</td>
+                        <td class="textLeftL">工况累积</td>
+                        <td>@Html.TextBoxFor(model => model.strX_Operating, new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">生产日期</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strX_FactoryDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">压力</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strX_Pressure, new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">温度</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strX_Temperature, new { @class = "txtCss" })</td>
+                        <td class="textLeftL">其他数据</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strX_Data, new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">修正仪原使用单位/安装地点</td>
+                        <td colspan="3" class="textRightL">
+                            @Html.TextBoxFor(model => model.strX_PreUnit, new { @class = "txtCss", style = "width:70%;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">修正仪现使用单位/安装地点</td>
+                        <td colspan="3" class="textRightL">
+                            @Html.TextBoxFor(model => model.strX_NewUnit, new { @class = "txtCss", style = "width:70%;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textRightL" style="text-align: left;" colspan="4">仪表检查项目</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">进厂检验员</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strCheckUser, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">是否确认维修</td>
+                        <td class="textRightL" style="text-align: center;">
+                            @Html.RadioButton("IsRepair", 0) 维修 @Html.RadioButton("IsRepair", 1) 不维修
+                        </td>
+                        @Html.Hidden("StrIsRepair")
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">是否送外部检测</td>
+                        <td class="textRightL" style="text-align: center;">
+                            @Html.RadioButton("IsOut", 0, new { onclick = "ShowInfo(0);" }) 是 
+                            @Html.RadioButton("IsOut", 1, new { onclick = "ShowInfo(1);" }) 否
+                        </td>@Html.Hidden("StrIsOut")
+                        <td class="textLeftL" id="OutTitle" style="display: none;">第三方检测单位</td>
+                        <td class="textRightL" id="OutUnit" style="display: none;">
+                            @Html.TextBoxFor(model => model.strOutUnit, new { @class = "txtCss" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">确认用户</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strConfirmUser, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">确认时间</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strConfirmDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })
+                        </td>
+                    </tr>
+                    <tbody class="tabInfo" id="CheckItems">
+                    </tbody>
+
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">外观检查其他项</td>
+                        <td colspan="3" class="textRightL">
+                            @Html.TextAreaFor(model => model.strFaceOther, new { style = " width:70%; height:45px;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">维修内容</td>
+                        <td colspan="3" class="textRightL">
+                            @Html.TextAreaFor(model => model.strRepairContent, new { style = " width:70%; height:45px;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">取表方式</td>
+                        <td class="textRightL">
+                            @Html.DropDownListFor(model => model.strGetTypeModel, FlowMeterMan.getConfigContent("GetType"), new { @class = "txtCss", @onchange = "ChangeTypes();" })
+                        </td>
+                        <td class="textLeftL">取表日期</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strG_Date, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px; display: none;" id="Logistic">
+                        <td class="textLeftL">物流信息</td>
+                        <td colspan="3" class="textRightL">
+                            @Html.TextAreaFor(model => model.strLogistic, new { style = " width:70%; height:45px;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px; display: none;" id="UserInfo">
+                        <td class="textLeftL">取表人</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strG_Name, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">联系电话</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strG_Tel, new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">备注</td>
+                        <td colspan="3" class="textRightL">
+                            @Html.TextAreaFor(model => model.strText, new { style = " width:70%; height:45px;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">收货单号</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strTakeID, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">发货单号</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strDeliverID, new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">领取编号</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strRecieveID, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">承接人（入库单）</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strReceiveUser, new { @class = "txtCss" })</td>
+                    </tr>
+
+                    @Html.Hidden("HTitle")
+                    @Html.Hidden("HChecked")
+                </table>
+            </div>
+
+            <div id="UTList" style="width: 98%; margin-left: 10px; display: none;">
+                <table class="tabInfo" id="contentUT">
+                    <tr style="height: 30px;">
+                        <td colspan="6" style="text-align: center; font-size: 20px; font-weight: bold;">超声波流量计登记卡</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textRightL" style="text-align: left;" colspan="4">基本信息</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        @Html.HiddenFor(model => model.strRIDUT)
+                        <td class="textLeftL">维修编号</td>
+                        <td class="textRightL" colspan="3">
+                            @Html.TextBoxFor(model => model.strRepairIDUT, new { @class = "txtCss", style = "width:70%;" })
+                            <span style="color: red;">* </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="textLeftL">客户名称</td>
+                        <td class="textRightL" colspan="3">
+                            @Html.TextBoxFor(model => model.strCustomerNameUT, new { @class = "txtCss", style = "width:70%;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">客户地址</td>
+                        <td class="textRightL" colspan="3">
+                            @Html.TextBoxFor(model => model.strCustomerAddrUT, new { @class = "txtCss", style = "width:70%;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">送表人</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strS_NameUT, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">联系电话</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strS_TelUT, new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">送表日期</td>
+                        <td class="textRightL" colspan="3">
+                            @Html.TextBoxFor(model => model.strS_DateUT, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textRightL" style="text-align: left;" colspan="4">仪表信息</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">仪表类型</td>
+                        <td class="textRightL">
+                            @Html.DropDownListFor(model => model.strModelTypeUT, FlowMeterMan.getConfigContentNew2("CardType"), new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">仪表编号</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strMeterIDUT, new { @class = "txtCss", onmouseout = "CheckMeterInfo();" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">仪表名称</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strMeterNameUT, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">隶属单位</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strSubUnitUT, new { @class = "txtCss" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">证书编号</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strCertifIDUT, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">电路板编号</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strCirNumUT, new { @class = "txtCss" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">电路板版本</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strCirVersionUT, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">生产厂家</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strManufacturerUT, new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">仪表型号</td>
+                        <td class="textRightL">
+                            @Html.DropDownListFor(model => model.strModelUT, FlowMeterMan.getConfigContent("YBModel"), new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">出厂日期</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strFactoryDateUT, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">流量范围</td>
+                        <td style="position: relative;">
+                            <input type="text" id="SelFlowRangeUT" class="txtCss" />
+                            <div id="divSelFlowRangeUT" class="selDiv" style="top: 22px;" onmouseover="isOut=false;" onmouseout="isOut=true;">
+                                <ul id="ulSelFlowRangeUT" style="list-style: none; color: blue; padding-left: 0;">
+                                </ul>
+                            </div>
+                        </td>
+                        @*<td class="textRightL">@Html.TextBoxFor(model => model.strFlowRangeUT, new { @class = "txtCss" })</td>*@
+                        <td class="textLeftL">承压等级</td>
+                        <td style="position: relative;">
+                            <input type="text" id="SelPressureUT" class="txtCss" />
+                            <div id="divSelPressureUT" class="selDiv" style="top: 22px;" onmouseover="isOut=false;" onmouseout="isOut=true;">
+                                <ul id="ulSelPressureUT" style="list-style: none; color: blue; padding-left: 0;">
+                                </ul>
+                            </div>
+                        </td>
+                        @*<td class="textRightL">@Html.TextBoxFor(model => model.strPressureUT, new { @class = "txtCss" })</td>*@
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">口径DN</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strCaliberUT, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">仪表性质</td>
+                        <td class="textRightL">
+                            @Html.DropDownListFor(model => model.strModelPropertyUT, FlowMeterMan.getConfigContent("ModelProperty"), new { @class = "txtCss" })
+                        </td>
+                    </tr>
+
+                    <tr style="height: 30px;">
+                        <td class="textRightL" style="text-align: left;" colspan="4">探头信息</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <table class="tabInfo" style="width: 98%;" align="center">
+                                <tr style="height: 30px; text-align: center;">
+                                    <td class="textLeftL">声道</td>
+                                    <td class="textLeftL">1</td>
+                                    <td class="textLeftL">2</td>
+                                    <td class="textLeftL">3</td>
+                                    <td class="textLeftL">4</td>
+                                    <td class="textLeftL">5</td>
+                                    <td class="textLeftL">6</td>
+                                    <td class="textLeftL">备注</td>
+                                </tr>
+                                <tr style="height: 30px;">
+                                    <td style="text-align: center;">A</td>
+                                    <td class="textRightL">@Html.TextBoxFor(model => model.strTrackA1UT, new { @class = "txtCss", style = "width:75px;" })</td>
+                                    <td class="textRightL">@Html.TextBoxFor(model => model.strTrackA2UT, new { @class = "txtCss", style = "width:75px;" })</td>
+                                    <td class="textRightL">@Html.TextBoxFor(model => model.strTrackA3UT, new { @class = "txtCss", style = "width:75px;" })</td>
+                                    <td class="textRightL">@Html.TextBoxFor(model => model.strTrackA4UT, new { @class = "txtCss", style = "width:75px;" })</td>
+                                    <td class="textRightL">@Html.TextBoxFor(model => model.strTrackA5UT, new { @class = "txtCss", style = "width:75px;" })</td>
+                                    <td class="textRightL">@Html.TextBoxFor(model => model.strTrackA6UT, new { @class = "txtCss", style = "width:75px;" })</td>
+                                    <td rowspan="2" class="textRightL">
+                                        @Html.TextAreaFor(model => model.strComments1UT, new { @class = "txtCss", style = "width:98%; height:60px;" })
+                                    </td>
+                                </tr>
+                                <tr style="height: 30px;">
+                                    <td style="text-align: center;">B</td>
+                                    <td class="textRightL">@Html.TextBoxFor(model => model.strTrackB1UT, new { @class = "txtCss", style = "width:75px;" })</td>
+                                    <td class="textRightL">@Html.TextBoxFor(model => model.strTrackB2UT, new { @class = "txtCss", style = "width:75px;" })</td>
+                                    <td class="textRightL">@Html.TextBoxFor(model => model.strTrackB3UT, new { @class = "txtCss", style = "width:75px;" })</td>
+                                    <td class="textRightL">@Html.TextBoxFor(model => model.strTrackB4UT, new { @class = "txtCss", style = "width:75px;" })</td>
+                                    <td class="textRightL">@Html.TextBoxFor(model => model.strTrackB5UT, new { @class = "txtCss", style = "width:75px;" })</td>
+                                    <td class="textRightL">@Html.TextBoxFor(model => model.strTrackB6UT, new { @class = "txtCss", style = "width:75px;" })</td>
+                                </tr>
+                            </table>
+                        </td>
+
+                    </tr>
+
+                    <tr style="height: 30px;">
+                        <td class="textRightL" style="text-align: left;" colspan="4">外观检查</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">进厂检验员</td>
+                        <td class="textRightL" colspan="3" style="text-align: left;">
+                            @Html.TextBoxFor(model => model.strCheckUserUT, new { @class = "txtCss" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">是否送外部检测</td>
+                        <td class="textRightL" style="text-align: center;">
+                            @Html.RadioButton("IsOutUT", 0, new { onclick = "ShowInfoUT(0);" }) 是 @Html.RadioButton("IsOutUT", 1, new { onclick = "ShowInfoUT(1);" }) 否
+                        </td>@Html.Hidden("StrIsOutUT")
+                        <td class="textLeftL" id="OutTitleUT" style="display: none;">第三方检测单位</td>
+                        <td class="textRightL" id="OutUnitUT" style="display: none;">
+                            @Html.TextBoxFor(model => model.strOutUnitUT, new { @class = "txtCss" })
+                        </td>
+                    </tr>
+
+                    <tbody class="tabInfo" id="CheckItemsUT">
+                    </tbody>
+
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">外观检查其他项</td>
+                        <td colspan="3" class="textRightL">
+                            @Html.TextAreaFor(model => model.strFaceOtherUT, new { style = " width:70%; height:45px;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">维修内容</td>
+                        <td colspan="3" class="textRightL">
+                            @Html.TextAreaFor(model => model.strRepairContentUT, new { style = " width:70%; height:45px;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textRightL" style="text-align: left;" colspan="4">测试过程</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">首次测试</td>
+                        <td class="textRightL">
+                            @Html.RadioButton("FirstCheckUT", 0) 合格 
+                            @Html.RadioButton("FirstCheckUT", 1) 不合格
+                        </td>@Html.Hidden("StrFirstCheckUT")
+                        <td class="textLeftL">测试日期</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strFirstDateUT, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">二次测试</td>
+                        <td class="textRightL">
+                            @Html.RadioButton("SecondCheckUT", 0) 合格 
+                            @Html.RadioButton("SecondCheckUT", 1) 不合格
+                        </td>@Html.Hidden("StrSecondCheckUT")
+                        <td class="textLeftL">测试日期</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strSecondDateUT, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">三次测试</td>
+                        <td class="textRightL">
+                            @Html.RadioButton("ThirdCheckUT", 0) 合格 
+                            @Html.RadioButton("ThirdCheckUT", 1) 不合格
+                        </td>@Html.Hidden("StrThirdCheckUT")
+                        <td class="textLeftL">测试日期</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strThirdDateUT, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textRightL" style="text-align: left;" colspan="4">出库记录</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">取表方式</td>
+                        <td class="textRightL">
+                            @Html.DropDownListFor(model => model.strGetTypeModelUT, FlowMeterMan.getConfigContent("GetType"), new { @class = "txtCss", @onchange = "ChangeTypesUT();" })
+                        </td>
+                        <td class="textLeftL">取表日期</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strG_DateUT, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px; display: none;" id="LogisticUT">
+                        <td class="textLeftL">物流信息</td>
+                        <td colspan="3" class="textRightL">
+                            @Html.TextAreaFor(model => model.strLogisticUT, new { style = " width:70%; height:45px;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px; display: none;" id="UserInfoUT">
+                        <td class="textLeftL">取表人</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strG_NameUT, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">联系电话</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strG_TelUT, new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">备注</td>
+                        <td colspan="3" class="textRightL">
+                            @Html.TextAreaFor(model => model.strTextUT, new { style = " width:70%; height:45px;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">收货单号</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strTakeIDUT, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">发货单号</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strDeliverIDUT, new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeftL">领取编号</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.strRecieveIDUT, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">承接人（入库单）</td>
+                        <td class="textRightL">@Html.TextBoxFor(model => model.strReceiveUserUT, new { @class = "txtCss" })</td>
+                    </tr>
+                    @Html.Hidden("HTitleUT")
+                    @Html.Hidden("HCheckedUT")
+                </table>
+            </div>
+
+            <div style="width: 98%; margin-left: 15px; margin-top: 10px;">
+                注：登记卡登记完成将随即生成随工单和流转卡。
+            </div>
+            <div style="float: right; margin-top: 10px;">
+                <input type="submit" id="QD" class="btn" value="确定" style="margin-right: 10px;" />
+                <br />
+                <br />
+            </div>
+        </div>
+        
+    }
+</body>
+</html>

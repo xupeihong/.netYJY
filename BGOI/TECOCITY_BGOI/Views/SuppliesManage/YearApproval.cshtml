@@ -1,0 +1,91 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model tk_SYRDetail
+<!DOCTYPE html>
+
+<html>
+<head>
+    @* <meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <title>YearApproval</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src=" @Url.Content("~/Scripts/cmm_Tables2.js")"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/YearApproval.js")" type="text/javascript"></script>
+</head>
+<body>
+    @using (Html.BeginForm("YearApproval", "SuppliesManage", FormMethod.Post, new { id = "YearInfo", action = "YearDealApproval", enctype = "multipart/form-data" }))
+    {
+        @Html.Hidden("msg", @ViewData["msg"])
+
+      
+
+        <div id="tabTitile">&nbsp;&nbsp;&nbsp;&nbsp; 流水号:@Html.HiddenFor(model => model.SID)@ViewBag.sid</div>
+        <div id="hole">
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">质量管理体系得分</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Score1, new { @class = "txtbox", @onblur = "LoadSum(this)" }) @Html.ValidationMessageFor(model => model.Score1) <span style="color: red;">*</span>(<=10分)</td>
+                    <td class="textLeft">价格得分</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Score2, new { @class = "txtCss", @onblur = "LoadSum(this)" }) @Html.ValidationMessageFor(model => model.Score2)<span style="color: red;">*</span>(<=40分)</td>
+                    <td class="textLeft">供货及时率得分</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Score3, new { @class = "txtCss", @onblur = "LoadSum(this)" })  @Html.ValidationMessageFor(model => model.Score3) <span style="color: red;">*</span>(<=25分)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">服务得分</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Score4, new { @class = "txtbox", @onblur = "LoadSum(this)" }) @Html.ValidationMessageFor(model => model.Score4)<span style="color: red;">*</span>(<=25分)</td>
+                    <td class="textLeft">得分总计</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Score5, new { @class = "txtCss", @onblur = "LoadSum(this)", @readonly = "readonly" }) @Html.ValidationMessageFor(model => model.Score5)<span style="color: red;">*</span>(<=100分)</td>
+                    <td class="textLeft">评价结果</td>
+                    <td class="textRight">
+                        @Html.RadioButton("Result", "0", new { @checked = true }) 合格
+                        @Html.RadioButton("Result", "1") 待改进
+                        <span style="color: red;">*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">评价日期</td>
+                    <td class="textRight">
+                        @* @Html.TextBoxFor(model => model.ReviewDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })<span style="color: red;">*</span>*@
+                        @Html.Hidden("ReviewDate", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss", @ReadOnly = "ReadOnly" }) @DateTime.Now
+                    </td>
+                    <td class="textLeft">待改进意见</td>
+                    <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.ResultDesc, new { @class = "txtCss", style = "width:550px;" }) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">评分人</td>
+                    <td class="textRight">@Html.Hidden("DeclareUser") @ViewData["DeclareUser"]</td>
+                    <td class="textLeft">评分部门</td>
+                    <td class="textRight" colspan="4">@Html.Hidden("DeclareUnit") @ViewData["DeclareUnit"]</td>
+                </tr>
+            </table>
+            <div style="margin-top: 10px;">
+                <table>
+                    <tr>
+                        <td>
+                            <input type="button" value="确定" id="YApproval" class="btn" style="cursor: pointer" /></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    }
+</body>
+</html>

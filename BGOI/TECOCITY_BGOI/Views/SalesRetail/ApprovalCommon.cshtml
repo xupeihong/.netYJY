@@ -1,0 +1,79 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ApprovalCommon</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/Sales/RetailSales/ApprovalCommon.js")" type="text/javascript"></script>
+</head>
+<body>
+    @Html.Hidden("PID", @ViewData["PID"])@Html.Hidden("textid", @ViewData["id"]) @Html.Hidden("webkey", @ViewData["webkey"])   @Html.Hidden("folderBack", @ViewData["folderBack"])  @Html.Hidden("RelevanceID", @ViewData["RelevanceID"])
+    <div id="divMainListContent" style="width: 100%; height: 100%;">
+        <div id="divContent" style="width: 98%; margin-left: 8px; border: 1px solid #d0d0d0; border-top: none;">
+            @*  <iframe id="ifrBackContent" frameborder="0" name="ifrBackContent" scrolling="no"
+                style="width: 100%; background-color: White; height: 300px; border: none;"></iframe>*@
+            <div id="tabTitile">
+                <span style="margin-left: 20px;">审批编号：@ViewData["PID"]</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>@ViewData["applyDesc"]</span>
+            </div>
+            <div id="bor" style="width: 100%; margin-top: 20px; margin-left: 15px;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+        </div>
+        <div id="div1" style="border: 1px solid #707070; width: 275px; margin-left: 10px; height: 250px; margin-top: 10px; float: left;">
+            <div id="bor1" style="width: 100%; background-color: #3598db; font-weight: bold; text-align: center; font-size: 20px; color: #fffdff;">所属单位</div>
+            <table class="tabInfo" style="width: 99%; margin-top: 10px;" id="loadlist">
+                <tr>
+                    <td style="text-align: center;">所属部门：  @Html.DropDownList("CopyUnit", SalesRetailMan.GetCopyUnitListitem(), new { @Style = "width:150px;" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height: 160px;">
+                        <div id="divPerson"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="div3" style="border: 1px solid #707070; width: 100px; margin-left: 10px; height: 250px; margin-top: 10px; float: left;">
+            <table class="tabInfo" style="width: 99%; margin-top: 10px;">
+                <tr>
+                    <td style="text-align: center;">
+                        <input type="button" value="添  加" class="btn" id="btnAdd" style="width: 85px;" />
+                    </td>
+                </tr>
+                @* <tr>
+                    <td style="text-align: center;">
+                        <input type="button" value="撤  销" class="btn" style="width: 85px;" />
+                    </td>
+                </tr>*@
+            </table>
+        </div>
+        <div id="divs" style="border: 1px solid #707070; width: 275px; margin-left: 10px; height: 250px; overflow-y: auto; margin-top: 10px; float: left;">
+            <div id="bors" style="width: 100%; background-color: #3598db; font-weight: bold; text-align: center; font-size: 20px; color: #fffdff; ">抄送人员</div>
+            <table class="tabInfo" style="width: 99%;height:200px; overflow-y: auto;  margin-top: 10px;" id="Personlist">
+            </table>
+
+        </div>
+        <div id="divBottom" style="height: 35px; width: 100%; margin-top: 2px; margin-right: 10px; margin-top: 20px; text-align: center;">
+            <input type="button" id="btnSave" value="提交审批" class="btn" />&nbsp;&nbsp;
+            <input type="button" id="btnCancle" value="取 消"
+                class="btn" />
+        </div>
+    </div>
+</body>
+</html>

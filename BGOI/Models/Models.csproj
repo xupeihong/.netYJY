@@ -1,0 +1,368 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B3746FE3-7FB1-4F5B-9ED3-548ABFE60C14}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TECOCITY_BGOI</RootNamespace>
+    <AssemblyName>Models</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Acc_Login.cs" />
+    <Compile Include="Alarm.cs" />
+    <Compile Include="AllocationSheetQuery.cs" />
+    <Compile Include="BasicStockInQuery.cs" />
+    <Compile Include="BasicStockOutQuery.cs" />
+    <Compile Include="BuyGiveOutQuery.cs" />
+    <Compile Include="CardMT.cs" />
+    <Compile Include="CardPT.cs" />
+    <Compile Include="CardRT.cs" />
+    <Compile Include="CardUT.cs" />
+    <Compile Include="CCashBack.cs" />
+    <Compile Include="ConsumptionInfo.cs" />
+    <Compile Include="ContractBas.cs" />
+    <Compile Include="CSAlarm.cs" />
+    <Compile Include="CSettlement.cs" />
+    <Compile Include="CustomerSatisfactionSurveyQuery.cs" />
+    <Compile Include="DCheckInfo.cs" />
+    <Compile Include="Decete.cs" />
+    <Compile Include="DevicsBas.cs" />
+    <Compile Include="DRepairInfo.cs" />
+    <Compile Include="DScrapInfo.cs" />
+    <Compile Include="EntrustTask.cs" />
+    <Compile Include="EquipmentCommissioningQuery.cs" />
+    <Compile Include="ExchangeGoods.cs" />
+    <Compile Include="ExchangeGoods_DetailInfo.cs" />
+    <Compile Include="Exchange_Check.cs" />
+    <Compile Include="Exchange_Detail.cs" />
+    <Compile Include="ExReturn_Detail.cs" />
+    <Compile Include="InAlarm.cs" />
+    <Compile Include="InstallStatisticsQuery.cs" />
+    <Compile Include="InventoryAddProQuery.cs" />
+    <Compile Include="InventoryBillQuery.cs" />
+    <Compile Include="InventoryFirstPageQuery.cs" />
+    <Compile Include="IssuedOtherTask.cs" />
+    <Compile Include="IssuedTaskRT.cs" />
+    <Compile Include="LowAlarmQuery.cs" />
+    <Compile Include="MaintenanceTaskQuery.cs" />
+    <Compile Include="MandateInfo.cs" />
+    <Compile Include="OperateLog.cs" />
+    <Compile Include="OperationAnalysis.cs" />
+    <Compile Include="OperationTask.cs" />
+    <Compile Include="OrdersInfo.cs" />
+    <Compile Include="OrdersInfoNew.cs" />
+    <Compile Include="Orders_DetailInfo.cs" />
+    <Compile Include="Orders_DetailInfoNew.cs" />
+    <Compile Include="PayInfo.cs" />
+    <Compile Include="PP_Approval.cs" />
+    <Compile Include="PP_ChoseGoods.cs" />
+    <Compile Include="PP_ErPurchaseOrder.cs" />
+    <Compile Include="PP_File.cs" />
+    <Compile Include="PP_GoodsreceiptDetailed.cs" />
+    <Compile Include="PP_InquiryCondition.cs" />
+    <Compile Include="PP_InquiryGoods.cs" />
+    <Compile Include="PP_Inquirys.cs" />
+    <Compile Include="Offer.cs" />
+    <Compile Include="OfferInfo.cs" />
+    <Compile Include="PP_Logistics.cs" />
+    <Compile Include="PP_LogisticsGoods.cs" />
+    <Compile Include="PP_OrderContent.cs" />
+    <Compile Include="PP_OrderGoods.cs" />
+    <Compile Include="PP_Payment.cs" />
+    <Compile Include="PP_PaymentGoods.cs" />
+    <Compile Include="PP_pp_Log.cs" />
+    <Compile Include="PP_PurchaseGoods.cs" />
+    <Compile Include="PP_PurchaseInventorys.cs" />
+    <Compile Include="PP_PurchaseRequisition.cs" />
+    <Compile Include="PP_ReceivingInformation.cs" />
+    <Compile Include="PP_ReturnGoods.cs" />
+    <Compile Include="PP_ReturngoodsDetails.cs" />
+    <Compile Include="PP_StorageDetailed.cs" />
+    <Compile Include="PP_TransferS.cs" />
+    <Compile Include="PressureAdjustingInspectionQuery.cs" />
+    <Compile Include="ProcureStockInQuery.cs" />
+    <Compile Include="ProduceFile.cs" />
+    <Compile Include="ProduceList.cs" />
+    <Compile Include="ProductInstallationQuery.cs" />
+    <Compile Include="ProductionMaterialsQuery.cs" />
+    <Compile Include="ProductionStockInQuery.cs" />
+    <Compile Include="ProductReportQuery.cs" />
+    <Compile Include="ProFinish.cs" />
+    <Compile Include="ProjectBasInfo.cs" />
+    <Compile Include="ProjectDetail.cs" />
+    <Compile Include="ProjectSalesOutQuery.cs" />
+    <Compile Include="ProjectSelect_Config.cs" />
+    <Compile Include="ProjectState_Config.cs" />
+    <Compile Include="ProjectUserLog.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PP_PurchaseOrder.cs" />
+    <Compile Include="ProtoStockInQuery.cs" />
+    <Compile Include="ProtoUpOutQuery.cs" />
+    <Compile Include="RativeSource.cs" />
+    <Compile Include="ReceivePayment.cs" />
+    <Compile Include="RepairCard.cs" />
+    <Compile Include="RepairCardNew.cs" />
+    <Compile Include="RepairCardUT.cs" />
+    <Compile Include="Resources\ErrorMsg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorMsg.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RetailSalesOutQuery.cs" />
+    <Compile Include="SalesInvoiceanagementQuery.cs" />
+    <Compile Include="Sales_RecordDetail.cs" />
+    <Compile Include="Sales_RecordInfo.cs" />
+    <Compile Include="Sales_SalesLog.cs" />
+    <Compile Include="SampleInfo.cs" />
+    <Compile Include="Scrap.cs" />
+    <Compile Include="ScrapManagementQuery.cs" />
+    <Compile Include="SecondOutQuery.cs" />
+    <Compile Include="Shipments.cs" />
+    <Compile Include="Shipments_DetailInfo.cs" />
+    <Compile Include="StockIn.cs" />
+    <Compile Include="StockInDetail.cs" />
+    <Compile Include="StockOut.cs" />
+    <Compile Include="StockOutDetail.cs" />
+    <Compile Include="StorageManagementOutQuery.cs" />
+    <Compile Include="StorageManagementQuery.cs" />
+    <Compile Include="Task.cs" />
+    <Compile Include="TaskAccounts.cs" />
+    <Compile Include="TaskBudget.cs" />
+    <Compile Include="TelephoneAnsweringQuery.cs" />
+    <Compile Include="TestItem.cs" />
+    <Compile Include="TestStockInQuery.cs" />
+    <Compile Include="tk_AllocationSheet.cs" />
+    <Compile Include="tk_AllocationSheetDetailed.cs" />
+    <Compile Include="tk_Award.cs" />
+    <Compile Include="tk_AwardInOut.cs" />
+    <Compile Include="tk_Bidding.cs" />
+    <Compile Include="tk_BillingRecords.cs" />
+    <Compile Include="tk_Budget.cs" />
+    <Compile Include="tk_CardSearch.cs" />
+    <Compile Include="tk_CFile.cs" />
+    <Compile Include="tk_CheckData.cs" />
+    <Compile Include="tk_CheckData2.cs" />
+    <Compile Include="tk_CleanRepair.cs" />
+    <Compile Include="tk_CollectionRecord.cs" />
+    <Compile Include="tk_ConfigApp.cs" />
+    <Compile Include="tk_ConfigContent.cs" />
+    <Compile Include="tk_ConfigPType.cs" />
+    <Compile Include="tk_ConfigPType_HIS.cs" />
+    <Compile Include="tk_ConfigState.cs" />
+    <Compile Include="tk_ContractSearch.cs" />
+    <Compile Include="tk_CustomerInformation.cs" />
+    <Compile Include="tk_CustomerInformation_HIS.cs" />
+    <Compile Include="tk_CustomerServicelog.cs" />
+    <Compile Include="tk_DebuggingSituation.cs" />
+    <Compile Include="tk_DebuggingSituation_HIS.cs" />
+    <Compile Include="tk_DeliverySearch.cs" />
+    <Compile Include="tk_EquipmentDebugging.cs" />
+    <Compile Include="tk_EquipmentDebugging_HIS.cs" />
+    <Compile Include="tk_FeedBack.cs" />
+    <Compile Include="tk_FileInfo.cs" />
+    <Compile Include="tk_FileUpload.cs" />
+    <Compile Include="tk_HouseEarlyWarningNum.cs" />
+    <Compile Include="tk_InspecDetail.cs" />
+    <Compile Include="tk_InspecDetailSearch.cs" />
+    <Compile Include="tk_InspecMain.cs" />
+    <Compile Include="tk_InspecSearch.cs" />
+    <Compile Include="tk_InternalDetail.cs" />
+    <Compile Include="tk_InternalOrder.cs" />
+    <Compile Include="tk_InventoryGrid.cs" />
+    <Compile Include="tk_Inventorylog.cs" />
+    <Compile Include="tk_IsNotSupplierBas.cs" />
+    <Compile Include="tk_KClientBas.cs" />
+    <Compile Include="tk_KContactPerson.cs" />
+    <Compile Include="tk_KContactPersonHis.cs" />
+    <Compile Include="tk_Log.cs" />
+    <Compile Include="tk_MarketSales.cs" />
+    <Compile Include="tk_MaterialFDetail.cs" />
+    <Compile Include="tk_MaterialForm.cs" />
+    <Compile Include="tk_Payment.cs" />
+    <Compile Include="tk_PayRecord.cs" />
+    <Compile Include="tk_PreDesign.cs" />
+    <Compile Include="tk_PressureAdjustingInspection.cs" />
+    <Compile Include="tk_PressureAdjustingInspectionDetail.cs" />
+    <Compile Include="tk_PressureAdjustingInspectionDetail_HIS.cs" />
+    <Compile Include="tk_PressureAdjustingInspection_HIS.cs" />
+    <Compile Include="tk_Price.cs" />
+    <Compile Include="tk_PriceUp.cs" />
+    <Compile Include="tk_ProCompletions.cs" />
+    <Compile Include="tk_ProductInfo.cs" />
+    <Compile Include="tk_ProductInfo_HIS.cs" />
+    <Compile Include="tk_ProductionOfFinishedGoods.cs" />
+    <Compile Include="tk_ProductRDatail.cs" />
+    <Compile Include="tk_ProductRecord.cs" />
+    <Compile Include="tk_ProductRProduct.cs" />
+    <Compile Include="tk_ProductSpec.cs" />
+    <Compile Include="tk_ProductTask.cs" />
+    <Compile Include="tk_ProductTDatail.cs" />
+    <Compile Include="tk_Product_Plan.cs" />
+    <Compile Include="tk_Product_PlanDetail.cs" />
+    <Compile Include="tk_ProFinish.cs" />
+    <Compile Include="tk_ProFinishDefine.cs" />
+    <Compile Include="tk_ProFinishDefine_HIS.cs" />
+    <Compile Include="tk_Project.cs" />
+    <Compile Include="tk_ProjectBas.cs" />
+    <Compile Include="tk_ProjectPre.cs" />
+    <Compile Include="tk_ProjectPurchase.cs" />
+    <Compile Include="tk_ProjectSearch.cs" />
+    <Compile Include="tk_ProLog.cs" />
+    <Compile Include="tk_Promotion.cs" />
+    <Compile Include="tk_Property.cs" />
+    <Compile Include="tk_PropertyDetail.cs" />
+    <Compile Include="tk_ProRecord.cs" />
+    <Compile Include="tk_PStocking.cs" />
+    <Compile Include="tk_PStockingDetail.cs" />
+    <Compile Include="tk_Quotation.cs" />
+    <Compile Include="tk_RepairInfo.cs" />
+    <Compile Include="tk_RepeatReportSearch.cs" />
+    <Compile Include="tk_ReportInfo.cs" />
+    <Compile Include="tk_SalesGrid.cs" />
+    <Compile Include="tk_SApproval.cs" />
+    <Compile Include="tk_SCertificate.cs" />
+    <Compile Include="tk_Schedule.cs" />
+    <Compile Include="Tk_SContactPerson.cs" />
+    <Compile Include="tk_SendDelivery.cs" />
+    <Compile Include="tk_SendSearch.cs" />
+    <Compile Include="tk_SFileInfo.cs" />
+    <Compile Include="tk_SFileInfoHis.cs" />
+    <Compile Include="tk_SHComplain.cs" />
+    <Compile Include="tk_SHComplain_HIS.cs" />
+    <Compile Include="tk_SHComplain_Process.cs" />
+    <Compile Include="tk_SHComplain_Process_HIS.cs" />
+    <Compile Include="tk_SHComplain_Product.cs" />
+    <Compile Include="tk_SHComplain_Product_HIS.cs" />
+    <Compile Include="tk_SHComplain_User.cs" />
+    <Compile Include="tk_SHComplain_User_HIS.cs" />
+    <Compile Include="tk_SHInstall.cs" />
+    <Compile Include="tk_SHInstallR.cs" />
+    <Compile Include="tk_SHInstallR_HIS.cs" />
+    <Compile Include="tk_SHInstallR_Product.cs" />
+    <Compile Include="tk_SHInstallR_Product_HIS.cs" />
+    <Compile Include="tk_SHInstall_HIS.cs" />
+    <Compile Include="tk_SHInstall_Product.cs" />
+    <Compile Include="tk_SHInstall_Product_HIS.cs" />
+    <Compile Include="tk_ShoppeInfo.cs" />
+    <Compile Include="tk_ShoppeInfoDetail.cs" />
+    <Compile Include="tk_SHReturnVisit.cs" />
+    <Compile Include="tk_SHReturnVisit_HIS.cs" />
+    <Compile Include="tk_SHRV_Product.cs" />
+    <Compile Include="tk_SHRV_Product_HIS.cs" />
+    <Compile Include="tk_SHSurvey.cs" />
+    <Compile Include="tk_SHSurvey_HIS.cs" />
+    <Compile Include="tk_SHSurvey_Product.cs" />
+    <Compile Include="tk_SHSurvey_Product_HIS.cs" />
+    <Compile Include="tk_SPlanBuyP.cs" />
+    <Compile Include="tk_SPlanBuyPHis.cs" />
+    <Compile Include="tk_SProcessInfo.cs" />
+    <Compile Include="tk_SProducts.cs" />
+    <Compile Include="tk_SProductsHis.cs" />
+    <Compile Include="tk_SService.cs" />
+    <Compile Include="tk_SServicePrice.cs" />
+    <Compile Include="tk_StockIn.cs" />
+    <Compile Include="tk_StockOut.cs" />
+    <Compile Include="tk_StockRemain.cs" />
+    <Compile Include="tk_SubPackage.cs" />
+    <Compile Include="tk_SubWork.cs" />
+    <Compile Include="Tk_SupplierBas.cs" />
+    <Compile Include="tk_SupplierBasHis.cs" />
+    <Compile Include="tk_SupplySearch.cs" />
+    <Compile Include="tk_SUPSugestion.cs" />
+    <Compile Include="tk_SYearReview.cs" />
+    <Compile Include="tk_SYRDetail.cs" />
+    <Compile Include="tk_TakeDelivery.cs" />
+    <Compile Include="tk_TelRecord.cs" />
+    <Compile Include="tk_TelRecord_HIS.cs" />
+    <Compile Include="tk_TransCard.cs" />
+    <Compile Include="tk_TransCardSearch.cs" />
+    <Compile Include="tk_WareHouse.cs" />
+    <Compile Include="tk_WorkCard.cs" />
+    <Compile Include="tk_WorkCardSearch.cs" />
+    <Compile Include="tk_WorkCardUT.cs" />
+    <Compile Include="tk_WXGuaranteeCard.cs" />
+    <Compile Include="tk_WXGuaranteeCard_HIS.cs" />
+    <Compile Include="tk_WXRecord.cs" />
+    <Compile Include="tk_WXRecord_Product.cs" />
+    <Compile Include="tk_WXRequisit.cs" />
+    <Compile Include="tk_WXRequisit_HIS.cs" />
+    <Compile Include="PP_TransferGoods.cs" />
+    <Compile Include="UCertificatLend.cs" />
+    <Compile Include="UM_UserNew.cs" />
+    <Compile Include="UpdateQG.cs" />
+    <Compile Include="UseProjectBas.cs" />
+    <Compile Include="UserAptitude.cs" />
+    <Compile Include="UserComplaintsQuery.cs" />
+    <Compile Include="UserVisitQuery.cs" />
+    <Compile Include="WarrantyCardQuery.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ErrorMsg.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorMsg.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{acd6391f-92f7-4587-a55f-06e6c7dbc055}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models.csproj.vspscc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mssccprj.scc" />
+    <None Include="vssver2.scc" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,64 @@
+﻿body 
+{
+	font-size:14px;
+	background-color:White;
+	margin: 0 0 0 0;
+	width:100%;
+	height:100%
+}
+
+.tabInfo
+{
+	width:90%;
+	border-right:solid 1px #000000;
+	border-top:solid 1px #000000;
+}
+.tabInfo tr
+{
+	height:48px;
+}
+.tabInfo td
+{ 
+	border-bottom:solid 1px #000000;
+	border-left:solid 1px #000000;
+	border-right:none;
+	border-top:none;
+	padding: 0 0 0 4px;
+	text-align:left;
+	height:21px;
+	font-size:14px;
+	word-break:break-all; word-wrap:break-word;
+}
+        
+label
+{
+        word-break:break-all; word-wrap:break-word;	
+}
+@media print
+{
+	.Noprint   {   DISPLAY:   none;} 
+	.PageNext   {   PAGE-BREAK-AFTER:   always   } 
+}
+
+.trTitle
+{
+	height:38px;
+	line-height:38px;
+	background-color:#cccccc;
+	font-weight:bold;
+	font-size:15px;	
+}
+
+.btn
+{
+
+	height:25px;
+	line-height:25px;
+	width:78px;
+	border:none;
+	cursor:hand;
+	text-align:center;
+
+	font-weight:bold;
+	font-size:13px;
+}

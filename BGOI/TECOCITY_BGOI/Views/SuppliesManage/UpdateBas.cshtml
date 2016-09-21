@@ -1,0 +1,378 @@
+﻿@{
+    ViewBag.Title = "";
+}
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model Tk_SupplierBas
+<!DOCTYPE html>
+
+<html>
+<head>
+    @*<meta name="viewport" content="width=device-width" />*@
+    @* <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />*@
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    @* <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_Tables2.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/UpdateBasMsg.js")" type="text/javascript"></script>
+
+</head>
+@using (Html.BeginForm("UpdateBas", "SuppliesManage", FormMethod.Post, new { id = "updateMsg" }))
+{
+    <body>
+        @Html.HiddenFor(model => model.CreateTime)
+        @Html.Hidden("StrSid")
+        <div id="hole" style="overflow-y: auto; width: auto;" class="house">
+            <div id="tabTitile"><span style="margin-left: 10px; width: 1100px;">流水号：@Model.Sid @Model.COMNameC</span></div>@Html.HiddenFor(model => model.Sid)
+            <table class="tabInfoUp" style="width: 1100px; height: auto; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">原供应商名称</td>
+                    <td class="textright">@Html.Hidden("COMNameC") @ViewData["COMNameC"]</td>
+                    <td class="textLeft">填报部门</td>
+                    <td class="textright">
+                        @* @Html.TextBoxFor(model => model.DeclareUnitID, new { @class = "txtCss", @readonly = true }) *@
+                        @Html.Hidden("DeclareUnitID") @ViewData["DeclareUnitID"]
+                    </td>
+                    <td class="textLeft">填报时间</td>
+                    <td class="textright" >@Html.TextBoxFor(model => model.DeclareDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss", @readonly = true })  <span style="color: red;">*</span> </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">供应商类别</td>
+                    <td class="textright">@Html.DropDownListFor(model => model.SupplierType, SupplyManage.GetConfigType("SupplierType"), new { @class = "txtCss" }) <span style="color: red;">*</span> </td>
+                    <td class="textLeft">其他</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.OtherType, new { @class = "txtCss", @disabled = "disabled" }) </td>
+                    <td class="textLeft">所属国家</td>
+                    <td class="textright">@Html.DropDownListFor(model => model.COMCountry, SupplyManage.GetConfigType("COMCtry"), new { @class = "txtCss" }) <span style="color: red;">*</span> </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">所属城市</td>
+                    <td class="textright">@Html.DropDownListFor(model => model.COMArea, SupplyManage.GetConfigType("COMArea"), new { @class = "txtCss" }) <span style="color: red;">*</span></td>
+                    <td class="textLeft">公司名称(中)</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.COMNameC, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.COMNameC) <span style="color: red;">*</span></td>
+                    <td class="textLeft">公司注册地址</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.COMRAddress, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.COMRAddress) <span style="color: red;">*</span> </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">是否三证合一  <span style="color: red;">*</span></td>
+                    <td class="textright">
+                        @Html.RadioButton("Certity", "0", false, new { @class = "Certity" }) 是
+                        @Html.RadioButton("Certity", "1", true, new { @class = "Certity" }) 否  
+                    </td>
+                    <td class="textLeft">三证合一编号</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.ThreeCertity, new { @class = "txtCss" })<span style="color: red;">*</span></td>
+                    <td class="textLeft">组织机构和代码</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.OrganizationCode, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.OrganizationCode) <span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">税务登记号</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.TaxRegistrationNo, new { @class = "txtCss" })  @Html.ValidationMessageFor(model => model.TaxRegistrationNo) <span style="color: red;">*</span></td>
+                    <td class="textLeft">营业执照号码</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.BusinessLicenseNo, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.BusinessLicenseNo) <span style="color: red;">*</span></td>
+                    <td class="textLeft">去年营业额</td>
+                    <td class="textright" colspan="2">@Html.TextBoxFor(model => model.Turnover, new { @class = "txtMan" }) (万元) <span style="color: red;">*</span></td>
+
+                </tr>
+                <tr>
+                    <td class="textLeft">公司办公地址</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.ComAddress, new { @class = "txtCss" })  @Html.ValidationMessageFor(model => model.ComAddress) <span style="color: red;">*</span></td>
+                    <td class="textLeft">法人代表</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.COMLegalPerson, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.COMLegalPerson) <span style="color: red;">*</span></td>
+                    <td class="textLeft">公司出厂/出货地址</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.COMFactoryAddress, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.COMFactoryAddress) <span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">公司创建日期</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.COMCreateDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" }) <span style="color: red;">*</span> </td>
+                    <td class="textLeft">注册资金 <span style="color: red;">*</span></td>
+                    <td class="textright">@Html.TextBoxFor(model => model.RegisteredCapital, new { @class = "box" })  @Html.DropDownListFor(model => model.CapitalUnit, SupplyManage.GetConfigType("CapitalUnit"), new { @class = "box" })    <span style="color: red;">@Html.ValidationMessageFor(model => model.RegisteredCapital)  </span></td>
+                    <td class="textLeft">开户行名称</td>
+                    <td class="textright">
+                        @Html.DropDownListFor(model => model.BankName, SupplyManage.GetConfigType("BankName"), new { @class = "txtCss" })  @Html.ValidationMessageFor(model => model.BankName)<span style="color: red;">*</span>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">银行基本账号</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.BankAccount, new { @class = "txtCss" })  @Html.ValidationMessageFor(model => model.BankAccount) <span style="color: red;">*</span></td>
+                    <td class="textLeft">公司总人数</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.StaffNum, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.StaffNum) <span style="color: red;">*</span></td>
+                    <td class="textLeft">企业类型</td>
+                    <td class="textright">@Html.DropDownListFor(model => model.EnterpriseType, SupplyManage.GetConfigType("EnterpriseType"), new { @class = "txtCss" }) <span style="color: red;">*</span></td>
+                </tr>
+
+                <tr>
+                    <td class="textLeft">公司简称</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.COMShortName, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.COMShortName) </td>
+                    <td class="textLeft">公司网址</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.COMWebsite, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.COMWebsite)</td>
+                    <td class="textLeft">公司名称(英)</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.COMNameE, new { @class = "txtCss" })  </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">工厂面积</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.COMFactoryArea, new { @class = "txtMan" }) (㎡)<span style="color: red;"> @Html.ValidationMessageFor(model => model.COMFactoryArea) </span></td>
+                    <td class="textLeft">供应商集团名称</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.COMGroup, new { @class = "txtCss" })  @Html.ValidationMessageFor(model => model.COMGroup)</td>
+                    <td class="textLeft">是否与燕山公司合作过</td>
+                    <td class="textright">
+                        @Html.RadioButton("IsCooperate", "0") 是
+                        @Html.RadioButton("IsCooperate", "1") 否
+                       
+                    </td>
+                </tr>
+                <tr>
+                </tr>
+
+                <tr>
+                    <td class="textLeft">业务分布 <span style="color: red;">*</span></td>
+                    @Html.Hidden("BusinessDistribute", @Model.BusinessDistribute)
+
+                    <td class="textright" colspan="5">
+                        @if (ViewBag.BusinessDistribute != null)
+                        {
+                            foreach (SelectListItem item in ViewBag.BusinessDistribute)
+                            {
+                            <input name="guonei"  type="checkbox" onclick="changes('BDB')"  value="@item.Value" />
+                            @item.Text
+                                string strVal = "txt" + @item.Value;
+                            <label>
+                                <input type="text" name="txtbuss" id="@strVal" class="box"/>%
+                            </label>
+                                 
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">开票方式 <span style="color: red;">*</span></td>
+                    <td class="textright" colspan="3">
+                        @Html.Hidden("BillingWay", @Model.BillingWay)
+
+                        @if (ViewBag.BillingWay != null)
+                        {
+                            foreach (SelectListItem item in ViewBag.BillingWay)
+                            {
+                            <input type="checkbox"   onclick="changes('BW')" name="billway"  value="@item.Value"  />
+                            @item.Text
+                                string strval = "bill" + @item.Value;
+                            <label>
+                                <input name="txtbill" type="text" id="@strval" class="ckb"/>
+                                %</label>
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">员工状况 </td>
+                    <td class="textright">研发人员： @Html.TextBoxFor(model => model.DevelopStaffs, new { @class = "box1" })  (人)</td>
+                    <td class="textright" colspan="2">质量人员： @Html.TextBoxFor(model => model.QAStaffs, new { @class = "box1" })（人）</td>
+                    <td class="textright" colspan="2">生产人员：@Html.TextBoxFor(model => model.ProduceStaffs, new { @class = "txtCss" }) （人）</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">供需关系 <span style="color: red;">*</span></td>
+                    <td class="textright" colspan="6">
+                        @Html.Hidden("Relation", @Model.Relation)
+
+                        @if (ViewBag.Relation != null)
+                        {
+                            foreach (SelectListItem item in ViewBag.Relation)
+                            {
+                            <input type="radio"  id="@item.Value"  onclick="changes('rla')" name="rela1"  value="@item.Value"  />
+                            <a id="open" onmouseover="Show(@item.Value)" onmouseout="Noshow(@item.Value)" >@item.Text</a>
+                            }
+                        }
+                        <div id="sh" style="display: none; width: auto; background-color: #ddd6d6; position: absolute; cursor: pointer;"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">是否有健全的组织机构和内部管理的规章制度</td>
+                    <td class="textright">
+                    @Html.RadioButton("HasRegulation", "0", new { @checked = true }) 是
+                    @Html.RadioButton("HasRegulation", "1") 否
+                      
+                    <td class="textLeft">拟购产品的生产线数量</td>
+                    <td class="textright" colspan="3">@Html.TextBoxFor(model => model.ProductLineNum, new { @class = "txtCss" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">正常工作时间</td>
+                    <td class="textright">AM &nbsp;&nbsp;&nbsp;@Html.TextBoxFor(model => model.WorkTime_Start, new { onclick = "WdatePicker({dateFmt: 'HH:mm' })", @class = "txtMan" })  TO</td>
+                    <td class="textright">&nbsp;&nbsp;&nbsp;@Html.TextBoxFor(model => model.WorkTime_End, new { onclick = "WdatePicker({dateFmt: 'HH:mm' })", @class = "txtMan" }) &nbsp;&nbsp;PM </td>
+                    <td class="textLeft">&nbsp;&nbsp;&nbsp; 正常工作日</td>
+                    <td class="textright">@Html.DropDownListFor(model => model.WorkDay_Start, SupplyManage.GetConfigType("Week"), new { @class = "txtMan" }) </td>
+                    <td class="textright">至 &nbsp;&nbsp;&nbsp; @Html.DropDownListFor(model => model.WorkDay_End, SupplyManage.GetConfigType("Week"), new { @class = "txtMan" }) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">传真</td>
+                    <td class="textright" colspan="5">@Html.TextBoxFor(model => model.FAX, new { @class = "txtCss" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft" style="width: 20%;">经营范围</td>
+                    <td class="textright" colspan="5">@Html.TextBoxFor(model => model.BusinessScope, new { @class = "txtfan" }) <span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft" style="width: 20%;">拟购产品行业排名是否在前五名 </td>
+                    <td class="textright" colspan="1">
+
+                    @Html.RadioButton("IsrankingIn5", "0", new { @class = "IsrankingIn5" }) 是
+                         @Html.RadioButton("IsrankingIn5", "1", new { @class = "IsrankingIn5" }) 否
+                      
+                    <td class="textLeft" colspan="1">如是请填写以下：排名在 <span style="color: red;">*</span></td>
+                    <td class="textright" colspan="1">
+
+                    @Html.RadioButton("RankingType", "0", new { @class = "RankingType" }) 国内
+                   @Html.RadioButton("RankingType", "1", new { @class = "RankingType" }) 国际
+                      
+                    <td class="textright" colspan="2">第 @Html.TextBoxFor(model => model.Ranking, new { @class = "box" })位 </td>
+                </tr>
+                <tr>
+                    <td class="textLeft" style="width: 20%;">按供应商规模和经营品种分类<span style="color: red;">*</span> </td>
+                    <td class="textright" colspan="5">
+                        @Html.Hidden("ScaleType", @Model.ScaleType)
+                        @if (ViewBag.ScaleType != null)
+                        {
+                            foreach (SelectListItem item in ViewBag.ScaleType)
+                            {
+                            <input type="radio"   onclick="changes('st')" name="scale"  value="@item.Value"  />
+                            @item.Text
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft" style="width: 20%;">产品质量执行标准 <span style="color: red;">*</span></td>
+                    <td class="textright" colspan="5">
+
+                        @Html.Hidden("QualityStandard", @Model.QualityStandard)
+                        @if (ViewBag.QualityStandard != null)
+                        {
+                            foreach (SelectListItem item in ViewBag.QualityStandard)
+                            {
+                            <input type="checkbox"   onclick="changes('qsd')" name="stand"  value="@item.Value"  />
+                            @item.Text 
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft" style="width: 20%;">拟购产品的生产规模{年产量和产值} </td>
+                    <td class="textright" colspan="5" style="width: 100%;">@Html.TextBoxFor(model => model.AnnualOutput, new { @class = "txtproduct" })<b>/</b> @Html.TextBoxFor(model => model.AnnualOutputValue, new { @class = "txtproduct" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft" style="width: 20%;">针对拟为燕山公司提供的产品或服务近三年主要客户名称 </td>
+                    <td class="textright" colspan="5" style="width: 100%;">@Html.TextBoxFor(model => model.MainClient, new { @class = "txtfan" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft" style="width: 20%;">针对拟为燕山公司提供的产品或服务，近三年业绩</td>
+                    <td class="textright" colspan="5" style="width: 100%;">@Html.TextBoxFor(model => model.Achievement, new { @class = "txtfan" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft" rowspan="4" style="width: 2%">产<br />
+                        品<br />
+                        代<br />
+                        理</td>
+
+                    <td rowspan="1" class="textLeft">代理产品授权证明（原厂代理证明或代理证）</td>
+                    <td class="textright" colspan="5">
+                        @*  @Html.Hidden("HasAuthorization", @Model.HasAuthorization)*@
+                        @Html.RadioButton("HasAuthorization", "0", new { @checked = true }) 是
+                            @Html.RadioButton("HasAuthorization", "1") 否
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">产品生产厂家的全套图纸</td>
+                    <td class="textright" colspan="5">
+                    @*    @Html.Hidden("HasDrawing", @Model.HasDrawing)*@
+                    @Html.RadioButton("HasDrawing", "0", new { @checked = true }) 有
+                            @Html.RadioButton("HasDrawing", "1")   无
+                </tr>
+
+                <tr>
+                    @*<td class="textLeft" style="width: 20%" rowspan="1">品</td>*@
+                    <td class="textLeft">代理产品国内所属级别 <span style="color: red;">*</span></td>
+                    <td class="textright" colspan="5">
+                        @Html.Hidden("AgentClass", @Model.AgentClass)
+                        @if (ViewBag.AgentClass != null)
+                        {
+                            foreach (SelectListItem item in ViewBag.AgentClass)
+                            {
+                            <input type="checkbox"   onclick="changes('acl')" name="agent"  value="@item.Value"  />
+                            @item.Text
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">能够提供代理进口产品进货证明材料</td>
+                    <td class="textright" colspan="2">
+                        @* @Html.Hidden("HasImportMaterial", @Model.HasImportMaterial)*@
+                        @Html.RadioButton("HasImportMaterial", "0", new { @checked = true }) 报关单
+                           
+                    </td>
+                    <td class="textright" colspan="2">
+                    @Html.RadioButton("HasImportMaterial", "1")   收货单
+                       
+                </tr>
+                @*  <tr>
+                    <td class="textLeft">曾获奖项</td>
+                    <td class="textright" colspan="5">@Html.TextBoxFor(model => model.Award, new { @class = "txtfan" })</td>
+                </tr>*@
+
+            </table>
+            <div style="overflow-y: auto; height: auto; width: 1100px;">
+                <table>
+                    <tr>
+                        <td>
+                            <input class="btn" type="button" value="添加" id="Add" style="cursor: pointer;" />
+                        </td>
+                    </tr>
+                </table>
+                <div style="overflow-y: scroll; height: 200px;">
+                    <table id="myTable" class="tabInfo" style="width: 1100px;">
+                        <tr>
+
+                            <td style="width: 30px;" class="textLeft">序号 </td>
+                            <td style="width: 133px;" class="textLeft">职责部门</td>
+                            <td style="width: 133px" class="textLeft">姓名</td>
+                            <td style="width: 133px" class="textLeft">部门</td>
+                            <td style="width: 133px" class="textLeft">职位</td>
+                            <td style="width: 133px" class="textLeft">座机</td>
+                            <td style="width: 133px" class="textLeft">手机</td>
+                            <td style="width: 133px" class="textLeft">邮箱</td>
+                            <td style="width: 133px;" class="textLeft">操作</td>
+
+                        </tr>
+                        <tbody id="DetailInfo" class="tabInfo" style="width: 1100px;">
+
+                            @Html.Hidden("FDepartment", @ViewData["FDepartment"])
+                            @Html.Hidden("PName", @ViewData["PName"])
+                            @Html.Hidden("Department", @ViewData["Department"])
+                            @Html.Hidden("Job", @ViewData["Job"])
+                            @Html.Hidden("Phone", @ViewData["Phone"])
+                            @Html.Hidden("Mobile", @ViewData["Mobile"])
+                            @Html.Hidden("Email", @ViewData["Email"])
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="margin-left: 90%; margin-top: 10px;">
+                <input class="btn" type="button" id="charge" name="charge" value="确定" />
+            </div>
+        </div>
+    </body>
+}
+</html>

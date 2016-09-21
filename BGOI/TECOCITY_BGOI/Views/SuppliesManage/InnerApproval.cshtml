@@ -1,0 +1,190 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+
+@model  Tk_SupplierBas
+<!DOCTYPE html>
+
+<html>
+<head>
+    @* <meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <title>InnerApproval</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src=" @Url.Content("~/Scripts/cmm_Tables2.js")"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")"></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/InnerApproval.js")" type="text/javascript"></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("InnerApproval", "SuppliesManage", FormMethod.Post, new { id = "InnerInfo", action = "UpInnerApproval", enctype = "multipart/form-data" }))
+    {
+        @Html.Hidden("msg", @ViewData["msg"])
+        @Html.Hidden("MFFileName", @ViewData["MFFileName"])
+        @Html.Hidden("PriceName", @ViewData["PriceName"])
+        <div id="tabTitile">&nbsp;&nbsp;&nbsp;流水号:@Html.HiddenFor(model => model.Sid)@ViewBag.sid</div>
+        <div id="hole">
+            <div id="title" >
+                <div>
+                    <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                        <tr>
+                            <td class="textLeft" style="width: 30%;">是否是免评供应商：</td>
+                            <td class="textRight" style="width: 70%;">
+                                @Html.RadioButton("IsUnReview", "0", new { onclick = "IsUnView()" }) 是
+                        @Html.RadioButton("IsUnReview", "1", new { onclick = "IsUnView()" }) 否<span style="color: red;">*</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                        <tr id="Free">
+
+                            <td class="textLeft" style="width: 30%;">是否为集团合格供应商</td>
+                            <td class="textRight" style="width: 70%;">
+                                @Html.RadioButton("URConfirmUser", "0") 是
+                        @Html.RadioButton("URConfirmUser", "1")否
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div>
+                    <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                        <tr id="one">
+                            <td class="textLeft">客户指定免评审供应商描述</td>
+                            <td class="textRight" colspan="3">
+                                @Html.Hidden("UnReviewDesc")
+                                供应商(全称):<input type="text" name="supname" value="" class="supname" />
+                                为(项目名称):<input type="text" name="supname" value="" class="supname" />
+                                <br />
+                                的客户(全称):
+                        <input type="text" name="supname" value="" class="supname" />
+                                指定(产品名称)：
+                        <input type="text" name="supname" value="" class="supname" />供应商
+                            </td>
+                        </tr>
+                        <tr id="two">
+                            <td class="textLeft" style="border-top-style: hidden;">项目经理：</td>
+                            <td class="textRight" colspan="3" style="border-top-style: hidden;">
+                                @Html.TextBoxFor(model => model.IsUnreviewUser, new { @class = "txtCss" })
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                        <tr id="three">
+                            <td class="textLeft" style="width: 30%;">免评审供应商是否为内部单位</td>
+                            <td class="textRight" style="width: 70%;">
+                                @Html.RadioButton("IsURInnerUnit", "0") 是
+                        @Html.RadioButton("IsURInnerUnit", "1") 否
+                            </td>
+                        </tr>
+                        <tr id="four">
+                            <td class="textLeft" style="width: 30%; border-top-style: hidden;">供应商为：</td>
+                            <td class="textRight" colspan="3" style="border-top-style: hidden;">
+                                @Html.Hidden("UnReviewUnit", "")
+                                @if (ViewBag.UnReviewUnit != null)
+                                {
+                                    foreach (SelectListItem item in ViewBag.UnReviewUnit)
+                                    {
+                                    <input type="checkbox"   onclick="change('urut')" name="ulut"  value="@item.Value"  />
+                                    @item.Text
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                        <tr id="five">
+                            <td class="textLeft" style="font-family: 黑体; width: 30px;"><span><b>免评审供应商必须提供资质证明</b></span></td>
+                            <td class="textRight" colspan="3" style="width: 70%;">
+                                <input name="file" type="file" multiple="multiple" id="UploadFile" class="file" />
+                                <div id="Progress" runat="server" style="float: right; width: 85%; color: Green; height: 24px; line-height: 24px;">
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="bot" style="overflow-y:scroll;overflow-x:hidden;height:400px;width:98%;">
+                <table class="tabInfo" style=" margin-left: 8px; margin-top: 10px; ">
+                    <tr id="eight">
+                        <td class="textLeft">已存在文件</td>
+                        <td colspan="3">
+                            <div id="unit"></div>
+                        </td>
+                    </tr>
+                    <tr id="six">
+                        <td class="textLeft" style="font-family: 黑体; width: 30px;"><span><b>报价/比价单</b></span></td>
+                        <td class="textRight" colspan="3" style="width: 70%;">
+                            <input name="file" type="file" multiple="multiple" id="UploadFile1" class="file" />
+                            <div id="Progress1" runat="server" style="float: right; width: 85%; color: Green; height: 24px; line-height: 24px;">
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr id="Eva1">
+                        <td class="textLeft"><span style="font-family: 黑体;"><b>对供应商信誉评价</b></span>:(三年内有无没提曝光不良记录、有无严重法律纠纷、是否曾被政府处罚、供应商具有良好的商业信誉和业绩，近三年经营活动中无不良记录，如此项不合格将直接淘汰)</td>
+                        <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.Evaluation1, new { @class = "txtApproval" })</td>
+                    </tr>
+                    <tr id="Eva2">
+                        <td class="textLeft"><span style="font-family: 黑体;"><b>对供应商价格水平的评价</b></span>:(以本年度同地区三家货三家以上报价为依据的销售价格比较，请后附《采购询价、比价单》)</td>
+                        <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.Evaluation2, new { @class = "txtApproval" })</td>
+                    </tr>
+                    <tr id="Eva3">
+                        <td class="textLeft"><span style="font-family: 黑体;"><b>对供方产品(工程)质量、技术能力的评价</b></span>:(根据工程常规要求判断，客户有非标要求时按客户要求)</td>
+                        <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.Evaluation3, new { @class = "txtApproval" })</td>
+                    </tr>
+                    <tr id="Eva4">
+                        <td class="textLeft"><span style="font-family: 黑体;"><b>对供方合作意愿的评价：</b></span></td>
+                        <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.Evaluation4, new { @class = "txtApproval" })</td>
+                    </tr>
+                    <tr id="Eva5">
+                        <td class="textLeft"><span style="font-family: 黑体;"><b>是否对供方进行实地考察</b></span>:(OEM类供方必须实地考察)</td>
+                        <td class="textRight" colspan="3">
+                            @Html.RadioButton("Evaluation5", "0", new { onclick = "IsView()" }) 是
+                        @Html.RadioButton("Evaluation5", "1", new { onclick = "IsView()" })  否
+                        </td>
+                    </tr>
+                    <tr id="kaocha">
+                        <td class="textLeft"><span style="font-family: 黑体;"><b>考察评价</b></span>：(OEM类供方必须实地考察)</td>
+                        <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.Evaluation6, new { @class = "txtApproval" })</td>
+                    </tr>
+
+                </table>
+            </div>
+            <div style="margin-top: 2px;">
+                <table>
+                    <tr>
+                        <td>
+                            <input type="button" value="确定" id="innerapp" class="btn" style="cursor: pointer; margin-left: 550px;" /></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    }
+</body>
+</html>

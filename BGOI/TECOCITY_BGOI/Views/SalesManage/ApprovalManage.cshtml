@@ -1,0 +1,119 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model tk_SalesGrid
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>ApprovalManage</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Sales/ApprovalManage.js")" type="text/javascript"></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("ApprovalManage", "SalesManage", FormMethod.Post, new { id = "GForm" }))
+    {
+        @Html.Hidden("webkey", @ViewData["webkey"])   @Html.Hidden("folderBack", @ViewData["folderBack"]) @Html.Hidden("Nostate", @ViewData["Nostate"])
+        <div id="pageContent" style="overflow-y: auto;">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">项目销售</span>>>@ViewData["webkey"]
+            </div>
+            <div id="search" style="height: 80px;">
+                <table class="tabSearch" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>项目名称</td>
+                        <td>@Html.TextBoxFor(model => model.PlanName, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.PlanName)</td>
+                        <td>工程编号</td>
+                        <td>@Html.TextBoxFor(model => model.PlanID, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.PlanID)</td>
+                        <td>备案内容</td>
+                        <td>@Html.TextBoxFor(model => model.MainContent, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.MainContent)</td>
+                    </tr>
+                    <tr>
+                        <td>规格型号</td>
+                        <td>@Html.DropDownList("SpecsModels", SalesManage.ListItem())</td>
+                        <td>所属区域</td>
+                        <td>@Html.DropDownList("BelongArea", SalesManage.GetBelongArea())</td>
+                        <td>日期</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.StartDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })@Html.ValidationMessageFor(model => model.StartDate) -  @Html.TextBoxFor(model => model.EndDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" }) @Html.ValidationMessageFor(model => model.EndDate)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>负责人</td>
+                        <td>@Html.TextBoxFor(model => model.Manager, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.Manager)</td>
+                        <td colspan="5">
+                            进度状态&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButton("State", "0")全部&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButton("State", "1")备案&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButton("State", "2")已报价&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButton("State", "3")已签订合同&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButton("State", "4")已发货&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            @*回款状态&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButton("HState", "0")未回款&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButton("HState", "1")已回款*@
+                            <input type="button" class="btn" id="btnSearch" style="float: right; margin-right: 10px;" value="查  询" onclick="reload()" />
+
+
+                        </td>
+
+                    </tr>
+        </table>
+    </div>
+
+    <div style="margin-top: 3px; margin-left: 10px;">
+        <input class="btn" type="button" id="SP" value="审批" />
+        @* <input class="btnL" type="button" id="SPQK"  value="审批情况"/> *@
+    </div>
+
+    <div id="bor" style="width: 100%; margin-top: 3px; margin-left: 10px;">
+        <table id="list" class="scroll" style="width: 100%;"></table>
+        <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+    </div>
+    <div style="margin-top: 10px; margin-left: 10px;">
+        <input type="button" id="QQJQdiv" class="btnTw" value="审批情况信息" />
+        <input type="button" id="RZJLdiv" class="btnTh" value="操作日志记录信息" />
+    </div>
+
+    <div id="QQ" style="border: 1px solid #707070; margin-left: 10px;">
+        <div id="bor1" style="width: 100%; margin-top: 3px; margin-left: 10px;">
+            <table id="list1" class="scroll" style="width: 100%;"></table>
+            <div id="pager1" class="scroll" style="text-align: center; width: 100%;"></div>
+        </div>
+    </div>
+
+    <div id="RZJ" style="border: 1px solid #707070; margin-left: 10px; display: none;">
+        <div id="bor2" style="width: 100%; margin-top: 3px; margin-left: 10px;">
+            <table id="list2" class="scroll" style="width: 100%;"></table>
+            <div id="pager2" class="scroll" style="text-align: center; width: 100%;"></div>
+        </div>
+    </div>
+</div>
+    }
+</body>
+</html>

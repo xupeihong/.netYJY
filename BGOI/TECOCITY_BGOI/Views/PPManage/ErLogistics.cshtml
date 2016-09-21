@@ -1,0 +1,74 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    <title>BasicStockIn</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/PP/ProjectPP/ErLogistics.js")" type="text/javascript"></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+ 
+        <div id="pageContent">
+            <div class="mainHead"> <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color:#000099;">物流</span>>>物流管理</div>
+            <hr />
+          
+      
+            <div style="margin-top:5px;margin-left:10px;">
+                <input class="btn" type="button" id="DY" value="生成授权书" /> 
+                <input class="btn" type="button" id="XG" value="修改" /> 
+                <input class="btn" type="button" id="CX" value="撤销" /> 
+            </div>
+            <div id="bor" style="width:100%;margin-top:5px;margin-left:10px;">
+                <table id="list" class="scroll" style="width:100%;"></table>
+                <div id="pager" class="scroll" style="text-align:center;width:100%;"></div>
+            </div>
+            <div style=" margin-left:10px;margin-top:3px;">
+                <input class="btnTw" type="button" id="WP" value="物品详细" />
+                <input class="btnTh" type="button" id="rzxq" value="日志详情" />
+            </div>
+            <div id="bor1" style=" border: 1px solid #707070; margin-left: 10px; height: 195px ">
+                <div style="width:100%;margin-top:3px;margin-left:10px;">
+                    <table id="list1" class="scroll" style="width:100%;"></table>
+                    <div id="pager1" class="scroll" style="text-align:center;width:100%;"></div>
+                </div>
+            </div>
+            <div id="bor2" style=" border: 1px solid #707070; margin-left: 10px; display: none; height: 195px">
+               
+                <div style="width:100%;margin-top:3px;margin-left:10px;">
+                    <table id="list2" class="scroll" style="width:100%;"></table>
+                    <div id="pager2" class="scroll" style="text-align:center;width:100%;"></div>
+                </div>
+            </div>
+        </div>
+   
+</body>
+</html>

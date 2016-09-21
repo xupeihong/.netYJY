@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_WXGuaranteeCard
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PrintWarrCard</title>
+
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/CSS/Print.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_PrintPageSet.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/CustomerServiceManage/PrintWarrCard.js")" type="text/javascript"></script>
+</head>
+<body style="margin: 0 0 0 0; background-color: white; overflow: auto;">
+    @* <div id="pageContent" style=" margin-left:2px; margin-right:2px; margin-top:2px; ">*@
+
+    <div id="ReportContent" style="margin-top: 10px; page-break-after: always;">
+        <div style="width: 100%; text-align: center; font-size: 18px;">北京市燕山工业燃气设备有限公司</div>
+        <div style="font-size: 22px; font-weight: bold; float: left; margin-left: 45%;">产品保修卡</div>
+      @*  <div style="margin-left: 65%; float: left;">保修卡编号 @Model.BXKID</div>*@
+        <table id="search" class="tabInfo2">
+            <tr>
+                <td>合同编码</td>
+                <td>保修卡编号</td>
+                <td>产品名称</td>
+                <td>产品编号</td>
+                <td>产品规格型号</td>
+                <td>购买日期</td>
+                <td>保修时间</td>
+                <td>最终用户单位</td>
+                <td>联系人</td>
+                <td>联系方式</td>
+            </tr>
+             <tr>
+                <td>@Model.ContractID</td>
+                <td>@Model.BXKID</td>
+                <td>@Model.OrderContent</td>
+                <td>@Model.PID</td>
+                <td>@Model.SpecsModels</td>
+                <td>@ViewData["BuyDate"]</td>
+                <td>@ViewData["BXDate"] </td>
+                <td>@Model.EndUnit</td>
+                <td>@Model.Contact</td>
+                <td>@Model.Tel</td>
+            </tr>
+
+          @*  <tr style="height: 30px;">
+                <td>保修卡所属单位</td>
+                <td colspan="5" style="text-align: left;">@Model.BUnitID</td>
+            </tr>*@
+           @* <tr style="height: 30px;">
+                <td>产品编号</td>
+                <td></td>
+                <td>产品名称</td>
+                <td></td>
+                <td>产品型号</td>
+                <td></td>
+            </tr>*@
+            <tbody class="tabInfo2" id="CheckItems">
+            </tbody>
+            <tr style="height: 50px;">
+                <td>备注</td>
+                <td colspan="9" style="text-align: left;">@Model.Remark</td>
+            </tr>
+            <tr style="height: 30px;" id="jc">
+                <td>签字</td>
+                <td></td>
+                <td>联系电话</td>
+                <td style="text-align: left;"></td>
+                <td>日期</td>
+                <td colspan="5" style="text-align: left;"></td>
+            </tr>
+            @Html.Hidden("State", ViewData["State"])
+            @Html.Hidden("HTitle")
+            @Html.Hidden("HChecked")
+        </table>
+        <div style="text-align: right; margin-top: 5px; width: 99%;" id="dayin">
+            <input type="button" id="btnPrint" value="打 印"  class="btn" />
+        </div>
+    </div>
+
+
+    @*</div>*@
+</body>
+</html>

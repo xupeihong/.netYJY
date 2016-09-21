@@ -1,0 +1,77 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model tk_SService
+<!DOCTYPE html>
+
+<html>
+<head>
+    @* <meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>UPServer</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/UpdateServer.js")" type="text/javascript"></script>
+</head>
+@using (Html.BeginForm("UpdateServer", "SuppliesManage", FormMethod.Post, new { id = "updateSer", action = "UpdateSerInfo", enctype = "multipart/form-data" }))
+{
+    <body>
+        @Html.HiddenFor(model => model.CreateUser)
+        @Html.HiddenFor(model => model.CreateTime)
+        @Html.HiddenFor(model => model.Validate)
+        @Html.Hidden("msg", @ViewData["msg"])
+        @*  @Html.HiddenFor(model => model.ServiceID)
+        @Html.HiddenFor(model => model.FFileName)*@
+        @Html.Hidden("ServiceID")
+        @Html.Hidden("FFileName")
+        <div id="hole" style="overflow-y: auto;">
+            <div id="tabTitile"><span style="margin-left: 10px;">流水号：@Model.Sid</span></div>@Html.HiddenFor(model => model.Sid)
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">服务名称</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.ServiceName, new { @class = "txtCss" }) <span style="color: red;">*</span> </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">服务描述</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.ServiceDesc, new { @class = "txtCss" }) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">用途</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Purpose, new { @class = "txtCss" }) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">已存在文件</td>
+                    <td colspan="3">
+                        <div id="unit"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">上传服务文档</td>
+                    <td class="textRight" colspan="5">
+                        <input name="file" type="file" id="UploadFile" class="file" />
+                        <div id="Progress" runat="server" style="float: right; width: 85%; color: Green; height: 24px; line-height: 24px;">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <input type="button" value="更新" id="UPSer" class="btn" style="cursor: pointer; margin-left: 350px; margin-top: 10px;" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </body>
+}
+</html>

@@ -1,0 +1,76 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@using TECOCITY_BGOI
+@model tk_SalesGrid
+<html>
+<head>
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    <title>SalesWeekStatics</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Sales/RetailSales/SalesWeekStatics.js")" type="text/javascript"></script>
+</head>
+<body>
+    @using (Html.BeginForm("SalesWeekStatics", "SalesRetail", FormMethod.Post, new { id = "GForm" }))
+    {
+
+        <div id="pageContent" style="height: 400px; overflow-y: auto;">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">家用产品周销售报表</span>
+            </div>
+            <div id="search" style="height: 90px;">
+                <div style="width: 88%; float: left; height: 85px;">
+                    <table class="tabSearch" cellpadding="0" cellspacing="0">
+                        <tr style="height: 30px;">
+                            <td style="width: 25%;">销售时间：</td>
+                            <td colspan="3">@Html.TextBoxFor(model => model.StartDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })@Html.ValidationMessageFor(model => model.StartDate) -  @Html.TextBoxFor(model => model.EndDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" }) @Html.ValidationMessageFor(model => model.EndDate)</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 25%;">业务负责人：</td>
+                            <td>@Html.DropDownListFor(model => model.SalesMan, SalesRetailMan.GetUserListitem(), new { @Style = "width:100px;" })@Html.ValidationMessageFor(model => model.SalesMan)</td>
+                            <td>部门：</td>
+                            <td>@Html.DropDownListFor(model => model.UnitId, SalesRetailMan.GetUnitListitem(), new { @Style = "width:100px;" })@Html.ValidationMessageFor(model => model.UnitId)</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;" colspan="4">
+                                <input class="btn" type="button" value="查  询" id="CX" />&nbsp;&nbsp;&nbsp;
+                            <input class="btn" type="button" value="打  印" id="btnPrint" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="Sign" style="width: 97%; margin-left: 10px; margin-top: 10px;"></div>
+            <div id="StaTab">
+                <table id="tabList" class="statitab" style="margin-left: 10px; margin-top: 5px; line-height: 25px;">
+                    <tr>
+                        <td style="width: 10%;">序号</td>
+                        <td style="width: 19%">销售人员</td>
+                        <td style="width: 19%">所属部门</td>
+                        <td style="width: 19%">定价单价（元）</td>
+                        <td style="width: 19%">成交价单价（元）</td>
+                        <td style="width: 19%">成交总价（元）</td>
+                    </tr>
+                    <tbody id="tbList"></tbody>
+                </table>
+            </div>
+        </div>
+    }
+</body>
+</html>

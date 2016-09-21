@@ -1,0 +1,128 @@
+﻿@{
+    ViewBag.Title = "PrintProjectBasInfo";
+}
+@using TECOCITY_BGOI
+@model ProjectBasInfo
+
+<!DOCTYPE html>
+<html>
+<head>
+    @*  <meta name="viewport" content="width=device-width" />*@
+    <title></title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_PrintPageSet.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Sales/PrintProjectBasInfo.js")" type="text/javascript"></script>
+    <style media="print">
+        .Noprint {
+            display: none;
+        }
+
+        #list {
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body style="margin: 0 0 0 0; background-color: white; overflow: auto;">
+    <div id="PrintArea" style="page-break-after: always;">
+        @*<div id="" style="text-align:center;font-size:18px; margin-top:20px;">
+            北京市燕山工业燃气设备有限公司<br />
+            备案项目
+            <table class="tabInfo" style="width: 98%; margin-left: 8px; margin-top: 10px;">
+                <tr style="background-color: #88c9e9; text-align: left; ">
+                    <td colspan="4">   产品信息</td>
+                </tr>
+                <tr>
+                    <td colspan="4" align="left">
+                        备案日期：
+                        @Model.RecordDate
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="overflow-y:auto;">
+            <table id="myTable" style="width: 98%; margin-left: 8px;" cellpadding=" 0" cellspacing="0" class="tabInfo">
+                <tr align="center" valign="middle">
+                    <th style="width: 10%;" class="th">
+                        序号
+                    </th>
+                    <th style="width: 10%;" class="th">
+                        货品编号
+                    </th>
+                    <th style="width: 20%;" class="th">
+                        货品名称
+                    </th>
+                    <th style="width: 20%;" class="th">
+                        规格型号
+                    </th>
+                    <th style="width: 10%;" class="th">
+                        单位
+                    </th>
+                    <th style="width: 10%;" class="th">
+                        数量
+                    </th>
+                    <th style="width: 10%;" class="th">
+                        备注
+                    </th>
+                </tr>
+                <tbody id="DetailInfo"></tbody>
+            </table>
+        </div>
+        <div>
+            <table class="tabInfo" style="width: 98%; height :240px; margin-left: 8px;">
+                <tr style="background-color: #88c9e9; text-align: left; ">
+                    <td colspan="4"> 项目信息</td>
+                </tr>
+                <tr>
+                    <td>工程编号：</td>
+                    <td class="LeftTd">@Model.PlanID</td>
+                    <td>项目名称：</td>
+                    <td class="LeftTd">@Model.PlanName</td>
+                </tr>
+                <tr>
+                    <td>业务负责人：</td>
+                    <td class="LeftTd">@Model.WorkChief</td>
+                    <td>施工方：</td>
+                    <td class="LeftTd">@Model.Constructor</td>
+                </tr>
+                <tr>
+                    <td>电话：</td>
+                    <td class="LeftTd">@Model.Tel</td>
+                    <td>所属区域：</td>
+                    @*<td>@Html.TextBoxFor(model => model.BelongArea, new { @class = "txtCss" })</td>
+                    <td class="LeftTd">@Model.BelongArea</td>
+                </tr>
+                <tr>
+                    <td>预计订购时间：</td>
+                    <td class="LeftTd">@Model.RecordDate</td>
+                    <td>渠道来源：</td>
+                   <td>@Html.TextBoxFor(model => model.ChannelsFrom, new { @class = "txtCss" })</td>
+                    <td class="LeftTd">@Model.ChannelsFrom</td>
+                </tr>
+                <tr>
+                    <td>备案人：</td>
+                    <td colspan=" 4" style=" text-align :left ">@Model.Manager</td>
+
+                </tr>
+                <tr>
+                    <td>备注：</td>
+                    <td colspan=" 4" style=" text-align :left ">@Model.Remark</td>
+                </tr>
+            </table>
+        </div>*@
+     @*<%=@ViewData["Htable"]%>*@
+    </div>
+    <div>
+        <input type="button" style="margin-right:10px;" class="btn" value="打印" id="btnPrint" />
+    </div>
+</body>
+</html>

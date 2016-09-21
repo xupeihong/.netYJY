@@ -1,0 +1,191 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_CheckData2
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UpdateCheckData2</title>
+
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/UpdateCheckData2.js")" type="text/javascript"></script>
+</head>
+<body>
+    @using (Html.BeginForm("AddCheckData2", "FlowMeterManage", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+    {
+
+
+        <div id="pageContent" style="overflow-y:auto;">
+            <div style="width:98%;margin-left:10px;margin-top:5px;">
+                <table class="tabInfo" id="content">
+                   
+                    <tr style="height:30px;">
+                        <td colspan="6" style="text-align:center; font-size:20px; font-weight:bold;">@Model.StrRepairType</td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td class="textRightL" style="text-align:left;" colspan="6"> 基本信息</td>
+                    </tr>
+                    <tr style="height:30px;">
+
+
+                        @Html.HiddenFor(model => model.StrRepairID)
+                        @Html.HiddenFor(model => model.StrRepairType)
+
+                        @Html.HiddenFor(model => model.StrRID)
+
+                        <td class="textLeftL">检测人</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrCheckUser, new { @class = "txtCss" }) <span style="color:red;"> * </span>
+                            <br />
+                            @Html.ValidationMessageFor(model => model.StrCheckUser)
+                        </td>
+
+                        <td class="textLeftL">检测时间</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrCheckDate, new { onclick = "WdatePicker({dateFmt: 'yyyy/MM/dd HH:mm' })", @class = "txtCss" })
+                            <span style="color:red;"> * </span><br />
+                            @Html.ValidationMessageFor(model => model.StrCheckDate)
+                        </td>
+                        <td class="textLeftL">检测方式</td>
+                        <td class="textRightL">
+                            @Html.DropDownListFor(model => model.StrRepairMethod, FlowMeterMan.getConfigContent2("RepairMethod"), new { @class = "txtCss" })
+                            <span style="color:red;"> * </span> <br />
+                            @Html.ValidationMessageFor(model => model.StrRepairMethod)
+                        </td>
+                    </tr>
+                    <tr><td colspan="6">A声道</td></tr>
+                    <tr style="height:30px;">
+
+                        <td class="textLeftL">温度
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrATemperature, new { @class = "txtCss" })
+
+                        </td>
+
+                        <td class="textLeftL">压力</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrAPressure, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">理论声速</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrAAheory, new { @class = "txtCss" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="textLeftL">1path</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrA1path, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">2path</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrA2path, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">3path</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrA3path, new { @class = "txtCss" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="textLeftL">4path</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrA4path, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">5path</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrA5path, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">6path</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrA6path, new { @class = "txtCss" })
+                        </td>
+
+
+                    </tr>
+
+
+                    <tr><td colspan="6">B声道</td></tr>
+                    <tr>
+                        <td class="textLeftL">温度</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrBTemperature, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">压力</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrBPressure, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">理论声速</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrBAheory, new { @class = "txtCss" })
+                        </td>
+                    </tr>
+
+                    <tr style="height:30px;">
+
+                        <td class="textLeftL">1path </td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrB1path, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">2path</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrB2path, new { @class = "txtCss" })
+                        </td>
+
+
+                        <td class="textLeftL">3path</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrB3path, new { @class = "txtCss" })
+                        </td>
+                    <tr style="height:30px;">
+                        <td class="textLeftL">4path</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrB4path, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">5path </td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrB5path, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">6path</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrB6path, new { @class = "txtCss" })
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td class="textLeftL">数据是否合格</td>
+                        <td colspan="5">
+
+                            @Html.RadioButton("IsRepair", '否', true) 否 @Html.RadioButton("IsRepair", '是') 是
+                            @Html.HiddenFor(model => model.Strvalidate)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="float:right; margin-top:10px;">
+                <input type="submit" id="QD" class="btn" value="确定" style="margin-right:10px;" />
+                <br /><br />
+            </div>
+        </div>
+
+    }
+</body>
+</html>

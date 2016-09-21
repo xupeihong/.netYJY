@@ -1,0 +1,104 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+@model RetailSalesOutQuery
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    <title>RetailSalesOut</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/InventoryManage/HomeProductSales.js")" type="text/javascript"></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+    @{
+        Acc_Account unitname = GAccount.GetAccountInfo();
+        string UnitIDnew = unitname.UnitID;
+        string UnitIDo = unitname.Path;
+        string Rights = unitname.Rights;
+    }
+</head>
+
+<body>
+    @using (Html.BeginForm("HomeProductSalesToExcel", "InventoryManage", FormMethod.Post, new { id = "GForm" }))
+    {
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">库存管理</span>>>家用产品销售
+            </div>
+            <div id="search" style="height: 70px;">
+                <table class="tabSearch" cellpadding="0" cellspacing="0">
+                    <tr style="height: 30px;">
+                        <td>出库单号</td>@Html.Hidden("ListOutIDN","")
+                        <td>@Html.TextBox("ListOutID", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ListOutID)</td>
+                        <td>所属仓库</td>
+                        <td>@Html.DropDownList("HouseID", InventoryMan.GetHouseID(), new { @class = "txtCss" })</td>
+                        <td>出库时间</td>
+                        <td>@Html.TextBox("Begin", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })</td>
+                        <td>至</td>
+                        <td>@Html.TextBox("End", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td>经手人</td>
+                        <td>@Html.TextBox("OrderContactor", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.OrderContactor)</td>
+                        <td>状态</td>
+                        <td>@Html.RadioButton("State", "0", new { @checked = true })未出库  
+                            @Html.RadioButton("State", "1")已出库 
+                        </td>
+                        <td colspan="6">
+                            <input type="button" id="CX" class="btn" value="查 询" style="margin-left: 84%;" onclick="SearchOut()" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="margin-top: 5px; margin-left: 10px; height: 30px">
+                @if (Rights.IndexOf(",Y1,") >= 0)
+                {
+                    <input class="btnL" type="button" value="家用订单出库" onclick="AddRetailSalesOut()" />
+                    <input class="btn" type="button" id="Fin" value="出库完成" />
+                }
+                <input type="button" class="btn" style="float: right; margin-right: 15px; width: 80px" id="btnPrint2" value="打印发货单" />
+                <input type="button" class="btn" style="float: right; margin-right: 15px;" id="btnPrint" value="打  印" />
+                <input type="submit" class="btn" style="float: right; margin-right: 15px;"  onclick="FX()" id="excel" value="导出" />
+            </div>
+             <div id="alarm1" style="display: none; position: absolute; right: 10px; bottom: 5px; height: auto; width: 220px; z-index: 999; background-color: white; border: 2px solid #3598db;">
+                <div style="width: 100%; height: 20px; background-color: #3598db; line-height: 20px;"><a onclick="closeAlarm()" style="color: white; font-weight: bold; padding-left: 180px; cursor: pointer;">关 闭</a></div>
+                <div id="content1" style="margin-left: 15px; color: #3598db; font-weight: bold; overflow-y: auto; height: auto"></div>
+            </div>
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+
+            <div id="bor1" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list1" class="scroll" style="width: 100%;"></table>
+                <div id="pager1" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+        </div>
+    }
+</body>
+</html>

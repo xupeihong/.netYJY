@@ -1,0 +1,367 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_WorkCardUT
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditWorkCardUT</title>
+
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/EditWorkCardUT.js")" type="text/javascript"></script>
+
+</head>
+<body>
+    @using (Html.BeginForm("EditWorkCardUT", "FlowMeterManage", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+    { 
+        <div id="pageContent" style="overflow-y: auto;">
+            <div style="width: 98%; margin-left: 10px; margin-top: 5px;">
+                <table class="tabInfo" id="content" style="text-align: center;">
+                    @Html.HiddenFor(model => model.strRID)
+                    @Html.HiddenFor(model => model.strWID)
+                    <tr style="height: 30px;">
+                        <td colspan="8" style="text-align: center; font-size: 20px; font-weight: bold;">流量计维修随工单</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textRight" colspan="8">基本信息</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeft" colspan="2">流量计编号</td>
+                        <td colspan="2" class="textRight">@ViewData["RepairID"]</td>
+                        <td class="textLeft">流量计型号</td>
+                        <td class="textRight">@ViewData["Model"]</td>
+                        <td class="textLeft">维修人员</td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strRepairUser, new { @class = "txtCss", style = "width:80px;" })
+                        </td> 
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td colspan="2" class="textLeft">维修前是否检测</td>
+                        <td colspan="2" class="textRight">
+                            @Html.TextBoxFor(model => model.strIsCheck, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textLeft">检测结果</td>
+                        <td colspan="3" class="textRight">
+                            @Html.TextBoxFor(model => model.strCheckResult, new { @class = "txtCss", style = "width:80%;" })
+                        </td> 
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td colspan="8">维修内容</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td style="width: 10px;" rowspan="4">电路板维修</td>
+                        <td colspan="4" class="textLeft">更换电路板</td>
+                        <td colspan="3" class="textLeft">调整参数</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeft"></td>
+                        <td class="textLeft">原电路板</td>
+                        <td class="textLeft">新电路板</td>
+                        <td class="textLeft">更换位置</td>
+                        <td class="textLeft"></td>
+                        <td class="textLeft">原配置</td>
+                        <td class="textLeft">新配置</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeft">编号</td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strCirNum, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewCirNum, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td rowspan="2" class="textRight">上层 @Html.RadioButton("ChangePlace", 0)<br />
+                            下层 @Html.RadioButton("ChangePlace", 1)<br />
+                            整体 @Html.RadioButton("ChangePlace", 2)
+                        </td>@Html.Hidden("StrChangePlace")
+                        <td class="textLeft">版本</td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strCirVersion, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewCirVersion, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeft">版本</td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strCirVersion, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewCirVersion, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textLeft">参数</td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strPreData, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewData, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td style="width: 10px;" rowspan="13">超声波探头维修</td>
+                        <td colspan="7">更换探头</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeft"></td>
+                        <td class="textLeft">位置</td>
+                        <td class="textLeft">编号</td>
+                        <td class="textLeft">更换后测试</td>
+                        <td class="textLeft">位置</td>
+                        <td class="textLeft">编号</td>
+                        <td class="textLeft">更换后测试</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeft">原探头</td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strProbePlace1, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strProbeID1, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td rowspan="2" class="textRight">
+                            @Html.RadioButton("Check1", 0) 合格 
+                        @Html.RadioButton("Check1", 1) 不合格
+                        </td>@Html.Hidden("StrCheck1")
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strProbePlace2, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strProbeID2, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td rowspan="2" class="textRight">
+                            @Html.RadioButton("Check2", 0) 合格 
+                        @Html.RadioButton("Check2", 1) 不合格
+                        </td>@Html.Hidden("StrCheck2")
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeft">新探头</td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewProbePlace1, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewProbeID1, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewProbePlace2, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewProbeID2, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 5px;">
+                        <td colspan="7"></td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeft">原探头</td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strProbePlace3, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strProbeID3, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td rowspan="2" class="textRight">
+                            @Html.RadioButton("Check3", 0) 合格 
+                        @Html.RadioButton("Check3", 1) 不合格
+                        </td>@Html.Hidden("StrCheck3")
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strProbePlace4, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strProbeID4, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td rowspan="2" class="textRight">
+                            @Html.RadioButton("Check4", 0) 合格 
+                        @Html.RadioButton("Check4", 1) 不合格
+                        </td>@Html.Hidden("StrCheck4")
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeft">新探头</td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewProbePlace3, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewProbeID3, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewProbePlace4, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewProbeID4, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 5px;">
+                        <td colspan="7"></td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeft">原探头</td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strProbePlace5, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strProbeID5, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td rowspan="2" class="textRight">
+                            @Html.RadioButton("Check5", 0) 合格 
+                        @Html.RadioButton("Check5", 1) 不合格
+                        </td>@Html.Hidden("StrCheck5")
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strProbePlace6, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strProbeID6, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td rowspan="2" class="textRight">
+                            @Html.RadioButton("Check6", 0) 合格 
+                        @Html.RadioButton("Check6", 1) 不合格
+                        </td>@Html.Hidden("StrCheck6")
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeft">新探头</td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewProbePlace5, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewProbeID5, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewProbePlace6, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewProbeID6, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 5px;">
+                        <td colspan="7"></td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeft">原探头</td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strProbePlace7, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strProbeID7, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td rowspan="2" class="textRight">
+                            @Html.RadioButton("Check7", 0) 合格 
+                        @Html.RadioButton("Check7", 1) 不合格
+                        </td>@Html.Hidden("StrCheck7")
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strProbePlace8, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strProbeID8, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td rowspan="2" class="textRight">
+                            @Html.RadioButton("Check8", 0) 合格 
+                        @Html.RadioButton("Check8", 1) 不合格
+                        </td>@Html.Hidden("StrCheck8")
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeft">新探头</td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewProbePlace7, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewProbeID7, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewProbePlace8, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strNewProbeID8, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td style="width: 10px;" rowspan="3">配件维修</td>
+                        <td class="textLeft"></td>
+                        <td colspan="2" class="textLeft">探头外壳</td>
+                        <td colspan="2" class="textLeft">探头底座</td>
+                        <td colspan="2" class="textLeft">电子控制单元外壳</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeft">位置</td>
+                        <td colspan="2" class="textRight">
+                            @Html.TextBoxFor(model => model.strProbeOut, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td colspan="2" class="textRight">
+                            @Html.TextBoxFor(model => model.strProbeUnder, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td colspan="2" class="textRight">
+                            @Html.TextBoxFor(model => model.strProbeUnit, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td class="textLeft">维修内容</td>
+                        <td colspan="2" class="textRight">
+                            @Html.RadioButton("RepairContent1", 0) 修理 
+                        @Html.RadioButton("RepairContent1", 1) 更换
+                        </td>@Html.Hidden("StrRepairContent1")
+                        <td colspan="2" class="textRight">
+                            @Html.RadioButton("RepairContent2", 0) 修理 
+                        @Html.RadioButton("RepairContent2", 1) 更换
+                        </td>@Html.Hidden("StrRepairContent2")
+                        <td colspan="2" class="textRight">
+                            @Html.RadioButton("RepairContent3", 0) 修理 
+                        @Html.RadioButton("RepairContent3", 1) 更换
+                        </td>@Html.Hidden("StrRepairContent3")
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td colspan="8">维修过程需配合工作</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td colspan="2" class="textLeft">打压</td>
+                        <td class="textRight">
+                            @Html.TextBoxFor(model => model.strSuppress, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textLeft">特殊工具</td>
+                        <td colspan="2" class="textRight">
+                            @Html.TextBoxFor(model => model.strSpecialTool, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td class="textLeft">配合单位</td>
+                        <td colspan="2" class="textRight">
+                            @Html.TextBoxFor(model => model.strCoordinate, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td colspan="2" class="textLeft">验收人员</td>
+                        <td colspan="2" class="textRight">
+                            @Html.TextBoxFor(model => model.strAcceptUser, new { @class = "txtCss", style = "width:80px;" })
+                        </td>
+                        <td colspan="2" class="textLeft">验收日期</td>
+                        <td colspan="2" class="textRight">
+                            @Html.TextBoxFor(model => model.strAcceptDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss", style = "width:80px;" })
+                        </td>
+                    </tr>
+                </table>
+                <br />
+            </div>
+
+            <div style="float: right; margin-top: 10px;">
+                <input type="submit" id="QRXG" class="btn" value="确认修改" style="margin-right: 10px;" />
+                <br />
+                <br />
+            </div>
+
+        </div>
+    }
+</body>
+</html>

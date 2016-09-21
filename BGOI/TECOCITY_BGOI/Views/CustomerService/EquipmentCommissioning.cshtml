@@ -1,0 +1,120 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+@model EquipmentCommissioningQuery
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    <title>EquipmentCommissioning</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/CustomerServiceManage/EquipmentCommissioning.js")" type="text/javascript"></script>
+    @{
+        Acc_Account unitname = GAccount.GetAccountInfo();
+
+        string Rights = unitname.Rights;
+
+    }
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    @using (Html.BeginForm("EquipmentCommissioningToExcel", "CustomerService", FormMethod.Post, new { id = "GForm" }))
+    {
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">维修任务</span>>>设备调试任务单
+            </div>
+            <div id="search" style="height: 110px;">
+                <table class="tabSearch" cellpadding="0" cellspacing="0" style="">
+                    <tr style="height: 30px;">
+                        <td>用户名称</td>
+                        <td>@Html.TextBox("UserName", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.UserName) &nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td>联系电话</td>
+                        <td>@Html.TextBox("Tel", "", new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.Tel)&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td>产品编号</td>
+                        <td>@Html.TextBox("PID", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.PID) &nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td>规格型号</td>
+                        <td>@Html.TextBox("Spec", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Spec) &nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td>调试日期</td>
+                        <td> @Html.TextBox("Begin", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })
+                           @* <input type="text" id="Begin" onclick="WdatePicker()" class="Wdate" style="width: 170px;" />*@</td>
+                        <td>至</td>
+                        <td> @Html.TextBox("End", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })
+                           @* <input type="text" id="End" onclick="WdatePicker()" class="Wdate" style="width: 170px;" />*@</td>
+                        <td colspan="2">
+                            <input class="btn" style="float: right; margin-right: 15px;" type="button" value="查  询" onclick="SearchOut()" /></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="margin-top: 5px; margin-left: 10px;height:30px">
+                @if (Rights.IndexOf(",Y7,") >= 0)
+                {
+                    <input class="btn" type="button" style="width: 120px" value="设备调试任务单" onclick="ScrapManagementOut()" />
+                }
+                @if (Rights.IndexOf(",Y7,") >= 0)
+                {
+                    <input class="btn" type="button" value="派工单" onclick="AddBuyGiveOut()" />
+                }
+                @if (Rights.IndexOf(",Y8,") >= 0)
+                {
+                    <input class="btn" type="button" id="Up" value="修改" onclick="ScrapManagementUP() " />
+                }
+                @if (Rights.IndexOf(",Y9,") >= 0)
+                {
+                    <input class="btn" type="button" id="De" value="撤销" />
+                }
+                <input type="submit" class="btn" style="float: right; margin-right: 15px;" id="btnDetail" value="导  出" />
+                <input type="button" class="btn" style="float: right; margin-right: 15px;" id="btnPrint" value="打  印" />
+                <input type="button" class="btn" style="float: right; margin-right: 15px; width: 120px" id="btnPrint1" value="打印派工单" />
+            </div>
+
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+            <div id="next" style="margin-bottom: 5px;">
+                <input type="button" id="cljl" value="产品信息" class="btn2" style="cursor: pointer" />
+                <input type="button" style="width: 120px; cursor: pointer" id="tcxx" value="派工单" class="btn2" />
+                <div id="bor1" style="width: 100%; margin-top: 5px; margin-left: 10px; overflow-x: auto">
+                    <table id="list1" class="scroll" style="width: 100%;"></table>
+                    <div id="pager1" class="scroll" style="text-align: center; width: 100%;"></div>
+                </div>
+                <div id="bor2" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                    <table id="list2" class="scroll" style="width: 100%;"></table>
+                    <div id="pager2" class="scroll" style="text-align: center; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    }
+</body>
+</html>

@@ -1,0 +1,180 @@
+﻿@{
+    ViewBag.Title = "LoadTask";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OfferManage</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ProduceManage/LoadTasks.js")" type="text/javascript"></script>
+</head>
+<body>
+    <div id="pageContent">
+        <div class="mainHead">
+            @ViewData["m"]
+        </div>
+    </div>
+    @* <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 5px;">
+        <table cellpadding="0" cellspacing="0" border="0" id="list" class="scroll" style="width: 100%;"></table>
+        <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+    </div>*@
+    <div id="RW" style="display: none">
+        <table class="tabInfo" cellpadding="0" style="width: 98%; text-align: center">
+            <tr>
+                <td>客户代码:</td>
+                <td>@ViewData["Clientcode"]  </td>
+                <td>订货单位:</td>
+                <td>@ViewData["OrderUnit"] </td>
+                <td>联系人:</td>
+                <td>@ViewData["OrderContactor"]  </td>
+            </tr>
+            <tr>
+                <td>地址:</td>
+                <td>@ViewData["OrderAddress"]  </td>
+                <td>电话:</td>
+                <td>@ViewData["OrderTel"]  </td>
+                <td>任务说明:</td>
+                <td>@ViewData["Remark"]</td>
+            </tr>
+            <tr>
+                <td>开单日期:</td>
+                <td>@ViewData["ContractDate"]  </td>
+                <td>技术参数及要求:</td>
+                <td>@ViewData["Technology"] </td>
+                <td>备注:</td>
+                <td>@ViewData["Note"] </td>
+            </tr>
+        </table>
+    </div>
+    <div id="LL" style="display: none">
+        <table class="tabInfo" cellpadding="0" style="width: 98%; text-align: center">
+            <tr>
+                <td>编号:</td>
+                <td>@ViewData["ID"]  </td>
+                <td>领料部门:</td>
+                <td>@ViewData["MaterialDepartment"] </td>
+                <td>开单日期:</td>
+                <td>@ViewData["CreateTime"]  </td>
+            </tr>
+            <tr>
+                <td>物品编码:</td>
+                <td>@ViewData["PID"]  </td>
+                <td>名称:</td>
+                <td>@ViewData["OrderContent"]  </td>
+                <td>规格型号:</td>
+                <td>@ViewData["SpecsModels"]</td>
+            </tr>
+            <tr>
+                <td>单位:</td>
+                <td>@ViewData["OrderUnit"]  </td>
+                <td>数量:</td>
+                <td>@ViewData["Amount"] </td>
+                <td>备注:</td>
+                <td>@ViewData["Remark"] </td>
+            </tr>
+            <tr>
+                <td>领料人:</td>
+                <td>@ViewData["z"]  </td>
+                <td>库管员:</td>
+                <td>@ViewData["n"] </td>
+                <td>领料日期:</td>
+                <td>@ViewData["MaterialTime"] </td>
+            </tr>
+        </table>
+    </div>
+    <div id="SG" style="display: none">
+        <table class="tabInfo" cellpadding="0" style="width: 98%; text-align: center">
+            <tr>
+                <td>编号:</td>
+                <td>@ViewData["ID"]  </td>
+                <td>开单日期:</td>
+                <td>@ViewData["billing"] </td>
+                <td>物品编码:</td>
+                <td>@ViewData["PID"]  </td>
+            </tr>
+            <tr>
+                <td>名称:</td>
+                <td>@ViewData["OrderContent"]  </td>
+                <td>规格型号:</td>
+                <td>@ViewData["SpecsModels"]  </td>
+                <td>单位:</td>
+                <td>@ViewData["OrderUnit"]</td>
+            </tr>
+            <tr>
+                <td>数量:</td>
+                <td>@ViewData["OrderNum"]  </td>
+                <td>备注:</td>
+                <td>@ViewData["Remark"] </td>
+                <td>记录人:</td>
+                <td>@ViewData["CreateUser"] </td>
+            </tr>
+        </table>
+    </div>
+    <div id="BG" style="display: none">
+        <table class="tabInfo" cellpadding="0" style="width: 98%; text-align: center">
+            <tr>
+                <td>上传日期:</td>
+                <td>@ViewData["uploadtime"]  </td>
+                <td>产品编码:</td>
+                <td>@ViewData["PID"] </td>
+                <td>产品名称:</td>
+                <td>@ViewData["OrderContent"]  </td>
+            </tr>
+            <tr>
+                <td>规格型号:</td>
+                <td>@ViewData["SpecsModels"]  </td>
+                <td>单位:</td>
+                <td>@ViewData["OrderUnit"]  </td>
+                <td>数量:</td>
+                <td>@ViewData["OrderNum"]</td>
+            </tr>
+            <tr>
+                <td>备注:</td>
+                <td>@ViewData["Remarks"] </td>
+                <td>记录人:</td>
+                <td>@ViewData["CreatePerson"] </td>
+            </tr>
+        </table>
+    </div>
+    <div id="RK" style="display: none">
+        <table class="tabInfo" cellpadding="0" style="width: 98%; text-align: center">
+            <tr>
+                <td>完成日期:</td>
+                <td>@ViewData["FinishTime"]  </td>
+                <td>入库日期:</td>
+                <td>@ViewData["StockInTime"] </td>
+                <td>入库库房:</td>
+                <td>@ViewData["HouseID"] </td>
+            </tr>
+            <tr>
+                <td>入库批次:</td>
+                <td>@ViewData["Batch"] </td>
+                 <td>入库说明:</td>
+                <td>@ViewData["StockRemark"] </td>
+                <td>库管员:</td>
+                <td>@ViewData["Storekeeper"] </td>
+            </tr>
+            <tr>
+                <td>入库人:</td>
+                <td>@ViewData["StockInUser"] </td>
+            </tr>
+        </table>
+    </div>
+    <div id="bor1" style="width: 100%; margin-top: 5px; margin-left: 5px;">
+        <table cellpadding="0" cellspacing="0" border="0" id="list1" class="scroll" style="width: 100%;"></table>
+        <div id="pager1" class="scroll" style="text-align: center; width: 100%;"></div>
+    </div>
+
+</body>
+</html>
+

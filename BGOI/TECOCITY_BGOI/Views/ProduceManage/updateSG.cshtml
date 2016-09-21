@@ -1,0 +1,143 @@
+﻿@{
+    ViewBag.Title = "UpdateOrdersInfo";
+}
+
+@using TECOCITY_BGOI;
+@model tk_ProductRecord
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RecordManage</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ProduceManage/updateSG.js")" type="text/javascript"></script>
+    <style type="text/css">
+     .RowClass {
+            background-color: #efd2d2;
+     }
+     </style>
+</head>
+<body>
+    <form id="form1" method="post">
+        <div id="tabTitile"><span style="margin-left: 10px; float: left;">随工单编号：@ViewData["SGID"]</span></div>@Html.HiddenFor(model => Model.SGID)
+        <div style="height: 480px; overflow-y:auto;">
+             <h1 style="text-align:center">修改随工单信息</h1>
+            <div id="b" style="height:5px"></div>
+      <div id="bb" style="background-color:#0099FF;Color:white;height:20px;width:100%;font-size:15px; text-align:left; line-height:20px;padding-top:5px;">基本信息</div>
+            <table class="tabInfo" cellpadding="0" style=" width :98% ;">
+                <tr>
+                    <td>任务单号:</td>
+                    <td> @Model.RWID  @Html.ValidationMessageFor(model => model.RWID) @Html.HiddenFor(model => Model.RWID)</td>
+                    <td>编号:</td>
+                    <td>@Html.TextBoxFor(model => Model.ID)<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.ID) </td> 
+                </tr>
+                <tr> 
+                    <td>负责人:</td>
+                    <td> @Html.TextBoxFor(model => Model.SpecsModels)<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.SpecsModels) </td>
+                    <td>开单日期:</td>
+                    <td> @Html.TextBox("billing", ViewData["billing"], new { @class = "txtCss", @readonly = "readonly", onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})" })<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => ViewData["billing"]) </td>
+                </tr>
+            </table>
+            <div id="b" style="height:5px"></div>
+            <div id="bb" style="background-color:#0099FF;Color:white;height:20px;width:100%;font-size:15px; text-align:left; line-height:20px;padding-top:5px;">产品信息</div>
+            <div id="a" style="padding-top:10px">
+                <tr>
+                    <div style="overflow-y: scroll;max-height:80px;">
+                <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo" style=" width :98% ;text-align:center">
+                    <tr align="center" valign="middle">
+                                <th style="width: 5%;" class="th">序号
+                                </th>
+                                <th style="width: 10%;" class="th">产品编码
+                                </th>
+                                <th style="width: 10%;" class="th">产品名称
+                                </th>
+                                <th style="width: 10%;" class="th">规格型号
+                                </th>
+                                <th style="width: 5%;" class="th">单位
+                                </th>
+                                <th style="width: 10%;" class="th">数量
+                                </th>
+                                <th style="width: 10%;" class="th">批次号
+                                </th>
+                                <th style="width: 10%;" class="th">备注
+                                </th>
+                               @* <th style="width: 10%;" class="th">删除
+                                </th>*@
+                    </tr>
+                    <tbody id="DetailInfo"></tbody>
+                </table>
+                        </div>
+                </tr>
+                @* <tr>
+                    <div style="overflow-y: scroll;max-height:90px;">
+                <table id="myTable1" cellpadding="0" cellspacing="0" class="tabInfo" style=" width :98% ;text-align:center">
+                     <tr align="center" valign="middle">
+                               <th style="width: 5%;" class="th" rowspan="2">序号
+                                </th>
+                                <th style="width: 5%;" class="th" rowspan="2">工序
+                                </th>
+                                <th style="width: 10%;" class="th" rowspan="2">班组
+                                </th>
+                                <th style="width: 10%;" class="th" rowspan="2">预计完成日期
+                                </th>
+                                <th style="width: 5%;" class="th" rowspan="2">责任人
+                                </th>
+                                <th style="width: 5%;" class="th" rowspan="2">计划数量
+                                </th>
+                                <th style="width: 5%;" class="th" colspan="4">完成数量
+                                </th>
+                                <th style="width: 10%;" class="th" rowspan="2">实际完工日期
+                                </th>
+                                <th style="width: 10%;" class="th"rowspan="2">检验员
+                                </th>
+                                <th style="width: 10%;" class="th"rowspan="2">原因分析或说明
+                                </th>
+                                <th style="width: 10%;" class="th"rowspan="2">删除
+                                </th>
+                            </tr>
+                            <tr>
+                               <th style="width: 5%;" class="th">合格
+                                </th>
+                                <th style="width: 5%;" class="th">返修
+                                </th>
+                                <th style="width: 5%;" class="th">变更
+                                </th>
+                                <th style="width: 5%;" class="th">废品
+                                </th>
+                            </tr>
+                    <tbody id="DetailInfos"></tbody>
+                </table>
+                        </div>
+                     </tr>*@
+                 <div id="b" style="height:5px"></div>
+                <div id="bb" style="background-color:#0099FF;Color:white;height:20px;width:100%;font-size:15px; text-align:left; line-height:20px;padding-top:5px;">其他信息</div>
+                <table id="Botom" class=" tabInfo" >
+                   <tr>
+                        <td>记录人</td>
+                        <td>@Html.TextBoxFor(model => Model.CreateUser )<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.CreateUser) </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="text-align:center">
+            <input type="button" class="btn" id="btnSaveOrder" value="保存" />
+            <input type="button" class="btn" id="btnExit" value="取消" />
+                </div>
+        </div>
+
+    </form>
+</body>
+</html>
+

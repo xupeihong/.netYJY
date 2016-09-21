@@ -1,0 +1,119 @@
+﻿@{
+    ViewBag.Title = "OrderApprovalManage";
+}
+@using TECOCITY_BGOI
+@model tk_SalesGrid
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>ApprovalManage</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Sales/OrderApprovalManage.js")" type="text/javascript"></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("ApprovalManage", "SalesManage", FormMethod.Post, new { id = "GForm" }))
+    {
+        @Html.Hidden("webkey", @ViewData["webkey"])   @Html.Hidden("folderBack", @ViewData["folderBack"]) @Html.Hidden("Nostate", @ViewData["Nostate"])
+        <div id="pageContent" style="overflow-y: auto;">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">项目产品业务</span>>><span style="color: #000099;">项目审批</span>>><span style="color: #000099;">@ViewData["webkey"]</span>
+</div>
+            <div id="search" style="height: 80px;">
+                <table class="tabSearch" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>合同编号</td>
+                        <td>@Html.TextBoxFor(model => model.ContractID, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.ContractID)</td>
+                        <td>订货单位</td>
+                        <td>@Html.TextBoxFor(model => model.OrderUnit, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.OrderUnit)</td>
+                        
+                    </tr>
+                    <tr>
+                        @*<td>订货内容</td>
+                        <td>@Html.TextBoxFor(model => model.MainContent, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.MainContent)</td>*@
+                        <td>使用单位</td>
+                        <td>@Html.TextBoxFor(model => model.UseUnit, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.UseUnit)</td>
+                        <td>签订日期</td>  @*交货日期*@
+                        <td>
+                            @Html.TextBoxFor(model => model.StartDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss", @readonly = "readonly" })@Html.ValidationMessageFor(model => model.StartDate) -  @Html.TextBoxFor(model => model.EndDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss", @readonly = "readonly" }) @Html.ValidationMessageFor(model => model.EndDate)
+                            @*<input type="text" id="StartDate" onclick="WdatePicker()" class="Wdate" style="width:170px;" />~
+                <input type="text" id="EndDate" onclick="WdatePicker()" class="Wdate" style="width:170px;" />*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            状态&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButton("State", "-1", new { @checked = true })全部&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButton("State", "0")审批新建&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButton("State", "1")审批中&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButton("State", "2")审批通过&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButton("State", "20")修改审批新建&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButton("State", "21")修改审批完成&nbsp;&nbsp;&nbsp;&nbsp;
+                           
+                            <input type="button" class="btn" id="btnSearch" style="float: right; margin-right: 10px;" value="查  询" onclick="reload()" />
+
+
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+
+            <div style="margin-top: 3px; margin-left: 10px;">
+                <input class="btn" type="button" id="SP" value="审批" />
+                <input class="btn" type="button" id="SHowAppOrderXX" value="订单详细" />
+            </div>
+
+            <div id="bor" style="width: 100%; margin-top: 3px; margin-left: 10px;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+            <div style="margin-top: 10px; margin-left: 10px;">
+                <input type="button" id="QQJQdiv" class="btnTw" value="审批情况信息" />
+                <input type="button" id="RZJLdiv" class="btnTh" value="操作日志记录信息" />
+               
+             </div>
+
+            <div id="QQ" style="border: 1px solid #707070; margin-left: 10px;">
+                <div id="bor1" style="width: 100%; margin-top: 3px; margin-left: 10px;">
+                    <table id="list1" class="scroll" style="width: 100%;"></table>
+                    <div id="pager1" class="scroll" style="text-align: center; width: 100%;"></div>
+                </div>
+            </div>
+
+            <div id="RZJ" style="border: 1px solid #707070; margin-left: 10px; display: none;">
+                <div id="bor2" style="width: 100%; margin-top: 3px; margin-left: 10px;">
+                    <table id="list2" class="scroll" style="width: 100%;"></table>
+                    <div id="pager2" class="scroll" style="text-align: center; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    }
+</body>
+</html>
+

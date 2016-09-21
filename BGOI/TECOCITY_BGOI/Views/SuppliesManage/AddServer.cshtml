@@ -1,0 +1,66 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model tk_SService
+<!DOCTYPE html>
+
+<html>
+<head>
+   @* <meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>AddServer</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Sales/RecordInfo.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/AddServer.js")" type="text/javascript"></script>
+</head>
+
+@using (Html.BeginForm("AddServer", "SuppliesManage", FormMethod.Post, new { id = "ServerInfo", action = "InsertServerMsg", enctype = "multipart/form-data" }))
+{
+    <body>
+        @Html.Hidden("msg", @ViewData["msg"])
+        <div id="tabTitile">流水号:@Html.HiddenFor(model => model.Sid)@ViewBag.sid</div>
+        <div id="hole" style="overflow-y: auto;">
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">服务名称</td>
+                    <td class="textRight"  style="text-align:left;">@Html.TextBoxFor(model => model.ServiceName, new { @class = "txtCss" })  @Html.ValidationMessageFor(model => model.ServiceName) <span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">服务描述</td>
+                    <td class="textRight" style="text-align:left;">@Html.TextBoxFor(model => model.ServiceDesc, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.ServiceDesc)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">用途</td>
+                    <td class="textRight" style="text-align:left;">@Html.TextBoxFor(model => model.Purpose, new { @class = "txtCss" }) </td>
+                </tr>
+                 <tr>
+                    <td class="textLeft">请上传服务文档</td>
+                    <td class="textRight" colspan="3" style="text-align:left;">
+                        <input name="file" type="file" id="UploadFile" class="file" />
+                        <div id="Progress" runat="server" style="float: right; width: 85%; color: Green; height: 24px; line-height: 24px;">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div style="margin-top: 10px; margin-left: 290px;">
+                <input type="button" value="确定" id="sure1" class="btn" style="cursor: pointer" />
+            </div>
+        </div>
+    </body>
+}
+
+</html>

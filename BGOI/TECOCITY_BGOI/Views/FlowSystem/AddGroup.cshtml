@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddGroup</title>
+
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/FlowSystem/AddGroup.js")" type="text/javascript"></script>
+</head>
+@using (Html.BeginForm("AddGroup", "FlowSystem", FormMethod.Post, new { id = "ProjectformInfo" }))
+{
+    <body>
+        <div id="hole" style="overflow-y: auto;">
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">内容</td>
+                    <td class="textRight" colspan="3">
+                        @Html.TextBox("Text", "", new { @class = "txtCss" })<span style="color: red;">*</span>
+                    </td>
+                </tr>
+
+            </table>
+            <div style="margin-top: 10px; margin-left: 70%">
+                <input class="btn" type="button" id="charge" value="确定" />
+            </div>
+
+
+        </div>
+    </body>
+       
+}
+</html>
+

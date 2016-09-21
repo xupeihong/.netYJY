@@ -1,0 +1,85 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model tk_SCertificate
+<!DOCTYPE html>
+
+<html>
+<head>
+    @* <meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <title>AddCertificate</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Sales/RecordInfo.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/AddCertificate.js")" type="text/javascript"></script>
+</head>
+
+@using (Html.BeginForm("AddCertificate", "SuppliesManage", FormMethod.Post, new { id = "CertificateInfo", action = "InsertCerfiticateMsg", enctype = "multipart/form-data" }))
+{
+    <body>
+        @Html.Hidden("msg", @ViewData["msg"])
+        <div id="tabTitile">流水号:@Html.HiddenFor(model => model.Sid)@ViewBag.sid</div>
+        <div id="hole" style="overflow-y: auto;">
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">是否为计划性证书</td>
+                    <td class="textRight"style="text-align:left;">
+                        @Html.RadioButton("Isplan", "0", new { @checked = true }) 否
+                        @Html.RadioButton("Isplan", "1") 是
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">证书类型</td>
+                    <td class="textRight"style="text-align:left;">@Html.DropDownListFor(model => model.Ctype, SupplyManage.GetConfigType("CType"), new { @class = "txtCss" }) <span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">证书名称</td>
+                    <td class="textRight"style="text-align:left;">@Html.TextBoxFor(model => model.Cname, new { @class = "txtCss" })  @Html.ValidationMessageFor(model => model.Cname) <span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">证书编号</td>
+                    <td class="textRight"style="text-align:left;">@Html.TextBoxFor(model => model.Ccode, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.Ccode) <span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">认证机构名称</td>
+                    <td class="textRight"style="text-align:left;">@Html.TextBoxFor(model => model.Corganization, new { @class = "txtCss" })  @Html.ValidationMessageFor(model => model.Corganization)<span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">认证通过时间</td>
+                    <td class="textRight"style="text-align:left;">@Html.TextBoxFor(model => model.Cdate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss", @readonly = true })<span style="color: red;">*</span> </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">证书到期时间</td>
+                    <td class="textRight"style="text-align:left;">@Html.TextBoxFor(model => model.TimeOut, new { @class = "txtCss", onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @readonly = true }) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">请上传证书</td>
+                    <td class="textRight" colspan="3"style="text-align:left;">
+                        <input name="file" type="file" id="UploadCertifi" class="file" />
+                        <div id="Progress" runat="server" style="float: right; width: 85%; color: Green; height: 24px; line-height: 24px;">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div style="margin-top: 10px; margin-left: 280px;">
+                <input type="button" value="确定" id="sure1" class="btn" style="cursor: pointer" />
+            </div>
+        </div>
+    </body>
+    
+}
+
+</html>

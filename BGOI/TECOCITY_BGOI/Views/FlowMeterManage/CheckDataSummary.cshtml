@@ -1,0 +1,91 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_CheckData
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CheckDataSummary</title>
+
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/CheckDataSummary.js")" type="text/javascript"></script>
+</head>
+<body>
+
+@using (Html.BeginForm("ExportDataTableToExcelCheckData", "FlowMeterManage", FormMethod.Post, new { id = "GForm"}))
+  {
+    <div id="pageContent">
+        <input type="submit" class="btn" value="导出" />
+    @Html.HiddenFor(model => model.StrRID)
+        <div style="width:99%;overflow:scroll;height:60%;margin-left:10px">
+
+            <table id="list" class="tabInfo" style="text-align:center; width:2000px;">
+                <tr>
+                    <td class="textLeft" colspan="2" width=""></td>
+                    <td class="textLeft" ></td>
+                    <td class="textLeft" colspan="7">流量点m3/h</td>
+                    <td class="textLeft" colspan="7">平均仪表系数1/m3</td>
+                    <td class="textLeft" colspan="7">重复性%</td>
+
+                    <td class="textLeft" >仪表系数(1/m3)</td>
+                    <td class="textLeft" colspan="2">高频 示值误差(%)</td>
+                    <td class="textLeft">拍照示值误差(%)</td>
+                    <td class="textLeft" >原仪表系数</td>
+                </tr>
+                <tr id="QXtr">
+                    <td class="textLeft">出厂编号</td>
+                    <td class="textLeft">证书编号  </td>
+                    <td class="textLeft">测试结果备注  </td>
+                    <td class="textLeft">Qmin  </td>
+                    <td class="textLeft">0.1Qmax</td>
+                    <td class="textLeft">0.2Qmax</td>
+                    <td class="textLeft">0.25Qmax</td>
+                    <td class="textLeft">0.4Qmax</td>
+                    <td class="textLeft">0.7Qmax</td>
+                    <td class="textLeft">Qmax</td>
+                    <td class="textLeft">Qmin  </td>
+                    <td class="textLeft">0.1Qmax</td>
+                    <td class="textLeft">0.2Qmax</td>
+                    <td class="textLeft">0.25Qmax</td>
+                    <td class="textLeft">0.4Qmax</td>
+                    <td class="textLeft">0.7Qmax</td>
+                    <td class="textLeft">Qmax</td>
+                    <td class="textLeft">Qmin  </td>
+                    <td class="textLeft">0.1Qmax</td>
+                    <td class="textLeft">0.2Qmax</td>
+                    <td class="textLeft">0.25Qmax</td>
+                    <td class="textLeft">0.4Qmax</td>
+                    <td class="textLeft">0.7Qmax</td>
+                    <td class="textLeft">Qmax</td>
+
+                    <td class="textLeft"></td>
+                    <td class="textLeft">qt<=q<=qMax</td>
+                    <td class="textLeft">qMin<=q< qt </td>
+                    <td class="textLeft"></td>
+                    <td class="textLeft"></td>
+                </tr>
+
+            </table>
+
+        </div>
+    </div>
+}
+</body>
+</html>

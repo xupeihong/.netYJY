@@ -1,0 +1,78 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+
+@model tk_ProjectPurchase
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>Warn</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ProjectManage/UpdatePurchase.js")" type="text/javascript"></script>
+   <style>
+       .ui-jqgrid tr.jqgrow td {
+        white-space: normal !important;
+        height:auto;
+        vertical-align:text-top;
+        padding-top:2px;
+        }
+       </style>
+</head>
+   
+<body>
+    @using (Html.BeginForm("UpdatePurchase", "ProjectManage", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+    {
+        
+    <div id="pageContent">
+       @Html.HiddenFor(model => model.StrPcID)
+    <div id="tabTitile"><span style="margin-left:20px;">项目编号：@Model.StrPID</span></div>@Html.HiddenFor(model => model.StrPID)
+        <table class="tabInfo" style="width: 97%;margin-left:10px;margin-top:10px;">
+        <tr>
+            <td class="textLeft" style="width:100px;">合同名称</td><td class="textRight">@Html.TextBoxFor(model => model.StrPcName, new {style="width:90%" }) <span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.StrPcName)</td>
+        </tr>
+          <tr>
+            <td class="textLeft">甲方</td><td class="textRight">@Html.TextBoxFor(model => model.StrPartA, new {style="width:90%"})  @Html.ValidationMessageFor(model => model.StrPartA)</td>
+        </tr>
+          <tr>
+            <td class="textLeft">乙方</td><td class="textRight">@Html.TextBoxFor(model => model.StrPartB, new {style="width:90%"})  @Html.ValidationMessageFor(model => model.StrPartB)</td>
+        </tr>
+             <tr>
+            <td class="textLeft" style="width:100px;">合同编号</td><td class="textRight">@Html.TextBoxFor(model => model.StrPcNum, new {@class="txtCss" }) <span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.StrPcNum)</td>
+        </tr>
+        <tr>
+            <td class="textLeft">所属项目</td><td class="textRight">@Html.TextBoxFor(model => model.StrPname, new {style="width:90%" })<span style="color:red;"> * </span> @Html.ValidationMessageFor(model => model.StrPname)</td>
+        </tr>
+            <tr>
+            <td class="textLeft" style="width:100px;">合同额</td><td class="textRight">@Html.TextBoxFor(model => model.StrPcAmount, new {@class="txtCss" }) 万元 @Html.ValidationMessageFor(model => model.StrPcAmount)</td>
+        </tr>
+        <tr>
+            <td class="textLeft">合同类别</td><td class="textRight">@Html.DropDownListFor(model => model.StrPcType,ProjectMan.GetNewConfigContent("CGType"), new {@class="txtCss" }) <span style="color:red;"> * </span> @Html.ValidationMessageFor(model => model.StrPcType)</td>
+       </tr>
+    </table>
+       <div style="margin-top:10px;margin-left:75%">
+             <input class="btn" type="submit"  id="charge" value="确定"/>
+       </div> 
+   
+    </div>
+    }
+</body>
+</html>

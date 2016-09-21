@@ -1,0 +1,103 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_StockOut
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OutStockDetail</title>
+
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/OutStockDetail.js")" type="text/javascript"></script>
+</head>
+<body>
+     @using (Html.BeginForm("OutStockDetail", "FlowMeterManage", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+    {           
+    <div id="pageContent" style="overflow-y:auto;">
+       <div style="width:98%;margin-left:10px;margin-top:5px;">
+            <table class="tabInfo" id="content" style="width:98%;" >
+                <tr style="height:30px;"> 
+                    <td colspan="4" style="text-align:center; font-size:20px; font-weight:bold;">出库信息</td>
+                </tr>
+
+                <tr style="height:30px;">
+                    <td class="textLeftL">出库编号</td>
+                    <td class="textRightL">
+                        @Html.TextBoxFor(model => model.strOutID, new { @class = "txtCss", @ReadOnly = "ReadOnly", onkeypress = "return !(event.keyCode==8)", onkeydown = "return !(event.keyCode==8)" })
+                        <span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.strOutID)
+                    </td>
+                </tr>
+
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">登记号</td>
+                    <td class="textRightL">
+                        @Html.TextBoxFor(model => model.strRID, new { @class = "txtCss", style=" height:50px; width:70%;", @ReadOnly = "ReadOnly", onkeypress = "return !(event.keyCode==8)", onkeydown = "return !(event.keyCode==8)" })
+                        <span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.strRID)
+                    </td>
+                </tr>
+
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">领用人</td>
+                    <td class="textRightL">               
+                        @Html.TextBoxFor(model => model.strReceiveUser, new { @class = "txtCss"})
+                        <span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.strReceiveUser)
+                    </td>
+                </tr>
+
+                <tr style="height:30px;">  
+                    <td class="textLeftL">出库数量</td>
+                    <td class="textRightL">@Html.TextBoxFor(model => model.strOutCount, new { @class = "txtCss" })
+                        <span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.strOutCount)
+                    </td>
+                </tr>
+
+                <tr style="height:30px;">
+                    <td class="textLeftL">出库时间</td>
+                    <td class="textRightL">@Html.TextBoxFor(model => model.strStockOutTime, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })
+                        <span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.strStockOutTime)
+                    </td>
+                </tr>
+
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">出库单位</td>
+                    <td class="textRightL">@Html.TextBoxFor(model => model.strStockUnit, new { @class = "txtCss" })
+                    </td>
+                </tr>
+
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">出库操作人</td>
+                    <td class="textRightL">
+                        @Html.TextBoxFor(model => model.strOperateUser, new { @class = "txtCss" })
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+        <div style="float:right; margin-top:10px;">
+           <input type="submit" id="QD" class="btn" value=" 确 定 " style="margin-right:10px;"/> 
+            <br /><br />
+        </div>     
+    </div>     
+     }
+</body>
+</html>

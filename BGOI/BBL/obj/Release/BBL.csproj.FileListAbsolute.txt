@@ -1,0 +1,16 @@
+E:\BGOI\BBL\bin\Release\BBL.dll
+E:\BGOI\BBL\bin\Release\BBL.pdb
+E:\BGOI\BBL\bin\Release\Common.dll
+E:\BGOI\BBL\bin\Release\DAL.dll
+E:\BGOI\BBL\bin\Release\Models.dll
+E:\BGOI\BBL\bin\Release\NPOI.dll
+E:\BGOI\BBL\bin\Release\log4net.dll
+E:\BGOI\BBL\bin\Release\DataBase.dll
+E:\BGOI\BBL\bin\Release\Ionic.Zip.dll
+E:\BGOI\BBL\bin\Release\Common.pdb
+E:\BGOI\BBL\bin\Release\DAL.pdb
+E:\BGOI\BBL\bin\Release\Models.pdb
+E:\BGOI\BBL\bin\Release\DataBase.pdb
+E:\BGOI\BBL\obj\Release\BBL.csprojResolveAssemblyReference.cache
+E:\BGOI\BBL\obj\Release\BBL.dll
+E:\BGOI\BBL\obj\Release\BBL.pdb

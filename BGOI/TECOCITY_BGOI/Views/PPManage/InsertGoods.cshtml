@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model  PP_TransferS
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>ScrapManagementOut</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/PP/ProjectPP/InsertGoods.js")" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <form>
+        <div id="createAll" style="background-color: #ffffff; width: 100%; ">
+            <div id="biaoti">
+                <h1 class="title">零件检验单</h1>
+            </div>
+            <div id="danhao" class="PPtitle">
+                收检人:  @Html.TextBox("JYR", GAccount.GetAccountInfo().UserName, new { @class = "txtCss" })
+            </div>
+            <table cellpadding="0" cellspacing="0" class="tabInfo" style="margin-top:10px">
+
+                <tr>
+                    <td>
+                        <div style="overflow-y: scroll;max-height:200px;">
+                            <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                                <tr align="center" valign="middle">
+                                    <th class="th">
+                                        序号
+                                    </th>
+                                    <th class="th">
+                                        产品编号
+                                    </th>
+                                    <th class="th">
+                                        名称
+                                    </th>
+                                    <th class="th">
+                                        图号或规格
+                                    </th>
+                                    <th class="th">
+                                        供货商
+                                    </th>
+                                    <th class="th">
+                                        送检数量
+                                    </th>
+                                    <th class="th">
+                                        单位
+                                    </th>
+                                    <th class="th">
+                                        合格数量
+                                    </th>
+                                    <th class="th">
+                                        不合格数量
+                                    </th>
+                           
+                                </tr>
+                                <tbody id="GXInfo"></tbody>
+
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div  class="PPtitle">
+               
+                总结: @Html.TextAreaFor(model => model.Summary, new { @class = "txtCss", style = "width:100%;" })
+                检验员:  @Html.TextBox("testPeople", GAccount.GetAccountInfo().UserName, new { @class = "txtCss" })
+                <input id="Submit" type="button" class="btn" value="确定选择" style="margin-left:90%" />
+            </div>
+           
+    </form>
+</body>
+</html>

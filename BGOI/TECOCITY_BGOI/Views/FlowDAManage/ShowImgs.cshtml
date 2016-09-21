@@ -1,0 +1,44 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShowImgs</title>
+
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/Columjs/highcharts.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/FlowDAManage/ShowImgs.js")" type="text/javascript"></script>
+
+</head>
+<body style="overflow: scroll;">
+    <div id="pageContent" style="overflow-y: auto;">
+        @Html.Hidden("Hide", ViewData["Meters"])
+        @*        <div style="width: 100%; margin-left: 10px; margin-top:10px;">
+            <input type="button" class="btn" value="导出" />
+        </div>*@
+        <div style="width: 100%; margin-left: 10px;" id="divInfo">
+            <div id="divTab" style="width: 200px; float: left;">
+            </div>
+            <div id="divImg" style="width: 70%; float: left;">
+                <div id="divchart" style="margin-left: 10px; width: 450px; height: 350px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

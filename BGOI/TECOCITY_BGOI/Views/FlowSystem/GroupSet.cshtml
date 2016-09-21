@@ -1,0 +1,71 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GroupSet</title>
+
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/FlowSystem/GroupSet.js")" type="text/javascript"></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+@{
+    Acc_Account account = GAccount.GetAccountInfo();
+    int Rights = account.UserID;
+}
+<body>
+    @using (Html.BeginForm("GroupSet", "FlowSystem", FormMethod.Post, new { id = "GForm" }))
+    {
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">系统设置</span>>>下发小组人员配置
+            </div>
+            <div style="margin-top: 5px; margin-left: 10px;">
+                @if (Rights != 321)
+                {  
+                    <input class="btn" type="button" id="XZGroup" value="新增组" />
+                }
+            </div>
+
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+            <div style="margin-top: 5px; margin-left: 10px;">
+                @if (Rights!=321)
+                {  
+                    <input class="btn" type="button" id="XZUser" value="新增组员" />
+                }
+            </div>
+            <div id="bor1" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list1" class="scroll" style="width: 100%;"></table>
+                <div id="pager1" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+        </div>
+    }
+</body>
+</html>

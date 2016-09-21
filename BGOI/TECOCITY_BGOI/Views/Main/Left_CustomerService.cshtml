@@ -1,0 +1,122 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Left_CustomerService</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-leftmenu1.js")" type="text/javascript"></script>
+    @{
+        string exjob = TECOCITY_BGOI.GAccount.GetAccountInfo().Exjob;
+    }
+</head>
+<body>
+    <dl id="wenzhang">
+        <dd>
+            @if (exjob != "")
+            {
+                <dl>
+                    <dt><span>- 处理审批</span></dt>
+                    <dd>
+                        <ul>
+                            <li onclick="TurnTo('../CustomerService/AppProcessing');Back(this)"><span>▪ 处理记录审批</span></li>
+                            <li onclick="TurnTo('../CustomerService/ContractProcessing');Back(this)"><span>▪ 合同审批</span></li>
+                            <li onclick="TurnTo('../CustomerService/BillingRecordsProcessing');Back(this)"><span>▪ 收款记录审批</span></li>
+                            <li onclick="TurnTo('../CustomerService/KPProcessing');Back(this)"><span>▪ 开票记录审批</span></li>
+                        </ul>
+                    </dd>
+                </dl>
+            }
+            <dl>
+                <dt><span>- 用户服务</span></dt>
+                <dd>
+                    <ul>
+                        @*   <li onclick="TurnTo('')"><span>▪  售后服务需求</span></li>*@
+                        <li onclick="TurnTo('../CustomerService/UserVisit');Back(this)"><span>▪  用户回访</span></li>
+                        <li onclick="TurnTo('../CustomerService/UserComplaints');Back(this)"><span>▪  用户投诉</span></li>
+                        <li onclick="TurnTo('../CustomerService/TelephoneAnswering');Back(this)"><span>▪  电话记录</span></li>
+                        @*   <li onclick="TurnTo('../CustomerService/CustomerSatisfactionSurvey')"><span>▪  顾客满意度调查</span></li>*@
+                    </ul>
+                </dd>
+            </dl>
+            <dl>
+                <dt><span>- 产品安装</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../CustomerService/ProductReport');Back(this)"><span>▪ 产品报装</span></li>
+                        <li onclick="TurnTo('../CustomerService/ProductInstallation');Back(this)"><span>▪ 产品服务</span></li>
+                        <li onclick="TurnTo('../CustomerService/HomeSalesInstallation');Back(this)"><span>▪ 家用销售服务</span></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl>
+                <dt><span>- 维修任务</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../CustomerService/MaintenanceTask');Back(this)"><span>▪ 维修任务</span></li>
+                        <li onclick="TurnTo('../CustomerService/WarrantyCard');Back(this)"><span>▪ 保修卡</span></li>
+                        <li onclick="TurnTo('../CustomerService/EquipmentCommissioning');Back(this)"><span>▪ 设备调试任务单</span></li>
+                    </ul>
+                </dd>
+            </dl>
+
+            <dl>
+                <dt><span>- 客户服务</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../CustomerService/PressureAdjustingInspection');Back(this)"><span>▪ 调压箱巡检</span></li>
+                        <li onclick="TurnTo('../CustomerService/CusService');Back(this)"><span>▪ 客户服务</span></li>
+                        <li onclick="TurnTo('../CustomerService/Contract');Back(this)"><span>▪ 合同</span></li>
+                    </ul>
+                </dd>
+            </dl>
+            @* <dl>
+                <dt><span>- 系统设置</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../CustomerService/AftermarketConfiguration')"><span>▪ 公共信息维护</span></li>
+                    </ul>
+                </dd>
+            </dl>*@
+            <dl>
+                <dt><span>- 统计详情</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../CustomerService/CollectionRecord');Back(this)"><span>▪ 收款记录</span></li>
+                        <li onclick="TurnTo('../CustomerService/CustimerOrder');Back(this)"><span>▪ 订货单</span></li>
+                        <li onclick="TurnTo('../CustomerService/BillingRecords');Back(this)"><span>▪ 开票记录</span></li>
+                    </ul>
+                </dd>
+            </dl>
+
+            <dl>
+                <dt><span>- 记录查询</span></dt>
+                <dd>
+                    <ul>
+                        @* <li onclick="TurnTo('../CustomerService/UserServiceStatistics')"><span>▪ 用户服务统计</span></li>*@
+                        <li onclick="TurnTo('../CustomerService/InstallStatistics');Back(this)"><span>▪ 报装统计</span></li>
+                        <li onclick="TurnTo('../CustomerService/SatisfactionStatistics');Back(this)"><span>▪ 用户满意度调查统计表</span></li>
+                        <li onclick="TurnTo('../CustomerService/MaintenanceTaskStatistics');Back(this)"><span>▪ 维修任务统计</span></li>
+                        <li onclick="TurnTo('../CustomerService/TestingOfEquipmentStatistics');Back(this)"><span>▪ 设备调试统计表</span></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl>
+                <dt><span>- 系统设置</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../System/AppSet?id=BGOI_CustomerService/tk_AppContent');Back(this)"><span>▪ 审批设置</span></li>
+                        <li onclick="TurnTo('../CustomerService/BasCus');Back(this)"><span>▪ 公共信息维护</span></li>
+                    </ul>
+                </dd>
+            </dl>
+        </dd>
+    </dl>
+</body>
+</html>

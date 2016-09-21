@@ -1,0 +1,105 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model tk_SalesGrid
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    <title>PromotionManage</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/Sales/RetailSales/PromotionManage.js")" type="text/javascript"></script>
+</head>
+<body>
+    @{
+        string userRole = GAccount.GetAccountInfo().UserRole;
+        string exJob = GAccount.GetAccountInfo().Exjob;
+        string Rights = GAccount.GetAccountInfo().Rights;
+    }
+    @Html.Hidden("UserRole", userRole)
+    @Html.Hidden("ExJob", exJob)
+    @using (Html.BeginForm("PromotionToExcel", "SalesRetail", FormMethod.Post, new { id = "GForm" }))
+    { @Html.Hidden("webkey", @ViewData["webkey"])   @Html.Hidden("folderBack", @ViewData["folderBack"]) @Html.Hidden("Nostate", @ViewData["Nostate"])
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>>家用产品管理>><span>促销活动</span>
+            </div>
+            <div>
+                <fieldset style="background-color: white;">
+                    <legend></legend>
+                    <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; margin-bottom: 5px; margin-left: 5px; margin-right: 5px; margin-top: 5px;">
+                        <tr>
+                            <td style="height: 25px;">活动主题：</td>
+                            <td>
+                                @Html.TextBoxFor(model => model.ActionTitle, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ActionTitle)</td>
+                            <td>申请人：</td>
+                            <td>
+                                @Html.TextBoxFor(model => model.Applyer, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.Applyer)</td>
+                        </tr>
+                        <tr>
+                            <td style="height: 25px;">活动执行时间：</td>
+                            <td colspan="2">
+                                @Html.TextBoxFor(model => model.StartDate, new { @class = "txtCss", @readonly = "readonly", onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})" })~
+                          @Html.TextBoxFor(model => model.EndDate, new { @class = "txtCss", @readonly = "readonly", onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})" })
+                            </td>
+                            <td>
+                                <input class="btn" id="btnSearch" type="button" value="查  询" />
+                            </td>
+                        </tr>
+
+                    </table>
+                </fieldset>
+            </div>
+            <div id="divOperate" style="background-color: white; height: 36px; padding-top: 5px; margin-left: 5px;">
+@if (Rights.IndexOf(",Y13,") >= 0)
+                {
+                <input type="button" class="btn" id="btnRecord" value="活动申请" />}&nbsp;&nbsp;&nbsp;@if (Rights.IndexOf(",Y14,") >= 0)
+                {<input type="button" class="btn" id="btnUpdate" value="修  改" />}&nbsp;&nbsp;&nbsp;@if (Rights.IndexOf(",Y15,") >= 0)
+                {<input type="button" class="btn" id="btnCancel" value="撤  销" />}
+                &nbsp;&nbsp;&nbsp;
+                 <input type="submit" class="btn" style="float: right; margin-right: 15px;" id="btnOut" value="导  出" />
+                &nbsp;&nbsp;&nbsp;
+            <input type="button" class="btn" style="float: right; margin-right: 15px;" id="btnSP" value="提交审批" />
+                &nbsp;&nbsp;&nbsp;
+                   <input type="button" class="btn" style="float: right; margin-right: 15px;" id="btnPrintSP" value="审批打印" />
+            </div>
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 5px;">
+                <table cellpadding="0" cellspacing="0" border="0" id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+            <div style="margin-top: 3px; margin-left: 10px;">
+                <input type="button" id="btnDetail" class="btnTw" style="margin-left: 10px;" value="活动方案信息" />
+                <input type="button" value="审批情况" id="btnSPInfo" class="btnTh" />
+            </div>
+            <div id="div1" style="border: 1px solid #707070; margin-left: 10px;">
+                <div id="bor1" style="width: 100%; margin-top: 3px; margin-left: 10px;"></div>
+                @*<table style="width: 100%;" id="loadlist"></table>*@
+                <table style="width: 100%;" id="list4"></table>
+                <div id="pager4" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+            <div id="div2" style="border: 1px solid #707070; margin-left: 10px; display: none;">
+                <div id="bor2" style="width: 100%; margin-top: 4px; margin-left: 10px;">
+                    <table id="list2" class="scroll" style="width: 100%;"></table>
+                    <div id="pager2" class="scroll" style="text-align: center; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    }
+</body>
+</html>

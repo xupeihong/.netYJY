@@ -1,0 +1,194 @@
+﻿@{
+    Layout = null;
+}
+
+@using TECOCITY_BGOI
+@model tk_WXRecord
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UpMaintenanceTask</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+
+
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Sales/RecordInfo.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+   @* <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>*@
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_Tables.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/CustomerServiceManage/UpMaintenanceTask.js")" type="text/javascript"></script>
+
+</head>
+<body>
+    <form>
+        <div id="tabTitile"><span style="margin-left: 10px; float: left;">编号：@Model.WXID</span></div>@Html.HiddenFor(model => Model.WXID)
+        <div id="ta2" style="width: auto; height: auto;float: left;">
+            <span style="margin-left: 10px; float: left; font-size: 15px;">报修编号:</span><div style="float: left;">@Html.TextBoxFor(model => model.BXID, new { @class = "txtCss", @readonly = "true" })@Html.ValidationMessageFor(model => model.SignatureName)</div>
+            <span style="margin-left: 220px; float: left; font-size: 15px;">登录日期:</span><div id="localtime" style="float: right;"></div>
+        </div>
+        <br />
+        <div style="height: 350px; overflow-y: auto; margin-top: 15px; text-align: left;">
+            <table class="tabInfo" style="width: 99%; margin-left: 8px; margin-top: 10px;">
+                <tr style="text-align: center; font: bold; margin-top: 20px; font-size: 24px;">
+                    <td colspan="6">维修记录</td>
+                </tr>
+                <tr style="background-color: #88c9e9; text-align: left;">
+
+                    <td colspan="6">基本信息</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">客户名称 </td>
+                    <td colspan="2">
+                        @Html.TextBox("SignatureName", "", new { @class = "txtCss", @readonly = "true" })@Html.ValidationMessageFor(model => model.SignatureName)
+                        @*@Html.DropDownListFor(model => model.SignatureName, CustomerServiceMan.GetKClientBas(), new { @class = "txtCss",@onchange="GaiBian()",@readonly="true"  })*@</td>
+                    <td class="textLeft">地址</td>
+                    <td colspan="2">@Html.TextBox("Address", "", new { @class = "txtCss", @readonly = "true" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">产品型号 </td>
+                    <td colspan="2">
+                        @Html.TextBox("DeviceType", "", new { @class = "txtCss", @readonly = "true" })
+                        @*  @Html.DropDownList("DeviceType", CustomerServiceMan.GetOrderContent(), new { @class = "txtCss",@readonly="true" })*@</td>
+                    <td class="textLeft">产品编号 </td>
+                    <td colspan="2">@Html.TextBox("DeviceID", "", new { @class = "txtCss", @readonly = "true" })</td>
+                </tr>
+            </table>
+            <table class="tabInfo" style="width: 99%; margin-left: 8px; margin-top: 10px;">
+                <tr style="background-color: #88c9e9; text-align: left;">
+                    <td colspan="6">维修信息</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">维修日期：</td>
+                    <td colspan="2">
+                        <input type="text" id="MaintenanceTime" onclick="WdatePicker()" class="Wdate" style="width: 170px;" /></td>
+                    <td class="textLeft">维修车辆：</td>
+                    <td colspan="2">@Html.TextBox("MaintenanceVehicle", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.MaintenanceVehicle)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">维修人员：</td>
+                    <td colspan="5">@Html.TextBox("MaintenanceName", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.MaintenanceName)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">维修情况记录：</td>
+                    <td colspan="5">@Html.TextArea("MaintenanceRecord", "", new { @class = "txtCss", @style = "width:720px;height:50px;" })@Html.ValidationMessageFor(model => model.MaintenanceRecord)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">最终处理结果：</td>
+                    <td colspan="5">@Html.TextArea("FinalResults", "", new { @class = "txtCss", @style = "width:720px;height:50px;" })@Html.ValidationMessageFor(model => model.FinalResults)</td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                       <input type="button" class="btn" onclick="CheckDetail();" style="display:none" value="添加"
+                            id="btnAdd" name="btnAdd" />
+
+                        <input type="button" class="btn" onclick="addKonghang();" value="添加"
+                            id="btnAdd1" name="btnAdd1" />&nbsp;
+                        <div style="overflow-y: scroll;">
+                            <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                                <tr align="center" valign="middle">
+                                    <th style="width: 5%;" class="th">序号
+                                    </th>
+                                    <th style="width: 30%;" class="th">零件编号
+                                    </th>
+                                    <th style="width: 30%;" class="th">更换零件名称
+                                    </th>
+                                    <th style="width: 30%;" class="th">规格型号
+                                    </th>
+                                    <th style="width: 5%;" class="th">数量
+                                    </th>
+                                    <th style="width: 5%;" class="th">单价
+                                    </th>
+                                    <th style="width: 15%;" class="th">总价
+                                    </th>
+                                    <th style="width: 10%;" class="th">操作
+                                    </th>
+                                </tr>
+                                <tbody id="DetailInfo"></tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    
+                    <td class="textLeft">人工费：</td>
+                    <td colspan="2">@Html.TextBox("ArtificialCost", "", new { @class = "txtCss",@onchange = "RGF()", })@Html.ValidationMessageFor(model => model.ArtificialCost)</td>
+                    <td class="textLeft">材料费：</td>
+                    <td colspan="2">@Html.TextBox("MaterialCost", "", new { @class = "txtCss",@onchange = "RGF()" })@Html.ValidationMessageFor(model => model.MaterialCost)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">其他费用：</td>
+                    <td colspan="2">@Html.TextBox("OtherCost", "", new { @class = "txtCss",@onchange = "RGF()" })@Html.ValidationMessageFor(model => model.OtherCost)</td>
+                    <td class="textLeft">总计金额：<input id="ZongJi" type="hidden"/></td>
+                    <td colspan="2">@Html.TextBox("Total", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Total)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">支付方式：</td>
+                    <td colspan="2">@Html.TextBox("PaymentMethod", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.PaymentMethod)</td>
+                    <td class="textLeft">收款人：</td>
+                    <td colspan="2">@Html.TextBox("Payee", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Payee)</td>
+                </tr>
+
+                 <tr>
+                    <td class="textLeft">收款时间：</td>
+                    <td colspan="5">
+                        <input type="text" id="CollectionTime" onclick="WdatePicker()" class="Wdate" style="width: 170px;" /></td>
+                </tr>
+            </table>
+            <table class="tabInfo" style="width: 99%; margin-left: 8px; margin-top: 10px;">
+                <tr style="background-color: #88c9e9; text-align: left;">
+                    <td colspan="6">用户意见信息</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">用户意见：</td>
+                    <td colspan="2">
+                        @Html.RadioButton("Sate", "0", new { @checked = true })非常满意  
+                     @Html.RadioButton("Sate", "1")比较满意
+                     @Html.RadioButton("Sate", "2")一般  
+                     @Html.RadioButton("Sate", "3")不太满意
+                     @Html.RadioButton("Sate", "4")极不满意
+                    </td>
+                    <td class="textLeft">用户姓名：</td>
+                    <td colspan="2">@Html.TextBox("SignatureName", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.SignatureName)</td>
+                </tr>
+            </table>
+            <table class="tabInfo" style="width: 99%; margin-left: 8px; margin-top: 10px;">
+                <tr style="background-color: #88c9e9; text-align: left;">
+
+                    <td colspan="6">其他信息</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">备注</td>
+                    <td class="textRight" colspan="5">@Html.TextAreaFor(model => model.Remark, new { @class = "txtCss", @style = "width:720px;height:50px;" })@Html.ValidationMessageFor(model => model.Remark)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">登记人</td>
+                    <td class="textRight" colspan="5">@Html.TextBoxFor(model => model.CreateUser, new { @class = "txtCss", @readonly = "true" })</td>
+                </tr>
+            </table>
+        </div>
+        <div style="margin-top: 10px; margin-left: 75%;">
+           
+            <input class="btn" type="button" id="btnSave" value="保存" />
+             <input class="btn" type="button" id="Cancel" value="取消" />
+            <input type="text" id="DID" style="display: none;" />
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,98 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "";
+}
+@using TECOCITY_BGOI;
+@model UserAptitude
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/UserAptitude/UpdateAptitude.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+
+</head>
+@using (Html.BeginForm("UpdateAptitude", "UserAptitude", FormMethod.Post, new { id = "ProjectformInfo", action = "UpDataUserAptitude", enctype = "multipart/form-data" }))
+{
+    <body>@Html.Hidden("msg", @ViewData["msg"])  @Html.Hidden("ID", @ViewData["ID"])
+        <div id="hole" style="overflow-y: auto;">
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+
+                <tr>
+                    <td class="textLeft">人员id</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrUserID, new { @class = "txtCss", @ReadOnly = "ReadOnly", onkeypress = "return !(event.keyCode==8)", onkeydown = "return !(event.keyCode==8)" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">人员姓名</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrUserName, new { @class = "txtCss", @ReadOnly = "ReadOnly", onkeypress = "return !(event.keyCode==8)", onkeydown = "return !(event.keyCode==8)" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">业务类型</td>
+                    <td class="textRight" colspan="3">@Html.DropDownListFor(model => model.StrBusinessType, EquipMan.GetNewConfigContent("BusinessType"), new { @class = "txtCss" })<span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">证书级别</td>
+                    <td class="textRight" colspan="3">@Html.DropDownListFor(model => model.StrTecoClass, EquipMan.GetNewConfigContent("TecoClass"), new { @class = "txtCss" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">取得资格时间</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrGetTime, new { @class = "txtCss", onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })" })<span style="color: red;">*</span></td>
+                    <td class="textLeft">技术等级证书编号</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrCertificatCode, new { @class = "txtCss" }) <span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">证书名称</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrCertificateName, new { style = "width:80%" })<span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">发证单位</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrCertificateUnit, new { style = "width:80%" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">最新批准日期</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrLastCertificatDate, new { @class = "txtCss", onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })" })<span style="color: red;">*</span></td>
+                    <td class="textLeft">证书到期日期</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrCertificatDate, new { @class = "txtCss", onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })" })<span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">备注</td>
+                    <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.StrRemark, new { style = "width:80%;height:100px;" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">已存在文件</td>
+                    <td colspan="3">
+                        <div id="unit"></div>
+                    </td>
+                </tr>
+                <tr>
+                <tr>
+                    <td class="textLeft">选择上传文件</td>
+                    <td class="textright" colspan="3">
+                        <input name="file" type="file" id="UploadFile" class="file" />
+                        <div id="Progress" runat="server" style="float: right; width: 85%; color: Green; height: 24px; line-height: 24px;">
+                        </div>
+                        @*<div class="foot"><input type="button" id="upLoad" name="upLoad" value="上 传" class="btn" />
+        </div>*@
+                    </td>
+                </tr>
+            </table>
+            <div style="margin-top: 10px; margin-left: 80%">
+                <input class="btn" type="button" id="charge" value="确定" />
+            </div>
+
+
+        </div>
+    </body>
+       
+}
+</html>

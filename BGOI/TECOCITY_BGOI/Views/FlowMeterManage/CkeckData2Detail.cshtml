@@ -1,0 +1,183 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_CheckData2
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CkeckData2Detail</title>
+
+
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <style>
+        .textRightL {
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+   
+
+        <div id="pageContent" style="overflow-y:auto;">
+            <div style="width:98%;margin-left:10px;margin-top:5px;">
+                <table class="tabInfo" id="content">
+                    @Html.Hidden("RepairType")
+                    <tr style="height:30px;">
+                        <td colspan="6" style="text-align:center; font-size:20px; font-weight:bold;">@Model.StrRepairType</td>
+                    </tr>
+                    <tr style="height:30px;">
+
+
+
+
+                        @Html.HiddenFor(model => model.StrRID)
+
+                        <td class="textLeftL">检测人</td>
+                        <td class="textRightL">
+                            @Model.StrCheckUser
+                           
+                        </td>
+
+                        <td class="textLeftL">检测时间</td>
+                        <td class="textRightL">
+                           
+                            @Model.StrCheckDate
+                        </td>
+                        <td class="textLeftL">检测方式</td>
+                        <td class="textRightL">
+                          
+                            @Model.StrRepairMethod
+                        </td>
+                    </tr>
+                    <tr><td colspan="6">A声道</td></tr>
+                    <tr style="height:30px;">
+
+                        <td class="textLeftL">温度
+                        <td class="textRightL">
+                          @Model.StrATemperature
+
+                        </td>
+
+                        <td class="textLeftL">压力</td>
+                        <td class="textRightL">
+                          @Model.StrAPressure
+                        </td>
+                        <td class="textLeftL">理论声速</td>
+                        <td class="textRightL">
+                          @Model.StrAAheory
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="textLeftL">1path</td>
+                        <td class="textRightL">
+                          @Model.StrA1path
+                        </td>
+                        <td class="textLeftL">2path</td>
+                        <td class="textRightL">
+                          @Model.StrA2path
+                        </td>
+                        <td class="textLeftL">3path</td>
+                        <td class="textRightL">
+                          @Model.StrA3path
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="textLeftL">4path</td>
+                        <td class="textRightL">
+                          @Model.StrA4path
+                        </td>
+                        <td class="textLeftL">5path</td>
+                        <td class="textRightL">
+                          @Model.StrA5path
+                        </td>
+                        <td class="textLeftL">6path</td>
+                        <td class="textRightL">
+                          @Model.StrA6path
+                        </td>
+
+
+                    </tr>
+
+
+                    <tr><td colspan="6">B声道</td></tr>
+                    <tr>
+                        <td class="textLeftL">温度</td>
+                        <td class="textRightL">
+                          @Model.StrBTemperature
+                        </td>
+                        <td class="textLeftL">压力</td>
+                        <td class="textRightL">
+                          @Model.StrBPressure
+                        </td>
+                        <td class="textLeftL">理论声速</td>
+                        <td class="textRightL">
+                          @Model.StrBAheory
+                        </td>
+                    </tr>
+
+                    <tr style="height:30px;">
+
+                        <td class="textLeftL">1path </td>
+                        <td class="textRightL">
+                          @Model.StrB1path
+                        </td>
+                        <td class="textLeftL">2path</td>
+                        <td class="textRightL">
+                          @Model.StrB2path
+                        </td>
+
+
+                        <td class="textLeftL">3path</td>
+                        <td class="textRightL">
+                          @Model.StrB3path
+                        </td>
+                    <tr style="height:30px;">
+                        <td class="textLeftL">4path</td>
+                        <td class="textRightL">
+                          @Model.StrB4path
+                        </td>
+                        <td class="textLeftL">5path </td>
+                        <td class="textRightL">
+                          @Model.StrB5path
+                        </td>
+                        <td class="textLeftL">6path</td>
+                        <td class="textRightL">
+                          @Model.StrB6path
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <td class="textLeftL">数据是否合格</td>
+                        <td colspan="5">
+
+                         
+                          @Model.Strvalidate
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+    
+</body>
+</html>

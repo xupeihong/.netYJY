@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model  PP_ReceivingInformation
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>ScrapManagementOut</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/PP/ProjectPP/InsertCPSH.js")" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <form>
+        <div id="createAll" style="background-color: #ffffff; width: 100%; ">
+            <div id="biaoti">
+                <h1 class="title">新建收货单</h1>
+            </div>
+            <div id="danhao" class="PPtitle">
+                <span style="margin-left:10px;">收货单号：@Model.SHID</span>@Html.HiddenFor(model => model.SHID)
+                    到货处理人:
+                    @Html.TextBox("ArrivalProcess", GAccount.GetAccountInfo().UserName, new { @class = "txtCss" })
+                
+            </div>
+            <div>
+                <table border="0" cellpadding="0" cellspacing="0" width="98%" class="tabInfo">
+                    <tr>
+                        <td style="width: 20%">
+                            <input type="button" id="upLoad" class="btn" name="btnSel" value="上传" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <table cellpadding="0" cellspacing="0" class="tabInfo" style="margin-top:10px">
+
+                <tr>
+                    <td>
+                        <div style="overflow-y: scroll;max-height:200px;">
+                            <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                                <tr align="center" valign="middle">
+                                    <th class="th">
+
+                                    </th>
+                                    <th class="th">
+                                        序号
+                                    </th>
+                                    <th class="th">
+                                        成品ID
+                                    </th>
+                                    <th class="th">
+                                        成品名称
+                                    </th>
+                                    <th class="th">
+                                        规格型号
+                                    </th>
+                                    <th class="th">
+                                        总数量
+                                    </th>
+                                    <th class="th">
+                                        单位
+                                    </th>
+                                    <th class="th">
+                                        税前单价
+                                    </th>
+                                    <th class="th">
+                                        税后单价
+                                    </th>
+                                    <th class="th"  style="display:none">
+                                        已收货数量
+                                    </th>
+                                    <th class="th">
+                                        收货数量
+                                    </th>
+                                </tr>
+                                @* *@
+                                <tbody id="GXInfo"></tbody>
+                                <tbody id="GXInfo1" style="display:none"></tbody>
+                               
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <input id="CPSubmit" type="button" class="btn" value="确定选择" style="margin-left:90%" />
+            <div id="supplier" style="  margin-left: 10px; margin-top: 3px;">
+
+            </div>
+            <div id="bor1" style="overflow-y: scroll;">
+                <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                    <tbody id="GXInfo2"></tbody>
+                </table>
+            </div>
+    </form>
+</body>
+</html>

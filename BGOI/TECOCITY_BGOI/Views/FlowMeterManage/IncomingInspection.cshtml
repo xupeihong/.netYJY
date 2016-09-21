@@ -1,0 +1,86 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_CheckData
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>IncomingInspection</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/IncomingInspection.js")" type="text/javascript"></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("IncomingInspection", "FlowMeterManage", FormMethod.Post, new { id = "GForm" }))
+    {
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color:#000099;">流量计维修</span>>>进厂检测
+            </div>
+            <div id="search" style="height:100px;">
+                <table class="tabSearch" cellpadding="0" cellspacing="0">
+                    <tr style="height:30px;">
+                        <td>维修编号</td>
+                        <td>@Html.TextBox("RepairID", "", new { @class = "txtCss" })</td>
+                        <td>客户名称</td>
+                        <td>@Html.TextBox("CustomerName", "", new { @class = "txtCss" })</td>
+                        <td>客户地址</td>
+                        <td>@Html.TextBox("CustomerAddr", "", new { @class = "txtCss" })</td>
+                        <td>仪表编号</td>
+                        <td colspan="2">@Html.TextBox("MeterID", "", new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td>仪表名称</td>
+                        <td>@Html.TextBox("MeterName", "", new { @class = "txtCss" })</td>
+                        <td>仪表型号</td>
+                        <td>@Html.DropDownList("Model", FlowMeterMan.getConfigContent("YBModel"), new { @class = "txtCss", style = "width:167px;" })</td>
+                        <td>送表日期从</td>
+                        <td>@Html.TextBox("SS_Date", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })</td>
+                        <td>至</td>
+                        <td>@Html.TextBox("ES_Date", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td>状态</td>
+                        <td>@Html.DropDownList("State", FlowMeterMan.getConfigState("RepairState"), new { @class = "txtCss", style = "width:167px;" })</td>
+                        <td colspan="6"><input type="button" id="CX" class="btn" value="查询" onclick="reload();" /></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="margin-top:5px;margin-left:10px;">
+                <input class="btn" type="button" id="XZJC" value="新增检测" />
+                <input class="btn" type="button" id="XGJC" value="修改检测" />
+                <input class="btn" type="button" id="SCJC" value="删除检测" />
+
+            </div>
+
+            <div id="bor" style="width:100%;margin-top:5px;margin-left:10px;">
+                <table id="list" class="scroll" style="width:100%;"></table>
+                <div id="pager" class="scroll" style="text-align:center;width:100%;"></div>
+            </div>
+
+        </div>
+
+    }
+
+</body>
+</html>

@@ -1,0 +1,296 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Left_InventoryManage</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-leftmenu1.js")" type="text/javascript"></script>
+    @{
+        Acc_Account unitname = GAccount.GetAccountInfo();
+        string Unit = unitname.UnitID;
+        string UnitID = unitname.Path;
+    }
+    @Html.Hidden("UnitID", Unit)
+    @Html.Hidden("Unit", UnitID)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var UnitID = $("#Unit").val();
+            if (UnitID.indexOf(".47.")>0) {//输配
+                var tbd = document.getElementById("tbd");
+                tbd.style.display = "none";
+                var sxjrk = document.getElementById("sxjrk");
+                sxjrk.style.display = "none";
+                var rjkck = document.getElementById("rjkck");
+                rjkck.style.display = "none";
+                var sxjck = document.getElementById("sxjck");
+                sxjck.style.display = "none";
+                var ngzsck = document.getElementById("ngzsck");
+                ngzsck.style.display = "none";
+                var jycpxs = document.getElementById("jycpxs");
+                jycpxs.style.display = "none";
+                
+                //var kpcke = document.getElementById("kpcke");
+                //kpcke.style.display = "none";
+                //var jbck = document.getElementById("jbck");
+                //jbck.style.display = "none";
+                //var lxcck = document.getElementById("lxcck");
+                //lxcck.style.display = "none";
+                //var xmxcck = document.getElementById("xmxcck");
+                //xmxcck.style.display = "none";
+                var rjkck = document.getElementById("rjkck");
+                rjkck.style.display = "none";
+                var sxjck = document.getElementById("sxjck");
+                sxjck.style.display = "none";
+                var ngzsck = document.getElementById("ngzsck");
+                ngzsck.style.display = "none";
+                //var sclldck = document.getElementById("sclldck");
+                //sclldck.style.display = "none";
+            }
+            if (UnitID.indexOf(".37.")>0) {//应用
+                var sclldck = document.getElementById("sclldck");
+                sclldck.style.display = "none";
+
+                var thjydrk = document.getElementById("thjydrk");
+                thjydrk.style.display = "none";
+
+                var sczzrk = document.getElementById("sczzrk");
+                sczzrk.style.display = "none";
+               
+                var lxcck = document.getElementById("lxcck");
+                lxcck.style.display = "none";
+                var xmxcck = document.getElementById("xmxcck");
+                xmxcck.style.display = "none";
+
+                
+                var xcfhdgl = document.getElementById("xcfhdgl");
+                xcfhdgl.style.display = "none";
+                
+
+                var rkzhb = document.getElementById("rkzhb");
+                rkzhb.style.display = "none";
+                
+                var cpdy = document.getElementById("cpdy");
+                cpdy.style.display = "none";
+
+
+                var kczd = document.getElementById("kczd");
+                kczd.style.display = "none";
+            }
+            if (UnitID.indexOf(".49.")>0) {//发展用户
+                //库存管理
+                var tbd = document.getElementById("tbd");
+                tbd.style.display = "none";
+                var cpdy = document.getElementById("cpdy");
+                cpdy.style.display = "none";
+
+                var cgrk = document.getElementById("cgrk");
+                cgrk.style.display = "none";
+                var thjydrk = document.getElementById("thjydrk");
+                thjydrk.style.display = "none";
+                var sxjrk = document.getElementById("sxjrk");
+                sxjrk.style.display = "none";
+                var sczzrk = document.getElementById("sczzrk");
+                sczzrk.style.display = "none";
+
+
+                var lxcck = document.getElementById("lxcck");
+                lxcck.style.display = "none";
+                var xmxcck = document.getElementById("xmxcck");
+                xmxcck.style.display = "none";
+                var rjkck = document.getElementById("rjkck");
+                rjkck.style.display = "none";
+                var sxjck = document.getElementById("sxjck");
+                sxjck.style.display = "none";
+                var ngzsck = document.getElementById("ngzsck");
+                ngzsck.style.display = "none";
+                var sclldck = document.getElementById("sclldck");
+                sclldck.style.display = "none";
+
+
+                var bfdgl = document.getElementById("bfdgl");
+                bfdgl.style.display = "none";
+                var xcfhdgl = document.getElementById("xcfhdgl");
+                xcfhdgl.style.display = "none";
+            }
+
+            if (UnitID.indexOf(".36.") > 0) {//火艺部门
+                //库存管理
+                var kczd = document.getElementById("kczd");
+                kczd.style.display = "none";//库存账单
+                var hpkc = document.getElementById("hpkc");
+                hpkc.style.display = "none";//产品库存
+                var kfgl = document.getElementById("kfgl");
+                kfgl.style.display = "none";//库房管理
+                var xzhp = document.getElementById("xzhp");
+                xzhp.style.display = "none";//新增产品
+                var tbd = document.getElementById("tbd");
+                tbd.style.display = "none";//发货单
+                var cpdy = document.getElementById("cpdy");
+                cpdy.style.display = "none";//成品定义
+
+                //产品入库
+                var cgrk = document.getElementById("cgrk");
+                cgrk.style.display = "none";//采购入库
+                var thjydrk = document.getElementById("thjydrk");
+                thjydrk.style.display = "none";//退货检验单入库
+                var sxjrk = document.getElementById("sxjrk");
+                sxjrk.style.display = "none";//撤样机调拨
+                var sczzrk = document.getElementById("sczzrk");
+                sczzrk.style.display = "none";//生产组装入库
+
+                //产品出库
+                var lxcck = document.getElementById("lxcck");
+                lxcck.style.display = "none";//销售订单出库
+                var xmxcck = document.getElementById("xmxcck");
+                xmxcck.style.display = "none";//项目销售出库
+                var rjkck = document.getElementById("rjkck");
+                rjkck.style.display = "none";//二级库出库
+                var sxjck = document.getElementById("sxjck");
+                sxjck.style.display = "none";//上样机出库
+                var ngzsck = document.getElementById("ngzsck");
+                ngzsck.style.display = "none";//内购出库
+                var sclldck = document.getElementById("sclldck");
+                sclldck.style.display = "none";//生产领料单出库
+
+                //综合查询dt2
+                var dt2 = document.getElementById("dt2");
+                dt2.style.display = "none";//综合查询
+                var rkdgl = document.getElementById("rkdgl");
+                rkdgl.style.display = "none";//入库单管理
+                var ckdgl = document.getElementById("ckdgl");
+                ckdgl.style.display = "none";//出库单管理
+                var bfdgl = document.getElementById("bfdgl");
+                bfdgl.style.display = "none";//报废单管理
+                var xcfhdgl = document.getElementById("xcfhdgl");
+                xcfhdgl.style.display = "none";//销售发货单管理
+
+                //库存报警dt3
+                var dt3 = document.getElementById("dt3");
+                dt3.style.display = "none";//库存报警
+                var zdkcbj = document.getElementById("zdkcbj");
+                zdkcbj.style.display = "none";//最低库存量报警
+
+                //统计汇总dt4
+                var dt4 = document.getElementById("dt4");
+                dt4.style.display = "none";//统计汇总
+                var wlhzb = document.getElementById("wlhzb");
+                wlhzb.style.display = "none";//物料汇总表
+                var kchzb = document.getElementById("kchzb");
+                kchzb.style.display = "none";//库存汇总表
+                var wlcrkmxb = document.getElementById("wlcrkmxb");
+                wlcrkmxb.style.display = "none";//物料出入库明细表
+                var rkzhb = document.getElementById("rkzhb");
+                rkzhb.style.display = "none";//入库汇总
+
+                //系统设置dt5
+                var dt5 = document.getElementById("dt5");
+                dt5.style.display = "none";//系统设置
+                var ggxxwh = document.getElementById("ggxxwh");
+                ggxxwh.style.display = "none";//公共信息维护
+                var cplxsz = document.getElementById("cplxsz");
+                cplxsz.style.display = "none";//产品类型设置
+            }
+        });
+    </script>
+</head>
+<body>
+    <dl id="wenzhang">
+        <dd> 
+            <dl>
+                <dt id="dt1"><span>▪ 库存管理</span></dt>
+                <dd>
+                    <ul> 
+                         <li onclick="TurnTo('../InventoryManage/InventoryBill?type=0');Back(this)" id="kczd"><span>- 库存账单</span></li>
+                        <li onclick="TurnTo('../InventoryManage/InventoryFirstPage');Back(this)" id="hpkc"><span>- 产品库存</span></li>
+                        <li onclick="TurnTo('../InventoryManage/StorageRoom');Back(this)" id="kfgl"><span>- 库房管理</span></li>
+                        <li onclick="TurnTo('../InventoryManage/InventoryAddPro');Back(this)" id="xzhp"><span>- 新增产品</span></li>
+                        <li onclick="TurnTo('../InventoryManage/AllocationSheet');Back(this)" id="tbd"><span>- 发货单</span></li>
+                        <li onclick="TurnTo('../InventoryManage/DefinitionOfProduct');Back(this)" id="cpdy"><span>- 成品定义</span></li>
+                         <li onclick="TurnTo('../InventoryManage/InOutUpload');Back(this)" id="shangchuan"><span>- 上传文件</span></li>
+                        <li><span>+ 产品入库</span></li>
+                        <dl id="son">
+                            <dd>
+                                <ul>
+                                    <li onclick="TurnTo('../InventoryManage/BasicStockIn');Back(this)" id="jbrk"><span>▪ 基本入库</span></li>
+                                    <li onclick="TurnTo('../InventoryManage/ProcureStockIn');Back(this)" id="cgrk"><span>▪ 采购入库</span></li>
+                                    <li onclick="TurnTo('../InventoryManage/TestStockIn');Back(this)" id="thjydrk"><span>▪ 退货检验单入库</span></li>
+                                    <li onclick="TurnTo('../InventoryManage/ProtoStockIn');Back(this)" id="sxjrk"><span>▪ 撤样机入库</span></li>
+                                    <li onclick="TurnTo('../InventoryManage/ProductionStockIn');Back(this)" id="sczzrk"><span>▪ 生产组装入库</span></li>
+
+                                </ul>
+                            </dd>
+                        </dl>
+                        <li id="kpcke"><span>+ 产品出库</span></li>
+                        <dl id="son">
+                            <dd>
+                                <ul>
+                                    <li onclick="TurnTo('../InventoryManage/BasicStockOut');Back(this)" id="jbck"><span>▪ 基本出库</span></li>
+                                    <li onclick="TurnTo('../InventoryManage/RetailSalesOut');Back(this)" id="lxcck"  style="display:none"><span>▪ 销售订单出库</span></li>
+                                    <li onclick="TurnTo('../InventoryManage/ProjectSalesOut');Back(this)" id="xmxcck"><span>▪ 项目销售出库</span></li>
+                                    <li onclick="TurnTo('../InventoryManage/SecondOut');Back(this)" id="rjkck"><span>▪ 二级库出库</span></li>
+                                    <li onclick="TurnTo('../InventoryManage/ProtoUpOut');Back(this)" id="sxjck"><span>▪ 上样机出库</span></li>
+                                    <li onclick="TurnTo('../InventoryManage/BuyGiveOut');Back(this)" id="ngzsck"><span>▪ 内购出库</span></li>
+                                    <li onclick="TurnTo('../InventoryManage/ProductionMaterials');Back(this)" id="sclldck"><span>▪ 生产领料单出库</span></li>
+                                    @*<li onclick="TurnTo('../InventoryManage/CountersOut');Back(this)"><span>▪ 专柜制作</span></li>*@
+                                    @*  <li onclick="TurnTo('../InventoryManage/TaskInstallOut');Back(this)"><span> ▪ 派工安装出库</span></li>*@
+                                    @* <li onclick="TurnTo('../InventoryManage/TransfersOut');Back(this)"><span> ▪ 调拨出库</span></li>*@
+
+                                      <li onclick="TurnTo('../InventoryManage/HomeProductSales');Back(this)" id="jycpxs"><span>▪ 家用产品销售</span></li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </ul>
+                </dd>
+            </dl>
+            <dl>
+                <dt id="dt2"><span>▪ 综合查询</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../InventoryManage/StorageManagement');Back(this)" id="rkdgl"><span>▪ 入库单管理</span></li>
+                        <li onclick="TurnTo('../InventoryManage/StorageManagementOut');Back(this)" id="ckdgl"><span>▪ 出库单管理</span></li>
+                        <li onclick="TurnTo('../InventoryManage/ScrapManagement');Back(this)" id="bfdgl"><span>▪ 报废单管理</span></li>
+                        <li onclick="TurnTo('../InventoryManage/SalesInvoiceManagement');Back(this)" id="xcfhdgl"><span>▪ 销售发货单管理</span></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl id="dt3">
+                <dt><span>▪ 库存报警</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../InventoryManage/LowAlarm');Back(this)" id="zdkcbj"><span>- 最低库存量报警</span></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl>
+                <dt id="dt4"><span>▪ 统计汇总</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../InventoryManage/MaterialSummaryTable');Back(this)" id="wlhzb"><span>- 物料汇总表</span></li>
+                       
+                          <li onclick="TurnTo('../InventoryManage/InventoryBill?type=1');Back(this)" id="kchzb"><span>- 库存汇总表</span></li>
+                    @*     <li onclick="TurnTo('../InventoryManage/InventorySummaryTable');Back(this)" id="kchzb"><span>- 库存汇总表</span></li>*@
+                        <li onclick="TurnTo('../InventoryManage/MaterialOutOfTheWarehouse');Back(this)" id="wlcrkmxb"><span>- 物料出入库明细表</span></li>
+                        <li onclick="TurnTo('../InventoryManage/InventoryStatistics');Back(this)" id="rkzhb"><span>- 入库汇总</span></li>
+                    </ul>
+                </dd>
+            </dl>
+             <dl>
+                <dt id="dt5"><span>▪ 系统设置</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../InventoryManage/ConfigurationInformation');Back(this)" id="ggxxwh"><span>- 公共信息维护</span></li>
+                         <li style="display:none" onclick="TurnTo('../InventoryManage/ProductTypeSetting');Back(this)" id="cplxsz"><span>- 产品类型设置</span></li>
+                    </ul>
+                </dd>
+            </dl>
+        </dd>
+    </dl>
+</body>
+</html>

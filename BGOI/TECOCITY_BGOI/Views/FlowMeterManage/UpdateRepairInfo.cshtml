@@ -1,0 +1,146 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_RepairInfo
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UpdateRepairInfo</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/UpdateRepairInfo.js")" type="text/javascript"></script>
+</head>
+<body>
+    @using (Html.BeginForm("UpdateRepairInfo", "FlowMeterManage", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+    {
+
+
+        <div id="pageContent" style="overflow-y:auto;">
+
+            <div style="width:98%;margin-left:10px;margin-top:5px;">
+                <table class="tabInfo" id="content">
+                    <tr style="height:30px;">
+                        <td colspan="6" style="text-align:center; font-size:20px; font-weight:bold;">维修记录</td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td class="textRightL" style="text-align:left;" colspan="4"> 基本信息</td>
+                    </tr>
+                    @Html.HiddenFor(model => model.StrRepairNum, new { @class = "txtCss" })
+                    @Html.HiddenFor(model => model.StrRepairID, new { @class = "txtCss" })
+                    <tr style="height:30px;">
+                        <td class="textLeftL">登记标号</td>
+                        <td class="textRightL">
+                        
+                            @Html.TextBoxFor(model => model.StrRID, new { @class = "txtCss", @readonly = true })
+                        </td>
+                        <td class="textLeftL">维修人员</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrRepairUser, new { @class = "txtCss" })
+                            <span style="color:red;"> * </span><br />@Html.ValidationMessageFor(model => model.StrRepairUser)
+                        </td>
+
+                    </tr>
+                    <tr style="height:30px;">
+                        <td class="textLeftL">维修开始时间</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrRepairSDate, new { onclick = "WdatePicker({dateFmt: 'yyyy/MM/dd HH:mm' })", @class = "txtCss" })
+                            <span style="color:red;"> * </span><br />@Html.ValidationMessageFor(model => model.StrRepairSDate)
+                        </td>
+                        <td class="textLeftL">维修结束时间</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrRepairEDate, new { onclick = "WdatePicker({dateFmt: 'yyyy/MM/dd HH:mm' })", @class = "txtCss" })
+                            <span style="color:red;"> * </span><br />@Html.ValidationMessageFor(model => model.StrRepairEDate)
+                        </td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td class="textLeftL">调整齿数比（原）</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrAdjustPre, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">调整齿数比（现）</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrAdjustNow, new { @class = "txtCss" })
+                        </td>
+
+                    </tr>
+
+
+                    <tr style="height:30px;">
+                        <td class="textLeftL">故障说明</td>
+                        <td class="textRightL" colspan="3">
+                            @Html.TextAreaFor(model => model.StrBreakdown, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td class="textLeftL">维修内容</td>
+                        <td class="textRightL" colspan="3">
+                            @Html.TextAreaFor(model => model.StrRepairContent, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td class="textLeftL">维修结果</td>
+                        <td class="textRightL" colspan="3">
+                            @Html.TextAreaFor(model => model.StrRepairResult, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td class="textLeftL">备注</td>
+                        <td class="textRightL" colspan="3">
+                            @Html.TextAreaFor(model => model.StrRemark, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+                </table>
+                <div overflow-x:auto; width:97%; height:205px;" id="tabL">
+                    @Html.Hidden("BakName")     @Html.Hidden("BakType")
+                    @Html.Hidden("Measure")     @Html.Hidden("BakNum")
+
+                    <table class="tabInfo" style="text-align:center;" id="taskList">
+                        <tr style="height:30px;">
+                            <td class="textRightL" style="text-align:left;" colspan="5"> 更换设备</td>
+                        </tr>
+                        <tr>
+                            <td class="textLeft" style="width:150px;">名称</td>
+                            <td class="textLeft" style="width:150px;">规格型号</td>
+                            <td class="textLeft" style="width:80px;">单位</td>
+                            <td class="textLeft" style="width:80px;">数量</td>
+                            <td class="textLeft" style="width:80px;">
+                                <a style="font-weight:bold;color:#3598db;cursor:pointer; width:80px;" id="addContent"> 添 加 </a>
+                            </td>
+                        </tr>
+                    </table>
+                 
+                </div>
+                <div id="listdiv" style="width:400px;margin-top:-250px;display:none;overflow:scroll; height:200px; border:1px solid #808080; background-color:white; position:relative;float:left;z-index:9000;">
+                    @Html.Hidden("id")
+                    <input id="keyname" oninput="SearchProductByName()" /><img style="margin-right:3px;float:right" src="~/images/close.gif" onclick="CL()" />
+                    <table id="list" class="scroll" style="width:100%;"></table>
+
+                </div>
+            </div>
+            <div style="float:right; margin-top:10px;">
+                <input type="submit" id="QRXG" class="btn" value="确定" style="margin-right:10px;" />
+                <br /><br />
+            </div>
+        </div>
+
+    }
+</body>
+
+
+</html>

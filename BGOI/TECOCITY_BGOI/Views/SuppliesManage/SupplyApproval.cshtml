@@ -1,0 +1,160 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    @*   <meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <title>SupplyApproval</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/YReview.js")" type="text/javascript"></script>
+    <style type="text/css">
+        .mainHead {
+            position: absolute;
+            z-index: 3;
+        }
+
+        html, body {
+            overflow: auto;
+            margin: 0px;
+            width: 100%;
+            height: 100%;
+        }
+
+        #search {
+            margin-top: 35px;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("YearOutExcel", "SuppliesManage", FormMethod.Post, new { id = "Approva" }))
+    { 
+        @Html.Hidden("webkey", @ViewData["webkey"])   @Html.Hidden("folderBack", @ViewData["folderBack"]) @Html.Hidden("Nostate", @ViewData["Nostate"])
+        @Html.Hidden("Sid");@ViewBag.sid
+        @Html.Hidden("Exjob", @ViewData["exjob"])
+        @Html.Hidden("Order")
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">供应商管理</span>>>供应商年度评价管理
+            </div>
+            <div id="search" style="height: 100px;">
+                <table class="tabSearch">
+                    <tr>
+                        <td>供应商名称 @Html.TextBox("COMNameC", "", new { @class = "txtCss" })</td>
+                        <td>供应商类型  @Html.DropDownList("SupplierType", SupplyManage.GetConfigType("SupplierType"), new { @class = "txtCss" })</td>
+                        <td>评审年度 @Html.TextBox("ReviewDate", "", new { onclick = "WdatePicker({dateFmt: 'yyyy' })", @class = "txtCss" })</td>
+                    </tr>
+                </table>
+                <input id="ok" value="查询" class="save" type="button" onclick="reload()" style="float: right; margin-right: 8px; top: 0; right: 0; cursor: pointer;" />
+            </div>
+            <div style="margin-left: 10px; margin-top: 10px;">
+                @* <input type="button" class="btn" value="年度评审" style="cursor: pointer;" id="YeaApproval" />*@
+                <input type="button" class="btnLL" value="部门级年度审批" style="cursor: pointer; margin-left: 10px; float: left;" id="Yeabumen" />
+                @*<input type="button" class="btnLL" value="公司级年度审批" style="cursor: pointer; margin-left: 10px; float: left;" id="Yeagongsi" />*@
+                @*                <input type="button" class="btnLL" value="年度最终评审" style="cursor: pointer; margin-left: 10px;" id="RsApproal" />*@
+                <input type="button" class="btn" value="详细" style="cursor: pointer; position: relative; float: right; right: 190px;" id="Detail" />
+                <input type="submit" class="btn" value="导出" style="cursor: pointer; float: right; right: 20px; position: relative;" onclick="return OutExcel()" name="YearOutExcel" id="YearOutExcel" />
+                <input type="button" class="btn" value="打印" style="float: right; cursor: pointer; position: relative; right: -145px;" id="YearPrint" />
+            </div>
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 10px; float: left;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+            <div style="margin-bottom: 10px; float: left;">
+                <input type="button" class="btnTw" value="拟购产品" id="Product" style="cursor: pointer; margin-left: 8px;" />
+                <input type="button" class="btnTh" value="拟购服务" id="Server" style="cursor: pointer" />
+                <input type="button" class="btnTh" value="资质管理" id="planPro" style="cursor: pointer" />
+                <input type="button" class="btnTh" value="证书管理" id="planServer" style="cursor: pointer" />
+                <input type="button" class="btnTh" value="年度评审情况" style="cursor: pointer" id="NDQK" />
+                <input type="button" class="btnTh" value="评分情况" style="cursor: pointer" id="ScoreMsg" />
+                <input type="button" class="btnTh" value="年度评分" style="cursor: pointer" id="ScoreYear" />
+                <input type="button" class="btnTh" value="曾获奖项" style="cursor: pointer" id="btnAward" />
+                <input type="button" class="btnTh" value="报价/比价单" style="cursor: pointer" id="btnPrice" />
+                <input type="button" class="btnTh" value="操作日志" style="cursor: pointer" id="btnLog" />
+
+                <div id="three" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    <div id="bor1" style="width: 1000px; margin-top: 5px; margin-left: 10px;">
+                        <table id="list1" class="scroll" style="width: 100%;"></table>
+                        <div id="pager1" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="four" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    <div id="bor4" style="width: 1000px; margin-top: 5px; margin-left: 10px;">
+                        <table id="list4" class="scroll" style="width: 100%;"></table>
+                        <div id="pager4" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="five" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    <div id="bor5" style="width: 1000px; margin-top: 5px; margin-left: 10px;">
+                        <table id="list5" class="scroll" style="width: 100%;"></table>
+                        <div id="pager5" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="six" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    <div id="bor6" style="width: 1000px; margin-top: 5px; margin-left: 10px;">
+                        <table id="list6" class="scroll" style="width: 100%;"></table>
+                        <div id="pager6" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="seven" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    <div id="bor7" style="width: 1000px; margin-top: 5px; margin-left: 10px;">
+                        <table id="list7" class="scroll" style="width: 100%;"></table>
+                        <div id="pager7" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="one" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    <div id="bor2" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                        <table id="list2" class="scroll" style="width: 100%;"></table>
+                        <div id="pager2" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="TWO" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    <div id="bor3" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                        <table id="list3" class="scroll" style="width: 100%;"></table>
+                        <div id="pager3" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="eight" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    <div id="bor8" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                        <table id="list8" class="scroll" style="width: 100%;"></table>
+                        <div id="pager8" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+
+                <div id="nine" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    <div id="bor9" style="width: 1000px; margin-top: 5px; margin-left: 10px;">
+                        <table id="list9" class="scroll" style="width: 100%;"></table>
+                        <div id="pager9" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="ten" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    <div id="bor10" style="width: 1000px; margin-top: 5px; margin-left: 10px;">
+                        <table id="list10" class="scroll" style="width: 100%;"></table>
+                        <div id="pager10" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+</body>
+</html>

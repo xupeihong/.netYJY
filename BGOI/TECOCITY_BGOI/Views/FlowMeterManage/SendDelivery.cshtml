@@ -1,0 +1,91 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_SendDelivery
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SendDelivery</title>
+    
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/SendDelivery.js")" type="text/javascript"></script>
+   <style>
+       .ui-jqgrid tr.jqgrow td {
+           white-space: normal !important;
+           height: auto;
+           vertical-align: text-top;
+           padding-top: 2px;
+       }
+   </style>
+</head>
+<body>
+    @using (Html.BeginForm("SendDelivery", "FlowMeterManage", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+    { 
+    <div id="pageContent">
+        <div id="bor" style="width:100%;margin-top:5px;margin-left:10px;">
+            <table id="list" class="scroll" style="width:100%;"></table>@Html.Hidden("CheckIDs") @Html.Hidden("CheckIDs")
+            <div id="pager" class="scroll" style="text-align:center;width:100%;"></div>
+        </div>
+        <div style="width:97%;margin-left:10px;margin-top:5px;">
+            <table class="tabInfo" id="content" >
+                <tr style="height:30px;"> 
+                    <td colspan="4" style="text-align:left;"> 确认发货信息 </td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">发货单号</td>
+                    <td class="textRightL">@Html.TextBox( "DeliverID", "", new { @class = "txtCss" })</td>
+                    <td class="textLeftL">货运单位</td>
+                    <td class="textRightL">@Html.TextBox("UnitName", "", new { @class = "txtCss" })</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">收货人姓名</td>
+                    <td class="textRightL">@Html.TextBox("ReceiveName", "", new { @class = "txtCss" })</td>
+                    <td class="textLeftL">收货人电话</td>
+                    <td class="textRightL">@Html.TextBox("ReceiveTel", "", new { @class = "txtCss" })</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">收货日期</td>
+                    <td class="textRightL">@Html.TextBox("ReceiveDate", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })</td>
+                    <td class="textLeftL">目的地</td>
+                    <td class="textRightL">@Html.TextBox("ReceiveAddr", "", new { @class = "txtCss" })</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">发货人姓名</td>
+                    <td class="textRightL">@Html.TextBox("SendName", "", new { @class = "txtCss" })</td>
+                    <td class="textLeftL">收货人电话</td>
+                    <td class="textRightL">@Html.TextBox("SendTel", "", new { @class = "txtCss" })</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">发货日期</td>
+                    <td class="textRightL">@Html.TextBox("SendDate", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })</td>
+                    <td class="textLeftL">是否进行出库操作</td>
+                    <td class="textRightL"><input type="button" id="OutStock" class="btn" value="点击出库" /></td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="float:right; margin-top:10px;">
+           <input type="submit" id="QD" class="btn" value=" 确 定 " style="margin-right:10px;"/> 
+           <br />
+       </div>
+
+    </div>
+         
+     }
+
+</body>
+</html>

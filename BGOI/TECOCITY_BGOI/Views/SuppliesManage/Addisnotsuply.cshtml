@@ -1,0 +1,64 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model tk_IsNotSupplierBas
+<!DOCTYPE html>
+
+<html>
+<head>
+    @* <meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Addisnotsuply</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Sales/RecordInfo.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/IsnotSupply/AddIsnotsuply.js")" type="text/javascript"></script>
+</head>
+@using (Html.BeginForm("Addisnotsuply", "SuppliesManage", FormMethod.Post, new { id = "CustomerInfo", action = "Addisnotsuplyok", enctype = "multipart/form-data" }))
+{
+    <body>
+        @Html.Hidden("msg", @ViewData["msg"])
+        <div id="tabTitile">流水号:@Html.HiddenFor(model => model.SID)@ViewBag.kid</div>
+        <div id="hole" style="overflow-y: auto;">
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">厂家名称</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.COMNameC, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.COMNameC)</td>
+                    <td class="textLeft">供货内容</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.SupplyContent, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.SupplyContent) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">联系人</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Contacts, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.Contacts)</td>
+                    <td class="textLeft">电话/传真</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.TelFax, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.TelFax)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">手机</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Phone, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.Phone)</td>
+                    <td class="textLeft">邮箱</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Mailbox, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.Mailbox)</td>
+                </tr>
+            </table>
+            <div style="margin-top: 10px; margin-left: 40%;">
+                <input type="button" value="确定" id="sure" class="btn" style="cursor: pointer" />
+            </div>
+        </div>
+    </body>
+}
+</html>

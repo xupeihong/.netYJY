@@ -1,0 +1,93 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@using TECOCITY_BGOI;
+@model tk_Product_Plan
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>updateplan</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ProductPlanManage/UpdatePlan.js")" type="text/javascript"></script>
+
+    <style type="text/css">
+     .RowClass {
+            background-color: #efd2d2;
+        }
+        .atxtCss
+        {
+            width:99%;
+            height:80px;
+        }
+    </style>
+
+</head>
+<body>
+    @using (Html.BeginForm("", "", FormMethod.Post, new { id = "updateplan" }))
+    {
+        <div id="pageContent">
+            <div id="tabTitile"><span style="margin-left:10px;">计划单号：@ViewData["JHID"] </span></div>
+            <div style="margin-top:10px;border-bottom:solid 1px #000;margin-bottom:3px;padding-bottom:10px;margin-left:10px;">
+                   @Html.HiddenFor(model=>model.JHID)&nbsp;&nbsp;&nbsp;&nbsp; @Html.Hidden("date", @ViewData["Specifieddate"])
+                制定日期&nbsp;&nbsp;@Html.TextBoxFor(model => Model.Specifieddate, new { @class = "txtCss", @readonly = "readonly", onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})" })<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.Specifieddate) 
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计划月份&nbsp;&nbsp;@Html.TextBoxFor(model => Model.Plannedmonth)<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.Plannedmonth)</div>
+            </div>
+            <div id="tabTitile" style="background-color: #00b0e8; margin-top: 3px; "><span style="margin-left:10px; color:#ffffff">生产产品计划</span></div>
+            <div style="height:180px;width:100%;overflow-y:auto;">
+                <table class="tabInfo" style="margin-top:10px;width:97%;margin-left:13px">
+                    <tr>
+                        <td style="width:50px;" align="center" class="th">序号</td>
+                        <td style="width:200px;" align="center" class="th">产品名称</td>
+                        <td style="width:200px;" align="center" class="th">规格型号</td>
+                        <td style="width:80px;" align="center" class="th">库存成品</td>
+                        <td style="width:60px;" align="center" class="th">库存半成品</td>
+                        <td style="width:60px;" align="center" class="th">在线生<br />产数量</td>
+
+                        <td style="width:100px;" align="center" class="th">库存成品<br />零件数（套）</td>
+                        <td style="width:100px;" align="center" class="th">已下订单尚未<br />供货零件数<br />（套）</td>
+                        <td style="width:60px;" align="center" class="th">合计</td>
+                        <td style="width:80px;" align="center" class="th">下月计划<br />生产数</td>
+                        <td style="width:80px;" align="center" class="th">下月需求<br />零件数</td>
+                        <td style="width:200px;" align="center" class="th">备注</td>
+                        <td style="width:40px;" align="center" class="th">操作</td>
+                    </tr>
+                    <tbody id="DetailInfo">
+                    </tbody>
+                </table>
+            </div>
+            <div id="tabTitile" style="background-color: #00b0e8; margin-top: 3px; "><span style="margin-left:10px; color:#ffffff">计划说明</span></div>
+            <div>
+                <table style="width:100%;margin-top:20px; margin-bottom:20px;">
+                    <tr>
+                        <td style="width:50px" align="center" valign="middle">说明</td>
+                        <td>
+                           @* <textarea rows="4" style="width:99%" id="Remarks"></textarea>*@
+                            @Html.TextAreaFor(model => Model.Remarks,new {@class= "atxtCss" }) @Html.ValidationMessageFor(model => model.Remarks)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="tabTitile" style="background-color: #00b0e8; margin-top: 3px; "><span style="margin-left:10px; color:#ffffff">计划说明</span></div>
+            <div style="margin-top: 10px;  margin-left: 10px;">
+                制定人&nbsp;&nbsp; @Html.TextBoxFor(model => Model.Formulation)<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.Formulation) 
+            </div>
+            <div style="width:100%;text-align:center">
+                <input type="button" value="保 存" class="btn" id="btnSave" />&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="button" value="取 消" class="btn" id="Cancel"/>
+            </div>
+            <div style="display:none">  @Html.TextBoxFor(model=>model.Plannedyear)</div>
+       
+    }
+
+</body>
+</html>

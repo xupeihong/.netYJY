@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "";
+}
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_TelRecord
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>UpTelephoneAnswering</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Inventory/AddStockIn.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/CustomerServiceManage/UpTelephoneAnswering.js")" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <form>
+        <div id="tabTitile"><span style="margin-left: 10px; float: left;">编号：@Model.DHID </span></div>@Html.HiddenFor(model => model.DHID)
+
+        <div style="width:800px;height:20px;float: left;" id="shijian">
+            <span style="margin-left: 480px; float: left;">登录日期:</span><div id="localtime" style="float: right;"></div>
+        </div>
+        <div style="width: 100%; height: 100px; text-align: left;">
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr style="text-align: center; font: bold; margin-top: 20px; font-size: 24px;">
+                    <td colspan="4">电话接听记录</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">接听日期</td>
+                    <td class="textRight">
+                      <input type="text" id="AnswerDate" onclick="WdatePicker()" class="Wdate" style="width: 170px;" /></td>
+                    <td class="textLeft">派工单号</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.SchoolWork, new { @class = "txtCss" })<span style="color:red">*</span>@Html.ValidationMessageFor(model => model.SchoolWork)</td>
+
+                </tr>
+                <tr>
+                    <td class="textLeft">联系人</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.UserName, new { @class = "txtCss" })<span style="color:red">*</span>@Html.ValidationMessageFor(model => model.UserName)</td>
+                    <td class="textLeft">联系电话</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Tel, new { @class = "txtCss" })<span style="color:red">*</span>@Html.ValidationMessageFor(model => model.Tel)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">地址</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.Address,new { @class = "txtCss", @style = "width:720px" })@Html.ValidationMessageFor(model => model.Address)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">处理结果</td>
+                    <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.ProcessingResults,new { @class = "txtCss", @style = "width:720px;height:50px;" })@Html.ValidationMessageFor(model => model.ProcessingResults)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">备注</td>
+                    <td class="textRight" colspan="5">@Html.TextAreaFor(model => model.Remark, new { @class = "txtCss", @style = "width:720px;height:50px;" })@Html.ValidationMessageFor(model => model.Remark)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">登记人</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.CreateUser, new { @class = "txtCss", @readonly = "true" })</td>
+                </tr>
+            </table>
+            <input type="text" id="DID" style="display: none;" />
+        </div>
+        <div style="margin-top: 200px; margin-left: 75%">
+            
+            <input class="btn" type="button" id="btnSave" value="保存" />
+            <input class="btn" type="button" id="Cancel" value="取消" />
+        </div>
+    </form>
+</body>
+</html>

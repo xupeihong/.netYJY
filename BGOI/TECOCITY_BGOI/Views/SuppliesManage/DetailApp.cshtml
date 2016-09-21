@@ -1,0 +1,32 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    @* <meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_PrintPageSet.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/DetailApp.js")" type="text/javascript"></script>
+
+</head>
+@using (Html.BeginForm("DetailApp", "SuppliesManage", FormMethod.Post, new { id = "formInfoUP" }))
+{
+    @Html.Hidden("SID") 
+    <body style="margin: 0 0 0 0; background-color: white; overflow: auto;">
+        <div style="margin-left: 85%; margin-top: auto;">
+          
+           @* <input type="button" style="margin-right: 450px;" class="btn" value="打印" id="btnPrint" />*@
+        </div>
+    </body>
+       
+}
+</html>

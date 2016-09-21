@@ -1,0 +1,256 @@
+﻿@{
+    Layout = null;
+}
+
+@using TECOCITY_BGOI
+@model tk_SHSurvey
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddCustomerSatisfactionSurvey</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Sales/RecordInfo.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>*@
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_Tables.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/CustomerServiceManage/AddCustomerSatisfactionSurvey.js")" type="text/javascript"></script>
+
+</head>
+<body>
+    <form>
+        <div id="tabTitile"><span style="margin-left: 10px; float: left;">编号：@Model.DCID</span></div>@Html.HiddenFor(model => Model.DCID)
+        <div style="width:800px;height:20px;float: left;" id="shijian">
+            <span style="margin-left: 480px; float: left;">登录日期:</span><div id="localtime" style="float: right;"></div>
+        </div>
+        <br />
+        <div style="height: 440px; overflow-y: auto; text-align: left;">
+            <table class="tabInfo" style="width: 99%; margin-left: 8px; margin-top: 10px;">
+                <tr style="text-align: center; font: bold; margin-top: 20px; font-size: 24px;">
+                    <td colspan="4">顾客满意度调查登记</td>
+                </tr>
+                <tr style="background-color: #88c9e9; text-align: left;">
+
+                    <td colspan="4">客户信息</td>
+                </tr>
+                <tr>
+                    @*  <td class="textLeft">客户名称</td>
+                    <td class="textRight">@Html.DropDownListFor(model => model.CustomerID, CustomerServiceMan.GetKClientBas(), new { @class = "txtCss", @onchange = "GaiBian()" })</td>*@
+                    <td class="textLeft">客户名称</td>
+                    <td class="textRight">@Html.TextBox("CustomerID", "", new { @class = "txtCss", @onchange = "GaiBian()" })</td>
+                    <td class="textLeft">地址</td>
+                    <td class="textRight">@Html.TextBox("Address", "", new { @class = "txtCss" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">电话/传真</td>
+                    <td class="textRight">@Html.TextBox("Tel", "", new { @class = "txtCss" })</td>
+                    <td class="textLeft">联系人</td>
+                    <td class="textRight">@Html.TextBox("ContactPerson", "", new { @class = "txtCss" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">用户回访编号</td>
+                    <td class="textRight" colspan="3">@ViewData["HFID"]</td>@Html.Hidden("HFIDID",@ViewData["HFID"])
+                </tr>
+                <tr>
+                    <td colspan="4">@*<input type="button" class="btn" onclick="CheckDetail();" value="添加"
+                        id="btnAdd" name="btnAdd" />&nbsp;*@
+                        <div style="overflow-y: scroll;">
+                            <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                                <tr align="center" valign="middle">
+                                    <th style="width: 5%;" class="th">序号
+                                    </th>
+                                    <th style="width: 10%;" class="th">产品编号
+                                    </th>
+                                    <th style="width: 10%;" class="th">产品名称
+                                    </th>
+                                    <th style="width: 15%;" class="th">规格型号
+                                    </th>
+                                    <th style="width: 5%;" class="th">数量
+                                    </th>
+                                    <th style="width: 15%;" class="th">订购方式
+                                    </th>
+                                    <th style="width: 15%;" class="th">订购时间
+                                    </th>
+                                    @* <th style="width: 10%;" class="th">操作
+                                    </th>*@
+                                </tr>
+                                <tbody id="DetailInfo"></tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">其他</td>
+                    <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.Other, new { @class = "txtCss", @style = "width:720px;height:50px;" })@Html.ValidationMessageFor(model => model.Other)</td>
+                </tr>
+                @*<tr>
+                    <td class="textLeft">对此次服务满意度：</td>
+                    <td colspan="3">
+                     @Html.RadioButton("SatisfiedDegree", "0", new { @checked = true })非常满意  
+                     @Html.RadioButton("SatisfiedDegree", "1")满意
+                     @Html.RadioButton("SatisfiedDegree", "2")一般  
+                     @Html.RadioButton("SatisfiedDegree", "3")不满意
+                    </td>
+                </tr>*@
+            </table>
+            <table class="tabInfo" style="width: 99%; margin-left: 8px; margin-top: 10px;">
+                <tr style="background-color: #88c9e9; text-align: left;">
+
+                    <td colspan="4">调查信息</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">调查日期</td>
+                    <td class="textRight" colspan="3">
+                        <input type="text" id="Begin" onclick="WdatePicker()" class="Wdate" style="width: 170px;" /></td>
+                </tr>
+                <tr>
+                    <td class="textLeft" colspan="4">你对我公司的产品：</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">质量：</td>
+                    <td colspan="3">
+                        @Html.RadioButton("ProductQuality", "0", new { @checked = true })非常满意  
+                     @Html.RadioButton("ProductQuality", "1")满意
+                     @Html.RadioButton("ProductQuality", "2")一般  
+                     @Html.RadioButton("ProductQuality", "3")不满意
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">价格：</td>
+                    <td colspan="3">
+                        @Html.RadioButton("ProductQrice", "0", new { @checked = true })非常满意  
+                     @Html.RadioButton("ProductQrice", "1")满意
+                     @Html.RadioButton("ProductQrice", "2")一般  
+                     @Html.RadioButton("ProductQrice", "3")不满意
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">交货期：</td>
+                    <td colspan="3">
+                        @Html.RadioButton("ProductDelivery", "0", new { @checked = true })非常满意  
+                     @Html.RadioButton("ProductDelivery", "1")满意
+                     @Html.RadioButton("ProductDelivery", "2")一般  
+                     @Html.RadioButton("ProductDelivery", "3")不满意
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">说明原因</td>
+                    <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.ProductSurvey, new { @class = "txtCss", @style = "width:720px;height:50px;" })@Html.ValidationMessageFor(model => model.ProductSurvey)</td>
+                  @*  <td class="textLeft">说明原因：</td>
+                    <td>@Html.TextBox("ProductSurvey", "", new { @class = "txtCss", @style = "width: 670px;" })@Html.ValidationMessageFor(model => model.ProductSurvey)</td>*@
+                </tr>
+                <tr>
+                    <td class="textLeft" colspan="4">你对我公司的服务：</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">售后维修,保养服务：</td>
+                    <td colspan="3">
+                        @Html.RadioButton("CustomerServiceSurvey", "0", new { @checked = true })非常满意  
+                     @Html.RadioButton("CustomerServiceSurvey", "1")满意
+                     @Html.RadioButton("CustomerServiceSurvey", "2")一般  
+                     @Html.RadioButton("CustomerServiceSurvey", "3")不满意
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">备品,备件供应：</td>
+                    <td colspan="3">
+                        @Html.RadioButton("SupplySurvey", "0", new { @checked = true })非常满意  
+                     @Html.RadioButton("SupplySurvey", "1")满意
+                     @Html.RadioButton("SupplySurvey", "2")一般  
+                     @Html.RadioButton("SupplySurvey", "3")不满意
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">有无漏气现象：</td>
+                    <td colspan="3">
+                        @Html.RadioButton("LeakSurvey", "0", new { @checked = true })非常满意  
+                     @Html.RadioButton("LeakSurvey", "1")满意
+                     @Html.RadioButton("LeakSurvey", "2")一般  
+                     @Html.RadioButton("LeakSurvey", "3")不满意
+                    </td>
+                </tr>
+               @* <tr>
+                    <td class="textLeft">说明原因</td>
+                    <td>@Html.TextBox("ServiceSurvey", "", new { @class = "txtCss", @style = "width: 670px;" })@Html.ValidationMessageFor(model => model.ServiceSurvey)</td>
+                </tr>*@
+                <tr>
+                    <td class="textLeft">说明原因</td>
+                    <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.ServiceSurvey, new { @class = "txtCss", @style = "width:720px;height:50px;" })@Html.ValidationMessageFor(model => model.ServiceSurvey)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft" colspan="4">你对我公司的代理：</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">售后维修，保养服务：</td>
+                    <td colspan="3">
+                        @Html.RadioButton("AgencySales", "0", new { @checked = true })非常满意  
+                     @Html.RadioButton("AgencySales", "1")满意
+                     @Html.RadioButton("AgencySales", "2")一般  
+                     @Html.RadioButton("AgencySales", "3")不满意
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">咨询，维护培训：</td>
+                    <td colspan="3">
+                        @Html.RadioButton("AgencyConsultation", "0", new { @checked = true })非常满意  
+                     @Html.RadioButton("AgencyConsultation", "1")满意
+                     @Html.RadioButton("AgencyConsultation", "2")一般  
+                     @Html.RadioButton("AgencyConsultation", "3")不满意
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">备品，备件供应：</td>
+                    <td colspan="3">
+                        @Html.RadioButton("AgencySpareParts", "0", new { @checked = true })非常满意  
+                     @Html.RadioButton("AgencySpareParts", "1")满意
+                     @Html.RadioButton("AgencySpareParts", "2")一般  
+                     @Html.RadioButton("AgencySpareParts", "3")不满意
+                    </td>
+                </tr>
+               @* <tr>
+                    <td class="textLeft">说明原因</td>
+                    <td>@Html.TextBox("AgencySurvey", "", new { @class = "txtCss", @style = "width: 670px;" })@Html.ValidationMessageFor(model => model.AgencySurvey)
+                    </td>
+                </tr>*@
+                <tr>
+                    <td class="textLeft">说明原因</td>
+                    <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.AgencySurvey, new { @class = "txtCss", @style = "width:720px;height:50px;" })@Html.ValidationMessageFor(model => model.AgencySurvey)</td>
+                </tr>
+              @*  <tr>
+                    <td class="textLeft">备注</td>
+                    <td>@Html.TextBox("Remark", "", new { @class = "txtCss", @style = "width: 670px;" })@Html.ValidationMessageFor(model => model.Remark)
+                    </td>
+                </tr>*@
+                <tr>
+                    <td class="textLeft">备注</td>
+                    <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.Remark, new { @class = "txtCss", @style = "width:720px;height:50px;" })@Html.ValidationMessageFor(model => model.Remark)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">登记人</td>
+                    <td colspan="4">@Html.TextBoxFor(model => model.CreateUser, new { @class = "txtCss", @readonly = "true" })@Html.ValidationMessageFor(model => model.CreateUser)</td>
+                </tr>
+            </table>
+        </div>
+        <div style="margin-top: 10px; margin-left: 75%;">
+            
+            <input class="btn" type="button" id="btnSave" value="保存" />
+            <input class="btn" type="button" id="Cancel" value="取消" />
+            <input type="text" id="DID" style="display: none;" />
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "";
+}
+@using TECOCITY_BGOI;
+@model DevicsBas
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/EquipMan/UpdateEquip.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+
+</head>
+@using (Html.BeginForm("UpdateEquip", "EquipMan", FormMethod.Post, new { id = "ProjectformInfo" }))
+{
+    <body>@Html.Hidden("Ecode", @ViewData["Ecode"])
+        <div id="hole" style="overflow-y: auto;">
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">控制编号</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrControlCode, new { @class = "txtCss" })<span style="color: red;">*</span></td>
+                    <td class="textLeft">设备名称</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrEname, new { @class = "txtCss" })<span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">生产厂家</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrManufacturer, new { @class = "txtCss" })</td>
+                    <td class="textLeft">出厂编号</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrFactoryNumber, new { @class = "txtCss" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">设备类型</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrDevicsType, new { @class = "txtCss" })</td>
+                    <td class="textLeft">规格型号</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrSpecification, new { @class = "txtCss" })<span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">出厂日期</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrFactoryDate, new { @class = "txtCss", onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })" })</td>
+
+                </tr>
+                <tr>
+                    <td class="textLeft">溯源类型</td>
+                    <td class="textRight" colspan="3">@Html.DropDownListFor(model => model.StrTracingType, EquipMan.GetNewConfigContent("CheckWay"), new { @class = "txtCss" })<span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">测量范围</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrClrange, new { @class = "txtCss" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">精度</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrPrecision, new { @class = "txtCss" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">检定/校准周期类型</td>
+                    <td class="textRight">@Html.DropDownListFor(model => model.StrCycleType, EquipMan.GetNewConfigContent("Cycle"), new { @class = "txtCss" })<span style="color: red;">*</span></td>
+                    <td class="textLeft">检定/校准周期</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrCycle, new { @class = "txtCss" })<span style="color: red;">*</span></td>
+                </tr>
+
+                <tr>
+                    <td class="textLeft">检定/校准单位</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrCheckCompany, new { @class = "txtCss" })</td>
+                </tr>
+
+                <tr>
+                    <td class="textLeft">备注</td>
+                    <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.StrRemark, new { style = "width:90%;height:100px;" })</td>
+                </tr>
+            </table>
+
+
+            <div style="margin-top: 10px; margin-left: 80%">
+                <input class="btn" type="button" id="charge" value="确定" />
+            </div>
+
+        </div>
+    </body>
+       
+}
+</html>

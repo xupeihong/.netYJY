@@ -1,0 +1,131 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model RepairCard
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DetailTransCard</title>
+
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Table_Fix.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/TableMergeCell.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/DetailTransCard.js")" type="text/javascript"></script>
+</head>
+<body>
+    <div id="pageContent" style="overflow-y:auto;">
+       <div style="width:98%;margin-left:10px;margin-top:5px;">
+           <table class="tabInfo" id="content" style="text-align:center;">
+               <tr> 
+                    <td colspan="8" style="text-align:center; font-size:20px; font-weight:bold;">流量计维修流转卡</td>
+                </tr>
+               <tr style="height:30px;"> 
+                    <td class="textRightL" style="text-align:left; height:25px;" colspan="6"> 维修基本信息 </td>
+                </tr>
+                <tr> 
+                   @Html.HiddenFor(model => model.strRID) 
+                    <td class="textLeftL">客户名称</td>
+                    <td class="textRightL">@Model.strCustomerName</td>
+                    <td class="textLeftL">安装地点</td>
+                    <td colspan="3" class="textRightL">@Model.strCustomerAddr</td>
+                </tr>
+                <tr> 
+                    <td class="textLeftL">维修编号</td>
+                    <td class="textRightL">@Model.strRepairID</td>
+                    <td class="textLeftL">仪表名称</td>
+                    <td class="textRightL">@Model.strMeterName</td>
+                    <td class="textLeftL">生产厂家</td>
+                    <td class="textRightL">@Model.strManufacturer</td>
+                </tr>
+                <tr> 
+                    <td class="textLeftL">精度等级</td>
+                    <td class="textRightL">@Model.strPrecision</td>
+                    <td class="textLeftL">仪表型号</td>
+                    <td class="textRightL">@ViewData["Model"]</td>
+                    <td class="textLeftL">仪表编号</td>
+                    <td class="textRightL">@Model.strMeterID</td>
+                </tr>
+                <tr> 
+                    <td class="textLeftL">出厂日期</td>
+                    <td class="textRightL">@Model.strFactoryDate</td>
+                    <td class="textLeftL">字轮读数</td>
+                    <td class="textRightL">@Model.strRecordNum</td>
+                    <td class="textLeftL">流量范围</td>
+                    <td class="textRightL">@Model.strFlowRange</td>
+                </tr>
+                <tr> 
+                    <td class="textLeftL">承压等级</td>
+                    <td class="textRightL">@Model.strPressure</td>
+                    <td class="textLeftL">口径</td>
+                    <td class="textRightL">@Model.strCaliber</td>
+                    <td class="textLeftL">修正仪型号</td>
+                    <td class="textRightL">@ViewData["X_Model"]</td>
+                </tr>
+                <tr> 
+                    <td class="textLeftL">修正仪编号</td>
+                    <td class="textRightL">@Model.strX_ID</td>
+                    <td class="textLeftL">生产厂家</td>
+                    <td class="textRightL">@Model.strX_Manufacturer</td>
+                    <td class="textLeftL">标况累计</td>
+                    <td class="textRightL">@Model.strX_Standard</td>
+                </tr>
+                <tr> 
+                    <td class="textLeftL">工况累计</td>
+                    <td class="textRightL">@Model.strX_Operating</td>
+                    <td class="textLeftL">生产日期</td>
+                    <td class="textRightL">@Model.strX_FactoryDate</td>
+                    <td class="textLeftL">压力</td>
+                    <td class="textRightL">@Model.strX_Pressure</td>
+                </tr>
+                <tr> 
+                    <td class="textLeftL">温度</td>
+                    <td class="textRightL">@Model.strX_Temperature</td>
+                    <td class="textLeftL">其它数据</td>
+                    <td colspan="3" class="textRightL">@Model.strX_Data</td>
+                </tr>
+                <tr>
+                    <td class="textRightL" style="text-align:left; height:25px;" colspan="6">流转卡信息</td>
+                </tr>
+                <tr> 
+                    <td class="textLeftL">送修初检测</td>
+                    <td class="textRightL">@ViewData["FirstCheck"]</td>
+                    <td class="textLeftL">送修</td>
+                    <td class="textRightL">@ViewData["SendRepair"]</td>
+                    <td class="textLeftL">修后一次检测</td>
+                    <td class="textRightL">@ViewData["LastCheck"]</td>
+                </tr>
+                <tr> 
+                    <td class="textLeftL">一次返修</td>
+                    <td class="textRightL">@ViewData["OneRepair"]</td>
+                    <td class="textLeftL">修后二次检测</td>
+                    <td class="textRightL">@ViewData["TwoCheck"]</td>
+                    <td class="textLeftL">二次送修</td>
+                    <td class="textRightL">@ViewData["TwoRepair"]</td>
+                </tr>
+                <tr> 
+                    <td class="textLeftL">修后三次检测</td>
+                    <td class="textRightL">@ViewData["ThreeCheck"]</td>
+                    <td class="textLeftL">三次返修</td>
+                    <td colspan="3" class="textRightL">@ViewData["ThreeRepair"]</td>
+                </tr>
+                <tr> 
+                    <td class="textLeftL">备注</td>
+                    <td colspan="5" class="textRightL">@ViewData["Comments"]</td>
+                </tr>
+            </table>
+
+           <br /><br />
+
+       </div>
+    </div>
+</body>
+</html>

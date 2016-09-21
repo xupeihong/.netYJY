@@ -1,0 +1,279 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_WorkCard
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditWorkCard</title>
+
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/EditWorkCard.js")" type="text/javascript"></script>
+
+</head>
+<body>
+    @using (Html.BeginForm("EditWorkCard", "FlowMeterManage", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+    { 
+    <div id="pageContent" style="overflow-y:auto;">
+       <div style="width:98%;margin-left:10px;margin-top:5px;">
+            <table class="tabInfo" id="content" >
+                @Html.HiddenFor(model=>model.strRID)
+                <tr style="height:30px;"> 
+                    <td colspan="8" style="text-align:center; font-size:20px; font-weight:bold;">流量计维修随工单</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textRightCard" style="text-align:left;" colspan="8"> 基本信息</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    @Html.HiddenFor(model => model.strWID)
+                    <td class="textLeftCard">维修编号</td>
+                    <td class="textRightCard">
+                        @Html.TextBox("RepairID", @ViewData["RepairID"], new { @class = "txtCss", style = "width:80px;", @ReadOnly = "ReadOnly", onkeypress = "return !(event.keyCode==8)", onkeydown = "return !(event.keyCode==8)" })
+                        <span style="color:red;"> * </span>
+                    </td>
+                    <td class="textLeftCard">维修员</td>
+                    <td class="textRightCard">
+                        @Html.TextBoxFor(model => model.strRepairUser, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">检测员</td>
+                    <td class="textRightCard">
+                        @Html.TextBoxFor(model => model.strCheckUser, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">维修日期</td>
+                    <td class="textRightCard">
+                        @Html.TextBoxFor(model => model.strRepairDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss", style = "width:80px;" })
+                    </td>
+                </tr>
+
+                <tr style="height:30px;"> 
+                    <td class="textRightCard" colspan="8" style="text-align:left;">进厂检测结果：</td>
+                </tr>
+                
+                <tr style="height:30px;"> 
+                    <td class="textLeftCard">Qmin=</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strI_Qmin, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">0.2Qmax=</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strI_2Qmax, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">0.4Qmax=</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strI_4Qmax, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">Qmax=</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strI_Qmax, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                </tr>
+                
+                <tr style="height:30px;"> 
+                    <td class="textRightCard" colspan="8" style="text-align:left;">进厂重复性：</td>
+                </tr>
+                
+                <tr style="height:30px;"> 
+                    <td class="textLeftCard">Qmin</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strI_Repeat1, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">0.2Qmax</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strI_Repeat2, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">0.4Qmax</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strI_Repeat3, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">Qmax</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strI_Repeat4, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                </tr>
+
+                <tr style="height:30px;">
+                    <td class="textLeftCard">拆卸过程故障说明</td>
+                    <td class="textRightCard" colspan="7">               
+                        @Html.TextBoxFor(model => model.strDescripComments, new { @class = "txtCss", style = "width:70%; height:50px;" })
+                    </td>
+                </tr>
+
+                <tr style="height:30px;"> 
+                    <td class="textLeftCard" rowspan="2">维修意见相同</td>
+                    <td class="textRightCard" rowspan="2">
+                        @Html.RadioButton("IsRepairY",1) 是 @Html.RadioButton("IsRepairY",0) 否</td> 
+                        @Html.HiddenFor(model=>model.strIsRepairY) @Html.Hidden("StrIsIsRepairY")
+                    <td class="textLeftCard" rowspan="2">更换备件</td>
+                    <td class="textRightCard" rowspan="2">
+                        @Html.RadioButton("IsYChangeBak",1) 是 @Html.RadioButton("IsYChangeBak",0) 否</td> 
+                        @Html.HiddenFor(model=>model.strYChangeBak)   @Html.Hidden("StrIsYChangeBak")              
+                    <td class="textLeftCard" rowspan="2">未更换备件</td>
+                    <td class="textRightCard" rowspan="2">
+                        @Html.RadioButton("IsYUnChangeBak",1) 是 @Html.RadioButton("IsYUnChangeBak",0) 否</td> 
+                        @Html.HiddenFor(model=>model.strYUnChangeBak)@Html.Hidden("StrIsYUnChangeBak")
+                    <td class="textLeftCard">总检验</td>
+                    <td class="textRightCard">@Html.TextBoxFor(model => model.strTotalCheck, new { @class = "txtCss", style = "width:80px;" })</td>
+                </tr>
+
+                <tr style="height:30px;">                   
+                    <td class="textLeftCard">维修组</td>
+                    <td class="textRightCard">@Html.TextBoxFor(model => model.strRepairGroup, new { @class = "txtCss", style = "width:80px;" })</td>
+                </tr>
+                
+                <tr style="height:30px;"> 
+                    <td class="textLeftCard" rowspan="2">维修意见不相同</td>
+                    <td class="textRightCard" rowspan="2">
+                        @Html.RadioButton("IsRepairN",1) 是 @Html.RadioButton("IsRepairN",0) 否</td> 
+                        @Html.HiddenFor(model=>model.strIsRepairN) @Html.Hidden("StrIsIsRepairN")
+                    <td class="textLeftCard" rowspan="2">更换备件</td>
+                    <td class="textRightCard" rowspan="2">
+                        @Html.RadioButton("IsNChangeBak",1) 是 @Html.RadioButton("IsNChangeBak",0) 否</td> 
+                        @Html.HiddenFor(model=>model.strNChangeBak)  @Html.Hidden("StrIsNChangeBak")
+                    <td class="textLeftCard" rowspan="2">未更换备件</td>
+                    <td class="textRightCard" rowspan="2">
+                        @Html.RadioButton("IsNUnChangeBak",1) 是 @Html.RadioButton("IsNUnChangeBak",0) 否</td> 
+                        @Html.HiddenFor(model=>model.strNUnChangeBak)  @Html.Hidden("StrIsNUnChangeBak")
+                    <td class="textLeftCard">总检验</td>
+                    <td class="textRightCard">@Html.TextBoxFor(model => model.strTotalCheck2, new { @class = "txtCss", style = "width:80px;" })</td>
+                </tr>
+
+                <tr style="height:30px;">                   
+                    <td class="textLeftCard">维修组</td>
+                    <td class="textRightCard">@Html.TextBoxFor(model => model.strRepairGroup2, new { @class = "txtCss", style = "width:80px;" })</td>
+                </tr>
+
+                <tr style="height:30px;"> 
+                    <td class="textRightCard" colspan="8" style="text-align:left;">出厂测试：</td>
+                </tr>
+
+                <tbody class="tabInfo" id="CheckItems">
+
+                </tbody>
+                
+                <tr style="height:30px;"> 
+                    <td class="textRightCard" colspan="8" style="text-align:left;">出厂检测结果：</td>
+                </tr>
+                
+                <tr style="height:30px;"> 
+                    <td class="textLeftCard">Qmin=</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strO_Qmin, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">0.2Qmax=</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strO_2Qmax, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">0.4Qmax=</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strO_4Qmax, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">Qmax=</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strO_Qmax, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                </tr>
+                
+                <tr style="height:30px;">
+                     
+                    <td class="textRightCard" colspan="8" style="text-align:left;">出厂重复性：</td>
+                
+                </tr>
+                
+                <tr style="height:30px;"> 
+                    <td class="textLeftCard">Qmin</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strO_Repeat1, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">0.2Qmax</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strO_Repeat2, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">0.4Qmax</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strO_Repeat3, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">Qmax</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strO_Repeat4, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                 </tr>
+
+                <tr style="height:30px;"> 
+                    <td class="textLeftCard">维修人员</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strRepairPerson, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">库管出库</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strStockOut, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">出厂检测</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strOutCheck, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">打压合格</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strPressHege, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                </tr>
+
+                <tr style="height:30px;"> 
+                    <td class="textLeftCard">总检验</td>
+                    <td class="textRightCard">               
+                        @Html.TextBoxFor(model => model.strMainCheck, new { @class = "txtCss", style = "width:80px;" })
+                    </td>
+                    <td class="textLeftCard">检测合格日期</td>
+                    <td class="textRightCard" colspan="5">
+                        @Html.TextBoxFor(model => model.strO_Date, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss", style = "width:80px;" })
+                    </td>
+                </tr>
+
+                @Html.Hidden("HTitle")
+                @Html.Hidden("HChecked")
+            </table>
+        </div>
+
+        <div style="margin-top:3px;margin-left:10px; overflow-x:auto; width:97%; height:205px;" id="tabL">            
+            @Html.Hidden("RID")         @Html.Hidden("BakName")    @Html.Hidden("BakType")
+            @Html.Hidden("BakNum")      @Html.Hidden("Comments")
+
+            <table class="tabInfo" style="text-align:center;" id="taskList">
+                <tr>
+                    <td class="textLeft" style="width:80px;">名称</td>
+                    <td class="textLeft" style="width:80px;">规格型号</td>
+                    <td class="textLeft" style="width:80px;">数量</td>
+                    <td class="textLeft" style="width:200px;">备注</td>
+                    <td class="textLeft" style="width:80px;">
+                        <a style="font-weight:bold;color:#3598db;cursor:pointer; width:80px;" id="addContent"> 添 加 </a>       
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="float:right; margin-top:10px;">
+           <input type="submit" id="QRXG" class="btn" value="确认修改" style="margin-right:10px;"/> 
+            <br /><br />
+        </div>
+    </div>
+
+    }
+</body>
+</html>

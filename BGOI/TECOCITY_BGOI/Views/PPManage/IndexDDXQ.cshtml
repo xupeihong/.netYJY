@@ -1,0 +1,177 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>ScrapManagementOut</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Inventory/AddStockIn.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/PP/ProjectPP/IndexDDXQ.js")" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <form>
+
+        <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+            <tr>
+
+                <td>
+                    <div style="overflow-y: scroll;max-height:200px;">
+                        <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                            <tr align="center" valign="middle">
+                                <th class="th">
+                                    编号
+                                </th>
+                                <th class="th">
+                                    订货单位
+                                </th>
+                                <th class="th">
+                                    订购人
+                                </th>
+                                <th class="th">
+                                    审批人
+                                </th>
+                                <th class="th">
+                                    审批人2
+                                </th>
+                                <th class="th">
+                                    到货状态
+                                </th>
+                                <th class="th">
+                                    付款状态
+                                </th>
+                                <th class="th">
+                                    状态
+                                </th>
+                                <th class="th">
+                                    业务类型
+                                </th>
+                                <th class="th">
+                                    请购说明
+                                </th>
+                                <th class="th">
+                                    订购日期
+                                </th>
+                            </tr>
+
+                            <tbody id="GXInfo"></tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+
+                <td>
+                    <div style="overflow-y: scroll;max-height:200px;">
+                        <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                            <tr align="center" valign="middle">
+                                <th class="th">
+                                    交货期限
+                                </th>
+                                <th class="th">
+                                    交货方式
+                                </th>
+                                <th class="th">
+                                    是否开发票
+                                </th>
+                                <th class="th">
+                                    支付方式
+                                </th>
+                                <th class="th">
+                                    付款约定
+                                </th>
+                                <th style="width: 10%;" class="th">
+                                    合同编号
+                                </th>
+                                <th style="width: 15%;" class="th">
+                                    所属项目
+                                </th>
+                                <th style="width: 10%;" class="th">
+                                    总金额（含税）
+                                </th>
+                                <th style="width: 10%;" class="th">
+                                    总金额（不含税）
+                                </th>
+                            </tr>
+
+                            <tbody id="GXInfo1"></tbody>
+                        </table>
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+
+                <td>
+                    <div style="overflow-y: scroll;max-height:200px;">
+                        <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                            <tr align="center" valign="middle">
+                                <th class="th">
+                                    产品名称
+                                </th>
+                                <th class="th">
+                                    规格型号
+                                </th>
+                                <th class="th">
+                                    生产厂家
+                                </th>
+                                <th class="th">
+                                    单位
+                                </th>
+                                <th class="th">
+                                    进货数量
+                                </th>
+                                <th class="th">
+                                    单价(不含税)
+                                </th>
+                                <th class="th">
+                                    金额(不含税)
+                                </th>
+                                <th class="th">
+                                    单价（含税）
+                                </th>
+                                <th class="th">
+                                    总金额（含税）
+                                </th>
+                                <th class="th">
+                                    税率
+                                </th>
+                                <th class="th">
+                                    用途
+                                </th>
+                                <th class="th">
+                                    备注
+                                </th>
+                                <th class="th">
+                                    计划到货日期
+                                </th>
+                            </tr>
+
+                            <tbody id="GXInfo2"></tbody>
+                        </table>
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

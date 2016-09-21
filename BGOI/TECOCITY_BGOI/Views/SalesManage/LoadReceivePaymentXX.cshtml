@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.Title = "LoadReceivePaymentXX";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OfferManage</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Sales/LoadReceivePaymentXX.js")" type="text/javascript"></script>
+</head>
+<body>
+        <div id="pageContent">
+            <div class="mainHead">
+               相关单据的相关数据
+            </div>
+        </div>
+        <div>
+            <div id="div1">
+                <table class="tabInfo" cellpadding=" 0" style=" width :1000px" id="ShowPlist">
+                    <tr>
+                        <td colspan=4>备案编号：@ViewData["PID"]</td>
+                </table>
+            </div>
+            <div id="div2">
+                <table class="tabInfo" cellpadding=" 0" style=" width: 1000px" id="ShowClist">
+                    <tr>
+                        <td colspan="4">备案详细</td>
+                    </tr>
+                </table>
+            </div>
+            <table id="TT" class="tabInfo" cellpadding="0" style=" width: 1000px">
+                <tr>
+                    <td>备案日期:@ViewData["RecoreDate"]</td>
+                    <td>
+                        工程编号：@ViewData["PlanID"] 
+                    </td>
+                    <td>项目名称:@ViewData["PlanName"]</td>
+                </tr>
+                <tr>
+                    <td>
+                       业务负责人：@ViewData[""]
+                    </td>
+                    <td>施工方：@ViewData[""]</td>
+                    <td>
+                        电话：@ViewData[""]
+                    </td>
+                    </tr>
+                <tr>
+                    <td>所属区域:@ViewData[""]</td>
+                    <td>
+                        预计订购时间:@ViewData [""]
+                    </td>
+                    <td>渠道来源：@ViewData[""]</td>
+                </tr>
+                <tr>
+                    <td>备案人：@ViewData[""]</td>
+                    <td>
+                       备注：@ViewData[""]
+                    </td>
+                    <td>联系人:</td>
+                    <td>
+                        @Html.TextBoxFor(model => Model.UseContactor)
+                        @*@Html.ValidationMessageFor(model => model.UseContactor)*@
+                    </td>
+                    <td>联系电话:</td>
+                    <td>
+                        @Html.TextBoxFor(model => Model.UseTel)
+                        @*@Html.ValidationMessageFor(model => model.UseTel)*@
+                    </td>
+                    <td> 地址:</td>
+                    <td>
+                        @Html.TextBoxFor(model => Model.UseAddress)
+                        @*@Html.ValidationMessageFor(model => model.UseAddress)*@
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        交货时间:
+                    </td>
+                    <td colspan="7">
+                        @Html.TextBoxFor(model => Model.DeliveryTime, new { @class = "txtCss", @readonly = "readonly", Value = String.Format("{0:yyyy-MM-dd}", DateTime.Now), onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})" })
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+        @*<div id="bor" style=" margin-top: 5px; margin-left: 5px;">
+            <table cellpadding="0" cellspacing="0" border="0" id="list" class="scroll" style="width: 100%;"></table>
+            <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+        </div>*@
+
+
+    <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 5px;">
+        <table cellpadding="0" cellspacing="0" border="0" id="loadlist" class="scroll" style="width: 100%;"></table>
+        <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+    </div>
+
+
+</body>
+</html>
+

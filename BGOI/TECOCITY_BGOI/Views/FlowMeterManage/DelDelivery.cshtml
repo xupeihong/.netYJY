@@ -1,0 +1,78 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_TakeDelivery
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DelDelivery</title>
+    
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/DelDelivery.js")" type="text/javascript"></script>
+   <style>
+       .ui-jqgrid tr.jqgrow td {
+           white-space: normal !important;
+           height: auto;
+           vertical-align: text-top;
+           padding-top: 2px;
+       }
+   </style>
+</head>
+ <body>
+     <div id="pageContent">
+         <div id="tabTitile"><span style="margin-left: 10px; float: left;">收货单号：@Model.strTakeID</span></div>
+        @Html.Hidden("Hidden",@ViewData["TaskID"])
+        <div style="width:98%;margin-left:10px;margin-top:5px;">
+            <table class="tabInfo" id="content" >
+                <tr style="height:30px;"> 
+                    <td class="textRightL" style="text-align:left;" colspan="4"> 基本信息</td>
+                </tr>
+                <tr style="height:30px;">
+                    <td class="textLeftL">送货单位</td>
+                    <td class="textRightL">@Model.strUnitName</td> 
+                    <td class="textLeftL">送货人姓名</td>
+                    <td class="textRightL">@Model.strDeliverName</td>
+                </tr>
+                <tr style="height:30px;">
+                    <td class="textLeftL">联系电话</td>
+                    <td class="textRightL">@Model.strDeliverTel</td>
+                    <td class="textLeftL">送货日期</td>
+                    <td class="textRightL">@Model.strDeliverDate</td> 
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">收货人姓名</td>
+                    <td class="textRightL">@Model.strReceiveName</td> 
+                    <td class="textLeftL">联系电话</td>
+                    <td class="textRightL">@Model.strReceiveTel</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">收货日期</td>
+                    <td class="textRightL" colspan="3">@Model.strReceiveDate</td> 
+                </tr>
+            </table>
+        </div>
+        <div id="bor" style="width:100%;margin-top:5px;margin-left:10px; overflow:scroll;">
+            <table id="list" class="scroll" style="width:100%;"></table>
+            <div id="pager" class="scroll" style="text-align:center;width:100%;"></div>
+        </div>
+        <div style="margin-top:5px;margin-right:20px; float:right;">
+            <input class="btn" type="button" id="QDCX" value="确定撤销"/> 
+        </div>
+            
+    </div>
+</body>
+</html>

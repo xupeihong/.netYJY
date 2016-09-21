@@ -1,0 +1,39 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model tk_SProcessInfo
+<!DOCTYPE html>
+
+<html>
+<head>
+    @* <meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <title>RecoverSupply</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/RecoverSupply.js")" type="text/javascript"></script>
+</head>
+@using (Html.BeginForm("RecoverSupply", "SuppliesManage", FormMethod.Post, new { id = "RecoverSupply" }))
+{
+    <body>
+        <div id="hole">
+            <div id="tabTitile"><span style="margin-left: 10px;">流水号：@Html.HiddenFor(model => model.SID)@ViewBag.sid</span></div>
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">申请恢复原因：</td>
+                    <td class="textRight" colspan="3">@Html.TextArea("RecoverReson", new { @class = "txtCss", maxlength = "200", style = "height:100px;width:450px;" })<span style="color: red;">*</span></td>
+                </tr>
+            </table>
+            <div style="margin-left: 80%; margin-top: 5%;">
+                <input class="btn" type="button" id="charge" value="确定" />
+            </div>
+        </div>
+    </body>
+}
+</html>

@@ -1,0 +1,64 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model tk_KClientBas
+<!DOCTYPE html>
+
+<html>
+<head>
+   @* <meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>UPUnite</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/UpUnites.js")" type="text/javascript"></script>
+</head>
+@using (Html.BeginForm("UPUnite", "SuppliesManage", FormMethod.Post, new { id = "updateUnit" }))
+{
+    <body>
+        @* @Html.HiddenFor(model => model.CreateUser)
+        @Html.HiddenFor(model => model.CreateTime)
+        @Html.HiddenFor(model => model.Validate)*@
+        <div id="hole" style="overflow-y: auto;">
+            <div id="tabTitile"><span style="margin-left: 10px;">客户编号：@Model.KID</span></div>@Html.HiddenFor(model => model.KID)
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">共享部门</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.ShareUnits, new { @class = "txtCss" }) <span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.ShareUnits)</td>
+                </tr>
+                @*<tr>
+                    <td class="textLeft">创建单位</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.WType, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.WType) </td>
+                </tr>*@
+                @*<tr>
+                    <td class="textLeft">人员姓名</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.DeclareUser, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.DeclareUser)</td>
+                </tr>*@
+            </table>
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <input type="button" value="更新" id="UPUnite" class="btn" style="cursor: pointer; margin-left: 400px;" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </body>
+}
+</html>

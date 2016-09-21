@@ -1,0 +1,151 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddServicing</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/AddServicing.js")" type="text/javascript"></script>
+
+</head>
+<body style="overflow-y:scroll">
+
+
+    <div id="pageContent" style="overflow-y:scroll;">
+        @Html.Hidden("StrRID")
+        @Html.Hidden("BakType")     @Html.Hidden("BakUnitPrice")
+
+        @Html.Hidden("DeviceName")     @Html.Hidden("DeviceType")
+        @Html.Hidden("Num")            @Html.Hidden("UnitPrice")
+        @Html.Hidden("TotalPrice")     @Html.Hidden("Comments")
+        @Html.Hidden("Measure")
+        <div style="width:98%;margin-left:10px;margin-top:5px;">
+            <table class="tabInfo" id="content" style="text-align:left">
+
+                <tr>
+                    <td colspan="2">分项价格</td>
+                </tr>
+                <tr>
+                    <td  style="width:180px">
+                        项目
+                    </td>
+                    <td >价格（元）</td>
+
+                </tr>
+                <tr style="height: 30px;">
+                    <td  style="text-align:left">清洗保养</td>
+                    <td >
+                        <input id="qx" oninput="a(this)" />(无价格请填0)
+                        <span style="color:red">*</span>
+                        
+                        <label id="qxL" style="color:red"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>出厂标定</td>
+                    <td >
+                        <input id="ccbd" oninput="a(this)" />(无价格请填0)
+                        <span style="color:red">*</span> 
+                        <label id="ccbdL" style="color:red"></label>
+                    </td>
+                </tr>
+
+                @*<tr style="height: 30px;">
+                    <td >维修</td>
+                    <td >
+                        <input id="wx" oninput="a(this)" />
+                        <span style="color:red">*</span>
+                        <label id="wxL" style="color:red"></label>
+                    </td>
+                </tr>*@
+                <tr>
+                    <td>代理标定送检</td>
+                    <td >
+                        <input id="dlbd" oninput="a(this)" />(无价格请填0)
+                        <span style="color:red">*</span>
+                        <label id="dlbdL" style="color:red"></label>
+                    </td>
+                </tr>
+
+
+                <tr style="height: 30px;">
+                    <td>气密性测试（PN10）</td>
+                    <td >
+                        <input id="jc" oninput="a(this)" />(无价格请填0)
+                        <span style="color:red">*</span>
+                        <label id="jcL" style="color:red"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td >实流标定保过（确保通过通州、采育2座高压实流标定站的标定）</td>
+                    <td >
+                        <input id="slbd" oninput="a(this)" />(无价格请填0)
+                        <span style="color:red">*</span>
+                        <label id="slbdL" style="color:red"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>其他 <br /> 法兰盘表面处理（进、出口）</td>
+                    <td >
+                        <input id="qt" oninput="a(this)" />(无价格请填0)
+                        <span style="color:red">*</span>
+                        <label id="qtL" style="color:red"></label>
+                    </td>
+                </tr>
+            </table>
+            <div style="overflow-x:auto; " id="tabL">
+
+
+                <table class="tabInfo" style="text-align:center;" id="taskList">
+                    <tr style="height:30px;">
+                        <td class="textRightL" style="text-align:left;" colspan="7"> 更换设备</td>
+                    </tr>
+                    <tr>
+                        <td class="textLeft" style="width:150px;">名称</td>
+                        <td class="textLeft" style="width:150px;">规格型号</td>
+                        <td class="textLeft" style="width:80px;">数量</td>
+                        <td class="textLeft" style="width:80px;">单价</td>
+                        <td class="textLeft" style="width:80px;">总价</td>
+                        <td class="textLeft" style="width:100px;">备注</td>
+                        <td class="textLeft" style="width:80px;">
+                            <a style="font-weight:bold;color:#3598db;cursor:pointer; width:80px;" id="addc"> 添 加 </a>
+                        </td>
+                    </tr>
+                </table>
+              
+            </div>
+            <div id="listdiv" style="width:400px;margin-top:-250px;display:none; height:200px; overflow:scroll; border:1px solid #808080; background-color:white; position:relative;float:left;z-index:9000">
+                @Html.Hidden("id")
+               <input id="keyname" oninput="SearchProductByName()" /> <img style="margin-right:3px;float:right" src="~/images/close.gif" onclick="CL()" />
+                <table id="list" class="scroll" style="width:100%;"></table>
+
+            </div>
+        </div>
+
+        <div style="float:right; margin-top:10px;">
+            <input type="submit" id="QD" class="btn" value="确定" style="margin-right:10px;" />
+            
+        </div>
+    </div>
+
+
+</body>
+</html>

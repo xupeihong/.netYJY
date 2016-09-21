@@ -1,0 +1,86 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model tk_KContactPerson
+<!DOCTYPE html>
+
+<html>
+<head>
+    @*<meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>UPPerson</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/UpPerson.js")" type="text/javascript"></script>
+</head>
+@using (Html.BeginForm("UPPerson", "SuppliesManage", FormMethod.Post, new { id = "updateMan" }))
+{
+    <body>
+        @Html.HiddenFor(model => model.CreateUser)
+        @Html.HiddenFor(model => model.CreateTime)
+        @Html.HiddenFor(model => model.Validate)
+        <div id="hole" style="overflow-y: auto;">
+            <div id="tabTitile"><span style="margin-left: 10px;">客户编号：@Model.KID</span></div>@Html.HiddenFor(model => model.KID)
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">联系人姓名</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.CName, new { @class = "txtCss" }) <span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.CName)</td>
+                    <td class="textLeft">性别</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Sex, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.Sex) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">职务</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Job, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.Job)</td>
+                    <td class="textLeft">生日</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Birthday, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.Birthday)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">年龄</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Age, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.Age)</td>
+                    <td class="textLeft">手机</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Mobile, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.Mobile)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">传真</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.FAX, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.FAX)</td>
+                    <td class="textLeft">邮箱</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Email, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.Email)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">QQ</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.QQ, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.QQ)</td>
+                    <td class="textLeft">微信</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.WeiXin, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.WeiXin) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">备注</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Remark, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.Remark)</td>
+                </tr>
+            </table>
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <input type="button" value="更新" id="UPPerson" class="btn" style="cursor: pointer; margin-left: 750px;" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </body>
+}
+</html>

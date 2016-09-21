@@ -1,0 +1,121 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+@model ProductInstallationQuery
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    <title>ProductReport</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/CustomerServiceManage/HomeSalesInstallation.js")" type="text/javascript"></script>
+    @{
+        Acc_Account unitname = GAccount.GetAccountInfo();
+
+        string Rights = unitname.Rights;
+
+    }
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    @using (Html.BeginForm("HomeSalesInstallationToExcel", "CustomerService", FormMethod.Post, new { id = "GForm" }))
+    {
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">产品安装</span>>>家用销售
+            </div>
+            <div id="search" style="height: 110px;">
+                <table class="tabSearch" cellpadding="0" cellspacing="0" style="">
+                    <tr style="height: 30px;">
+                        <td>产品编号</td>
+                        <td>@Html.TextBox("PID", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.PID) &nbsp;&nbsp;&nbsp;&nbsp; </td>
+                        <td>产品名称</td>
+                        <td>@Html.TextBox("OrderContent", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.OrderContent) &nbsp;&nbsp;&nbsp;&nbsp;</td>
+                        <td>安装人员</td>
+                        <td>@Html.TextBox("InstallName", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.InstallName) &nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td>安装时间</td>
+                        <td>@Html.TextBox("Begin", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })</td>
+                        <td>至</td>
+                        <td>@Html.TextBox("End", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })</td>
+                        <td>状态：</td>
+                        <td>@Html.RadioButton("AfterSaleState", "1", new { @checked = true })已签收  
+                            @Html.RadioButton("AfterSaleState", "2")已安排
+                            @Html.RadioButton("AfterSaleState", "3")已回款  
+                            @Html.RadioButton("AfterSaleState", "4")已完成  
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <input class="btn" type="button" style="float: right; margin-right: 15px;" value="查  询" onclick="SearchOut()" /></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="margin-top: 5px; margin-left: 10px; height: 30px">
+                @* @if (Rights.IndexOf(",7,") >= 0)
+                {
+                <input class="btn" type="button" value="报装登记" onclick="AddBuyGiveOut()" />
+                }*@
+                @if (Rights.IndexOf(",Y7,") >= 0)
+                {
+                    <input class="btn" type="button" value="安装记录" onclick="InstallationRecord() " />
+                }
+                @if (Rights.IndexOf(",Y8,") >= 0)
+                {
+                    <input class="btn" type="button" id="Up" style="display:none" value="修改" onclick="ScrapManagementUP() " />
+                }
+                @if (Rights.IndexOf(",Y9,") >= 0)
+                {
+                    <input class="btn" type="button" id="De" value="撤销" />
+                }
+                <input class="btn" type="button" value="安装安排" id="AZAP" />
+                <input class="btn" type="button" value="回款" id="HK" />
+                <input class="btn" type="button" value="完成安装" id="WCAZ" />
+
+                <input type="submit" class="btn" style="float: right; margin-right: 15px;" id="btnDetail" value="导  出" />
+                <input type="button" class="btn" style="float: right; margin-right: 15px;" id="btnPrint" value="打  印" />
+            </div>
+              <div id="alarm1" style="display: none; position: absolute; right: 10px; bottom: 5px; height: auto; width: 220px; z-index: 999; background-color: white; border: 2px solid #3598db;">
+                <div style="width: 100%; height: 20px; background-color: #3598db; line-height: 20px;"><a onclick="closeAlarm()" style="color: white; font-weight: bold; padding-left: 180px; cursor: pointer;">关 闭</a></div>
+                <div id="content1" style="margin-left: 15px; color: #3598db; font-weight: bold; overflow-y: auto; height: auto"></div>
+            </div>
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+
+            <div id="bor1" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list1" class="scroll" style="width: 100%;"></table>
+                <div id="pager1" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+        </div>
+    }
+</body>
+</html>

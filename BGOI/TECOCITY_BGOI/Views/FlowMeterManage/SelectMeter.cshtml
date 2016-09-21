@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SelectMeter</title>
+
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/SelectMeter.js")" type="text/javascript"></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div id="pageContent" style="overflow-y:auto;">
+        <div style="margin-left:10px; margin-top:5px; text-align:left; height:25px; font-size:small;">
+            *列表显示维修完成的待送检列表</div>
+        <div id="bor" style="width:99%; padding-left:10px; float:left;">
+            <table id="list" class="scroll" style="width:100%;"></table>
+            <div id="pager" class="scroll" style="text-align:center;width:100%;"></div>
+            <br /><br />
+        </div>
+        <div style="margin-top:10px;margin-left:80%; ">
+            <input class="btn" type="button" id="btnSave" value="确 定" />
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>Warn</title>
+   <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+     <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/System/CUExamine.js")" type="text/javascript"></script>
+   <style>
+       .ui-jqgrid tr.jqgrow td {
+        white-space: normal !important;
+        height:auto;
+        vertical-align:text-top;
+        padding-top:2px;
+        }
+       </style>
+</head>
+   
+<body>
+    @using (Html.BeginForm("CUExamine", "System", FormMethod.Post, new { id = "ProjectformInfo" }))
+    {
+    <div id="pageContent">
+    @Html.Hidden("Content",@ViewData["Content"])   @Html.Hidden("allcontent")
+        <table class="tabInfo" style="width: 97%;margin-left:10px;margin-top:10px;">
+             <tr>
+                 <td class="textLeft" style="width:17%;">审批级别</td><td class="textLeft" style="width:34%;">人员</td><td class="textLeft" style="width:17%;">审批方式</td><td  class="textLeft" id="perNum" style="width:17%;">人数</td><td class="textLeft" style="width:17%;"><a style="font-weight:bold;color:#3598db;cursor:pointer;" id="addContent">添加</a></td>
+             </tr>
+        </table>
+         <table  id="task" class="tabInfo" style="width: 97%; margin-left:10px;text-align:center"></table>
+       <div style="margin-top:10px;margin-left:75%">
+             <input class="btn" type="button"  id="charge" value="确定"/>
+         @*  <input class="btn" type="button"  id="ss" value="试"/>*@
+       </div> 
+   
+    </div>
+    }
+</body>
+</html>

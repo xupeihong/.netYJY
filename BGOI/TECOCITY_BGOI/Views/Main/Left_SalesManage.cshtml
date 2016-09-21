@@ -1,0 +1,355 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Left_SalesManage</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    @*<script src="@Url.Content("~/Scripts/Main/Main.js")" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-leftmenu1.js")" type="text/javascript"></script>
+    @{
+        string userRole = GAccount.GetAccountInfo().UserRole;
+        string unitId = GAccount.GetAccountInfo().UnitID;
+    }
+    @Html.Hidden("userRole", userRole)
+    @Html.Hidden("unitId", unitId)
+    @{
+        string exjob = GAccount.GetAccountInfo().Exjob;
+    }
+    @{
+            string rightcode = GAccount.GetAccountInfo().Rights;
+        }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var userRole = $("#userRole").val();
+            var unitId = $("#unitId").val();
+            if (userRole.indexOf(",4,") != -1 && unitId == "47")
+            {
+                $("#dt1").css("background", "url('../images/choose.jpg') repeat-x");
+                $("#dt1").css("color", "white");
+                var dt1 = document.getElementById("dt1");
+                var dtNode = dt1.nextSibling;
+                if (dtNode.nextSibling.tagName == "DD") {
+                    dtNode.nextSibling.style.display = "block";
+                }
+            }
+
+            if (userRole.indexOf(",4,") != -1 && unitId == "37") {
+               $("#dt2").css("background", "url('../images/choose.jpg')  repeat-x;");
+               $("#dt2").css("color", "white");
+                var dt2 = document.getElementById("dt2");
+                var dt2Node = dt2.nextSibling;
+                if (dt2Node.nextSibling.tagName == "DD") {
+                    dt2Node.nextSibling.style.display = "block";
+                }
+                }
+          
+            //if (userRole.indexOf(",4,") != -1 && unitId == "37") {
+            //    $("#dt2").css("background", "url('../images/choose.jpg')  repeat-x;");
+            //    $("#dt2").css("color", "white");
+            //    $("#dt1").css("background", "url('../images/nochoose.jpg') repeat-x");
+            //    $("#dt1").css("color", "#999999");
+            //    var dt1 = document.getElementById("dt1");
+            //    var dtNode = dt1.nextSibling;
+            //    if (dtNode.nextSibling.tagName == "DD") {
+            //        dtNode.nextSibling.style.display = "none";
+            //    }
+
+            //    var dt2 = document.getElementById("dt2");
+            //    var dt2Node = dt2.nextSibling;
+            //    if (dt2Node.nextSibling.tagName == "DD") {
+            //        dt2Node.nextSibling.style.display = "block";
+            //    }
+            //}
+        });
+    </script>
+</head>
+<body>
+    <dl id="wenzhang">
+        <dd>
+            <dl>
+                @if (unitId == "47") {
+               
+               if (rightcode.IndexOf(",1,") != -1)
+                {
+                    <dt id="dt1"><span>▪ 项目产品业务</span></dt>
+                    <dd>
+                        <ul>
+                            @if (exjob != "")
+                            {
+                                <li>@*<li onclick="TurnTo('../ProjectManage/ProjectPrepare')">*@<span>+项目审批</span></li>
+                                <dl id="son">
+                                    <dd>
+                                        <ul>
+                                            @*<li onclick="TurnTo('../SalesManage/ApprovalManage?op=BA')"><span>- 备案审批</span></li>*@
+                                            <li onclick="TurnTo('../SalesManage/OfferApprovalManage?op=BJ');Back(this)"><span>- 报价审批</span></li>
+                                            <li onclick="TurnTo('../SalesManage/OrderApprovalManage?op=DD'); Back(this)"><span>- 订单审批</span></li>
+                                            @*<li onclick="TurnTo('../SalesManage/SalesContractManage?op=HT')"><span>- 合同审批</span></li>*@
+                                            <li onclick="TurnTo('../SalesManage/EXOrderApprovalManage?op=EX'); Back(this)"><span>- 退换货审批</span></li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            }
+                            @if (rightcode.IndexOf(",14,") != -1)
+                            {
+                                <li onclick="TurnTo('../SalesManage/RecordManage'); Back(this)"><span>- 备案管理</span></li>}
+                            @if (rightcode.IndexOf(",15,") != -1)
+                            {
+                                <li onclick="TurnTo('../SalesManage/OfferManage'); Back(this)"><span>- 报价管理</span></li>}
+                                @*<li onclick="TurnTo('../SalesManage/SalesContractMaintain')"><span>-合同管理</span></li>*@
+                                @*<dt><span>▪ 合同管理</span></dt>*@
+                                @*<dl id="son">
+                                    <dd>
+                                        <ul>
+                                            @*<li onclick="TurnTo('../SalesManage/SalesConManage')"><span>- 合同</span></li>*@
+                                @*<li onclick="TurnTo('../Contract/ContractMaintain')"><span>- 合同维护</span></li>*@
+                                @*<li onclick="TurnTo('../Contract/StayReturnCash')"><span>- 待结算提醒</span></li>*@
+                                @*<li onclick="TurnTo('../Contract/ContractStandingBook')"><span>- 合同台账</span></li>*@
+                                @*</ul>
+                                        </dd>
+                                    </dl>*@
+                                @if (rightcode.IndexOf(",16,") != -1)
+                                {
+                                    <li onclick="TurnTo('../SalesManage/OrderInfoManage'); Back(this)"><span>- 订单管理</span></li> }
+                                @if (rightcode.IndexOf(",17,") != -1)
+                                {
+                                    <li onclick="TurnTo('../SalesManage/ShipmentsManage'); Back(this)"><span>- 发货单</span></li>}
+                                @if (rightcode.IndexOf(",18,") != -1)
+                                {
+                                    <li onclick="TurnTo('../SalesManage/ExchangeGoodsManage'); Back(this)"><span>- 退换货记录</span></li>}
+                                @if (rightcode.IndexOf(",19,") != -1)
+                                {
+                                    <li onclick="TurnTo('../SalesManage/ReceivePaymentManage'); Back(this)"><span>- 回款记录</span></li>}
+                                @if (rightcode.IndexOf(",20,") != -1)
+                                {
+                                    <li onclick="TurnTo('../SalesManage/SHowReceivePayment?SalesType=Project'); Back(this)"><span>- 销售提醒</span></li>}
+                                @if (rightcode.IndexOf(",21,") != -1)
+                                {
+                                    <li onclick="TurnTo('../SalesManage/OrderTrack'); Back(this)"><span>- 订单跟踪</span></li>}
+                            </ul>
+                        </dd>
+                }
+                }
+            </dl>
+        </dd>
+        <dd>
+            <dl>@if (unitId == "37") { 
+                    if (rightcode.IndexOf(",2,") != -1)
+                {
+                <dt id="dt2"><span>▪ 家用产品管理</span></dt>
+                <dd>
+                    <ul style="overflow-y: scroll; height: 216px;">
+                        @if (exjob != "")
+                        {
+                            <li><span>+ 产品审批</span></li>
+                            <dl id="son">
+                                <dd>
+                                    <ul>
+                                        @* <li onclick="TurnTo('../SalesRetail/ApprovalRetail')"><span>- 零售销售审批</span></li>*@
+                                        <li onclick="TurnTo('../SalesRetail/ApprovalManage?op=NG'); Back(this)"><span>- 内购审批</span></li>
+                                        <li onclick="TurnTo('../SalesRetail/ApprovalManage?op=ZS'); Back(this)"><span>- 赠送审批</span></li>
+                                        <li onclick="TurnTo('../SalesRetail/ApprovalShoppe'); Back(this)"><span>- 专柜审批</span></li>
+                                        <li onclick="TurnTo('../SalesRetail/ApprovalProperty'); Back(this)"><span>- 样机审批</span></li>
+                                        <li onclick="TurnTo('../SalesRetail/ApprovalPromotion'); Back(this)"><span>- 促销审批</span></li>
+                                        <li onclick="TurnTo('../SalesRetail/ApprovalMarket'); Back(this)"><span>- 市场销售审批</span></li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                        }
+                        @* <li onclick="TurnTo('')"><span>- 渠道销售</span></li>*@
+    @if (rightcode.IndexOf(",27,") != -1)
+                            {
+                        <li onclick="TurnTo('../SalesRetail/SalesRetailManage')"><span>+ 零售销售</span></li>
+                        <dl id="son">
+                            <dd>
+                                <ul>@if (rightcode.IndexOf(",28,") != -1)
+                            {
+                                    <li onclick="TurnTo('../SalesRetail/SalesProductInfo'); Back(this)"><span>- 零售商品信息</span></li>}
+                                </ul>
+                            </dd>
+                        </dl>
+                             }
+                             @if (rightcode.IndexOf(",29,") != -1)
+                            {
+                        <li><span>+ 样机管理</span></li>
+                        <dl id="son">
+                            <dd>
+                                <ul>@if (rightcode.IndexOf(",30,") != -1)
+                            {
+                                    <li onclick="TurnTo('../SalesRetail/PrototypeInfomation'); Back(this)"><span>- 样机信息</span></li>}
+                                                                                                                       @if (rightcode.IndexOf(",31,") != -1)
+                            {
+                                    <li onclick="TurnTo('../SalesRetail/PropertyManage'); Back(this)"><span>- 出撤申请</span></li>}
+                                </ul>
+                            </dd>
+                        </dl>}
+                             @if (rightcode.IndexOf(",32,") != -1)
+                            {
+                        <li onclick="TurnTo('../SalesRetail/InternalManage?op=NG'); Back(this)"><span>- 内购管理</span></li>}
+                                                                                                            @if (rightcode.IndexOf(",33,") != -1)
+                            {
+                        <li onclick="TurnTo('../SalesRetail/InternalManage?op=ZS'); Back(this)"><span>- 赠送管理</span></li>}
+                                                                                                            @if (rightcode.IndexOf(",34,") != -1)
+                            {
+                        <li onclick="TurnTo('../SalesRetail/ShoppeManage'); Back(this)"><span>- 专柜制作</span></li>}
+                                                                                                    @if (rightcode.IndexOf(",35,") != -1)
+                            {
+                        <li onclick="TurnTo('../SalesRetail/MarketSalesManage'); Back(this)"><span>- 市场销售</span></li>}
+                       @if (rightcode.IndexOf(",36,") != -1)
+                            { <li><span>+ 其他</span></li>
+                        <dl id="son">
+                            <dd>
+                                <ul>
+                                    <li onclick="TurnTo('../SalesRetail/PromotionManage'); Back(this)"><span>- 促销活动</span></li>
+                                    @* <li onclick=""><span>- 其他申请</span></li>*@
+                                </ul>
+                            </dd>
+                        </dl>}
+                             @if (rightcode.IndexOf(",37,") != -1)
+                            {
+                        <li onclick="TurnTo('../SalesRetail/RetailLibraryTubeManage'); Back(this)"><span>- 销售记录库存关联信息</span></li>}   @if (rightcode.IndexOf(",38,") != -1)
+                            {
+                        <li onclick="TurnTo('../SalesRetail/RetailAfterSaleManage'); Back(this)"><span>- 销售记录售后关联信息</span></li>}
+                        @*<li onclick="TurnTo('')"><span>- 产品调拨</span></li>*@
+                        @*<li onclick="TurnTo('')"><span>- 计划内特殊支持</span></li>
+                            <li onclick="TurnTo('')"><span>- 客户资金铺底</span></li>
+                            <li onclick="TurnTo('')"><span>- 退换货记录</span></li>
+                            <li onclick="TurnTo('')"><span>- 回款记录</span></li>*@
+                        @*<li onclick="TurnTo('../SalesRetail/SalesRemind?SalesType=Retail')"><span>- 销售提醒</span></li>*@
+                    </ul>
+                </dd>
+            }
+                }
+            </dl>
+        </dd>
+        <dd>
+            <dl>
+                @if (rightcode.IndexOf(",3,") != -1)
+                {
+                    <dt><span>▪ 信息查询</span></dt>
+                    <dd>
+                        <ul>
+                            @*<li onclick="TurnTo('')"><span>- 收费查询</span></li>
+                                <li onclick="TurnTo('')"><span>- 欠费查询</span></li>
+                                <li onclick="TurnTo('')"><span>- 账单查询</span></li>*@
+                            @if (rightcode.IndexOf(",40,") != -1)
+                            {
+                                <li onclick="TurnTo('../SalesManage/InventoryQuery'); Back(this)"><span>- 库存查询</span></li>}
+                        </ul>
+                    </dd>
+                }
+            </dl>
+
+        </dd>
+        <dd>
+            <dl>
+                @if (rightcode.IndexOf(",4,") != -1)
+                {
+                    <dt onclick="TurnTo('../SalesManage/StatisticalManage'); Back(this)"><span>▪ 统计分析</span></dt>
+                    <dd>
+                        <ul>
+                            @if (rightcode.IndexOf(",50,") != -1)
+                            {
+                                <li onclick="TurnTo('../SalesManage/SalesSummary'); Back(this)"><span>- 年度累计销售汇总</span></li>}
+                            @if (rightcode.IndexOf(",51,") != -1)
+                            {
+                                <li onclick="TurnTo('../SalesManage/DepartmentSalesSummary'); Back(this)"><span>- 本月销售情况汇总表</span></li>}
+                                @*<li onclick="TurnTo('../SalesManage/PaymentStatistics')"><span>- 燕山输配产品部回款/欠款统计</span></li>*@
+                                @*<li onclick="TurnTo('../SalesManage/ContractSummary')"><span>- 合同应收款明细汇总表</span></li>*@
+                                @*<li onclick="TurnTo('../SalesManage/ContractElectronicLedger')"><span>- 销售合同电子台账</span></li>*@
+                                @if (rightcode.IndexOf(",52,") != -1)
+                                {
+                                    <li onclick="TurnTo('../SalesManage/EquipmentSalesSummary'); Back(this)"><span>+设备销售月汇总</span></li>
+                                    <dl id="son">
+                                        <dd>
+                                            <ul>
+                                                @if (rightcode.IndexOf(",53,") != -1)
+                                                {
+                                                    <li onclick="TurnTo('../SalesManage/PressureRegulatingBox'); Back(this)"><span>-调压箱销售情况汇总表</span></li>}
+                                                @if (rightcode.IndexOf(",54,") != -1)
+                                                {
+                                                    <li onclick="TurnTo('../SalesManage/HighVoltageCompartment'); Back(this)"><span>-高压箱销售情况汇总表</span></li>}
+                                                @if (rightcode.IndexOf(",55,") != -1)
+                                                {
+                                                    <li onclick="TurnTo('../SalesManage/CutOffSalesSummary')"><span>-切断阀销售情况汇总表</span></li>}
+                                                @if (rightcode.IndexOf(",56,") != -1)
+                                                {
+                                                    <li onclick="TurnTo('../SalesManage/RegulatorSummary'); Back(this)"><span>- 调压器销售情况汇总表</span></li>}
+                                                @if (rightcode.IndexOf(",57,") != -1)
+                                                {
+                                                    <li onclick="TurnTo('../SalesManage/OtherEquipment'); Back(this)"><span>- 其他设备销售情况汇总表</span></li>
+                                                }
+                                            </ul>
+                                        </dd>
+                                    </dl>
+                                }   @if (rightcode.IndexOf(",58,") != -1)
+                                {
+                                    <li onclick="TurnTo('../SalesManage/ContractStatisticalAnalysis'); Back(this)">
+                                        <span>-合同总额统计分析</span>
+
+                                    </li>
+                                }   @if (rightcode.IndexOf(",59,") != -1)
+                                {
+                                    <li onclick="TurnTo('../SalesManage/ReceivableAccount'); Back(this)">
+                                        <span>应收账款经营分析一</span>
+
+                                    </li>
+                                }   @if (rightcode.IndexOf(",60,") != -1)
+                                {
+                                    <li onclick="TurnTo('../SalesManage/AccountsPayableStatisticalAnalysis2 '); Back(this)">
+                                        <span>应收账款经营分析二</span>
+
+                                    </li>
+                                }   @*@if (userRole.IndexOf(",61,") != -1)
+                                                            {
+
+                                                        <li onclick="TurnTo('../SalesManage/OtherBusinessAnalysis')">
+                                                            <span>经营分析</span>
+
+                                                        </li>
+                                    }*@
+                                @if (rightcode.IndexOf(",62,") != -1)
+                                {
+                                    <li onclick="TurnTo('../SalesManage/MonthOwnProductSales'); Back(this)">
+                                        <span>自有产品销售量分析</span>
+                                    </li>
+                                }
+                                @if (rightcode.IndexOf(",63,") != -1)
+                                {
+                                    <li onclick="TurnTo('../SalesManage/MonthOwnProductChannelsFrom'); Back(this)">
+                                        <span>自有产品渠道类型分析</span>
+                                    </li>}
+                                    @*<li onclick="TurnTo('../SalesRetail/SalesWeekStatics')"><span>- 家用产品周销售报表</span></li>*@
+                                    @*@if (rightcode.IndexOf(",64,") != -1)
+                                    {
+                                        <li onclick="TurnTo('../SalesRetail/StaticsInternal'); Back(this)"><span>- 内购产品销售统计</span></li>}*@
+                                </ul>
+                            </dd>
+                }
+            </dl>
+        </dd>
+        <dd>
+            <dl>
+                <dt><span>▪ 系统设置</span></dt>
+                <dd>
+                    <ul>@if (rightcode.IndexOf(",70,") != -1)
+                            {
+                        <li onclick="TurnTo('../System/AppSet?id=BGOI_Sales/tk_AppContent'); Back(this)"><span>- 审批设置</span></li>}   @if (rightcode.IndexOf(",71,") != -1)
+                            {
+                        <li onclick="TurnTo('../SalesRetail/BasicSet'); Back(this)"><span>- 基本信息设置</span></li>} 
+                      @if (rightcode.IndexOf(",72,") != -1)
+                            {
+                        <li onclick="TurnTo('../SalesRetail/SetFiveMalls'); Back(this)"><span>- 5S店设置</span></li>}
+                    </ul>
+                </dd>
+            </dl>
+        </dd>
+    </dl>
+</body>
+</html>

@@ -1,0 +1,197 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_CheckData
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddCheckData</title>
+
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/AddCheckData.js")" type="text/javascript"></script>
+</head>
+
+<body>
+    @using (Html.BeginForm("AddCheckData", "FlowMeterManage", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+    {
+
+
+        <div id="pageContent" style="overflow-y:auto;">
+            <div style="width:98%;margin-left:10px;margin-top:5px;">
+
+                <table class="tabInfo" id="content">
+                    @Html.Hidden("RepairType")
+                    <tr style="height:30px;">
+                        <td colspan="6" style="text-align:center; font-size:20px; font-weight:bold;"><label id="typetitle"></label></td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td class="textRightL" style="text-align:left;" colspan="6 "> 基本信息</td>
+                    </tr>
+                    <tr style="height:30px;">
+
+
+
+
+                        @Html.HiddenFor(model => model.StrRID)
+
+                        <td class="textLeftL">检测人</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrCheckUser, new { @class = "txtCss" }) <span style="color:red;"> * </span>
+                            <br />
+                            @Html.ValidationMessageFor(model => model.StrCheckUser)
+                        </td>
+
+                        <td class="textLeftL">检测时间</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrCheckDate, new { onclick = "WdatePicker({dateFmt: 'yyyy/MM/dd HH:mm' })", @class = "txtCss" })
+                            <span style="color:red;"> * </span><br />
+                            @Html.ValidationMessageFor(model => model.StrCheckDate)
+                        </td>
+                        <td class="textLeftL">检测方式</td>
+                        <td class="textRightL">
+                            @Html.DropDownListFor(model => model.StrRepairMethod, FlowMeterMan.getConfigContent2("RepairMethod"), new { @class = "txtCss", @onchange = "HighorLow()" })
+                            <span style="color:red;"> * </span> <br />
+                            @Html.ValidationMessageFor(model => model.StrRepairMethod)
+                        </td>
+                    </tr>
+
+                  
+                    
+                    <tr style="height:30px;">
+                        <td class="textLeftL">qt<=q<=qMax示值误差(%)</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.Strq1, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">qMin<=q< qt示值误差(%) </td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.Strq2, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">重复性</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrAvgRepeat, new { @class = "txtCss" })
+                        </td>
+                    </tr>
+
+                    <tr style="height:30px;">
+                        <td class="textLeftL">拍照示值误差(%)</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrPDeviation, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">原仪表系数</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrOratio, new { @class = "txtCss" })
+                        </td>
+                        <td class="textLeftL">数据是否合格</td>
+                        <td >
+
+                            @Html.RadioButton("IsRepair", '否', true) 否 @Html.RadioButton("IsRepair", '是') 是
+                            @Html.HiddenFor(model => model.Strvalidate)
+                        </td>
+                      
+                    </tr>
+                    <tr>
+                        <td class="textLeftL">测试结果备注</td>
+                        <td class="textRightL" colspan="5">
+                            @Html.TextAreaFor(model => model.StrRemark, new { @class = "txtCss",style="width:97%" })
+                        </td>
+                      
+                    </tr>
+
+                    <tr style="text-align:center">
+                        <td class="textLeftL" colspan="2">流量点m³/h</td>
+                        <td class="textLeftL" colspan="2" id="HighorLowtd">平均仪表系数1/m³ %</td>
+                        <td class="textLeftL" colspan="2">重复性 %</td>
+                        @*<td><a style="font-weight:bold;color:#3598db;cursor:pointer; width:80px;" onclick="addContent()"> 添 加 </a></td>*@
+                    </tr>
+                    <tr style="height:30px;text-align:center">
+
+                        <td class="textRightL" colspan="2">
+                            @Html.TextBoxFor(model => model.StrQmin, new { @class = "txtCss" })
+                        </td>
+
+                        <td class="textRightL" colspan="2">
+                            @Html.TextBoxFor(model => model.StrAvg_Qmin, new { @class = "txtCss" })
+                        </td>
+
+                        <td class="textRightL" colspan="2">
+                            @Html.TextBoxFor(model => model.StrRepeat_Qmin, new { @class = "txtCss" })
+                        </td>
+                        @*<td><a style="font-weight:bold;color:#808080;cursor:pointer; width:80px;" > 删 除</a></td>*@
+                    </tr>
+                    <tr style="height:30px;text-align:center">
+
+                        <td class="textRightL" colspan="2">
+                            @Html.TextBoxFor(model => model.StrQmax1, new { @class = "txtCss" })
+                        </td>
+
+                        <td class="textRightL" colspan="2">
+                            @Html.TextBoxFor(model => model.StrAvg_Qmax1, new { @class = "txtCss" })
+                        </td>
+
+                        <td class="textRightL" colspan="2">
+                            @Html.TextBoxFor(model => model.StrRepeat_Qmax1, new { @class = "txtCss"})
+                        </td>
+                        @*<td><a style="font-weight:bold;color:#808080;cursor:pointer; width:80px;" > 删 除</a></td>*@
+                    </tr>
+                    <tr style="height:30px;text-align:center">
+
+                        <td class="textRightL" colspan="2">
+                            @Html.TextBoxFor(model => model.StrQmax2, new { @class = "txtCss" })
+                        </td>
+
+                        <td class="textRightL" colspan="2">
+                            @Html.TextBoxFor(model => model.StrAvg_Qmax2, new { @class = "txtCss" })
+                        </td>
+
+                        <td class="textRightL" colspan="2">
+                            @Html.TextBoxFor(model => model.StrRepeat_Qmax2, new { @class = "txtCss" })
+                        </td>
+                        @*<td><a style="font-weight:bold;color:#808080;cursor:pointer; width:80px;" > 删 除</a></td>*@
+                    </tr>
+                    <tr style="height:30px;text-align:center" id="trStrQmax25">
+
+                        <td class="textRightL" colspan="2">
+                            @Html.TextBoxFor(model => model.StrQmax25, new { @class = "txtCss" })
+                        </td>
+
+                        <td class="textRightL" colspan="2">
+                            @Html.TextBoxFor(model => model.StrAvg_Qmax25, new { @class = "txtCss" })
+                        </td>
+
+                        <td class="textRightL" colspan="2">
+                            @Html.TextBoxFor(model => model.StrRepeat_Qmax25, new { @class = "txtCss" })
+                        </td>
+                        @*<td><a style="font-weight:bold;color:#808080;cursor:pointer; width:80px;" > 删 除</a></td>*@
+                    </tr>
+                </table>
+              
+            </div>
+
+            <div style="float:right; margin-top:10px;">
+                <input type="submit" id="QD" class="btn" value="确定" style="margin-right:10px;" />
+                <br /><br />
+            </div>
+        </div>
+
+    }
+</body>
+
+
+</html>

@@ -1,0 +1,137 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>MaterialOutOfTheWarehouse</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/CustomerServiceManage/TestingOfEquipmentStatistics.js")" type="text/javascript"></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    @using (Html.BeginForm("InventoryToExcel2", "CustomerService", FormMethod.Post, new { id = "GForm" }))
+    {
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">统计详情</span>>>设备调试统计表
+            </div>
+            <div id="search" style="height: 40px;">
+                <table class="tabSearch" cellpadding="0" cellspacing="0" style="">
+                    <tr style="height: 30px;">
+                        <td>开始日期：</td>
+                        <td>
+                            @Html.TextBox("start", "", new { onclick = "WdatePicker()" })
+                        </td>
+                        <td>结束日期：</td>
+                        <td>
+                            @Html.TextBox("end", "", new { onclick = "WdatePicker()" })
+                        </td>
+                     <td>
+                            <input class="btn" type="button" style="float: right; margin-right: 0px; margin-bottom: 0px;" value="查  询" onclick="Searchout()" /></td>
+                    </tr>
+                    <tr style="height: 30px; display:none">
+                        <td>规格型号</td>
+                        <td>@Html.DropDownList("Spec", InventoryMan.GetSpec(), new { @class = "txtCss", style = "width:167px;" })</td>
+                        <td colspan="2">
+                            <input class="btn" type="button" style="float: right; margin-right: 0px; margin-bottom: 0px;" value="查  询" onclick="Searchout1()" /></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="margin-top: 5px; margin-left: 10px;">
+                @* <input class="btn" type="submit" id="DaoOut" value="导出" />*@
+                @*<input class="btn" type="button" value="查  询" onclick="Search()" />*@
+                <input type="button" class="btn" style="float: right; margin-right: 15px;" id="btnPrint" value="打  印" />
+            </div>
+            <div id="titlenew" style="width: 100%; margin-top: 5px; margin-left: 10px; display: none">
+                <div style="float: left;width: 10px;">自</div>
+                <div id="kaishi" style="float: left; width: 60px;"></div>
+                <div style="float: left;width: 5px;">-</div>
+                <div id="jiesu" style="float: left; width: 60px;"></div>
+                <div style="float: left;width: 65px;">,共调试设备</div>
+                <div id="shulian" style="float: left; width: 10px;"></div>
+                <div style="float: left;width: 10px;">起</div>
+            </div>
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list" class="scroll" style="width: 100%;">
+                    <tr>
+                        <td>
+                            <div style="overflow-y: scroll; max-height: 400px;">
+                                <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo2" border="1">
+                                    <tr align="center" valign="middle">
+                                        <td style="width: 5%;"  rowspan="2">用户名称
+                                        </td>
+                                        <td style="width: 5%;"  rowspan="2">联系电话
+                                        </td>
+                                        <td style="width: 10%;"  rowspan="2">用户地址
+                                        </td>
+                                        <td style="width: 5%;"  rowspan="2">设备管理方式
+                                        </td>
+                                        <td style="width: 5%;"  rowspan="2">设备名称
+                                        </td>
+                                        <td style="width: 5%;"  rowspan="2">规格型号
+                                        </td>
+                                        <td style="width: 5%;"  rowspan="2">用户类别
+                                        </td>
+                                        <td style="width: 5%;"  rowspan="2">调试人员
+                                        </td>
+                                        <td style="width: 5%;"  rowspan="2">进口压力
+                                        </td>
+                                        <td style="width: 5%;"  rowspan="2">放散压力
+                                        </td>
+                                        <td style="width: 10%;"  colspan="3">上台
+                                        </td>
+                                        <td style="width: 10%;"  colspan="3">下台
+                                        </td>
+                                    </tr>
+                                    <tr align="center" valign="middle">
+                                        <td style="width: 5%;" >出口压力P2
+                                        </td>
+                                        <td style="width: 5%;" >关闭压力Pb
+                                        </td>
+                                        <td style="width: 5%;" >切断压力Pq
+                                        </td>
+
+                                        <td style="width: 5%;" >出口压力P2
+                                        </td>
+                                        <td style="width: 5%;" >关闭压力Pb
+                                        </td>
+                                        <td style="width: 5%;" >切断压力Pq
+                                        </td>
+                                    </tr>
+                                    <tbody id="DetailInfo">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                @* <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>*@
+            </div>
+        </div>
+    }
+</body>
+</html>

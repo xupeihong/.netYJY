@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/COM_Approval/ApprovalSup.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+
+</head>
+@using (Html.BeginForm("ApprovalSup", "COM_Approval", FormMethod.Post, new { id = "ProjectformInfo" }))
+{
+    <body>
+        @Html.Hidden("webkey", @ViewData["webkey"])   @Html.Hidden("folderBack", @ViewData["folderBack"])  @Html.Hidden("PID", @ViewData["PID"]) @Html.Hidden("RelevanceID", @ViewData["RelevanceID"])
+        <div id="hole" style="overflow-y: auto;">
+            <div id="tabTitile"><span style="margin-left: 10px;">审批编号：@ViewData["PID"]</span></div>
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+
+                <tr id="one">
+                    <td class="textLeft">质量管理体系得分</td>
+                    <td class="textRight">@Html.Hidden("Score1")@ViewData["Score1"] 分
+                    </td>
+                    <td class="textLeft">价格得分</td>
+                    <td class="textRight">@Html.Hidden("Score2") @ViewData["Score2"] 分</td>
+                    <td class="textLeft">供货及时率得分</td>
+                    <td class="textRight">@Html.Hidden("Score3") @ViewData["Score3"] 分</td>
+                </tr>
+                <tr id="two">
+                    <td class="textLeft">服务得分</td>
+                    <td class="textRight">@Html.Hidden("Score4") @ViewData["Score4"] 分</td>
+                    <td class="textLeft">得分总计</td>
+                    <td class="textRight">@Html.Hidden("Score5") @ViewData["Score5"] 分 </td>
+                    <td class="textLeft">评价结果</td>
+                    <td class="textRight">
+                        @Html.Hidden("Result", @ViewData["Result"])
+                        @Html.RadioButton("Result", "0", new { disabled = "disabled" }) 合格
+                        @Html.RadioButton("Result", "1", new { disabled = "disabled" }) 待改进
+                        <span style="color: red;">*</span>
+                    </td>
+                </tr>
+                <tr id="three">
+                    <td class="textLeft">评价日期</td>
+                    <td class="textRight">@Html.Hidden("ReviewDate") @ViewData["ReviewDate"] </td>
+                    <td class="textLeft">待改进意见</td>
+                    <td class="textRight" colspan="3">@Html.Hidden("ResultDesc") @ViewData["ResultDesc"]</td>
+                </tr>
+                <tr id="five">
+                    <td class="textLeft">部门级是否同意</td>
+                    <td class="textright" colspan="5">
+                        @Html.Hidden("ISAgree", @ViewData["ISAgree"])
+                        @Html.RadioButton("ISAgree", 0, new { disabled = "disabled" })是
+                          @Html.RadioButton("ISAgree", 1, new { disabled = "disabled" })否
+                    </td>
+                </tr>
+                <tr id="six">
+                    <td class="textLeft">部门级处理原因</td>
+                    <td class="textright" colspan="5">@Html.Hidden("OpinionsD") @ViewData["OpinionsD"]</td>
+                </tr>
+                <tr id="seven">
+                    <td class="textLeft">是否同意通过内部评审</td>
+                    <td class="textright" colspan="5">
+                        @Html.Hidden("SState", @ViewData["SState"])
+                        @Html.RadioButton("SState", 0, new { disabled = "disabled" })是
+                          @Html.RadioButton("SState", 1, new { disabled = "disabled" })否
+                    </td>
+                </tr>
+                <tr id="eight">
+                    <td class="textLeft">内部负责人意见</td>
+                    <td class="textright" colspan="5">@Html.Hidden("SContent") @ViewData["SContent"]</td>
+                </tr>
+
+
+                <tr id="four">
+                    <td class="textLeft">评分人</td>
+                    <td class="textRight">@Html.Hidden("DeclareUser") @ViewData["DeclareUser"]  </td>
+                    <td class="textLeft">评分部门</td>
+                    <td class="textRight" colspan="4">@Html.Hidden("DeclareUnit") @ViewData["DeclareUnit"]</td>
+                </tr>
+
+                <tr>
+                    <td class="textLeft">是否通过会签审批</td>
+                    <td class="textRight" colspan="6">@Html.RadioButton("IsReturn", "是") 是 
+                        @Html.RadioButton("IsReturn", "否") 否 <span style="color: red;">*</span></td>
+                    @Html.Hidden("IsPass")
+                </tr>
+                <tr>
+                    <td class="textLeft">会签意见</td>
+                    <td class="textRight" colspan="6">@Html.TextArea("Opinion", new { style = "width:90%;height:100px;" }) <span style="color: red;">*</span></td>
+                </tr>
+            </table>
+            <div style="margin-top: 10px; margin-left: 80%">
+                <input class="btn" type="button" id="charge" value="确定" />
+            </div>
+        </div>
+    </body>
+}
+</html>

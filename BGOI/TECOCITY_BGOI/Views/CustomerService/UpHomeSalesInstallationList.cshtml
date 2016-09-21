@@ -1,0 +1,193 @@
+﻿@{
+    Layout = null;
+}
+
+@using TECOCITY_BGOI
+@model tk_SHInstall
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>InstallRecord</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Sales/RecordInfo.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+@*    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>*@
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_Tables.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/CustomerServiceManage/UpHomeSalesInstallationList.js")" type="text/javascript"></script>
+
+</head>
+<body>
+    <form>
+        <div id="tabTitile"><span style="margin-left: 10px; float: left;">编号：@Model.AZID</span></div>@Html.HiddenFor(model => Model.AZID)
+        <div style="width: 800px; height: 20px; float: left;" id="shijian">
+            <span style="margin-left: 480px; float: left;">登录日期:</span><div id="localtime" style="float: right;"></div>
+        </div>
+        <br />
+        <div style="height: 440px; overflow-y: auto; text-align: left;">
+            <table class="tabInfo" style="width: 99%; margin-left: 8px; margin-top: 10px;">
+                <tr style="text-align: center; font: bold; margin-top: 20px; font-size: 24px;">
+                    <td colspan="4">安装记录</td>
+
+                </tr>
+            @*    <tr>
+                    <td class="textLeft">关联报装单号</td>
+                    <td class="textRight" colspan="3">@Model.BZID</td>@Html.HiddenFor(model => Model.BZID)
+                </tr>*@
+                <tr style="background-color: #88c9e9; text-align: left;">
+
+                    <td colspan="4">安装信息</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">安装时间</td>
+                    <td class="textRight">
+                        <input type="text" id="InstallTime" onclick="WdatePicker()" class="Wdate" style="width: 170px;" /></td>
+                    <td class="textLeft">安装人员</td>
+                    <td class="textRight">@Html.TextBox("InstallName", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.InstallName)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">是否收费：　
+                     @Html.RadioButton("IsCharge", "0", new { @checked = true })是  
+                     @Html.RadioButton("IsCharge", "1")否  
+                    </td>
+                    <td class="textLeft">是否开票：
+                     @Html.RadioButton("IsInvoice", "0", new { @checked = true })是  
+                     @Html.RadioButton("IsInvoice", "1")否  
+                    </td>
+                    <td class="textLeft">开票类型：</td>
+                    <td class="textRight">
+                        @Html.RadioButton("ReceiptType", "0", new { @checked = true })发票  
+                     @Html.RadioButton("ReceiptType", "1")收据
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">确认客户满意度：</td>
+                    <td class="textRight" colspan="3">
+                        @Html.RadioButton("SureSatisfied", "0", new { @checked = true })非常满意  
+                     @Html.RadioButton("SureSatisfied", "1")满意
+                     @Html.RadioButton("SureSatisfied", "2")一般  
+                     @Html.RadioButton("SureSatisfied", "3")不满意
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">是否向用户说明包装内所含物品：</td>
+                    <td class="textRight">
+                        @Html.RadioButton("IsProContent", "0", new { @checked = true })是  
+                     @Html.RadioButton("IsProContent", "1")否  
+                    </td>
+
+                    <td class="textLeft">是否穿工作服：</td>
+                    <td class="textRight">
+                        @Html.RadioButton("IsWearClothes", "0", new { @checked = true })是  
+                     @Html.RadioButton("IsWearClothes", "1")否
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">是否指导用户使用及指导事项：</td>
+                    <td class="textRight">
+                        @Html.RadioButton("IsTeaching", "0", new { @checked = true })是  
+                     @Html.RadioButton("IsTeaching", "1")否  
+                    </td>
+                    <td class="textLeft">是否接收用户赠与的物品：
+                    </td>
+                    <td class="textRight">
+                        @Html.RadioButton("IsGifts", "0", new { @checked = true })是  
+                     @Html.RadioButton("IsGifts", "1")否
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">工作完成后是否做好清洁工作：
+                    </td>
+                    <td class="textRight">
+                        @Html.RadioButton("IsClean", "0", new { @checked = true })是  
+                     @Html.RadioButton("IsClean", "1")否  
+                    </td>
+                    <td class="textLeft">客户是否阅读安装单并签字：</td>
+                    <td class="textRight">
+                        @Html.RadioButton("IsUserSign", "0", new { @checked = true })是  
+                     @Html.RadioButton("IsUserSign", "1")否
+                    </td>
+                </tr>
+            </table>
+            <table class="tabInfo" style="width: 99%; margin-left: 8px; margin-top: 10px;">
+                <tr style="background-color: #88c9e9; text-align: left;">
+
+                    <td colspan="4">产品信息</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <input type="button" class="btn" style=" onclick="CheckDetail();" value="选择"
+                            id="btnAdd" name="btnAdd" />
+                      @*  <input type="button" class="btn" onclick="addKonghang();" value="添加"
+                            id="btnAdd1" name="btnAdd1" />&nbsp;*@
+                        <div style="overflow-y: scroll;">
+                            <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                                <tr align="center" valign="middle">
+                                    <th style="width: 5%;" class="th">序号
+                                    </th>
+                                    <th style="width: 10%;" class="th">产品编号
+                                    </th>
+                                    <th style="width: 10%;" class="th">产品名称
+                                    </th>
+                                    <th style="width: 20%;" class="th">规格型号
+                                    </th>
+                                    <th style="width: 5%;" class="th">单位
+                                    </th>
+                                    <th style="width: 5%;" class="th">数量
+                                    </th>
+                                    <th style="width: 5%;" class="th">单价
+                                    </th>
+                                    <th style="width: 15%;" class="th">安装价格
+                                    </th>
+                                    <th style="width: 10%;" class="th">操作
+                                    </th>
+                                </tr>
+                                <tbody id="DetailInfo"></tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table class="tabInfo" style="width: 99%; margin-left: 8px; margin-top: 10px;">
+                <tr style="background-color: #88c9e9; text-align: left;">
+
+                    <td colspan="4">其他信息</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">备注</td>
+                    <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.Remark, new { @class = "txtCss", @style = "width:720px;height:50px;" })@Html.ValidationMessageFor(model => model.Remark)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">登记人</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.CreateUser, new { @class = "txtCss", @readonly = "true" })</td>
+                    <td class="textLeft">分公司 </td>
+                    <td class="textRight">@Html.DropDownListFor(model => model.AZCompany, CustomerServiceMan.GetCompany(), new { @class = "txtCss" })</td>
+                </tr>
+                <input id="Hidden1" type="hidden" /><input id="oldpid" type="hidden" />
+            </table>
+
+            <input type="text" id="DID" style="display: none;" />
+        </div>
+        <div style="margin-top: 10px; margin-left: 75%;">
+            
+            <input class="btn" type="button" id="btnSave" value="保存" />
+            <input class="btn" type="button" id="Cancel" value="取消" />
+        </div>
+    </form>
+</body>
+</html>

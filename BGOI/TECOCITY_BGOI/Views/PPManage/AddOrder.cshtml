@@ -1,0 +1,203 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model PP_PurchaseOrder
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>ScrapManagementOut</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Inventory/AddStockIn.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/PP/ProjectPP/AddOrder.js")" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <form>
+        <div id="createAll" style="background-color: #ffffff; width: 100%; ">
+            <div id="biaoti">
+                <h1 class="title">新建订购单</h1>
+            </div>
+            <div id="danhao" class="PPtitle">
+                <span style="margin-left:10px;">订购单号：@Model.DDID</span>@Html.HiddenFor(model => model.DDID)
+            </div>
+            <div>
+                <table border="0" cellpadding="0" cellspacing="0" width="98%" class="tabInfo">
+                    <tr>
+                        <td>
+                            订购日期 <input type="text" id="OrderDate" onclick="WdatePicker()" class="Wdate" style="width:170px;" /><span style="color: red;">*</span>
+                        </td>
+                        <td>
+                            <input type="button" id="upLoad" class="btn" name="btnSel" value="上传" />
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <div style="margin-top:5px;margin-left:1px;">
+            选择业务类型&nbsp;&nbsp;&nbsp; @Html.DropDownList("xzrwlx", PPManage.GetDDyewu(), new { @class = "txtCss" })
+            <input type="button" id="DH" value="选择任务单号" /> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; @Html.TextBox("TaskNum", "", new { @class = "txtCss" })
+        </div>
+        <table cellpadding="0" cellspacing="0" class="tabInfo" style="margin-top:5px;">
+            <tr class="PPtr">
+                <td colspan="4">   订购物品</td>
+            </tr>
+            <tr>
+
+                <td>
+                    <input type="button" class="btn" style="margin-top:3px;" value="添加" onclick="AddNewBasic()" id="btnAdd" name="btnAdd" />&nbsp;
+                    <input type="button" id="btnDel" class="btn" name="btnDel" value="删除" onclick="DelRow();" />
+                    <div style="overflow-y: scroll;max-height:200px;">
+                        <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                            <tr align="center" valign="middle">
+                                <th style="width: 5%;" class="th">
+                                    序号
+                                </th>
+                                <th class="th">
+                                    物品名称
+                                </th>
+                                <th class="th">
+                                    规格型号
+                                </th>
+                                <th class="th">
+                                    物料编码
+                                </th>
+                                <th class="th">
+                                    单位
+                                </th>
+                                <th class="th">
+                                    数量
+                                </th>
+                                <th class="th">
+                                    供应商
+                                </th>
+                                <th class="th">
+                                    单价
+                                </th>
+                                <th class="th">
+                                    总金额
+                                </th>
+                                <th class="th">
+                                    用途
+                                </th>
+                                <th class="th">
+                                    图纸号
+                                </th>
+                            </tr>
+
+                            <tbody id="GXInfo"></tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+        @*<div id="shangcuan" style="width: 90%; height: 270px; padding-left: 15px; margin-top: 5px; overflow-y: auto; display: none">
+                <table id="tabStatisticTotal" class="tabInfo" style="width: 99%; ">
+                    <tr id="line1" style="height: 30px; text-align: center;"></tr>
+                    <tbody id="tabStatistic" style="text-align: center;"></tbody>
+                </table>
+
+            </div>*@
+        <table cellpadding="0" cellspacing="0" class="tabInfo" style="margin-top:5px;">
+            <tr class="PPtr">
+                <td colspan="10">   相关约定</td>
+            </tr>
+            <tr>
+                <td>
+                    预计交货日期
+                </td>
+                <td colspan="3" width=" 125px">
+                    <input type="text" id="Begin" onclick="WdatePicker()" class="Wdate" style="width:170px;" />
+                </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <td>
+                    交货方式
+                </td>
+                <td colspan="3" width=" 200px">
+                    @Html.DropDownList("DeliveryMethod", PPManage.GetTypeID("and [type]='交货方式'"), new { @class = "txtCss" })<span style="color: red;">*</span>
+                </td>
+                <td>
+                    是否开发票
+                </td>
+                <td colspan="3" width=" 200px">
+                    @Html.DropDownList("IsInvoice", PPManage.GetTypeID("and [type]='是否开发票'"), new { @class = "txtCss" })<span style="color: red;">*</span>
+                </td>
+            </tr>
+
+            <tr></tr>
+            <tr>
+                <td>
+                    支付方式
+                </td>
+                <td colspan="3" width="12px">
+                    @Html.DropDownList("PaymentMethod", PPManage.GetTypeID("and [type]='支付方式'"), new { @class = "txtCss" })<span style="color: red;">*</span>
+                </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <td>
+                    付款约定
+                </td>
+                <td colspan="3">
+                    @Html.DropDownList("PaymentAgreement", PPManage.GetTypeID("and [type]='付款约定'"), new { @class = "txtCss" })<span style="color: red;">*</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    合同编号
+                </td>
+                <td colspan="3">
+                    @Html.TextBox("ContractNO", "", new { @class = "txtCss" })
+                </td>
+                <td>
+                    所属项目
+                </td>
+                <td colspan="3">
+                    @Html.TextBox("TheProject", "", new { @class = "txtCss" })
+                </td>
+            </tr>
+        </table>
+
+
+
+        <div style="width: 100%; margin-top:20px; height: 30px;">
+            <table cellpadding="0" cellspacing="0" class="tabInfo"></table>
+        </div>
+        @*</div><br />*@
+
+        <div style="width: 100%; height: 70px;">
+            <table cellpadding="0" cellspacing="0" class="tabInfo" style="margin-top:5px;">
+                <tr class="PPtr">
+                    <td colspan="4">   订购人信息</td>
+                </tr>
+                <tr>
+                    <td class="textleft">
+                        订购人
+                    </td>
+                    <td class="textright" colspan="3">
+                        @Html.DropDownList("OrderContacts", PPManage.GetUserId(), new { @class = "txtCss" })
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="width: 98%; margin-right: 10px; height: 36px; text-align: right;margin-top:10px;">
+            <input id="btnSubmit" type="button" class="btn" value="保存" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,171 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+@model Tk_SupplierBas
+<!DOCTYPE html>
+
+<html>
+<head>
+    @*   <meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <title>Certificate</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/AccessReview.js")" type="text/javascript"></script>
+    <style type="text/css">
+        .mainHead {
+            position: absolute;
+            z-index: 3;
+        }
+
+        html, body {
+            overflow: auto;
+            margin: 0px;
+            width: 100%;
+            height: 100%;
+        }
+
+        #search {
+            margin-top: 35px;
+        }
+    </style>
+
+</head>
+<body>
+    @using (Html.BeginForm("Certificate", "SuppliesManage", FormMethod.Post, new { id = "Certificat" }))
+    {
+        @Html.Hidden("Sid")
+        @Html.Hidden("Order")
+        @Html.Hidden("Exjob", @ViewData["exjob"])
+        @Html.Hidden("webkey", @ViewData["webkey"])   @Html.Hidden("folderBack", @ViewData["folderBack"]) @Html.Hidden("Nostate", @ViewData["Nostate"])
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">供应商管理</span>>>后续准入评审
+            </div>
+            <div id="search" style="height: 100px;">
+                <table class="tabSearch">
+                    <tr>
+                        <td>供应商名称 @Html.TextBoxFor(model => model.COMNameC, new { @class = "txtCss" }) </td>
+                        <td>供应商类别 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.DropDownList("Type", SupplyManage.GetConfigType("SupplierType"), new { @class = "txtCss" })</td>
+                        <td>所属部门 @Html.DropDownList("Area", SupplyManage.GetConfigUnit(), new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr>
+                        <td>评审状态&nbsp;&nbsp;&nbsp; @Html.DropDownList("State", SupplyManage.GetStateSP(), new { @class = "txtCss" })</td>
+                    </tr>
+                </table>
+
+                <input id="ok" value="查询" onclick="reloadRefrsh()" class="save" type="button" style="float: right; margin-right: 8px; top: 0; right: 0;" />
+            </div>
+            <div style="margin-top: 10px;">
+                @* <input type="button" value="会签评审" class="btnLL" id="shenpi" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*@
+               @* <input type="button" value="最终评审意见" class="btnL" id="ResApproval" style="margin-left: 10px;" />*@
+                @*   <input type="button" value="重新提交" class="btnL" id="resrt" style="margin-left: 10px;" onclick="Cancel()" />*@
+                <input type="button" value="准入评审详细" id="zrpsxx" class="btnL" style="position: relative; cursor: pointer; right: 120px; float:right;" />
+                <input type="button" value="详 细" id="five" class="btn" style="float: right; cursor: pointer; right: -79px; position: relative;" />
+            </div>
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 10px; float: left;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+            <div id="line" style="float: left;">
+                ---------------------------------------------------------------------------------------------
+                --------------------------------------------------------------------------------------------
+            </div>
+            <div style="margin-bottom: 10px; float: left; width: 98%;">
+                <input type="button" class="btnTw" value="拟购产品" id="Product" style="cursor: pointer; margin-left: 8px;" />
+                <input type="button" class="btnTh" value="拟购服务" id="Server" style="cursor: pointer" />
+                <input type="button" class="btnTh" value="资质管理" id="planPro" style="cursor: pointer" />
+                <input type="button" class="btnTh" value="证书管理" id="planServer" style="cursor: pointer" />
+                <input type="button" class="btnTh" value="曾获奖项" id="btnAward" style="cursor: pointer" />
+                <input type="button" class="btnTh" value="报价/比价单" id="btnPrice" style="cursor: pointer" />
+                @* <input type="button" value="内部评价" style="cursor: pointer;" id="Neibu" class="btnTh" />
+                <input type="button" value="评审情况" style="cursor: pointer;" id="QK" class="btnTh" />*@
+                <input type="button" class="btnTh" value="操作日志" style="cursor: pointer" id="btnLog" />
+                <div id="three" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    @*<div style="margin-top: 5px; margin-left: 10px;">
+                        <input type="button" value="新增产品 " class="btn" id="AddPro" style="background-color: gray; cursor: pointer" />
+                    </div>*@
+                    <div id="bor3" style="width: 1000px; margin-top: 5px; margin-left: 10px;">
+                        <table id="list3" class="scroll" style="width: 100%;"></table>
+                        <div id="pager3" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="four" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    @* <div style="margin-top: 5px; margin-left: 10px;">
+                        <input type="button" value="新增服务 " class="btn" id="AddServer" style="background-color: gray; cursor: pointer" />
+                    </div>*@
+                    <div id="bor4" style="width: 1000px; margin-top: 5px; margin-left: 10px;">
+                        <table id="list4" class="scroll" style="width: 100%;"></table>
+                        <div id="pager4" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="fives" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    @* <div style="margin-top: 5px; margin-left: 10px;">
+                        <input type="button" value="新增资质 " class="btn" id="AddZiZhi" style="background-color: gray; cursor: pointer" />
+                    </div>*@
+                    <div id="bor5" style="width: 1000px; margin-top: 5px; margin-left: 10px;">
+                        <table id="list5" class="scroll" style="width: 100%;"></table>
+                        <div id="pager5" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="six" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    @*  <div style="margin-top: 5px; margin-left: 10px;">
+                        <input type="button" value="新增证书 " class="btn" id="AddZhenShu" style="background-color: gray; cursor: pointer" />
+                    </div>*@
+                    <div id="bor6" style="width: 1000px; margin-top: 5px; margin-left: 10px;">
+                        <table id="list6" class="scroll" style="width: 100%;"></table>
+                        <div id="pager6" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="nine" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    <div id="bor9" style="width: 1000px; margin-top: 5px; margin-left: 10px;">
+                        <table id="list9" class="scroll" style="width: 100%;"></table>
+                        <div id="pager9" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="one" style="border: 1px solid #707070; width: 97%;">
+                    <div id="bor1" style="width: 100%; margin-top: 5px; margin-left: 2px;">
+                        <table id="list1" class="scroll" style="width: 100%;"></table>
+                        <div id="pager1" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="two" style="border: 1px solid #707070; width: 97%;">
+                    <div id="bor2" style="width: 100%; margin-top: 5px; margin-left: 2px;">
+                        <table id="list2" class="scroll" style="width: 100%;"></table>
+                        <div id="pager2" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                @* 曾获奖项*@
+                <div id="sven" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    <div id="bor7" style="width: 1000px; margin-top: 5px; margin-left: 10px;">
+                        <table id="list7" class="scroll" style="width: 100%;"></table>
+                        <div id="pager7" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="eight" style="border: 1px solid #707070; width: 98%; margin-left: 8px;">
+                    <div id="bor8" style="width: 1000px; margin-top: 5px; margin-left: 10px;">
+                        <table id="list8" class="scroll" style="width: 100%;"></table>
+                        <div id="pager8" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    }
+</body>
+</html>

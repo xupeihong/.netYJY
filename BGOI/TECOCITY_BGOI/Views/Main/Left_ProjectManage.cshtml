@@ -1,0 +1,159 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Warn</title>
+  
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    @*<script src="@Url.Content("~/Scripts/Main/Main.js")" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-leftmenu.js")" type="text/javascript"></script>
+</head>
+<body>
+     @{
+        string exjob = GAccount.GetAccountInfo().Exjob;
+        string UnitID = GAccount.GetAccountInfo().UnitID;
+    }
+   <dl id="wenzhang">
+        <dd>
+            
+       @if(exjob != ""){
+         <dl>
+           <dt><span> ▪ 项目审批</span></dt>
+           <dd>
+              <ul>
+                <li onclick="TurnTo('../ProjectManage/AppExamine')"><span> - 立项审批</span></li>
+                <li onclick="TurnTo('../ProjectManage/DesignExamine')"><span> - 设计审批</span></li>
+                <li onclick="TurnTo('../ProjectManage/PriceExamine')"><span> - 报价审批</span></li>
+                <li onclick="TurnTo('../ProjectManage/BudgetExamine')"><span> - 预算审批</span></li>
+                <li onclick="TurnTo('../ProjectManage/BiddingExamine')"><span> - 投标审批</span></li>
+                <li onclick="TurnTo('../ProjectManage/SubWorkExamine')"><span> - 分包施工审批</span></li>
+                <li onclick="TurnTo('../ProjectManage/PurchaseExamine')"><span> - 项目采购审批</span></li>
+                <li onclick="TurnTo('../ProjectManage/SubPackageExamine')"><span> - 分包设计审批</span></li>
+                <li onclick="TurnTo('../ProjectManage/PaRecoudExamine')"><span> - 费用支出审批</span></li>
+                <li onclick="TurnTo('../ProjectManage/ProjectContractExamine')"><span> - 合同审批</span></li>
+              </ul>
+           </dd>
+        </dl>
+       }
+        <dl>
+           <dt><span> ▪ 项目立项</span></dt>
+           <dd>
+              <ul>
+                  @if(UnitID == "36"){
+                        <li onclick="TurnTo('../ProjectManage/CreateProject')"><span> - 新建项目</span></li>
+                  }
+                <li onclick="TurnTo('../ProjectManage/General')"><span> - 综合管理</span></li>
+                <li><span> + 分项管理</span></li>
+                    <dl id="son">
+                      <dd>
+                          <ul>
+                            <li onclick="TurnTo('../ProjectManage/ProjectPrepare')"><span> - 跟踪洽谈记录</span></li>
+                            <li onclick="TurnTo('../ProjectManage/AppProject')"><span> - 项目立项</span></li>
+                            <li onclick="TurnTo('../ProjectManage/ProjectDesign')"><span> - 项目设计</span></li>
+                            <li onclick="TurnTo('../ProjectManage/MakePrice')"><span> - 项目报价</span></li>
+                            <li onclick="TurnTo('../ProjectManage/ProjectBudget')"><span> - 成本预算</span></li>
+                            <li onclick="TurnTo('../ProjectManage/ProjectBidding')"><span> - 项目投标</span></li>
+                            <li onclick="TurnTo('../Contract/ProContractMaintain')"><span>- 合同管理</span></li>
+                          </ul>
+                      </dd>
+                  </dl>
+              </ul>
+           </dd>
+        </dl>
+         <dl>
+           <dt><span> ▪ 项目实施</span></dt>
+           <dd>
+              <ul>
+                <li onclick="TurnTo('../ProjectManage/ImpleGeneral')"><span> - 综合管理</span></li>
+                <li><span> + 分项管理</span></li>
+                    <dl id="son">
+                      <dd>
+                          <ul>
+                            <li onclick="TurnTo('../ProjectManage/ProjectSchedule')"><span> - 施工过程记录</span></li>
+                            <li onclick="TurnTo('../ProjectManage/ProjectSubWork')"><span> - 分包施工记录</span></li>
+                            <li onclick="TurnTo('../ProjectManage/ProjectPurchase')"><span> - 工程采购</span></li>
+                            <li onclick="TurnTo('../ProjectManage/ProjectSubPackage')"><span> - 分包设计记录</span></li>
+                            <li onclick="TurnTo('../ProjectManage/ProjectCashBack')"><span> - 回款记录</span></li>
+                            <li onclick="TurnTo('../ProjectManage/ProjectPayRecord')"><span> - 费用支出记录</span></li>
+                          </ul>
+                      </dd>
+                  </dl>
+              </ul>
+           </dd>
+        </dl>
+        <dl>
+            <dt><span>▪ 结项管理</span></dt>
+            <dd>
+                <ul>
+                    <li onclick="TurnTo('../ProjectManage/FinishMaintain')"><span>- 综合管理</span></li>
+                    <li onclick="TurnTo('../ProjectManage/ProjectCompletions')"><span>- 竣工验收</span></li>
+                    <li onclick="TurnTo('../ProjectManage/ProjectFinish')"><span>- 项目结项</span></li>
+                </ul>
+            </dd>
+        </dl>
+       @*  <dl>
+            <dt><span>▪ 合同管理</span></dt>
+            <dd>
+                <ul>
+                    <li onclick="TurnTo('../Contract/ContractMaintain')"><span>- 合同维护</span></li>
+                    <li onclick="TurnTo('../Contract/StayReturnCash')"><span>- 待结算提醒</span></li>
+                    <li onclick="TurnTo('../Contract/ContractStandingBook')"><span>- 合同台账</span></li>
+                </ul>
+            </dd>
+        </dl>*@
+       @*  <dl>
+            <dt><span>▪ 项目提醒</span></dt>
+            <dd>
+                <ul>
+                    <li onclick="TurnTo('../ProjectManage/CPlanTimeWarn')"><span>- 完工日期提醒</span></li>
+                    <li onclick="TurnTo('../ProjectManage/CashBackWarn')"><span>- 待回款项提醒</span></li>
+                </ul>
+            </dd>
+        </dl>*@
+         <dl>
+            <dt><span>▪ 信息查询</span></dt>
+            <dd>
+                <ul>
+                   @* <li onclick="TurnTo('../ProjectManage/PurchaseSearch')"><span>- 采购单查询</span></li>*@
+                    <li onclick="TurnTo('../ProjectManage/DebtSearch')"><span>- 欠款情况查询</span></li>
+                </ul>
+            </dd>
+        </dl>
+         <dl>
+            <dt><span>▪ 统计分析</span></dt>
+            <dd>
+                <ul>
+                    <li onclick="TurnTo('../ProjectManage/ProjectStatistics')"><span>- 工程统计</span></li>
+                    <li onclick="TurnTo('../ProjectManage/AmountStatistics')"><span>- 工程款汇总</span></li>
+                   @* <li onclick="TurnTo('../ProjectManage/DeptStatistics')"><span>- 工程欠款汇总</span></li>*@
+                </ul>
+            </dd>
+        </dl>
+        <dl>
+           <dt><span> ▪ 系统设置</span></dt>
+           <dd>
+              <ul>
+                <li onclick="TurnTo('../System/AppSet?id=BGOI_Project/tk_AppContent')"><span> - 审批设置</span></li>
+                <li onclick="TurnTo('../SystemProject/BasicSet')"><span> - 基本信息设置</span></li>
+              </ul>
+           </dd>
+        </dl>
+        </dd> 
+      
+    </dl>
+</body>
+</html>
+
+
+
+
+
+

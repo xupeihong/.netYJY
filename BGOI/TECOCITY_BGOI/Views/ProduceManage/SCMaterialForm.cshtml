@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+     <meta name="viewport" content="width=device-width" />
+    <title>SCMaterialForm</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ProduceManage/SCMaterialForm.js")" type="text/javascript"></script>
+</head>
+    
+    <body>
+     <form action="InsertFile" method="post" id="SCMaterialForm" enctype="multipart/form-data">
+        <div id="pageContent">
+            <div id="tabTitile"><span style="margin-left:10px;">@ViewData["ID"]： @Html.Label("OID", @ViewData["OID"].ToString(), new { @id = "OID" }) @Html.Hidden("OID",@ViewData["OID"])@Html.Hidden("ID",@ViewData["ID"]) @Html.Hidden("msg", @ViewData["msg"])</span></div>
+            
+
+            <div style="margin-top:10px;width:100%;text-align:center">
+                <input type="file" id="fileElem" name="fileElem" multiple accept="image/*">
+                <input type="submit"  value="保存" class="btn" onclick="seav()" />
+            </div>
+            <div id="fileList" style="width:100px;height:100px;"></div>
+            <img />
+        </div>
+    </form>
+        </body>
+    </html>

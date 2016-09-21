@@ -1,0 +1,182 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model tk_ShoppeInfo
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    <title>ApplyShoppe</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Sales/RecordInfo.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_Tables.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Sales/RetailSales/ApplyShoppe.js")" type="text/javascript"></script>
+</head>
+<body>
+    @using (Html.BeginForm("ApplyShoppe", "SalesRetail", FormMethod.Post, new { id = "form1", onsubmit = "return returnConfirm();" }))
+    {
+        <div id="tabTitile">
+            <span style="margin-left: 10px; float: left;">专柜制作申请单号：@Model.SIID</span>@Html.HiddenFor(model => model.SIID)
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;申请日期： @Html.TextBoxFor(model => model.ApplyTime, new { @class = "txtCss", @readonly = "readonly", Value = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now), onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss'})" })
+        </div>
+        <div style="height: 450px; width: 98%; overflow-y: auto;">
+            <table class="tabInfo" style="width: 99%; margin-top: 10px; height: 400px; overflow-y: auto;">
+                <tr style="text-align: center; font: bold; margin-top: 20px; font-size: 24px;">
+                    <td colspan="6">商场基本情况</td>
+                </tr>
+                <tr>
+                    <td style="width: 16%;">所属代理商：
+                    </td>
+                    <td colspan="2">@Html.TextBoxFor(model => model.Malls, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Malls)</td>
+                    <td>商场名称：
+                    </td>
+                    <td colspan="2">@Html.TextBoxFor(model => model.Customer, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Customer)</td>
+                </tr>
+                <tr>
+                    <td style="width: 16%;">商场联系人：
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.MallType, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.MallType)
+                    </td>
+                    <td>联系电话：</td>
+                    <td>@Html.TextBoxFor(model => model.Phone, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Phone)</td>
+                    <td>商场地址：</td>
+                    <td>@Html.TextBoxFor(model => model.Address, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Address)</td>
+                </tr>
+                <tr>
+                    <td style="width: 16%;">竞品1：名称：</td>
+                    <td style="width: 18%;">@Html.TextBoxFor(model => model.ProductsOneName, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ProductsOneName)</td>
+                    <td style="width: 16%;">专柜尺寸：</td>
+                    <td style="width: 17%;">@Html.TextBoxFor(model => model.ShoppeSize, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ShoppeSize)</td>
+                    <td style="width: 16%;">出样数量：</td>
+                    <td style="width: 17%;">@Html.TextBoxFor(model => model.SampleOneNum, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.SampleOneNum)</td>
+                </tr>
+                <tr>
+                    <td style="width: 16%;">竞品2：名称：</td>
+                    <td style="width: 18%;">@Html.TextBoxFor(model => model.ProductsTwoName, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ProductsTwoName)</td>
+                    <td style="width: 16%;">专柜尺寸：</td>
+                    <td style="width: 17%;">@Html.TextBoxFor(model => model.ShoppeTwoSize, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ShoppeTwoSize)</td>
+                    <td style="width: 16%;">出样数量：</td>
+                    <td style="width: 17%;">@Html.TextBoxFor(model => model.SampleNum, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.SampleNum)</td>
+                </tr>
+                <tr>
+                    <td style="width: 16%;">我司专柜位置：</td>
+                    <td style="width: 18%;">@Html.TextBoxFor(model => model.ShoppePosition, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ShoppePosition)</td>
+                    <td style="width: 16%;">进驻后预计月均销量：</td>
+                    <td style="width: 17%;">@Html.TextBoxFor(model => model.MonthSalesNum, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.MonthSalesNum)</td>
+                    <td style="width: 16%;">金额：</td>
+                    <td style="width: 17%;">@Html.TextBoxFor(model => model.SalesAmount, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.SalesAmount)</td>
+                </tr>
+                <tr style="background-color: #88c9e9; text-align: left;">
+                    <td colspan="6">出样产品</td>
+                </tr>
+                <tr>
+                    <td colspan="6">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" class="btn" value="添加物品"
+                        id="btnAdd" name="btnAdd" onclick="CheckDetail()" />&nbsp;
+                        <input type="button" id="btnDel" class="btn" onclick="DelRow();" name="btnDel" value="删除" />
+                        <div style="height: 80px; overflow-y: scroll;">
+                            <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                                <tr align="center" valign="middle">
+                                    <th style="width: 5%;" class="th">序号
+                                    </th>
+                                    <th style="width: 10%;" class="th">产品编码
+                                    </th>
+                                    <th style="width: 10%;" class="th">产品名称
+                                    </th>
+                                    <th style="width: 10%;" class="th">规格型号
+                                    </th>
+                                    <th style="width: 10%;" class="th">产品大类
+                                    </th>
+                                    <th style="width: 5%;" class="th">数量
+                                    </th>
+                                    <th style="width: 10%;" class="th">零售价
+                                    </th>
+                                    <th style="width: 10%;" class="th">折扣
+                                    </th>
+                                    <th style="width: 10%;" class="th">收货金额
+                                    </th>
+                                    <th style="width: 20%;" class="th">备注
+                                    </th>
+                                </tr>
+                                <tbody id="DetailInfo"></tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 16%;">合计：</td>
+                    <td colspan="5" style="text-align: left;">@Html.TextBoxFor(model => model.Amount, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Amount)</td>
+                </tr>
+                <tr>
+                    <td style="width: 16%;">灶具出样型号：</td>
+                    <td colspan="2">@Html.TextBoxFor(model => model.Cookers, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Cookers)</td>
+                    <td>烟机出样型号：
+                    </td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(model => model.Turbine, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Turbine)
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 16%;">燃气热水器出样型号：</td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(model => model.GasHeater, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.GasHeater)
+                    </td>
+                    <td style="width: 16%;">壁挂炉出样型号：</td>
+                    <td colspan="2">
+                        @Html.TextBoxFor(model => model.GasBoiler, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.GasBoiler)
+                    </td>
+                </tr>
+              
+                <tr style="background-color: #88c9e9; text-align: left;">
+                    <td style="width: 25%;" colspan="6">申请信息</td>
+                </tr>
+                <tr>
+                    <td style="width: 16%;">申请事由：</td>
+                    <td>@Html.DropDownListFor(model => model.ApplyReason, SalesRetailMan.GetSelectListitem("ApplyReason"), new { @Style = "width:120px;" })@Html.ValidationMessageFor(model => model.ApplyReason)</td>
+                    <td>制作类型：</td>
+                    <td>@Html.DropDownListFor(model => model.MakeType, SalesRetailMan.GetSelectListitem("MakeType"), new { @Style = "width:120px;" })@Html.ValidationMessageFor(model => model.MakeType)</td>
+                    <td>申请人：</td>
+                    <td>
+                        @Html.DropDownListFor(model => model.Applyer, SalesRetailMan.GetUserListitem(), new { @Style = "width:120px;" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 16%;">专柜使用年限：</td>
+                    <td colspan="3">
+                        @Html.TextBoxFor(model => model.UseYear, new { @class = "txtCss", @readonly = "readonly", onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss'})" })@Html.ValidationMessageFor(model => model.UseYear)
+                        ~ @Html.TextBoxFor(model => model.EndYear, new { @class = "txtCss", @readonly = "readonly", onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss'})" })@Html.ValidationMessageFor(model => model.EndYear)
+                    </td>
+                    <td>费用预算：</td>
+                    <td>
+                        @Html.TextBoxFor(model => model.Budget, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Budget)
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 16%;">专柜申请情况说明：</td>
+                    <td colspan="5">@Html.TextBoxFor(model => model.Explain, new { @class = "txtCss", @Style = "width:90%;" })@Html.ValidationMessageFor(model => model.Explain)</td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <input type="submit" id="btnSave" class="btn" name="btnSave" value="确 定" />
+                        <input type="button" id="btnCancel" class="btn" name="btnSave" value="取 消" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</body>
+</html>

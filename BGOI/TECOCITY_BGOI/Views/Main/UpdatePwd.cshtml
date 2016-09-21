@@ -1,0 +1,55 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UpdatePwd</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/CommonFun.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Main/UpdatePwd.js")" type="text/javascript"></script>    
+    
+</head>
+<body>
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "UpdatePwd" }))
+{ <div id="pageContent" style="overflow-y:auto;">
+
+        <table style="width: 95%;margin-left:8px;margin-top:10px;" id="content">
+            <tr>
+                <td style="width:70px">原&nbsp;&nbsp;密&nbsp;&nbsp;码：</td>
+                <td colspan="3" align="left">
+                   @Html.Password("OldPwd", "", new { @class = "txtCss" })<label style="color:red">*</label><label id="oldAlert" style="color: red; display: none">请输入原密码</label>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:70px">新&nbsp;&nbsp;密&nbsp;&nbsp;码：</td>
+                <td colspan="3" align="left">
+                    @Html.Password("NewPwd", "", new { @class = "txtCss" })<label style="color:red">*</label><label id="NewAlert" style="color:red;display:none">请输入新密码</label>
+                    <label id="Alert" style="color: red; display: none">两次密码输入不一致</label>
+                      <label id="AlertSix" style="color: red; display: none">密码不能小于6位，并且必须包含字母和数字</label>
+                </td>
+            </tr>
+            <tr style="width:70px">
+                <td>重复密码：</td>
+                <td colspan="3" align="left">
+                    @Html.Password("CFPwd", "", new { @class = "txtCss" })<label style="color:red">*</label><label id="CFAlert" style="color: red; display: none">请再次输入密码</label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" align="center"><input class="btn" type="button" value="确  定" id="savebtn" />&nbsp;&nbsp;&nbsp;&nbsp;<input class="btn" type="button" value="取 消" id="cancel" /></td>
+
+            </tr>
+        </table>
+    </div>
+}
+</body>
+</html>

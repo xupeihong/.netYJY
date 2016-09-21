@@ -1,0 +1,59 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "";
+}
+@using TECOCITY_BGOI;
+@model DRepairInfo
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/EquipMan/EquipService.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+
+</head>
+@using (Html.BeginForm("EquipService", "EquipMan", FormMethod.Post, new { id = "ProjectformInfo" }))
+{
+    <body>@Html.HiddenFor(model => model.StrECode)
+        <div id="hole" style="overflow-y: auto;">
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">维修原因</td>
+                    <td class="textRight">@Html.TextAreaFor(model => model.StrServiceReason, new { style = "width:90%;height:100px;" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">维修原因其他</td>
+                    <td class="textRight">@Html.TextAreaFor(model => model.StrServiceReasonO, new { style = "width:90%;height:100px;" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">维修时间</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrServiceTime, new { @class = "txtCss", onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">维修单位</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrServiceCompany, new { @class = "txtCss" })</td>
+                </tr>
+            </table>
+
+
+            <div style="margin-top: 10px; margin-left: 80%">
+                <input class="btn" type="button" id="charge" value="确定" />
+            </div>
+
+        </div>
+    </body>
+       
+}
+</html>

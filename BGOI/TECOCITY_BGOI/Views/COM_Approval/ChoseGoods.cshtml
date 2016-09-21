@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/COM_Approval/ChoseGoods.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+     <style type="text/css">
+        #ulGJ li:hover
+        {
+            background: #bcf492;
+        }
+        .selDiv
+        {           
+             /*margin-left:-100%;*/
+            background: #f5f5f5;
+            text-align:center;
+            display: none;
+            width: 190px;
+            max-height: 116px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: absolute;
+            border: 1px solid #7f9cba;
+
+        }
+        .selDivp
+        {           
+             /*margin-left:-100%;*/
+            background: #f5f5f5;
+            text-align:center;
+            display: none;
+            width: 150px;
+            max-height: 116px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: absolute;
+            border: 1px solid #7f9cba;
+
+        }
+    </style>   
+</head>
+@using (Html.BeginForm("ChoseGoods", "COM_Approval", FormMethod.Post, new { id = "ProjectformInfo" }))
+{
+    <body>@Html.Hidden("type",@ViewData["type"])
+        <div id="hole" style="overflow-y: auto;">
+           @* <div id="tabTitile"><span style="margin-left: 10px;">关联单号：@ViewData["RelevanceID"] @Html.Hidden("RelevanceID",@ViewData["RelevanceID"])</span></div>*@
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td style="width:10%">成品名称： </td>
+                    <td>@Html.TextBox("Product","", new {style="width:190px;", onkeydown = "BuildUnitkey()"})
+                         <div id="divGJ" class="selDiv" onmouseover="isOut=false;" onmouseout="isOut=true;">
+                        <ul id="ulGJ" style="list-style: none;">
+                        </ul>
+                    </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="btn" type="button" id="SearchProduct" value="查询" />
+                     </td>
+                  
+                </tr>
+            </table>
+            <div style="width:97%;height:75%;margin-left: 8px; margin-top: 10px;">
+            <div id="divleft" style="border:1px solid #b2b0b1;width:45%;height:95%;float:left;">
+                <div style="font-weight:bold;font-size:12px;height:20px;line-height:20px;">成品信息</div>
+                <table id="tableft"  class="tabUserInfo" >
+                    <tr style="font-size:14px;"><th></th><th>成品名称</th><th>图号或规格</th><th>单位</th><th>税前价格</th><th>税后价格</th><th style="display:none;">成品ID</th></tr>
+                </table>
+            </div>
+            <div style="width:8%;height:200px;float:left;margin-left:4px;margin-top:100px">
+                <input class="btn" style="margin-top:90px;font-weight:bolder;font-size:25px;" type="button" id="ToRight" value="→" /></div>
+            <div id="divright" style="border:1px solid #b2b0b1;width:45%;height:95%;float:right;overflow-y:auto;">
+                <div style="font-weight:bold;font-size:12px;height:20px;line-height:20px;">已选择成品信息</div>
+                  <table id="tabight"  class="tabUserInfo" >
+                    <tr style="font-size:14px;"><th>成品名称</th><th>图号或规格</th><th>单位</th><th>税前价格</th><th>税后价格</th><th>数量</th><th style="display:none;">成品ID</th><th>操作</th></tr>
+                </table>
+            </div>
+           </div>
+            <div style="margin-top: 10px; margin-left: 80%">
+                <input class="btn" type="button" id="charge" value="确定" />
+            </div>
+        </div>
+    </body>
+}
+</html>

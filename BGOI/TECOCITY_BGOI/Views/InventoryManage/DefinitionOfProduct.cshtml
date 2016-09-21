@@ -1,0 +1,104 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>DefinitionOfProduct</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/InventoryManage/DefinitionOfProduct.js")" type="text/javascript"></script>
+    @{
+        Acc_Account unitname = GAccount.GetAccountInfo();
+        string Rights = unitname.Rights;
+    }
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    @using (Html.BeginForm("DefinitionOfProductListToExcel", "InventoryManage", FormMethod.Post, new { enctype = "multipart/form-data", id = "GForm" }))
+    {
+        <div id="pageContent">
+            <div class="mainHead" id="kuc">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">库存管理</span>>>成品定义
+            </div>
+             <div class="mainHead" id="shenchanyong" style="display:none">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">系统设置</span>>>成品定义
+            </div>
+            <div id="search" style="height: 40px;">
+                <table class="tabSearch" cellpadding="0" cellspacing="0">
+                    <tr style="height: 30px;">
+                        @*  <td>货品库类型</td>
+                        <td>@Html.DropDownList("ProTypeID", InventoryMan.GetProType(), new { @class = "txtCss" })</td>*@
+                        <td>货品编号</td>@Html.Hidden("PIDN","")
+                        <td>@Html.TextBox("PID", "", new { @class = "txtCss" })</td>
+                        <td>货品名称</td>
+                        <td>@Html.TextBox("ProName", "", new { @class = "txtCss" })</td>
+                        @*规格型号 @Html.DropDownList("Spec",InventoryMan.GetSpec(), new {@class="txtCss"}) &nbsp;&nbsp;&nbsp;&nbsp;*@
+                        @*<input type="button" class="btn" style="float: right; margin-right: 15px;" value="查  询" onclick="Search()" />*@
+                        @*所属仓库@Html.DropDownList("HouseID",InventoryMan.GetHouseID(), new {@class="txtCss"}) &nbsp;&nbsp;&nbsp;&nbsp;
+                            <input class="btn" type="button"  value="查  询" onclick="Search()"/>*@
+                        <td>
+                            <input type="button" id="CX" class="btn" value="查 询" onclick="Search()" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="margin-top: 5px; margin-left: 10px; height: 30px">
+                @if (Rights.IndexOf(",Y1,") >= 0)
+                {
+                    <input class="btn" type="button" value="成品定义" onclick="AddInventoryAddPro()" />
+                   <input class="btn" type="button" style="width:90px" id="TJSC" value="添加可生产" />
+                }
+                @if (Rights.IndexOf(",Y2,") >= 0)
+                {
+                    <input class="btn" type="button" id="Up" value="修改" onclick="ScrapManagementUP()" />
+                }
+                @if (Rights.IndexOf(",Y3,") >= 0)
+                {
+                    <input class="btn" type="button" id="De" value="撤销" />
+                }
+                <input type="file" id="txtPath" style="width: 20%; display: none" name="txtPath" />&nbsp;&nbsp;    @Html.Hidden("Path", ViewData["Path"])
+                <input class="btnC" type="button" style="width: 90px; display: none" id="btnSave" value="上传" onclick="getDetailData()" />&nbsp;&nbsp;
+                <input class="btn" type="button" style="width: 90px; display: none" id="btnSav1e" value="保存" onclick="return Save();" />&nbsp;&nbsp;
+                 
+                <input class="btn" type="submit" style="float: right; margin-right: 15px;" id="DaoOut" onclick="FX()"  value="导出"/> 
+                @* <input type="button" class="btn" style="float: right; margin-right: 15px;" id="btnPrint" value="打  印" />*@
+            </div>
+            <div style="width: 90%; height: 270px; padding-left: 15px; margin-top: 5px; overflow-y: auto; display: none" id="shangcuan">
+                <table id="tabStatisticTotal" class="tab" style="width: 99%; background-color: White;">
+                    <tr id="line1" style="height: 30px; text-align: center;"></tr>
+                    <tbody id="tabStatistic" style="text-align: center;"></tbody>
+                </table>
+
+            </div>
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+            <div id="bor1" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list1" class="scroll" style="width: 100%;"></table>
+                <div id="pager1" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+        </div>
+    }
+</body>
+</html>

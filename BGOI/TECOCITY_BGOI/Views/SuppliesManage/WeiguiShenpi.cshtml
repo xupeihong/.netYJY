@@ -1,0 +1,110 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model tk_SProcessInfo
+<!DOCTYPE html>
+
+<html>
+<head>
+   @* <meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <title>WeiguiShenpi</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/WeiguiApproval.js")" type="text/javascript"></script>
+</head>
+<body>
+    @using (Html.BeginForm("WeiguiShenpi", "SuppliesManage", FormMethod.Post, new { id = "WeiguiApprovalInfo", action = "../COM_Approval/SpecificPerson", enctype = "multipart/form-data" }))
+    {
+        @Html.Hidden("msg", @ViewData["msg"])
+        @Html.Hidden("PID")
+        <div id="hole" style="overflow-y: scroll;">
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">部门负责人是否审批通过</td>
+                    <td class="textright">
+                        @Html.Hidden("Approval1")
+                        <input type="checkbox" name="0" class="ckb" value="0" />
+                        是
+                        <input type="checkbox" name="1" class="ckb" value="1" />
+                        否
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">部门负责人签字</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Approval1User, new { @class = "txtCss" })  </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">部门经理是否审批通过</td>
+                    <td class="textright">@Html.Hidden("Approval2")
+                        <input type="checkbox" name="0" class="ckb1" value="0" />
+                        是
+                        <input type="checkbox" name="1" class="ckb1" value="1" />
+                        否
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">部门经理审批签字</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Approval2User, new { @class = "txtCss" }) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">副总经理是否审批通过</td>
+                    <td class="textright">@Html.Hidden("Approval3")
+                        <input type="checkbox" name="0" class="ckb2" value="0" />
+                        是
+                        <input type="checkbox" name="1" class="ckb2" value="1" />
+                        否
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">副总经理审批签字</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Approval3User, new { @class = "txtCss" }) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">供应商工作组是否审批通过</td>
+                    <td class="textright">@Html.Hidden("Approval4")
+                        <input type="checkbox" name="0" class="ckb3" value="0" />
+                        是
+                        <input type="checkbox" name="1" class="ckb3" value="1" />
+                        否
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">供应商工作组审批签字</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Approval4User, new { @class = "txtCss" }) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">总经理是否审批通过</td>
+                    <td class="textright">@Html.Hidden("Approval5")
+                        <input type="checkbox" name="0" class="ckb4" value="0" />
+                        是
+                        <input type="checkbox" name="1" class="ckb4" value="1" />
+                        否
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">总经理审批签字</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Approval5User, new { @class = "txtCss" }) </td>
+                </tr>
+            </table>
+            <div style="margin-top: 10px;">
+                <table>
+                    <tr>
+                        <td>
+                            <input type="button" value="确定" id="sure1" class="btn" style="cursor: pointer;margin-left:200px;" /></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    }
+</body>
+</html>

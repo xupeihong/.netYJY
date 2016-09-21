@@ -1,0 +1,67 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_CardSearch
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ServicingSummary</title>
+
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Print.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_PrintPageSet.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/ServicingSummary.js")" type="text/javascript"></script>
+</head>
+
+<body style="margin:0 0 0 0; background-color:white;overflow:auto">
+    @using (Html.BeginForm("ExportDataTableToExcelServicing", "FlowMeterManage", FormMethod.Post, new { id = "GForm" }))
+    {
+
+        <div id="pageContent" style=" margin-left:2px; margin-right:2px; margin-top:2px;overflow-y:scroll; ">
+
+            <div id="ReportContent" style="margin-top:10px; page-break-after: always;">
+                <div id="bor" style="width: 98%; margin-top: 5px; margin-left: 10px;">
+                    @Html.HiddenFor(model=>model.RID) @Html.HiddenFor(model => model.ModelType)
+                    <table id="list" class="tabInfo" style="width: 100%; text-align:center; ">
+                        <tr>
+                            <td>序号</td>
+                            <td>规格型号</td>
+                            <td>口径</td>
+                            <td>地点</td>
+                            <td style="width:69px;position:static">修理内容</td>
+                            <td style="width:46px;position:static"> 单价(元)</td>
+                            <td style="width:47px;position:static">数量</td>
+                            <td style="width:47px;position:static">单位</td>
+                            <td style="width:50px;position:static">金额(元)</td>
+                            <td>清洗保养</td>
+                            <td>出厂标定</td>
+                            <td>气密性检测</td>
+                            <td>合计（元）</td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+            <div style="text-align:right; margin-top:5px; width:99%;">
+                <input type="submit" id="btnPrint" value="导 出" class="btn" />
+                
+            </div>
+        </div>
+    }
+</body>
+</html>

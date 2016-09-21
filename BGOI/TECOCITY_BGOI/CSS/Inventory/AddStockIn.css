@@ -1,0 +1,87 @@
+﻿body
+{
+	text-align: center;
+	background-color: White;
+	font-family: 宋体;
+	font-size: 13px;
+}
+
+.divleft
+{
+	width: 63%;
+	float: left;
+	height: 150px;
+	border-right: solid 1px #c3c1c2;
+}
+
+.divright
+{
+	width: 35%;
+	float: left;
+	margin-top: 8px;
+	margin-left: 8px;
+	height: 150px;
+	border: none;
+}
+
+.tdNoBorder
+{
+	border: none;
+}
+
+.th
+{
+	border: ridge 1px #c5f5ff;
+	background-color: #e4e4e4;
+    color:#333333;
+	height: 24px;
+}
+
+.divtable
+{
+	width: 98%;
+	height: 120px;
+	border: solid 1px #8ab8cf;
+	margin-left: 4px;
+}
+
+.tdTimes
+{
+	height: 28px;
+}
+
+.btnBack
+{
+	text-align: center;
+	background-color: Transparent;
+	background-image: url('../../images/backbtn.gif');
+	height: 30px;
+	line-height: 30px;
+	width: 90px;
+	border: none;
+	color: White;
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.btnadd
+{
+	background-color: Transparent;
+	background-image: url("../../images/obtn.gif");
+	width: 58px;
+	height: 23px;
+	border: none;
+}
+
+.selDiv
+{
+	background: #f5f5f5;
+	display: none;
+	width: 158px;
+	max-height: 116px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	position: absolute;
+	top: 26px;
+	border: 1px solid #7f9cba;
+}

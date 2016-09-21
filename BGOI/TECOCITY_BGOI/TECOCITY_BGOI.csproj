@@ -1,0 +1,2263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{118D27B5-B645-4315-B6B4-135B389CAA8F}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TECOCITY_BGOI</RootNamespace>
+    <AssemblyName>TECOCITY_BGOI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>D:\DLL\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>D:\DLL\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\COM_ApprovalController.cs" />
+    <Compile Include="Controllers\ContractController.cs" />
+    <Compile Include="Controllers\CustomerServiceController.cs" />
+    <Compile Include="Controllers\EquipManController.cs" />
+    <Compile Include="Controllers\FlowDAManageController.cs" />
+    <Compile Include="Controllers\FlowMeterManageController.cs" />
+    <Compile Include="Controllers\FlowSystemController.cs" />
+    <Compile Include="Controllers\InventoryManageController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\ProduceManageController.cs" />
+    <Compile Include="Controllers\ProductPlanManageController.cs" />
+    <Compile Include="Controllers\ProjectManageController.cs" />
+    <Compile Include="Controllers\PPManageController.cs" />
+    <Compile Include="Controllers\SalesManageController.cs" />
+    <Compile Include="Controllers\SalesRetailController.cs" />
+    <Compile Include="Controllers\SuppliesManageController.cs" />
+    <Compile Include="Controllers\SystemController.cs" />
+    <Compile Include="Controllers\SystemManageController.cs" />
+    <Compile Include="Controllers\SystemProjectController.cs" />
+    <Compile Include="Controllers\UserAptitudeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="CSS\com.css" />
+    <Content Include="CSS\CreatePurchase.css" />
+    <Content Include="CSS\images\animated-overlay.gif" />
+    <Content Include="CSS\images\treeview-black-line.gif" />
+    <Content Include="CSS\images\treeview-black.gif" />
+    <Content Include="CSS\images\treeview-default-line.gif" />
+    <Content Include="CSS\images\treeview-default.gif" />
+    <Content Include="CSS\images\treeview-famfamfam-line.gif" />
+    <Content Include="CSS\images\treeview-famfamfam.gif" />
+    <Content Include="CSS\images\treeview-gray-line.gif" />
+    <Content Include="CSS\images\treeview-gray.gif" />
+    <Content Include="CSS\images\treeview-red-line.gif" />
+    <Content Include="CSS\images\treeview-red.gif" />
+    <Content Include="CSS\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="CSS\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="CSS\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="CSS\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="CSS\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="CSS\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="CSS\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="CSS\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="CSS\images\ui-icons_222222_256x240.png" />
+    <Content Include="CSS\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="CSS\images\ui-icons_454545_256x240.png" />
+    <Content Include="CSS\images\ui-icons_888888_256x240.png" />
+    <Content Include="CSS\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="CSS\Inventory\AddStockIn.css" />
+    <Content Include="CSS\jquery-ui-1.10.2.custom.css" />
+    <Content Include="CSS\jquery.treeview.css" />
+    <Content Include="CSS\jquery_dialog.css" />
+    <Content Include="CSS\login.css" />
+    <Content Include="CSS\main.css" />
+    <Content Include="CSS\PP\CreatePurchase.css" />
+    <Content Include="CSS\PP\PurchaseApplication.css" />
+    <Content Include="CSS\Print.css" />
+    <Content Include="CSS\SalesManage\RecordInfo.css" />
+    <Content Include="CSS\Sales\PrintInfo.css" />
+    <Content Include="CSS\Sales\RecordInfo.css" />
+    <Content Include="CSS\Site.css" />
+    <Content Include="CSS\ui.jqgrid.css" />
+    <Content Include="Global.asax" />
+    <Content Include="images\add.png" />
+    <Content Include="images\bgst.png" />
+    <Content Include="images\bjgB.png" />
+    <Content Include="images\btn1.png" />
+    <Content Include="images\btn2.png" />
+    <Content Include="images\btnC.png" />
+    <Content Include="images\btnF.png" />
+    <Content Include="images\btnG.png" />
+    <Content Include="images\btnJ.png" />
+    <Content Include="images\btnJC.png" />
+    <Content Include="images\btnK.png" />
+    <Content Include="images\btnKC.png" />
+    <Content Include="images\btnLI.png" />
+    <Content Include="images\btnR.png" />
+    <Content Include="images\btnS.png" />
+    <Content Include="images\btnYW.png" />
+    <Content Include="images\changping.png" />
+    <Content Include="images\chongzhi.png" />
+    <Content Include="images\choose.jpg" />
+    <Content Include="images\close.gif" />
+    <Content Include="images\del.png" />
+    <Content Include="images\fanhui.png" />
+    <Content Include="images\footB.png" />
+    <Content Include="images\gongcheng.png" />
+    <Content Include="images\house.png" />
+    <Content Include="images\jichu.png" />
+    <Content Include="images\kucun.png" />
+    <Content Include="images\littleman.png" />
+    <Content Include="images\logB.jpg" />
+    <Content Include="images\logB1.jpg" />
+    <Content Include="images\logo %282%29.png" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\lt.jpg" />
+    <Content Include="images\menu1.png" />
+    <Content Include="images\menu2.png" />
+    <Content Include="images\nochoose.jpg" />
+    <Content Include="images\rb1.png" />
+    <Content Include="images\rb2.png" />
+    <Content Include="images\rb3.png" />
+    <Content Include="images\rb4.png" />
+    <Content Include="images\shengchan-.png" />
+    <Content Include="images\shouhuo.png" />
+    <Content Include="images\stitile.png" />
+    <Content Include="images\T1.png" />
+    <Content Include="images\T2.png" />
+    <Content Include="images\T3.png" />
+    <Content Include="images\title1.png" />
+    <Content Include="images\title2.png" />
+    <Content Include="images\tuichu.png" />
+    <Content Include="images\xiaoshou.png" />
+    <Content Include="images\xiugai.png" />
+    <Content Include="images\zhuxiao.png" />
+    <Content Include="Scripts\cmm_ClassControl.js" />
+    <Content Include="Scripts\cmm_PrintPageSet.js" />
+    <Content Include="Scripts\cmm_Tables.js" />
+    <Content Include="Scripts\cmm_Tables2.js" />
+    <Content Include="Scripts\Columjs\exporting.js" />
+    <Content Include="Scripts\Columjs\highcharts.js" />
+    <Content Include="Scripts\Columjs\jquery.validate.min.js" />
+    <Content Include="Scripts\Columjs\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\COM_Approval\Approval.js" />
+    <Content Include="Scripts\COM_Approval\ApprovalCondition.js" />
+    <Content Include="Scripts\COM_Approval\ApprovalSup.js" />
+    <Content Include="Scripts\COM_Approval\ApprovalzhunchuSup.js" />
+    <Content Include="Scripts\COM_Approval\ChoseGoods.js" />
+    <Content Include="Scripts\COM_Approval\SubmitApproval.js" />
+    <Content Include="Scripts\COM_Approval\SubmitSehnpi.js" />
+    <Content Include="Scripts\Contract\AddContract.js" />
+    <Content Include="Scripts\Contract\AddFile.js" />
+    <Content Include="Scripts\Contract\AddProjectContract.js" />
+    <Content Include="Scripts\Contract\BGOI_KAT.js" />
+    <Content Include="Scripts\Contract\BGOI_Project.js" />
+    <Content Include="Scripts\Contract\BGOI_SJS.js" />
+    <Content Include="Scripts\Contract\CashBack.js" />
+    <Content Include="Scripts\Contract\ChangeContract.js" />
+    <Content Include="Scripts\Contract\ChangeProContract.js" />
+    <Content Include="Scripts\Contract\ContractMaintain.js" />
+    <Content Include="Scripts\Contract\ContractStandingBook.js" />
+    <Content Include="Scripts\Contract\DownloadFile.js" />
+    <Content Include="Scripts\Contract\DownloadFileProject.js" />
+    <Content Include="Scripts\Contract\ProCashBack.js" />
+    <Content Include="Scripts\Contract\ProContractMaintain.js" />
+    <Content Include="Scripts\Contract\Settlement.js" />
+    <Content Include="Scripts\Contract\SettlementPro.js" />
+    <Content Include="Scripts\Contract\SetWarnTime.js" />
+    <Content Include="Scripts\Contract\StayReturnCash.js" />
+    <Content Include="Scripts\Contract\StaySettlement.js" />
+    <Content Include="Scripts\Contract\UpdateCashBack.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddBillingRecords.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddCollectionRecord.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddCon.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddContractnew.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddCusService.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddCustimerOrder.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddCustomerSatisfactionSurvey.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddEquipmentCommissioning.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddHomeSalesInstallation.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddPressureAdjustingInspection.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddProcessingRecord.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddProductReport.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddRepairRegistration.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddTelephoneAnswering.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddUserComplaints.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddUserVisit.js" />
+    <Content Include="Scripts\CustomerServiceManage\AddWarrantyCard.js" />
+    <Content Include="Scripts\CustomerServiceManage\AftermarketConfiguration.js" />
+    <Content Include="Scripts\CustomerServiceManage\AppProcessing.js" />
+    <Content Include="Scripts\CustomerServiceManage\BasCus.js" />
+    <Content Include="Scripts\CustomerServiceManage\BGOI_TPRBE.js" />
+    <Content Include="Scripts\CustomerServiceManage\BillingRecords.js" />
+    <Content Include="Scripts\CustomerServiceManage\BillingRecordsProcessing.js" />
+    <Content Include="Scripts\CustomerServiceManage\CashBackNew.js" />
+    <Content Include="Scripts\CustomerServiceManage\ChangeContracNew.js" />
+    <Content Include="Scripts\CustomerServiceManage\ChangeHomeSalesInstallation.js" />
+    <Content Include="Scripts\CustomerServiceManage\ChangeProduct.js" />
+    <Content Include="Scripts\CustomerServiceManage\CollectionRecord.js" />
+    <Content Include="Scripts\CustomerServiceManage\Contract.js" />
+    <Content Include="Scripts\CustomerServiceManage\ContractProcessing.js" />
+    <Content Include="Scripts\CustomerServiceManage\CusService.js" />
+    <Content Include="Scripts\CustomerServiceManage\CustimerOrder.js" />
+    <Content Include="Scripts\CustomerServiceManage\CustomerSatisfactionSurvey.js" />
+    <Content Include="Scripts\CustomerServiceManage\EquipmentCommissioning.js" />
+    <Content Include="Scripts\CustomerServiceManage\GetSupplier.js" />
+    <Content Include="Scripts\CustomerServiceManage\HomeSalesInstallation.js" />
+    <Content Include="Scripts\CustomerServiceManage\HTApproval.js" />
+    <Content Include="Scripts\CustomerServiceManage\HTApprovalSW.js" />
+    <Content Include="Scripts\CustomerServiceManage\InstallRecord.js" />
+    <Content Include="Scripts\CustomerServiceManage\InstallStatistics.js" />
+    <Content Include="Scripts\CustomerServiceManage\KPProcessing.js" />
+    <Content Include="Scripts\CustomerServiceManage\MaintenanceTask.js" />
+    <Content Include="Scripts\CustomerServiceManage\MaintenanceTaskStatistics.js" />
+    <Content Include="Scripts\CustomerServiceManage\ModifyUserComplaints.js" />
+    <Content Include="Scripts\CustomerServiceManage\OrderList.js" />
+    <Content Include="Scripts\CustomerServiceManage\PressureAdjustingInspection.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintBillingRecords.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintCollectionRecord.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintCustomerSatisfactionSurvey.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintEquipmentCommissioning.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintInstallStatistics.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintMaintenanceTaskList.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintMaintenanceTaskStatistics.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintOrderInfonew.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintPressureAdjustingInspection.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintProductInstallation.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintProductReport.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintSatisfactionStatistics.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintTestingOfEquipmentStatistics.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintUserComplaints.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintUserVisit.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintWarrCard.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintXSContract.js" />
+    <Content Include="Scripts\CustomerServiceManage\PrintXSContractCG.js" />
+    <Content Include="Scripts\CustomerServiceManage\ProductInstallation.js" />
+    <Content Include="Scripts\CustomerServiceManage\ProductReport.js" />
+    <Content Include="Scripts\CustomerServiceManage\SatisfactionStatistics.js" />
+    <Content Include="Scripts\CustomerServiceManage\TelephoneAnswering.js" />
+    <Content Include="Scripts\CustomerServiceManage\TestingOfEquipmentStatistics.js" />
+    <Content Include="Scripts\CustomerServiceManage\UpBillingRecords.js" />
+    <Content Include="Scripts\CustomerServiceManage\UpCollectionRecord.js" />
+    <Content Include="Scripts\CustomerServiceManage\UpCustomerSatisfactionSurveyList.js" />
+    <Content Include="Scripts\CustomerServiceManage\UpdateCon.js" />
+    <Content Include="Scripts\CustomerServiceManage\UpDateModifyTask.js" />
+    <Content Include="Scripts\CustomerServiceManage\UpdateOrdersInfonew.js" />
+    <Content Include="Scripts\CustomerServiceManage\UpEquipmentCommissioning.js" />
+    <Content Include="Scripts\CustomerServiceManage\UpHomeSalesInstallationList.js" />
+    <Content Include="Scripts\CustomerServiceManage\UpMaintenanceTask.js" />
+    <Content Include="Scripts\CustomerServiceManage\UpPressureAdjustingInspection.js" />
+    <Content Include="Scripts\CustomerServiceManage\UpProductInstallationList.js" />
+    <Content Include="Scripts\CustomerServiceManage\UpProductReport.js" />
+    <Content Include="Scripts\CustomerServiceManage\UpSaveCusService.js" />
+    <Content Include="Scripts\CustomerServiceManage\UpTelephoneAnswering.js" />
+    <Content Include="Scripts\CustomerServiceManage\UpUserVisitList.js" />
+    <Content Include="Scripts\CustomerServiceManage\UpWarrantyCard.js" />
+    <Content Include="Scripts\CustomerServiceManage\UserComplaints.js" />
+    <Content Include="Scripts\CustomerServiceManage\UserVisit.js" />
+    <Content Include="Scripts\CustomerServiceManage\WarrantyCard.js" />
+    <Content Include="Scripts\EquipMan\AddEquip.js" />
+    <Content Include="Scripts\EquipMan\AddRativeSource.js" />
+    <Content Include="Scripts\EquipMan\CheckRecord.js" />
+    <Content Include="Scripts\EquipMan\EquipCheck.js" />
+    <Content Include="Scripts\EquipMan\EquipCheckHistory.js" />
+    <Content Include="Scripts\EquipMan\EquipMaintain.js" />
+    <Content Include="Scripts\EquipMan\EquipScrap.js" />
+    <Content Include="Scripts\EquipMan\EquipService.js" />
+    <Content Include="Scripts\EquipMan\EquipWarn.js" />
+    <Content Include="Scripts\EquipMan\RativeSourceMaintain.js" />
+    <Content Include="Scripts\EquipMan\RepaireRecord.js" />
+    <Content Include="Scripts\EquipMan\SetWarnTime.js" />
+    <Content Include="Scripts\EquipMan\StandingBook.js" />
+    <Content Include="Scripts\EquipMan\TracingPlan.js" />
+    <Content Include="Scripts\EquipMan\UpdateEquip.js" />
+    <Content Include="Scripts\EquipMan\UpdateRativeSource.js" />
+    <Content Include="Scripts\EquipMan\UpDCheckInfo.js" />
+    <Content Include="Scripts\FlowDAManage\CalibreAnaly.js" />
+    <Content Include="Scripts\FlowDAManage\DetectionCurve.js" />
+    <Content Include="Scripts\FlowDAManage\CustomerAnaly.js" />
+    <Content Include="Scripts\FlowDAManage\RepeatValueReport.js" />
+    <Content Include="Scripts\FlowDAManage\ShowImgs.js" />
+    <Content Include="Scripts\FlowDAManage\UserAnaly.js" />
+    <Content Include="Scripts\FlowDAManage\YearAnaly.js" />
+    <Content Include="Scripts\FlowMeterManage\Accessory.js" />
+    <Content Include="Scripts\FlowMeterManage\AddCard.js" />
+    <Content Include="Scripts\FlowMeterManage\AddCardNew.js" />
+    <Content Include="Scripts\FlowMeterManage\AddCheckData.js" />
+    <Content Include="Scripts\FlowMeterManage\AddCheckData2.js" />
+    <Content Include="Scripts\FlowMeterManage\AddCleanRepair.js" />
+    <Content Include="Scripts\FlowMeterManage\AddIncomingInspection.js" />
+    <Content Include="Scripts\FlowMeterManage\AddInspection.js" />
+    <Content Include="Scripts\FlowMeterManage\AddPayment.js" />
+    <Content Include="Scripts\FlowMeterManage\AddQuotation.js" />
+    <Content Include="Scripts\FlowMeterManage\AddRepairInfo.js" />
+    <Content Include="Scripts\FlowMeterManage\AddServicing.js" />
+    <Content Include="Scripts\FlowMeterManage\CheckData.js" />
+    <Content Include="Scripts\FlowMeterManage\CheckData2Summary.js" />
+    <Content Include="Scripts\FlowMeterManage\CheckDataSummary.js" />
+    <Content Include="Scripts\FlowMeterManage\CleanRepair.js" />
+    <Content Include="Scripts\FlowMeterManage\CleanRepairDetail.js" />
+    <Content Include="Scripts\FlowMeterManage\Component.js" />
+    <Content Include="Scripts\FlowMeterManage\DelDelivery.js" />
+    <Content Include="Scripts\FlowMeterManage\DeliveryDtail.js" />
+    <Content Include="Scripts\FlowMeterManage\DeliveryManage.js" />
+    <Content Include="Scripts\FlowMeterManage\DelPayment.js" />
+    <Content Include="Scripts\FlowMeterManage\DelSendDelivery.js" />
+    <Content Include="Scripts\FlowMeterManage\DetailCard.js" />
+    <Content Include="Scripts\FlowMeterManage\DetailCardUT.js" />
+    <Content Include="Scripts\FlowMeterManage\DetailTransCard.js" />
+    <Content Include="Scripts\FlowMeterManage\DetailWorkCard.js" />
+    <Content Include="Scripts\FlowMeterManage\DetailWorkCardUT.js" />
+    <Content Include="Scripts\FlowMeterManage\EditDelivery.js" />
+    <Content Include="Scripts\FlowMeterManage\EditInspection.js" />
+    <Content Include="Scripts\FlowMeterManage\EditPayment.js" />
+    <Content Include="Scripts\FlowMeterManage\EditRepairCard.js" />
+    <Content Include="Scripts\FlowMeterManage\CardManage.js" />
+    <Content Include="Scripts\FlowMeterManage\EditRepairCardUT.js" />
+    <Content Include="Scripts\FlowMeterManage\EditSendDelivery.js" />
+    <Content Include="Scripts\FlowMeterManage\EditTransCard.js" />
+    <Content Include="Scripts\FlowMeterManage\EditWorkCard.js" />
+    <Content Include="Scripts\FlowMeterManage\EditWorkCardUT.js" />
+    <Content Include="Scripts\FlowMeterManage\IncomingInspection.js" />
+    <Content Include="Scripts\FlowMeterManage\InspectionDetail.js" />
+    <Content Include="Scripts\FlowMeterManage\InspectionManage.js" />
+    <Content Include="Scripts\FlowMeterManage\InStockDetail.js" />
+    <Content Include="Scripts\FlowMeterManage\OutStockDetail.js" />
+    <Content Include="Scripts\FlowMeterManage\PaymentDetail.js" />
+    <Content Include="Scripts\FlowMeterManage\PayMentManage.js" />
+    <Content Include="Scripts\FlowMeterManage\PrintCard.js" />
+    <Content Include="Scripts\FlowMeterManage\PrintCardUT.js" />
+    <Content Include="Scripts\FlowMeterManage\PrintInspection.js" />
+    <Content Include="Scripts\FlowMeterManage\PrintTransCard.js" />
+    <Content Include="Scripts\FlowMeterManage\PrintWorkCard.js" />
+    <Content Include="Scripts\FlowMeterManage\PrintWorkCardUT.js" />
+    <Content Include="Scripts\FlowMeterManage\Quotation.js" />
+    <Content Include="Scripts\FlowMeterManage\QuotationDetail.js" />
+    <Content Include="Scripts\FlowMeterManage\QuotationSummary.js" />
+    <Content Include="Scripts\FlowMeterManage\RepairInfo.js" />
+    <Content Include="Scripts\FlowMeterManage\RepairInfoDetail.js" />
+    <Content Include="Scripts\FlowMeterManage\RepairInfoSummary.js" />
+    <Content Include="Scripts\FlowMeterManage\ScheduleDetail.js" />
+    <Content Include="Scripts\FlowMeterManage\SearchSchedule.js" />
+    <Content Include="Scripts\FlowMeterManage\SearchService.js" />
+    <Content Include="Scripts\FlowMeterManage\SelectMeter.js" />
+    <Content Include="Scripts\FlowMeterManage\SendDelivery.js" />
+    <Content Include="Scripts\FlowMeterManage\SendDeliveryDtail.js" />
+    <Content Include="Scripts\FlowMeterManage\SendManage.js" />
+    <Content Include="Scripts\FlowMeterManage\SendTaskCard.js" />
+    <Content Include="Scripts\FlowMeterManage\Servicing.js" />
+    <Content Include="Scripts\FlowMeterManage\ServicingDetail.js" />
+    <Content Include="Scripts\FlowMeterManage\ServicingSummary.js" />
+    <Content Include="Scripts\FlowMeterManage\StartCleanRepair.js" />
+    <Content Include="Scripts\FlowMeterManage\StartRepair.js" />
+    <Content Include="Scripts\FlowMeterManage\TakeDelivery.js" />
+    <Content Include="Scripts\FlowMeterManage\TaskManagement.js" />
+    <Content Include="Scripts\FlowMeterManage\TestManager.js" />
+    <Content Include="Scripts\FlowMeterManage\TransCardManage.js" />
+    <Content Include="Scripts\FlowMeterManage\UpdateCheckData2.js" />
+    <Content Include="Scripts\FlowMeterManage\UpdateCleanRepair.js" />
+    <Content Include="Scripts\FlowMeterManage\UpdateIncomingInspection.js" />
+    <Content Include="Scripts\FlowMeterManage\UpdateQuotation.js" />
+    <Content Include="Scripts\FlowMeterManage\UpdateRepairInfo.js" />
+    <Content Include="Scripts\FlowMeterManage\UpdateServicing.js" />
+    <Content Include="Scripts\FlowMeterManage\UpLoadManage.js" />
+    <Content Include="Scripts\FlowMeterManage\WorkCardManage.js" />
+    <Content Include="Scripts\FlowSystem\AddBasic.js" />
+    <Content Include="Scripts\FlowSystem\AddGroup.js" />
+    <Content Include="Scripts\FlowSystem\AddGroupUser.js" />
+    <Content Include="Scripts\FlowSystem\BasicSet.js" />
+    <Content Include="Scripts\FlowSystem\GroupSet.js" />
+    <Content Include="Scripts\FlowSystem\UpdateBasic.js" />
+    <Content Include="Scripts\FlowSystem\UpdateGroup.js" />
+    <Content Include="Scripts\FlowSystem\UpdateGroupUser.js" />
+    <Content Include="Scripts\grid.locale-cn.js" />
+    <Content Include="Scripts\InventoryManage\AddAllocationSheet.js" />
+    <Content Include="Scripts\InventoryManage\AddBasicStockIn.js" />
+    <Content Include="Scripts\InventoryManage\AddBasicStockOut.js" />
+    <Content Include="Scripts\InventoryManage\AddBuyGiveOut.js" />
+    <Content Include="Scripts\InventoryManage\AddConfigurationInformation.js" />
+    <Content Include="Scripts\InventoryManage\AddCountersOut.js" />
+    <Content Include="Scripts\InventoryManage\AddDefinitionOfProduct.js" />
+    <Content Include="Scripts\InventoryManage\AddHomeProductSales.js" />
+    <Content Include="Scripts\InventoryManage\AddInOutUpload.js" />
+    <Content Include="Scripts\InventoryManage\AddInventoryAddPro.js" />
+    <Content Include="Scripts\InventoryManage\AddInventoryFirstPage.js" />
+    <Content Include="Scripts\InventoryManage\AddProcureStockIn.js" />
+    <Content Include="Scripts\InventoryManage\AddProductionMaterials.js" />
+    <Content Include="Scripts\InventoryManage\AddProductionStockIn.js" />
+    <Content Include="Scripts\InventoryManage\AddProductTypeSetting.js" />
+    <Content Include="Scripts\InventoryManage\AddProjectSalesOut.js" />
+    <Content Include="Scripts\InventoryManage\AddProtoStockIn.js" />
+    <Content Include="Scripts\InventoryManage\AddProtoUpOut.js" />
+    <Content Include="Scripts\InventoryManage\AddRetailSalesOut.js" />
+    <Content Include="Scripts\InventoryManage\AddSecondOut.js" />
+    <Content Include="Scripts\InventoryManage\AddSpec.js" />
+    <Content Include="Scripts\InventoryManage\AddTestStockIn.js" />
+    <Content Include="Scripts\InventoryManage\AllocationSheet.js" />
+    <Content Include="Scripts\InventoryManage\BasicStockIn.js" />
+    <Content Include="Scripts\InventoryManage\BasicStockOut.js" />
+    <Content Include="Scripts\InventoryManage\BuyGiveOut.js" />
+    <Content Include="Scripts\InventoryManage\ChangeBasic.js" />
+    <Content Include="Scripts\InventoryManage\ChangeBasicOut.js" />
+    <Content Include="Scripts\InventoryManage\ChangeBuyGive.js" />
+    <Content Include="Scripts\InventoryManage\ChangeCountersSales.js" />
+    <Content Include="Scripts\InventoryManage\ChangeHomeProductSales.js" />
+    <Content Include="Scripts\InventoryManage\ChangeProcure.js" />
+    <Content Include="Scripts\InventoryManage\ChangeProduction.js" />
+    <Content Include="Scripts\InventoryManage\ChangeProductionMaterials.js" />
+    <Content Include="Scripts\InventoryManage\ChangeProjectSales.js" />
+    <Content Include="Scripts\InventoryManage\ChangeProto.js" />
+    <Content Include="Scripts\InventoryManage\ChangeProtoUp.js" />
+    <Content Include="Scripts\InventoryManage\ChangeRetailSales.js" />
+    <Content Include="Scripts\InventoryManage\ChangeTest.js" />
+    <Content Include="Scripts\InventoryManage\ConfigurationInformation.js" />
+    <Content Include="Scripts\InventoryManage\CountersOut.js" />
+    <Content Include="Scripts\InventoryManage\DefinitionOfProduct.js" />
+    <Content Include="Scripts\InventoryManage\HomeProductSales.js" />
+    <Content Include="Scripts\InventoryManage\InOutUpload.js" />
+    <Content Include="Scripts\InventoryManage\InventoryAddPro.js" />
+    <Content Include="Scripts\InventoryManage\InventoryBill.js" />
+    <Content Include="Scripts\InventoryManage\InventoryFirstPage.js" />
+    <Content Include="Scripts\InventoryManage\InventoryStatistics.js" />
+    <Content Include="Scripts\InventoryManage\InventorySummaryTable.js" />
+    <Content Include="Scripts\InventoryManage\LowAlarm.js" />
+    <Content Include="Scripts\InventoryManage\LowWarn.js" />
+    <Content Include="Scripts\InventoryManage\MaterialOutOfTheWarehouse.js" />
+    <Content Include="Scripts\InventoryManage\MaterialSummaryTable.js" />
+    <Content Include="Scripts\InventoryManage\PrintAllocationSheet.js" />
+    <Content Include="Scripts\InventoryManage\PrintBasicOutInvoiceList.js" />
+    <Content Include="Scripts\InventoryManage\PrintBasicOutList.js" />
+    <Content Include="Scripts\InventoryManage\PrintBasicStockIn.js" />
+    <Content Include="Scripts\InventoryManage\PrintBuyGiveOut.js" />
+    <Content Include="Scripts\InventoryManage\PrintDefinitionOfProduct.js" />
+    <Content Include="Scripts\InventoryManage\PrintHomeProductSales.js" />
+    <Content Include="Scripts\InventoryManage\PrintInventoryAddPro.js" />
+    <Content Include="Scripts\InventoryManage\PrintInventoryBill.js" />
+    <Content Include="Scripts\InventoryManage\PrintInventoryFirstPage.js" />
+    <Content Include="Scripts\InventoryManage\PrintInventoryStatistics.js" />
+    <Content Include="Scripts\InventoryManage\PrintInventorySummaryTable.js" />
+    <Content Include="Scripts\InventoryManage\PrintMaterialOutOfTheWarehouse.js" />
+    <Content Include="Scripts\InventoryManage\PrintMaterialSummaryTable.js" />
+    <Content Include="Scripts\InventoryManage\PrintProcureStockIn.js" />
+    <Content Include="Scripts\InventoryManage\PrintProductionMaterials.js" />
+    <Content Include="Scripts\InventoryManage\PrintProductionStockIn.js" />
+    <Content Include="Scripts\InventoryManage\PrintProjectSalesOut.js" />
+    <Content Include="Scripts\InventoryManage\PrintProtoStockIn.js" />
+    <Content Include="Scripts\InventoryManage\PrintProtoUpOut.js" />
+    <Content Include="Scripts\InventoryManage\PrintRetailSalesOut.js" />
+    <Content Include="Scripts\InventoryManage\PrintSecondOut.js" />
+    <Content Include="Scripts\InventoryManage\PrintTestStockIn.js" />
+    <Content Include="Scripts\InventoryManage\ProcureStockIn.js" />
+    <Content Include="Scripts\InventoryManage\ProductionMaterials.js" />
+    <Content Include="Scripts\InventoryManage\ProductionStockIn.js" />
+    <Content Include="Scripts\InventoryManage\ProductTypeSetting.js" />
+    <Content Include="Scripts\InventoryManage\ProjectSalesOut.js" />
+    <Content Include="Scripts\InventoryManage\ProtoStockIn.js" />
+    <Content Include="Scripts\InventoryManage\ProtoUpOut.js" />
+    <Content Include="Scripts\InventoryManage\RetailSalesOut.js" />
+    <Content Include="Scripts\InventoryManage\SalasInvoiSales.js" />
+    <Content Include="Scripts\InventoryManage\SalesInvoiceanagement.js" />
+    <Content Include="Scripts\InventoryManage\SalesInvoiceanagementOut.js" />
+    <Content Include="Scripts\InventoryManage\ScrapManagement.js" />
+    <Content Include="Scripts\InventoryManage\ScrapManagementOut.js" />
+    <Content Include="Scripts\InventoryManage\SecondOut.js" />
+    <Content Include="Scripts\InventoryManage\Setlowerlimit.js" />
+    <Content Include="Scripts\InventoryManage\StockMIn.js" />
+    <Content Include="Scripts\InventoryManage\StorageManagement.js" />
+    <Content Include="Scripts\InventoryManage\StorageManagementOut.js" />
+    <Content Include="Scripts\InventoryManage\StorageRoom.js" />
+    <Content Include="Scripts\InventoryManage\TestStockIn.js" />
+    <Content Include="Scripts\InventoryManage\UpdateContentnew.js" />
+    <Content Include="Scripts\InventoryManage\UpDefinitionOfProduct.js" />
+    <Content Include="Scripts\InventoryManage\UPInventoryUPPro.js" />
+    <Content Include="Scripts\InventoryManage\UpProductTypeSetting.js" />
+    <Content Include="Scripts\InventoryManage\UpStorageRoom.js" />
+    <Content Include="Scripts\InventoryManage\ViewPicture.js" />
+    <Content Include="Scripts\InventoryManage\WarehousingCost.js" />
+    <Content Include="Scripts\jquery-1.11.0.min.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery-1.9.0.min.js" />
+    <Content Include="Scripts\jquery-leftmenu.js" />
+    <Content Include="Scripts\jquery-ui-1.10.2.custom.min.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\jquery.jqGrid.min.js" />
+    <Content Include="Scripts\jquery.treeview.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jquery_dialog.js" />
+    <Content Include="Scripts\Login\Login.js" />
+    <Content Include="Scripts\Main\Main.js" />
+    <Content Include="Scripts\Main\ResetPwd.js" />
+    <Content Include="Scripts\Main\SelectModule.js" />
+    <Content Include="Scripts\Main\SelectModuleFZ.js" />
+    <Content Include="Scripts\Main\SelectModuleYS.js" />
+    <Content Include="Scripts\Main\UpdatePwd.js" />
+    <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Scripts\My97DatePicker\calendar.js" />
+    <Content Include="Scripts\My97DatePicker\lang\en.js" />
+    <Content Include="Scripts\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="Scripts\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="Scripts\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="Scripts\My97DatePicker\skin\default\img.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="Scripts\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Scripts\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Scripts\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Scripts\My97DatePicker\WdatePicker.js" />
+    <Content Include="Scripts\My97DatePicker\开发包\lang\en.js" />
+    <Content Include="Scripts\My97DatePicker\开发包\lang\vssver2.scc" />
+    <Content Include="Scripts\My97DatePicker\开发包\lang\zh-cn.js" />
+    <Content Include="Scripts\My97DatePicker\开发包\lang\zh-tw.js" />
+    <Content Include="Scripts\My97DatePicker\开发包\readme.txt" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\datePicker.gif" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\default\datepicker.css" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\default\img.gif" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\WdatePicker.css" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\whyGreen\bg.jpg" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\whyGreen\datepicker.css" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\whyGreen\img.gif" />
+    <Content Include="Scripts\popup.js" />
+    <Content Include="Scripts\popupclass.js" />
+    <Content Include="Scripts\PP\ProjectPP\AddConfig.js" />
+    <Content Include="Scripts\PP\ProjectPP\AddFile.js" />
+    <Content Include="Scripts\PP\ProjectPP\AddInquiry.js" />
+    <Content Include="Scripts\PP\ProjectPP\AddOrder.js" />
+    <Content Include="Scripts\PP\ProjectPP\AddStorage.js" />
+    <Content Include="Scripts\PP\ProjectPP\ADDStorageer.js" />
+    <Content Include="Scripts\PP\ProjectPP\Approval.js" />
+    <Content Include="Scripts\PP\ProjectPP\CGKXHZ.js" />
+    <Content Include="Scripts\PP\ProjectPP\CGRemind.js" />
+    <Content Include="Scripts\PP\ProjectPP\ChangeBasic.js" />
+    <Content Include="Scripts\PP\ProjectPP\CreatePurchase.js" />
+    <Content Include="Scripts\PP\ProjectPP\DetailsDD.js" />
+    <Content Include="Scripts\PP\ProjectPP\DetailsDDSan.js" />
+    <Content Include="Scripts\PP\ProjectPP\DetailsFK.js" />
+    <Content Include="Scripts\PP\ProjectPP\DetailsQG.js" />
+    <Content Include="Scripts\PP\ProjectPP\DetailsRK.js" />
+    <Content Include="Scripts\PP\ProjectPP\DetailsSH.js" />
+    <Content Include="Scripts\PP\ProjectPP\DetailsTH.js" />
+    <Content Include="Scripts\PP\ProjectPP\DetailsXJ.js" />
+    <Content Include="Scripts\PP\ProjectPP\DGMX.js" />
+    <Content Include="Scripts\PP\ProjectPP\ErAddLogistics.js" />
+    <Content Include="Scripts\PP\ProjectPP\ErDetailsDD.js" />
+    <Content Include="Scripts\PP\ProjectPP\ErLogistics.js" />
+    <Content Include="Scripts\PP\ProjectPP\ErOrder.js" />
+    <Content Include="Scripts\PP\ProjectPP\ErUpdateDD.js" />
+    <Content Include="Scripts\PP\ProjectPP\ErUpdateWL.js" />
+    <Content Include="Scripts\PP\ProjectPP\General.js" />
+    <Content Include="Scripts\PP\ProjectPP\GetOrder.js" />
+    <Content Include="Scripts\PP\ProjectPP\GetSHID.js" />
+    <Content Include="Scripts\PP\ProjectPP\IndexDDXQ.js" />
+    <Content Include="Scripts\PP\ProjectPP\IndexFK.js" />
+    <Content Include="Scripts\PP\ProjectPP\IndexInquiry.js" />
+    <Content Include="Scripts\PP\ProjectPP\IndexOrder.js" />
+    <Content Include="Scripts\PP\ProjectPP\IndexQGXQ.js" />
+    <Content Include="Scripts\PP\ProjectPP\IndexRK.js" />
+    <Content Include="Scripts\PP\ProjectPP\IndexRKXQ.js" />
+    <Content Include="Scripts\PP\ProjectPP\IndexSH.js" />
+    <Content Include="Scripts\PP\ProjectPP\IndexTH.js" />
+    <Content Include="Scripts\PP\ProjectPP\IndexTransfer.js" />
+    <Content Include="Scripts\PP\ProjectPP\IndexXJXQ.js" />
+    <Content Include="Scripts\PP\ProjectPP\Inquiry.js" />
+    <Content Include="Scripts\PP\ProjectPP\InsertBiddingNew.js" />
+    <Content Include="Scripts\PP\ProjectPP\InsertCPSH.js" />
+    <Content Include="Scripts\PP\ProjectPP\InsertGoods.js" />
+    <Content Include="Scripts\PP\ProjectPP\InventoryFirstPage.js" />
+    <Content Include="Scripts\PP\ProjectPP\LJSplits.js" />
+    <Content Include="Scripts\PP\ProjectPP\Order.js" />
+    <Content Include="Scripts\PP\ProjectPP\OrderInfoManage.js" />
+    <Content Include="Scripts\PP\ProjectPP\Payment.js" />
+    <Content Include="Scripts\PP\ProjectPP\PaymentCP.js" />
+    <Content Include="Scripts\PP\ProjectPP\Payments.js" />
+    <Content Include="Scripts\PP\ProjectPP\Plan.js" />
+    <Content Include="Scripts\PP\ProjectPP\PrintDD.js" />
+    <Content Include="Scripts\PP\ProjectPP\PrintFK.js" />
+    <Content Include="Scripts\PP\ProjectPP\PrintQG.js" />
+    <Content Include="Scripts\PP\ProjectPP\PrintRK.js" />
+    <Content Include="Scripts\PP\ProjectPP\PrintSH.js" />
+    <Content Include="Scripts\PP\ProjectPP\PrintSupplier.js" />
+    <Content Include="Scripts\PP\ProjectPP\PrintTH.js" />
+    <Content Include="Scripts\PP\ProjectPP\PrintXJ.js" />
+    <Content Include="Scripts\PP\ProjectPP\Production.js" />
+    <Content Include="Scripts\PP\ProjectPP\PurchaseApplication.js" />
+    <Content Include="Scripts\PP\ProjectPP\AddPurchase.js" />
+    <Content Include="Scripts\PP\ProjectPP\ReceiptGoods.js" />
+    <Content Include="Scripts\PP\ProjectPP\ReturnGoods.js" />
+    <Content Include="Scripts\PP\ProjectPP\SalesRetailManage.js" />
+    <Content Include="Scripts\PP\ProjectPP\SanOrder.js" />
+    <Content Include="Scripts\PP\ProjectPP\SanUpdateDD.js" />
+    <Content Include="Scripts\PP\ProjectPP\SetWarnTime.js" />
+    <Content Include="Scripts\PP\ProjectPP\SPdd.js" />
+    <Content Include="Scripts\PP\ProjectPP\SPxj.js" />
+    <Content Include="Scripts\PP\ProjectPP\STH.js" />
+    <Content Include="Scripts\PP\ProjectPP\Supplier.js" />
+    <Content Include="Scripts\PP\ProjectPP\TJghmx.js" />
+    <Content Include="Scripts\PP\ProjectPP\Transfer.js" />
+    <Content Include="Scripts\PP\ProjectPP\UpdateConfig.js" />
+    <Content Include="Scripts\PP\ProjectPP\UpdateDDXX.js" />
+    <Content Include="Scripts\PP\ProjectPP\UpdateFKXX.js" />
+    <Content Include="Scripts\PP\ProjectPP\UpdateFKXXer.js" />
+    <Content Include="Scripts\PP\ProjectPP\UpdateGoods.js" />
+    <Content Include="Scripts\PP\ProjectPP\UpdatePurchaseGoods.js" />
+    <Content Include="Scripts\PP\ProjectPP\UpdateQGXX.js" />
+    <Content Include="Scripts\PP\ProjectPP\UpdateRKXX.js" />
+    <Content Include="Scripts\PP\ProjectPP\UpdateRKXXer.js" />
+    <Content Include="Scripts\PP\ProjectPP\UpdateSHXX.js" />
+    <Content Include="Scripts\PP\ProjectPP\UpdateSHXXer.js" />
+    <Content Include="Scripts\PP\ProjectPP\UpdateSupplier.js" />
+    <Content Include="Scripts\PP\ProjectPP\UpdateTHXX.js" />
+    <Content Include="Scripts\PP\ProjectPP\UpdateXJXX.js" />
+    <Content Include="Scripts\PP\ProjectPP\Warehouse.js" />
+    <Content Include="Scripts\PP\ProjectPP\XTSZ.js" />
+    <Content Include="Scripts\ProduceManage\AddBG.js" />
+    <Content Include="Scripts\ProduceManage\AddLL.js" />
+    <Content Include="Scripts\ProduceManage\AddMaterial.js" />
+    <Content Include="Scripts\ProduceManage\Addnewll.js" />
+    <Content Include="Scripts\ProduceManage\AddRK.js" />
+    <Content Include="Scripts\ProduceManage\AddSG.js" />
+    <Content Include="Scripts\ProduceManage\AddTask.js" />
+    <Content Include="Scripts\ProduceManage\addupdatetask.js" />
+    <Content Include="Scripts\ProduceManage\Approval.js" />
+    <Content Include="Scripts\ProduceManage\BGLX.js" />
+    <Content Include="Scripts\ProduceManage\btnCheck.js" />
+    <Content Include="Scripts\ProduceManage\ChangeBasic.js" />
+    <Content Include="Scripts\ProduceManage\ChangeT.js" />
+    <Content Include="Scripts\ProduceManage\ChangeTask.js" />
+    <Content Include="Scripts\ProduceManage\CKMaterialForm.js" />
+    <Content Include="Scripts\ProduceManage\DownLoadFile.js" />
+    <Content Include="Scripts\ProduceManage\ExchangeCheckGoods.js" />
+    <Content Include="Scripts\ProduceManage\ExchangeGoodsManage.js" />
+    <Content Include="Scripts\ProduceManage\InspectionReport.js" />
+    <Content Include="Scripts\ProduceManage\LoadBG.js" />
+    <Content Include="Scripts\ProduceManage\LoadLL.js" />
+    <Content Include="Scripts\ProduceManage\LoadRK.js" />
+    <Content Include="Scripts\ProduceManage\LoadSG.js" />
+    <Content Include="Scripts\ProduceManage\LoadTasks.js" />
+    <Content Include="Scripts\ProduceManage\MaterialFormDetail.js" />
+    <Content Include="Scripts\ProduceManage\Materialrequisition.js" />
+    <Content Include="Scripts\ProduceManage\PrintJH.js" />
+    <Content Include="Scripts\ProduceManage\PrintLL.js" />
+    <Content Include="Scripts\ProduceManage\PrintRK.js" />
+    <Content Include="Scripts\ProduceManage\PrintSG.js" />
+    <Content Include="Scripts\ProduceManage\PrintTask.js" />
+    <Content Include="Scripts\ProduceManage\Productiontasklist.js" />
+    <Content Include="Scripts\ProduceManage\Productstorage.js" />
+    <Content Include="Scripts\ProduceManage\projectmanagement.js" />
+    <Content Include="Scripts\ProduceManage\RKDetail.js" />
+    <Content Include="Scripts\ProduceManage\SCMaterialForm.js" />
+    <Content Include="Scripts\ProduceManage\SGDetail.js" />
+    <Content Include="Scripts\ProduceManage\SGJL.js" />
+    <Content Include="Scripts\ProduceManage\SubmitApproval.js" />
+    <Content Include="Scripts\ProduceManage\TaskDetail.js" />
+    <Content Include="Scripts\ProduceManage\THBGLX.js" />
+    <Content Include="Scripts\ProduceManage\UpdateBG.js" />
+    <Content Include="Scripts\ProduceManage\UpdateMaterialForm.js" />
+    <Content Include="Scripts\ProduceManage\UpdateRK.js" />
+    <Content Include="Scripts\ProduceManage\updateSG.js" />
+    <Content Include="Scripts\ProduceManage\UpdateTask.js" />
+    <Content Include="Scripts\ProduceManage\withthejob.js" />
+    <Content Include="Scripts\ProductPlanManage\Approval.js" />
+    <Content Include="Scripts\ProductPlanManage\ProductPlanAdd.js" />
+    <Content Include="Scripts\ProductPlanManage\ProductPlanGrid.js" />
+    <Content Include="Scripts\ProductPlanManage\RWApproval.js" />
+    <Content Include="Scripts\ProductPlanManage\UpdatePlan.js" />
+    <Content Include="Scripts\ProjectManage\AddBidding.js" />
+    <Content Include="Scripts\ProjectManage\AddBudget.js" />
+    <Content Include="Scripts\ProjectManage\addPayRecord.js" />
+    <Content Include="Scripts\ProjectManage\addProCompletions.js" />
+    <Content Include="Scripts\ProjectManage\addProFinish.js" />
+    <Content Include="Scripts\ProjectManage\addPurchase.js" />
+    <Content Include="Scripts\ProjectManage\addSchedule.js" />
+    <Content Include="Scripts\ProjectManage\addSubPackage.js" />
+    <Content Include="Scripts\ProjectManage\addSubWork.js" />
+    <Content Include="Scripts\ProjectManage\AmountStatistics.js" />
+    <Content Include="Scripts\ProjectManage\AppExamine.js" />
+    <Content Include="Scripts\ProjectManage\AppProject.js" />
+    <Content Include="Scripts\ProjectManage\BiddingExamine.js" />
+    <Content Include="Scripts\ProjectManage\BudgetExamine.js" />
+    <Content Include="Scripts\ProjectManage\CashBackWarn.js" />
+    <Content Include="Scripts\ProjectManage\CPlanTimeWarn.js" />
+    <Content Include="Scripts\ProjectManage\CreateNewProject.js" />
+    <Content Include="Scripts\ProjectManage\CreateProject.js" />
+    <Content Include="Scripts\ProjectManage\DebtSearch.js" />
+    <Content Include="Scripts\ProjectManage\DeptStatistics.js" />
+    <Content Include="Scripts\ProjectManage\DesignExamine.js" />
+    <Content Include="Scripts\ProjectManage\DownLoadBidding.js" />
+    <Content Include="Scripts\ProjectManage\DownLoadBudget.js" />
+    <Content Include="Scripts\ProjectManage\DownLoadCashBack.js" />
+    <Content Include="Scripts\ProjectManage\DownLoadCompletions.js" />
+    <Content Include="Scripts\ProjectManage\DownLoadPreDesign.js" />
+    <Content Include="Scripts\ProjectManage\DownLoadPrice.js" />
+    <Content Include="Scripts\ProjectManage\DownLoadSubWork.js" />
+    <Content Include="Scripts\ProjectManage\EarlyContact.js" />
+    <Content Include="Scripts\ProjectManage\FinishMaintain.js" />
+    <Content Include="Scripts\ProjectManage\General.js" />
+    <Content Include="Scripts\ProjectManage\ImpleGeneral.js" />
+    <Content Include="Scripts\ProjectManage\MakePrice.js" />
+    <Content Include="Scripts\ProjectManage\Offer.js" />
+    <Content Include="Scripts\ProjectManage\PaRecoudExamine.js" />
+    <Content Include="Scripts\ProjectManage\PCashBack.js" />
+    <Content Include="Scripts\ProjectManage\PreDesign.js" />
+    <Content Include="Scripts\ProjectManage\PriceExamine.js" />
+    <Content Include="Scripts\ProjectManage\ProjectBidding.js" />
+    <Content Include="Scripts\ProjectManage\ProjectBudget.js" />
+    <Content Include="Scripts\ProjectManage\ProjectCashBack.js" />
+    <Content Include="Scripts\ProjectManage\ProjectCompletions.js" />
+    <Content Include="Scripts\ProjectManage\ProjectContractExamine.js" />
+    <Content Include="Scripts\ProjectManage\ProjectDesign.js" />
+    <Content Include="Scripts\ProjectManage\ProjectFinish.js" />
+    <Content Include="Scripts\ProjectManage\ProjectPayRecord.js" />
+    <Content Include="Scripts\ProjectManage\ProjectPrepare.js" />
+    <Content Include="Scripts\PP\ProjectPP\Index.js" />
+    <Content Include="Scripts\ProjectManage\ProjectPurchase.js" />
+    <Content Include="Scripts\ProjectManage\ProjectSchedule.js" />
+    <Content Include="Scripts\ProjectManage\ProjectStatistics.js" />
+    <Content Include="Scripts\ProjectManage\ProjectSubPackage.js" />
+    <Content Include="Scripts\ProjectManage\ProjectSubWork.js" />
+    <Content Include="Scripts\ProjectManage\PurchaseExamine.js" />
+    <Content Include="Scripts\ProjectManage\PurchaseSearch.js" />
+    <Content Include="Scripts\ProjectManage\SetCashBackWarnTime.js" />
+    <Content Include="Scripts\ProjectManage\SetUpProject.js" />
+    <Content Include="Scripts\ProjectManage\SetWarnTime.js" />
+    <Content Include="Scripts\ProjectManage\SubPackageExamine.js" />
+    <Content Include="Scripts\ProjectManage\SubWorkExamine.js" />
+    <Content Include="Scripts\ProjectManage\UpdateBidding.js" />
+    <Content Include="Scripts\ProjectManage\UpdateBudget.js" />
+    <Content Include="Scripts\ProjectManage\UpdateEarlyContact.js" />
+    <Content Include="Scripts\ProjectManage\UpdatePayRecord.js" />
+    <Content Include="Scripts\ProjectManage\UpdatePCashBack.js" />
+    <Content Include="Scripts\ProjectManage\UpdatePreDesign.js" />
+    <Content Include="Scripts\ProjectManage\UpdatePrice.js" />
+    <Content Include="Scripts\ProjectManage\UpdateProFinish.js" />
+    <Content Include="Scripts\ProjectManage\UpdateProjectBas.js" />
+    <Content Include="Scripts\ProjectManage\UpdateProjectCompletions.js" />
+    <Content Include="Scripts\ProjectManage\UpdatePurchase.js" />
+    <Content Include="Scripts\ProjectManage\UpdateSchedule.js" />
+    <Content Include="Scripts\ProjectManage\UpdateSetUp.js" />
+    <Content Include="Scripts\ProjectManage\UpdateSubPackage.js" />
+    <Content Include="Scripts\ProjectManage\UpdateSubWork.js" />
+    <Content Include="Scripts\ProjectManage\UseSetUpProject.js" />
+    <Content Include="Scripts\ProjectManage\UseUpdateSetUp.js" />
+    <Content Include="Scripts\Sales\AccountsPayableStatisticalAnalysis2.js" />
+    <Content Include="Scripts\Sales\AddContract.js" />
+    <Content Include="Scripts\Sales\AddContractOrder.js" />
+    <Content Include="Scripts\Sales\AddExchangeGoodsF.js" />
+    <Content Include="Scripts\Sales\AddReturnGoods.js" />
+    <Content Include="Scripts\Sales\AddExchangeGoods.js" />
+    <Content Include="Scripts\Sales\AddFile.js" />
+    <Content Include="Scripts\Sales\AddOffer.js" />
+    <Content Include="Scripts\Sales\AddOfferF.js" />
+    <Content Include="Scripts\Sales\AddOrderInfo.js" />
+    <Content Include="Scripts\Sales\AddOrderInfoF.js" />
+    <Content Include="Scripts\Sales\AddReceivePayment.js" />
+    <Content Include="Scripts\Sales\AddReturnDetail.js" />
+    <Content Include="Scripts\Sales\ApplyInternal.js" />
+    <Content Include="Scripts\Sales\Approval.js" />
+    <Content Include="Scripts\Sales\ApprovalManage.js" />
+    <Content Include="Scripts\Sales\CashBack.js" />
+    <Content Include="Scripts\Sales\ChangeContract.js" />
+    <Content Include="Scripts\Sales\ContractElectronicLedger.js" />
+    <Content Include="Scripts\Sales\ContractStatisticalAnalysis.js" />
+    <Content Include="Scripts\Sales\ContractSummary.js" />
+    <Content Include="Scripts\Sales\CutOffSalesSummary.js" />
+    <Content Include="Scripts\Sales\DepartmentSalesSummary.js" />
+    <Content Include="Scripts\Sales\EquipmentSalesSummary.js" />
+    <Content Include="Scripts\Sales\EXApproval.js" />
+    <Content Include="Scripts\Sales\ExchangeBill.js" />
+    <Content Include="Scripts\Sales\ExchangeCheckGoods.js" />
+    <Content Include="Scripts\Sales\ExchangeGoodsFinish.js" />
+    <Content Include="Scripts\Sales\ExchangeGoodsManage.js" />
+    <Content Include="Scripts\Sales\EXOrderApprovalManage.js" />
+    <Content Include="Scripts\Sales\EXSubmitApproval.js" />
+    <Content Include="Scripts\Sales\HighVoltageCompartment.js" />
+    <Content Include="Scripts\Sales\InternalManage.js" />
+    <Content Include="Scripts\Sales\InventoryQuery.js" />
+    <Content Include="Scripts\Sales\LoadOrdersShipments.js" />
+    <Content Include="Scripts\Sales\LoadReceivePaymentXX.js" />
+    <Content Include="Scripts\Sales\MonthOwnProductChannelsFrom.js" />
+    <Content Include="Scripts\Sales\MonthOwnProductSales.js" />
+    <Content Include="Scripts\Sales\OfferApprovalManage.js" />
+    <Content Include="Scripts\Sales\OfferBill.js" />
+    <Content Include="Scripts\Sales\OfferManage.js" />
+    <Content Include="Scripts\Sales\OrderApprovalManage.js" />
+    <Content Include="Scripts\Sales\OrderInfoManage.js" />
+    <Content Include="Scripts\Sales\OrderShipments.js" />
+    <Content Include="Scripts\Sales\OrdersInfoBill.js" />
+    <Content Include="Scripts\Sales\OrdersSettlement.js" />
+    <Content Include="Scripts\Sales\OrderTrack.js" />
+    <Content Include="Scripts\Sales\OtherEquipment.js" />
+    <Content Include="Scripts\Sales\PaymentStatistics.js" />
+    <Content Include="Scripts\Sales\PressureRegulatingBox.js" />
+    <Content Include="Scripts\Sales\PrintExChangeGoods.js" />
+    <Content Include="Scripts\Sales\PrintOffer.js" />
+    <Content Include="Scripts\Sales\PrintOrderInfo.js" />
+    <Content Include="Scripts\Sales\PrintProjectBasInfo.js" />
+    <Content Include="Scripts\Sales\PrintReceivePayment.js" />
+    <Content Include="Scripts\Sales\PrintShipments.js" />
+    <Content Include="Scripts\Sales\ProjectBill.js" />
+    <Content Include="Scripts\Sales\ProjectSales\ChangeBasic.js" />
+    <Content Include="Scripts\Sales\ProjectSales\ChangeProduct.js" />
+    <Content Include="Scripts\Sales\ProjectSales\CheckDetail.js" />
+    <Content Include="Scripts\Sales\ProjectSales\SalesOffer.js" />
+    <Content Include="Scripts\Sales\ProjectSales\SalesOrderInfo.js" />
+    <Content Include="Scripts\Sales\ReceivableAccount.js" />
+    <Content Include="Scripts\Sales\ReceivePaymentManage.js" />
+    <Content Include="Scripts\Sales\RecordInfoF.js" />
+    <Content Include="Scripts\Sales\RegulatorSummary.js" />
+    <Content Include="Scripts\Sales\RetailSales\AddBasicGrid.js" />
+    <Content Include="Scripts\Sales\RetailSales\AddFiveMalls.js" />
+    <Content Include="Scripts\Sales\RetailSales\ApplyInternal.js" />
+    <Content Include="Scripts\Sales\RetailSales\ApplyMarket.js" />
+    <Content Include="Scripts\Sales\RetailSales\ApplyPromotion.js" />
+    <Content Include="Scripts\Sales\RetailSales\ApplyProperty.js" />
+    <Content Include="Scripts\Sales\RetailSales\ApplyShoppe.js" />
+    <Content Include="Scripts\Sales\RetailSales\ApprovalCommon.js" />
+    <Content Include="Scripts\Sales\RetailSales\ApprovalManage.js" />
+    <Content Include="Scripts\Sales\RetailSales\ApprovalMarket.js" />
+    <Content Include="Scripts\Sales\RetailSales\ApprovalPromotion.js" />
+    <Content Include="Scripts\Sales\RetailSales\ApprovalProperty.js" />
+    <Content Include="Scripts\Sales\RetailSales\ApprovalRetail.js" />
+    <Content Include="Scripts\Sales\RetailSales\ApprovalShoppe.js" />
+    <Content Include="Scripts\Sales\RetailSales\BasicSet.js" />
+    <Content Include="Scripts\Sales\RetailSales\GetProduct.js" />
+    <Content Include="Scripts\Sales\RetailSales\GetSupplier.js" />
+    <Content Include="Scripts\Sales\RetailSales\InternalManage.js" />
+    <Content Include="Scripts\Sales\RetailSales\MarketSalesManage.js" />
+    <Content Include="Scripts\Sales\RetailSales\PrintInterDetail.js" />
+    <Content Include="Scripts\Sales\RetailSales\PrintInternal.js" />
+    <Content Include="Scripts\Sales\RetailSales\PrintPrototype.js" />
+    <Content Include="Scripts\Sales\RetailSales\PrintRetail.js" />
+    <Content Include="Scripts\Sales\RetailSales\PrintShoppe.js" />
+    <Content Include="Scripts\Sales\RetailSales\PrintSPInfo.js" />
+    <Content Include="Scripts\Sales\RetailSales\PrintWeekStatics.js" />
+    <Content Include="Scripts\Sales\RetailSales\PromotionManage.js" />
+    <Content Include="Scripts\Sales\RetailSales\PropertyManage.js" />
+    <Content Include="Scripts\Sales\RetailSales\ProtoInfomation.js" />
+    <Content Include="Scripts\Sales\RetailSales\RetailAfterSaleManage.js" />
+    <Content Include="Scripts\Sales\RetailSales\RetailLibraryTubeManage.js" />
+    <Content Include="Scripts\Sales\RetailSales\RetailManage.js" />
+    <Content Include="Scripts\Sales\RetailSales\SalesProductInfo.js" />
+    <Content Include="Scripts\Sales\RetailSales\SalesRecord.js" />
+    <Content Include="Scripts\Sales\RetailSales\SalesRemind.js" />
+    <Content Include="Scripts\Sales\RetailSales\SalesWeekStatics.js" />
+    <Content Include="Scripts\Sales\RetailSales\SetFiveMalls.js" />
+    <Content Include="Scripts\Sales\RetailSales\ShoppeManage.js" />
+    <Content Include="Scripts\Sales\RetailSales\StaticsInternal.js" />
+    <Content Include="Scripts\Sales\RetailSales\UpdateBasicGrid.js" />
+    <Content Include="Scripts\Sales\RetailSales\UpdateFiveMalls.js" />
+    <Content Include="Scripts\Sales\RetailSales\UpdateInternal.js" />
+    <Content Include="Scripts\Sales\RetailSales\UpdateMarketApply.js" />
+    <Content Include="Scripts\Sales\RetailSales\UpdatePromotion.js" />
+    <Content Include="Scripts\Sales\RetailSales\UpdateProperty.js" />
+    <Content Include="Scripts\Sales\RetailSales\UpdateSalesRecord.js" />
+    <Content Include="Scripts\Sales\RetailSales\UpdateShoppe.js" />
+    <Content Include="Scripts\Sales\SalesContractMaintain.js" />
+    <Content Include="Scripts\Sales\SalesContractManage.js" />
+    <Content Include="Scripts\Sales\SalesSummary.js" />
+    <Content Include="Scripts\Sales\Settlement.js" />
+    <Content Include="Scripts\Sales\ShipmentBill.js" />
+    <Content Include="Scripts\Sales\ShipmentsManage.js" />
+    <Content Include="Scripts\Sales\SHowAppOfferXX.js" />
+    <Content Include="Scripts\Sales\SHowEXOrderXX.js" />
+    <Content Include="Scripts\Sales\ShowProject.js" />
+    <Content Include="Scripts\Sales\SHowReceivePayment.js" />
+    <Content Include="Scripts\Sales\StatisticalManage.js" />
+    <Content Include="Scripts\Sales\SubmitApproval.js" />
+    <Content Include="Scripts\Sales\SubmitUpdateApproval.js" />
+    <Content Include="Scripts\Sales\Supplier.js" />
+    <Content Include="Scripts\Sales\UpdateCashBack.js" />
+    <Content Include="Scripts\Sales\UpdateExchangeGoods.js" />
+    <Content Include="Scripts\Sales\UpdateExchangeGoodsF.js" />
+    <Content Include="Scripts\Sales\UpdateOffer.js" />
+    <Content Include="Scripts\Sales\UpdateOfferF.js" />
+    <Content Include="Scripts\Sales\UpdateOrdersInfo.js" />
+    <Content Include="Scripts\Sales\UpdateOrdersInfoF.js" />
+    <Content Include="Scripts\Sales\UpdateReceivePayment.js" />
+    <Content Include="Scripts\Sales\UpdateReturnDetail.js" />
+    <Content Include="Scripts\Sales\UpdateReturnGoods.js" />
+    <Content Include="Scripts\Sales\UpdateShipments.js" />
+    <Content Include="Scripts\Sales\UploadFile.js" />
+    <Content Include="Scripts\Sales\SHowAppOrderXX.js" />
+    <Content Include="Scripts\SupplyManage\AccessReview.js" />
+    <Content Include="Scripts\SupplyManage\AddAwardInfo.js" />
+    <Content Include="Scripts\SupplyManage\AddCertificate.js" />
+    <Content Include="Scripts\SupplyManage\AddCustomer.js" />
+    <Content Include="Scripts\SupplyManage\AddFile.js" />
+    <Content Include="Scripts\SupplyManage\AddNeed.js" />
+    <Content Include="Scripts\SupplyManage\AddPerson.js" />
+    <Content Include="Scripts\SupplyManage\AddPriceInfo.js" />
+    <Content Include="Scripts\SupplyManage\AddPro.js" />
+    <Content Include="Scripts\SupplyManage\AddServer.js" />
+    <Content Include="Scripts\SupplyManage\AddUnite.js" />
+    <Content Include="Scripts\SupplyManage\ApprovalMaintain.js" />
+    <Content Include="Scripts\SupplyManage\ApprovalWarn.js" />
+    <Content Include="Scripts\SupplyManage\ApprovalZhuRu.js" />
+    <Content Include="Scripts\SupplyManage\ApprovalZhuRu1.js" />
+    <Content Include="Scripts\SupplyManage\Approval\Approvalhfg.js" />
+    <Content Include="Scripts\SupplyManage\Approval\Approvalnd.js" />
+    <Content Include="Scripts\SupplyManage\Approval\ApprovalSup.js" />
+    <Content Include="Scripts\SupplyManage\Approval\ApprovalzhunchuSup.js" />
+    <Content Include="Scripts\SupplyManage\AppSP.js" />
+    <Content Include="Scripts\SupplyManage\BackSugestionApproval.js" />
+    <Content Include="Scripts\SupplyManage\BackSupbumen.js" />
+    <Content Include="Scripts\SupplyManage\BumenSP.js" />
+    <Content Include="Scripts\SupplyManage\CreateNewContracte.js" />
+    <Content Include="Scripts\SupplyManage\CustomerManage.js" />
+    <Content Include="Scripts\SupplyManage\DetailApp.js" />
+    <Content Include="Scripts\SupplyManage\DetailBas.js" />
+    <Content Include="Scripts\SupplyManage\DetailPSuUnit.js" />
+    <Content Include="Scripts\SupplyManage\FZInnerApproval.js" />
+    <Content Include="Scripts\SupplyManage\FZRDetail.js" />
+    <Content Include="Scripts\SupplyManage\InnerApproval.js" />
+    <Content Include="Scripts\SupplyManage\IsnotSupply\AddIsnotsuply.js" />
+    <Content Include="Scripts\SupplyManage\IsnotSupply\IsnotSupplyPrepare.js" />
+    <Content Include="Scripts\SupplyManage\IsnotSupply\UpdateIsnotSup.js" />
+    <Content Include="Scripts\SupplyManage\OutPrint.js" />
+    <Content Include="Scripts\SupplyManage\PrintOKSup.js" />
+    <Content Include="Scripts\SupplyManage\PrintYear.js" />
+    <Content Include="Scripts\SupplyManage\RecoverSupply.js" />
+    <Content Include="Scripts\SupplyManage\RemarkCertifity.js" />
+    <Content Include="Scripts\SupplyManage\RemarkFile.js" />
+    <Content Include="Scripts\SupplyManage\ReportPrint.js" />
+    <Content Include="Scripts\SupplyManage\ResShenPi.js" />
+    <Content Include="Scripts\SupplyManage\ResultApp.js" />
+    <Content Include="Scripts\SupplyManage\Shenpi.js" />
+    <Content Include="Scripts\SupplyManage\SubmitApproval.js" />
+    <Content Include="Scripts\SupplyManage\Submithuifu.js" />
+    <Content Include="Scripts\SupplyManage\SubmitRcover.js" />
+    <Content Include="Scripts\SupplyManage\SubmittaotaiApproval.js" />
+    <Content Include="Scripts\SupplyManage\Submitzhunchu.js" />
+    <Content Include="Scripts\SupplyManage\SupplyMan.js" />
+    <Content Include="Scripts\SupplyManage\SupplyOk.js" />
+    <Content Include="Scripts\SupplyManage\SupplyPrepare.js" />
+    <Content Include="Scripts\Sales\ProjectSales\RecordInfo.js" />
+    <Content Include="Scripts\Sales\ProjectSales\SalesManage.js" />
+    <Content Include="Scripts\SupplyManage\SupplyWeigui.js" />
+    <Content Include="Scripts\SupplyManage\tk_FeedBack.js" />
+    <Content Include="Scripts\SupplyManage\UpdataPro.js" />
+    <Content Include="Scripts\SupplyManage\UpdateBasMsg.js" />
+    <Content Include="Scripts\SupplyManage\UPdateCertify.js" />
+    <Content Include="Scripts\SupplyManage\UpdateCustomer.js" />
+    <Content Include="Scripts\SupplyManage\UpdateFileinfo.js" />
+    <Content Include="Scripts\SupplyManage\UpdateProduct.js" />
+    <Content Include="Scripts\SupplyManage\UpdateServer.js" />
+    <Content Include="Scripts\SupplyManage\UpPerson.js" />
+    <Content Include="Scripts\SupplyManage\UpUnites.js" />
+    <Content Include="Scripts\SupplyManage\WeiguiApproval.js" />
+    <Content Include="Scripts\SupplyManage\YearApproval.js" />
+    <Content Include="Scripts\SupplyManage\YearResult.js" />
+    <Content Include="Scripts\SupplyManage\YReview.js" />
+    <Content Include="Scripts\SystemManage\AddContent.js" />
+    <Content Include="Scripts\SystemManage\BasInformation.js" />
+    <Content Include="Scripts\SystemManage\UpdateMange.js" />
+    <Content Include="Scripts\SystemProject\AddContent.js" />
+    <Content Include="Scripts\SystemProject\BasicSet.js" />
+    <Content Include="Scripts\SystemProject\UpdateContent.js" />
+    <Content Include="Scripts\System\AppSet.js" />
+    <Content Include="Scripts\System\ChooseUser.js" />
+    <Content Include="Scripts\System\CUExamine.js" />
+    <Content Include="Scripts\TableMergeCell.js" />
+    <Content Include="Scripts\Table_Fix.js" />
+    <Content Include="Scripts\uploadify\Change Log.txt" />
+    <Content Include="Scripts\uploadify\jquery.uploadify.js" />
+    <Content Include="Scripts\uploadify\jquery.uploadify.min.js" />
+    <Content Include="Scripts\uploadify\license.txt" />
+    <Content Include="Scripts\uploadify\uploadify-cancel.png" />
+    <Content Include="Scripts\uploadify\uploadify.css" />
+    <Content Include="Scripts\uploadify\uploadify.swf" />
+    <Content Include="Scripts\uploadify\__MACOSX\._Change Log.txt" />
+    <Content Include="Scripts\uploadify\__MACOSX\._uploadify.swf" />
+    <Content Include="Scripts\UserAptitude\AddAptitude.js" />
+    <Content Include="Scripts\UserAptitude\AptitudeMaintain.js" />
+    <Content Include="Scripts\UserAptitude\AptitudeWarn.js" />
+    <Content Include="Scripts\UserAptitude\BackAptitude.js" />
+    <Content Include="Scripts\UserAptitude\ChooseUser.js" />
+    <Content Include="Scripts\UserAptitude\LendAptitude.js" />
+    <Content Include="Scripts\UserAptitude\SetWarnTime.js" />
+    <Content Include="Scripts\UserAptitude\UpdateAptitude.js" />
+    <Content Include="Scripts\Validate\Validate-Injection.js" />
+    <Content Include="Scripts\jquery-leftmenu1.js" />
+    <Content Include="Views\FlowMeterManage\ServicingDetail.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Main\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BBL\BBL.csproj">
+      <Project>{8c3c6be6-1246-49aa-af1f-50342bd76b18}</Project>
+      <Name>BBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{acd6391f-92f7-4587-a55f-06e6c7dbc055}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{b3746fe3-7fb1-4f5b-9ed3-548abfe60c14}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\Login.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Main\Main.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Main\Left_ProjectManage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectManage\ProjectPrepare.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Main\Left_SalesManage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SalesManage\RecordManage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectManage\EarlyContact.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Main\Left_FlowMeterManage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PPManage\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Main\Left_PPManage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PPManage\PPRight.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SalesManage\RecordInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectManage\CreateNewProject.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PPManage\PurchaseApplication.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\SuppliesPrepare.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Main\Left_SuppliesManage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Main\Left_InventoryManage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\SupplyMan.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\Certificate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\SupplyApproval.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PPManage\CreatePurchase.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PPManage\Inquiry.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\InventoryFirstPage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\AddFileInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\AddCertificate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\AddPro.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\AddServer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\TestStockIn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\AddTestStockIn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\AddmanagePro.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ChangeTest.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ProtoStockIn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\AddProtoStockIn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ChangeProto.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\BasicStockIn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\DetailBas.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\UpdateBas.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\AddBasicStockIn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\AddProcureStockIn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\AddRetailSalesOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ChangeBasic.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ChangeProcure.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ChangeRetailSales.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ProcureStockIn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\RetailSalesOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\ApproverSP.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\SupplyWeigui.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\CustemerMang.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\SubmitShenpi.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\InnerApproval.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\AddBuyGiveOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\AddCountersOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\AddProjectSalesOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\AddProtoUpOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\BuyGiveOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ChangeBuyGive.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ChangeCountersSales.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ChangeProjectSales.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ChangeProtoUp.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\CountersOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ProjectSalesOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ProtoUpOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectManage\CreateProject.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PPManage\AddInquiry.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PPManage\AddOrder.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\FlowMeterManage\CardManage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SalesManage\AddOffer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SalesManage\ChangeProduct.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SalesManage\CheckDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SalesManage\OfferManage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SalesManage\OrdersInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SalesManage\RecordOffer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SuppliesManage\Shenpi.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\BasicStockOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ChangeBasicOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\AddBasicStockOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SalesManage\Supplier.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectManage\UpdateProjectBas.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectManage\UpdateEarlyContact.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectManage\DetailProject.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectManage\AppProject.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectManage\SetUpProject.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PPManage\Approval.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectManage\General.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectManage\UpdateSetUp.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PPManage\UpdatePurchaseGoods.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectManage\DetailApp.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectManage\PrintApp.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\SalesInvoiceManagement.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\SalesInvoiceManagementOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ScrapManagement.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ScrapManagementOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SalesManage\UpdateOffer.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectManage\AppExamine.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\COM_Approval\SubmitApproval.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SalesManage\AddOrder.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\PPManage\ChangeBasic.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\AddProductionStockIn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ChangeProduction.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\ProductionStockIn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\InventoryManage\SalasInvoiSales.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CSS\SalesManage\vssver2.scc" />
+    <Content Include="CSS\images\vssver2.scc" />
+    <Content Include="CSS\Inventory\vssver2.scc" />
+    <Content Include="CSS\PP\vssver2.scc" />
+    <Content Include="CSS\Sales\vssver2.scc" />
+    <Content Include="CSS\vssver2.scc" />
+    <Content Include="images\vssver2.scc" />
+    <None Include="Properties\PublishProfiles\aaa.pubxml" />
+    <None Include="Properties\PublishProfiles\BGOI.pubxml" />
+    <Content Include="Views\COM_Approval\Approval.cshtml" />
+    <Content Include="Views\COM_Approval\ApprovalCondition.cshtml" />
+    <Content Include="Views\FlowMeterManage\EditRepairCard.cshtml" />
+    <Content Include="Views\FlowMeterManage\AddCard.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\System\AppSet.cshtml" />
+    <Content Include="Views\System\CUExamine.cshtml" />
+    <Content Include="Views\SuppliesManage\AddCustomer.cshtml" />
+    <Content Include="Views\SuppliesManage\AddPerson.cshtml" />
+    <Content Include="Views\SuppliesManage\AddUnite.cshtml" />
+    <Content Include="Views\SuppliesManage\DetailCustomer.cshtml" />
+    <Content Include="Views\SuppliesManage\UpdateCustomer.cshtml" />
+    <Content Include="Views\SuppliesManage\UPPerson.cshtml" />
+    <Content Include="Views\SuppliesManage\WeiguiShenpi.cshtml" />
+    <Content Include="Views\SalesRetail\SalesRecord.cshtml" />
+    <Content Include="Views\SalesRetail\SalesRetailManage.cshtml" />
+    <Content Include="Views\SuppliesManage\UPUnite.cshtml" />
+    <Content Include="Views\SalesManage\AddReturnGoods.cshtml" />
+    <Content Include="Views\SalesManage\OrderInfoManage.cshtml" />
+    <Content Include="Views\SalesManage\AddReturnDetail.cshtml" />
+    <Content Include="Views\SalesManage\OrderShipments.cshtml" />
+    <Content Include="Views\SalesManage\RetailManage.cshtml" />
+    <Content Include="Views\SuppliesManage\UPProduct.cshtml" />
+    <Content Include="Views\SuppliesManage\UPServer.cshtml" />
+    <Content Include="Views\SuppliesManage\UPFile.cshtml" />
+    <Content Include="Views\PPManage\GetOrder.cshtml" />
+    <Content Include="Views\PPManage\Order.cshtml" />
+    <Content Include="Views\PPManage\ReceiptGoods.cshtml" />
+    <Content Include="Views\PPManage\Supplier.cshtml" />
+    <Content Include="Views\PPManage\ReturnGoods.cshtml" />
+    <Content Include="Views\System\ChooseUser.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\SalesRetail\GetProduct.cshtml" />
+    <Content Include="Views\ProduceManage\AddTask.cshtml" />
+    <Content Include="Views\ProduceManage\InspectionReport.cshtml" />
+    <Content Include="Views\ProduceManage\Materialrequisition.cshtml" />
+    <Content Include="Views\ProduceManage\Productiontasklist.cshtml" />
+    <Content Include="Views\ProduceManage\Productstorage.cshtml" />
+    <Content Include="Views\ProduceManage\withthejob.cshtml" />
+    <Content Include="Views\Main\Left_ProduceManage.cshtml" />
+    <Content Include="Views\FlowMeterManage\DetailCard.cshtml" />
+    <Content Include="Views\FlowMeterManage\PrintCard.cshtml" />
+    <Content Include="Views\ProjectManage\ProjectDesign.cshtml" />
+    <Content Include="Views\CustomerService\AddWarrantyCard.cshtml" />
+    <Content Include="Views\CustomerService\ProductReport.cshtml" />
+    <Content Include="Views\CustomerService\ServiceDemand.cshtml" />
+    <Content Include="Views\CustomerService\UpWarrantyCard.cshtml" />
+    <Content Include="Views\CustomerService\WarrantyCard.cshtml" />
+    <Content Include="Views\SuppliesManage\DetailInfomation.cshtml" />
+    <Content Include="Views\SuppliesManage\ReportPrint.cshtml" />
+    <Content Include="Views\SuppliesManage\UPCertifify.cshtml" />
+    <Content Include="Views\FlowMeterManage\SendTaskCard.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\SalesManage\AddReceivePayment.cshtml" />
+    <Content Include="Views\SalesManage\UpdateOrdersInfo.cshtml" />
+    <Content Include="Views\InventoryManage\AddSecondOut.cshtml" />
+    <Content Include="Views\InventoryManage\AddProductionMaterials.cshtml" />
+    <Content Include="Views\InventoryManage\ChangeProductionMaterials.cshtml" />
+    <Content Include="Views\InventoryManage\SecondOut.cshtml" />
+    <Content Include="Views\InventoryManage\StorageManagement.cshtml" />
+    <Content Include="Views\InventoryManage\StorageManagementOut.cshtml" />
+    <Content Include="Views\InventoryManage\ProductionMaterials.cshtml" />
+    <Content Include="Views\SalesManage\LoadOrdersShipments.cshtml" />
+    <Content Include="Views\SalesManage\ShipmentsManage.cshtml" />
+    <Content Include="Views\SalesManage\PrintShipments.cshtml" />
+    <Content Include="Views\SalesManage\UpdateShipments.cshtml" />
+    <Content Include="Views\SalesManage\ReceivePaymentManage.cshtml" />
+    <Content Include="Views\SalesManage\LoadReceivePaymentXX.cshtml" />
+    <Content Include="Views\COM_Approval\SubmitShenpi.cshtml" />
+    <Content Include="Views\SalesManage\ExchangeGoodsManage.cshtml" />
+    <Content Include="Views\SalesManage\UpdateExchangeGoods.cshtml" />
+    <Content Include="Views\CustomerService\AddProductReport.cshtml" />
+    <Content Include="Views\CustomerService\AddUserVisit.cshtml" />
+    <Content Include="Views\CustomerService\ChangeProduct.cshtml" />
+    <Content Include="Views\CustomerService\InstallRecord.cshtml" />
+    <Content Include="Views\CustomerService\PrintProductInstallation.cshtml" />
+    <Content Include="Views\CustomerService\PrintProductReport.cshtml" />
+    <Content Include="Views\CustomerService\PrintWarrCard.cshtml" />
+    <Content Include="Views\CustomerService\ProductInstallation.cshtml" />
+    <Content Include="Views\CustomerService\UpProductInstallationList.cshtml" />
+    <Content Include="Views\CustomerService\UpProductReport.cshtml" />
+    <Content Include="Views\CustomerService\UserVisit.cshtml" />
+    <Content Include="Views\CustomerService\UpUserVisitList.cshtml" />
+    <Content Include="Views\SuppliesManage\FZRSP.cshtml" />
+    <Content Include="Views\CustomerService\AddCustomerSatisfactionSurvey.cshtml" />
+    <Content Include="Views\CustomerService\CustomerSatisfactionSurvey.cshtml" />
+    <Content Include="Views\CustomerService\OrderList.cshtml" />
+    <Content Include="Views\CustomerService\PrintCustomerSatisfactionSurvey.cshtml" />
+    <Content Include="Views\CustomerService\PrintUserVisit.cshtml" />
+    <Content Include="Views\CustomerService\UpCustomerSatisfactionSurveyList.cshtml" />
+    <Content Include="Views\ProjectManage\PreDesign.cshtml" />
+    <Content Include="Views\SalesRetail\ApplyInternal.cshtml" />
+    <Content Include="Views\SalesRetail\UpdateSalesRecord.cshtml" />
+    <Content Include="Views\SalesRetail\InternalManage.cshtml" />
+    <Content Include="Views\SalesRetail\UpdateInternal.cshtml" />
+    <Content Include="Views\ProjectManage\UpdatePreDesign.cshtml" />
+    <Content Include="Views\FlowMeterManage\AddIncomingInspection.cshtml" />
+    <Content Include="Views\FlowMeterManage\IncomingInspection.cshtml" />
+    <Content Include="Views\FlowMeterManage\TestManager.cshtml" />
+    <Content Include="Views\ProjectManage\DownLoadPreDesign.cshtml" />
+    <Content Include="Views\FlowMeterManage\AddCleanRepair.cshtml" />
+    <Content Include="Views\FlowMeterManage\CleanRepair.cshtml" />
+    <Content Include="Views\FlowMeterManage\UpdateIncomingInspection.cshtml" />
+    <Content Include="Views\FlowMeterManage\UpdateCleanRepair.cshtml" />
+    <Content Include="Views\ProjectManage\DesignExamine.cshtml" />
+    <Content Include="Views\ProjectManage\Offer.cshtml" />
+    <Content Include="Views\ProjectManage\MakePrice.cshtml" />
+    <Content Include="Views\ProjectManage\AddBudget.cshtml" />
+    <Content Include="Views\ProjectManage\ProjectBudget.cshtml" />
+    <Content Include="Views\ProjectManage\UpdateBudget.cshtml" />
+    <Content Include="Views\ProjectManage\AddBidding.cshtml" />
+    <Content Include="Views\ProjectManage\ProjectBidding.cshtml" />
+    <Content Include="Views\ProjectManage\UpdateBidding.cshtml" />
+    <Content Include="Views\ProjectManage\ImpleGeneral.cshtml" />
+    <Content Include="Views\CustomerService\PrintUserComplaints.cshtml" />
+    <Content Include="Views\CustomerService\AddUserComplaints.cshtml" />
+    <Content Include="Views\CustomerService\AddProcessingRecord.cshtml" />
+    <Content Include="Views\CustomerService\UserComplaints.cshtml" />
+    <Content Include="Views\InventoryManage\AddInventoryAddPro.cshtml" />
+    <Content Include="Views\InventoryManage\AddInventoryFirstPage.cshtml" />
+    <Content Include="Views\InventoryManage\InventoryAddPro.cshtml" />
+    <Content Include="Views\SalesManage\UpdateReturnDetail.cshtml" />
+    <Content Include="Views\SuppliesManage\YearApproval.cshtml" />
+    <Content Include="Views\ProjectManage\addSchedule.cshtml" />
+    <Content Include="Views\FlowMeterManage\AddCheckData.cshtml" />
+    <Content Include="Views\FlowMeterManage\AddRepairInfo.cshtml" />
+    <Content Include="Views\FlowMeterManage\CheckData.cshtml" />
+    <Content Include="Views\FlowMeterManage\RepairInfo.cshtml" />
+    <Content Include="Views\FlowMeterManage\UpdateRepairInfo.cshtml" />
+    <Content Include="Views\ProjectManage\ProjectSchedule.cshtml" />
+    <Content Include="Views\ProjectManage\UpdateSchedule.cshtml" />
+    <Content Include="Views\ProjectManage\addSubWork.cshtml" />
+    <Content Include="Views\FlowMeterManage\TaskManagement.cshtml" />
+    <Content Include="Views\ProjectManage\ProjectSubWork.cshtml" />
+    <Content Include="Views\ProjectManage\UpdateSubWork.cshtml" />
+    <Content Include="Views\ProjectManage\PrintSubWork.cshtml" />
+    <Content Include="Views\ProjectManage\SubWorkExamine.cshtml" />
+    <Content Include="Views\ProjectManage\addSubPackage.cshtml" />
+    <Content Include="Views\ProjectManage\ProjectSubPackage.cshtml" />
+    <Content Include="Views\ProjectManage\PrintSubPackage.cshtml" />
+    <Content Include="Views\ProjectManage\UpdateSubPackage.cshtml" />
+    <Content Include="Views\Contract\AddContract.cshtml" />
+    <Content Include="Views\Contract\AddFile.cshtml" />
+    <Content Include="Views\Contract\BGOI_KAT.cshtml" />
+    <Content Include="Views\Contract\BGOI_Project.cshtml" />
+    <Content Include="Views\Contract\BGOI_SJS.cshtml" />
+    <Content Include="Views\Contract\CashBack.cshtml" />
+    <Content Include="Views\Contract\ChangeContract.cshtml" />
+    <Content Include="Views\Contract\ContractMaintain.cshtml" />
+    <Content Include="Views\Contract\ContractStandingBook.cshtml" />
+    <Content Include="Views\Contract\DetailContract.cshtml" />
+    <Content Include="Views\Contract\Settlement.cshtml" />
+    <Content Include="Views\Contract\SetWarnTime.cshtml" />
+    <Content Include="Views\Contract\StayReturnCash.cshtml" />
+    <Content Include="Views\Contract\StaySettlement.cshtml" />
+    <Content Include="Views\CustomerService\ModifyUserComplaints.cshtml" />
+    <Content Include="Views\PPManage\AddStorage.cshtml" />
+    <Content Include="Views\PPManage\IndexDDXQ.cshtml" />
+    <Content Include="Views\PPManage\IndexInquiry.cshtml" />
+    <Content Include="Views\PPManage\IndexOrder.cshtml" />
+    <Content Include="Views\PPManage\IndexQGXQ.cshtml" />
+    <Content Include="Views\PPManage\IndexRK.cshtml" />
+    <Content Include="Views\PPManage\IndexRKXQ.cshtml" />
+    <Content Include="Views\PPManage\IndexSH.cshtml" />
+    <Content Include="Views\PPManage\IndexXJXQ.cshtml" />
+    <Content Include="Views\PPManage\Payment.cshtml" />
+    <Content Include="Views\PPManage\PrintDD.cshtml" />
+    <Content Include="Views\PPManage\PrintQG.cshtml" />
+    <Content Include="Views\PPManage\PrintSH.cshtml" />
+    <Content Include="Views\PPManage\PrintRK.cshtml" />
+    <Content Include="Views\PPManage\PrintXJ.cshtml" />
+    <Content Include="Views\SalesManage\ExchangeCheckGoods.cshtml" />
+    <Content Include="Views\SalesManage\ExchangeGoodsFinish.cshtml" />
+    <Content Include="Views\SalesRetail\ApprovalManage.cshtml" />
+    <Content Include="Views\SalesRetail\ShoppeManage.cshtml" />
+    <Content Include="Views\ProjectManage\SubPackageExamine.cshtml" />
+    <Content Include="Views\FlowMeterManage\WorkCardManage.cshtml" />
+    <Content Include="Views\FlowMeterManage\TransCardManage.cshtml" />
+    <Content Include="Views\ProjectManage\addPayRecord.cshtml" />
+    <Content Include="Views\EquipMan\AddEquip.cshtml" />
+    <Content Include="Views\EquipMan\EquipCheck.cshtml" />
+    <Content Include="Views\EquipMan\EquipCheckHistory.cshtml" />
+    <Content Include="Views\EquipMan\EquipMaintain.cshtml" />
+    <Content Include="Views\EquipMan\EquipScrap.cshtml" />
+    <Content Include="Views\EquipMan\UpdateEquip.cshtml" />
+    <Content Include="Views\EquipMan\UpDCheckInfo.cshtml" />
+    <Content Include="Views\ProjectManage\ProjectPayRecord.cshtml" />
+    <Content Include="Views\EquipMan\AddRativeSource.cshtml" />
+    <Content Include="Views\EquipMan\CheckRecord.cshtml" />
+    <Content Include="Views\EquipMan\EquipService.cshtml" />
+    <Content Include="Views\EquipMan\EquipWarn.cshtml" />
+    <Content Include="Views\EquipMan\RepaireRecord.cshtml" />
+    <Content Include="Views\EquipMan\RativeSourceMaintain.cshtml" />
+    <Content Include="Views\EquipMan\SetWarnTime.cshtml" />
+    <Content Include="Views\EquipMan\TracingPlan.cshtml" />
+    <Content Include="Views\EquipMan\StandingBook.cshtml" />
+    <Content Include="Views\EquipMan\UpdateRativeSource.cshtml" />
+    <Content Include="Views\ProjectManage\UpdatePayRecord.cshtml" />
+    <Content Include="Views\FlowMeterManage\PrintWorkCard.cshtml" />
+    <Content Include="Views\Main\ErrorPage.cshtml" />
+    <Content Include="Views\ProjectManage\PrintPayRecord.cshtml" />
+    <Content Include="Views\FlowMeterManage\StartCleanRepair.cshtml" />
+    <Content Include="Views\FlowMeterManage\StartRepair.cshtml" />
+    <Content Include="Views\ProjectManage\PaRecoudExamine.cshtml" />
+    <Content Include="Views\FlowMeterManage\PrintTransCard.cshtml" />
+    <Content Include="Views\InventoryManage\AllocationSheet.cshtml" />
+    <Content Include="Views\InventoryManage\AddAllocationSheet.cshtml" />
+    <Content Include="Views\FlowMeterManage\EditWorkCard.cshtml" />
+    <Content Include="Views\Contract\UpdateCashBack.cshtml" />
+    <Content Include="Views\FlowMeterManage\DetailWorkCard.cshtml" />
+    <Content Include="Views\FlowMeterManage\EditTransCard.cshtml" />
+    <Content Include="Views\ProjectManage\FinishMaintain.cshtml" />
+    <Content Include="Views\FlowMeterManage\DetailTransCard.cshtml" />
+    <Content Include="Views\ProjectManage\addProCompletions.cshtml" />
+    <Content Include="Views\ProjectManage\ProjectCompletions.cshtml" />
+    <Content Include="Views\FlowMeterManage\CkeckDataDetail.cshtml" />
+    <Content Include="Views\FlowMeterManage\CleanRepairDetail.cshtml" />
+    <Content Include="Views\FlowMeterManage\RepairInfoDetail.cshtml" />
+    <Content Include="Views\ProjectManage\addProFinish.cshtml" />
+    <Content Include="Views\ProjectManage\ProjectFinish.cshtml" />
+    <Content Include="Views\ProjectManage\UpdateProFinish.cshtml" />
+    <Content Include="Views\ProjectManage\ProjectCashBack.cshtml" />
+    <Content Include="Views\FlowMeterManage\TakeDelivery.cshtml" />
+    <Content Include="Views\ProjectManage\CPlanTimeWarn.cshtml" />
+    <Content Include="Views\ProjectManage\SetWarnTime.cshtml" />
+    <Content Include="Views\ProjectManage\CashBackWarn.cshtml" />
+    <Content Include="Views\ProjectManage\SetCashBackWarnTime.cshtml" />
+    <Content Include="Views\ProjectManage\DebtSearch.cshtml" />
+    <Content Include="Views\SalesManage\ApprovalManage.cshtml" />
+    <Content Include="Views\SalesManage\InternalManage.cshtml" />
+    <Content Include="Views\SalesManage\OfferApprovalManage.cshtml" />
+    <Content Include="Views\SalesManage\OrderApprovalManage.cshtml" />
+    <Content Include="Views\SalesManage\UpdateReceivePayment.cshtml" />
+    <Content Include="Views\SalesRetail\ApplyShoppe.cshtml" />
+    <Content Include="Views\ProjectManage\ProjectStatistics.cshtml" />
+    <Content Include="Views\FlowMeterManage\InStockDetail.cshtml" />
+    <Content Include="Views\ProjectManage\AmountStatistics.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\FlowMeterManage\DeliveryManage.cshtml" />
+    <Content Include="Views\ProjectManage\DeptStatistics.cshtml" />
+    <Content Include="Views\FlowMeterManage\Quotation.cshtml" />
+    <Content Include="Views\FlowMeterManage\UpdateQuotation.cshtml" />
+    <Content Include="Views\FlowMeterManage\AddQuotation.cshtml" />
+    <Content Include="Views\FlowMeterManage\EditDelivery.cshtml" />
+    <Content Include="Views\FlowMeterManage\InspectionManage.cshtml" />
+    <Content Include="Views\FlowMeterManage\EditInspection.cshtml" />
+    <Content Include="Views\FlowMeterManage\InspectionDetail.cshtml" />
+    <Content Include="Views\FlowMeterManage\AddInspection.cshtml" />
+    <Content Include="Views\UserAptitude\AddAptitude.cshtml" />
+    <Content Include="Views\UserAptitude\AptitudeMaintain.cshtml" />
+    <Content Include="Views\UserAptitude\AptitudeWarn.cshtml" />
+    <Content Include="Views\UserAptitude\BackAptitude.cshtml" />
+    <Content Include="Views\UserAptitude\ChooseUser.cshtml" />
+    <Content Include="Views\UserAptitude\LendAptitude.cshtml" />
+    <Content Include="Views\UserAptitude\LookPicture.cshtml" />
+    <Content Include="Views\UserAptitude\SetWarnTime.cshtml" />
+    <Content Include="Views\UserAptitude\UpdateAptitude.cshtml" />
+    <Content Include="Views\SalesRetail\ApprovalShoppe.cshtml" />
+    <Content Include="Views\SalesRetail\UpdateShoppe.cshtml" />
+    <Content Include="Views\SuppliesManage\ResultApp.cshtml" />
+    <Content Include="Views\FlowMeterManage\SelectMeter.cshtml" />
+    <Content Include="Views\FlowMeterManage\DeliveryDtail.cshtml" />
+    <Content Include="Views\ProjectManage\PurchaseSearch.cshtml" />
+    <Content Include="Views\FlowMeterManage\DelDelivery.cshtml" />
+    <Content Include="Views\PPManage\General.cshtml" />
+    <Content Include="Views\PPManage\GetSHID.cshtml" />
+    <Content Include="Views\PPManage\IndexFK.cshtml" />
+    <Content Include="Views\PPManage\IndexTH.cshtml" />
+    <Content Include="Views\PPManage\OrderInfoManage.cshtml" />
+    <Content Include="Views\PPManage\PrintTH.cshtml" />
+    <Content Include="Views\PPManage\SalesRetailManage.cshtml" />
+    <Content Include="Views\Main\Left_CustomerService.cshtml" />
+    <Content Include="Views\PPManage\vssver2.scc" />
+    <Content Include="Views\FlowMeterManage\SendManage.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\FlowMeterManage\EditSendDelivery.cshtml" />
+    <Content Include="Scripts\ProjectManage\vssver2.scc" />
+    <Content Include="Views\PPManage\CGRemind.cshtml" />
+    <Content Include="Views\FlowMeterManage\DelSendDelivery.cshtml" />
+    <Content Include="Views\FlowMeterManage\SendDeliveryDtail.cshtml" />
+    <Content Include="Views\FlowMeterManage\SendDelivery.cshtml" />
+    <Content Include="Views\PPManage\SetWarnTime.cshtml" />
+    <Content Include="Views\FlowMeterManage\OutStockDetail.cshtml" />
+    <Content Include="Views\PPManage\DetailsRK.cshtml" />
+    <Content Include="Views\PPManage\DetailsQG.cshtml" />
+    <Content Include="Views\PPManage\DetailsXJ.cshtml" />
+    <Content Include="Views\FlowMeterManage\PayMentManage.cshtml" />
+    <Content Include="Views\FlowMeterManage\Servicing.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\SalesManage\OrdersSettlement.cshtml" />
+    <Content Include="Views\SalesManage\SalesContractManage.cshtml" />
+    <Content Include="Views\SalesManage\SubmitApproval.cshtml" />
+    <Content Include="Views\InventoryManage\InventoryStatistics.cshtml" />
+    <Content Include="Views\InventoryManage\InventorySummaryTable.cshtml" />
+    <Content Include="Views\InventoryManage\MaterialOutOfTheWarehouse.cshtml" />
+    <Content Include="Views\InventoryManage\MaterialSummaryTable.cshtml" />
+    <Content Include="Views\PPManage\InventoryFirstPage.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\PPManage\PrintFK.cshtml" />
+    <Content Include="Views\PPManage\DetailsTH.cshtml" />
+    <Content Include="Views\PPManage\DetailsSH.cshtml" />
+    <Content Include="Views\PPManage\DetailsFK.cshtml" />
+    <Content Include="Views\PPManage\DetailsDD.cshtml" />
+    <Content Include="Views\PPManage\UpdateQGXX.cshtml" />
+    <Content Include="Views\PPManage\UpdateXJXX.cshtml" />
+    <Content Include="Views\PPManage\UpdateDDXX.cshtml" />
+    <Content Include="Views\ProduceManage\AddBG.cshtml" />
+    <Content Include="Views\ProduceManage\AddLL.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\ProduceManage\AddRK.cshtml" />
+    <Content Include="Views\ProduceManage\AddSG.cshtml" />
+    <Content Include="Views\ProduceManage\ChangeTask.cshtml" />
+    <Content Include="Views\ProduceManage\ChangeTasks.cshtml" />
+    <Content Include="Views\ProduceManage\MaterialFormDetail.cshtml" />
+    <Content Include="Views\ProduceManage\projectmanagement.cshtml" />
+    <Content Include="Views\ProduceManage\SGJL.cshtml" />
+    <Content Include="Views\ProduceManage\TaskDetail.cshtml" />
+    <Content Include="Views\ProduceManage\UpdateMaterialForm.cshtml" />
+    <Content Include="Views\ProduceManage\UpdateTask.cshtml" />
+    <Content Include="Views\ProductPlanManage\ProductPlanGrid.cshtml" />
+    <Content Include="Views\ProductPlanManage\ProductPlanAdd.cshtml" />
+    <Content Include="Views\CustomerService\AddRepairRegistration.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\CustomerService\MaintenanceTask.cshtml" />
+    <Content Include="Views\CustomerService\PrintMaintenanceTaskList.cshtml" />
+    <Content Include="Views\CustomerService\UpDateModifyTask.cshtml" />
+    <Content Include="Views\CustomerService\UpMaintenanceTask.cshtml" />
+    <Content Include="Views\ProjectManage\ProjectContractExamine.cshtml" />
+    <Content Include="Views\ProductPlanManage\Approval.cshtml" />
+    <Content Include="Views\ProduceManage\updateBG.cshtml" />
+    <Content Include="Views\ProduceManage\updateSG.cshtml" />
+    <Content Include="Views\SalesManage\ContractElectronicLedger.cshtml" />
+    <Content Include="Views\SalesManage\ContractSummary.cshtml" />
+    <Content Include="Views\SalesManage\CutOffSalesSummary.cshtml" />
+    <Content Include="Views\SalesManage\DepartmentSalesSummary.cshtml" />
+    <Content Include="Views\SalesManage\EquipmentSalesSummary.cshtml" />
+    <Content Include="Views\SalesManage\OtherEquipment.cshtml" />
+    <Content Include="Views\SalesManage\PaymentStatistics.cshtml" />
+    <Content Include="Views\SalesManage\PressureRegulatingBox.cshtml" />
+    <Content Include="Views\SalesManage\RegulatorSummary.cshtml" />
+    <Content Include="Views\SalesManage\SalesSummary.cshtml" />
+    <Content Include="Views\SalesManage\StatisticalManage.cshtml" />
+    <Content Include="Views\ProductPlanManage\RWApproval.cshtml" />
+    <Content Include="Views\FlowMeterManage\UpLoadManage.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\ProjectManage\UpdateProjectCompletions.cshtml" />
+    <Content Include="Views\FlowMeterManage\AddPayment.cshtml" />
+    <Content Include="Views\FlowMeterManage\PaymentDetail.cshtml" />
+    <Content Include="Views\FlowMeterManage\EditPayment.cshtml" />
+    <Content Include="Views\FlowMeterManage\DelPayment.cshtml" />
+    <Content Include="Views\SalesManage\PrintOrderInfo.cshtml" />
+    <Content Include="Views\FlowMeterManage\SearchSchedule.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\FlowMeterManage\SearchService.cshtml" />
+    <Content Include="Views\SuppliesManage\SupplyOK.cshtml" />
+    <Content Include="Views\FlowMeterManage\QuotationDetail.cshtml" />
+    <Content Include="Views\SalesManage\PrintOffer.cshtml" />
+    <Content Include="Views\SalesManage\PrintProjectBasInfo.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\FlowSystem\BasicSet.cshtml" />
+    <Content Include="Views\ProjectManage\UpdatePrice.cshtml" />
+    <Content Include="Views\ProjectManage\DownLoadPrice.cshtml" />
+    <Content Include="Views\ProjectManage\PriceExamine.cshtml" />
+    <Content Include="Views\FlowSystem\UpdateBasic.cshtml" />
+    <Content Include="Views\FlowSystem\AddBasic.cshtml" />
+    <Content Include="Views\SalesManage\PrintExChangeGoods.cshtml" />
+    <Content Include="Views\ProjectManage\DownLoadBudget.cshtml" />
+    <Content Include="Views\ProjectManage\BudgetExamine.cshtml" />
+    <Content Include="Views\FlowMeterManage\Component.cshtml" />
+    <Content Include="Views\InventoryManage\PrintProcureStockIn.cshtml" />
+    <Content Include="Views\InventoryManage\PrintInventorySummaryTable.cshtml" />
+    <Content Include="Views\InventoryManage\PrintMaterialOutOfTheWarehouse.cshtml" />
+    <Content Include="Views\InventoryManage\PrintMaterialSummaryTable.cshtml" />
+    <Content Include="Views\InventoryManage\PrintProductionStockIn.cshtml" />
+    <Content Include="Views\InventoryManage\PrintProductionMaterials.cshtml" />
+    <Content Include="Views\InventoryManage\PrintProtoStockIn.cshtml" />
+    <Content Include="Views\InventoryManage\PrintProjectSalesOut.cshtml" />
+    <Content Include="Views\InventoryManage\PrintProtoUpOut.cshtml" />
+    <Content Include="Views\InventoryManage\PrintRetailSalesOut.cshtml" />
+    <Content Include="Views\InventoryManage\PrintSecondOut.cshtml" />
+    <Content Include="Views\InventoryManage\PrintTestStockIn.cshtml" />
+    <Content Include="Views\InventoryManage\PrintAllocationSheet.cshtml" />
+    <Content Include="Views\InventoryManage\PrintBasicOutList.cshtml" />
+    <Content Include="Views\InventoryManage\PrintBuyGiveOut.cshtml" />
+    <Content Include="Views\InventoryManage\PrintBasicStockIn.cshtml" />
+    <Content Include="Views\InventoryManage\PrintInventoryAddPro.cshtml" />
+    <Content Include="Views\InventoryManage\PrintInventoryFirstPage.cshtml" />
+    <Content Include="Views\InventoryManage\PrintInventoryStatistics.cshtml" />
+    <Content Include="Views\ProjectManage\DownLoadBidding.cshtml" />
+    <Content Include="Views\ProjectManage\BiddingExamine.cshtml" />
+    <Content Include="Views\Contract\AddProjectContract.cshtml" />
+    <Content Include="Views\Contract\ProContractMaintain.cshtml" />
+    <Content Include="Views\Contract\DetailProjectContract.cshtml" />
+    <Content Include="Views\FlowMeterManage\AddServicing.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\SalesManage\AddContract.cshtml" />
+    <Content Include="Views\SalesManage\AddFile.cshtml" />
+    <Content Include="Views\SalesManage\CashBack.cshtml" />
+    <Content Include="Views\SalesManage\ChangeContract.cshtml" />
+    <Content Include="Views\SalesManage\DetailContract.cshtml" />
+    <Content Include="Views\SalesManage\PrintReceivePayment.cshtml" />
+    <Content Include="Views\SalesManage\SalesContractMaintain.cshtml" />
+    <Content Include="Views\SalesManage\Settlement.cshtml" />
+    <Content Include="Views\Contract\ChangeProContract.cshtml" />
+    <Content Include="Views\Contract\DownloadFile.cshtml" />
+    <Content Include="Views\Contract\ProCashBack.cshtml" />
+    <Content Include="Views\Contract\SettlementPro.cshtml" />
+    <Content Include="Properties\vssver2.scc" />
+    <Content Include="Scripts\FlowMeterManage\vssver2.scc" />
+    <Content Include="Scripts\InventoryManage\vssver2.scc" />
+    <Content Include="Scripts\Login\vssver2.scc" />
+    <Content Include="Scripts\Main\vssver2.scc" />
+    <Content Include="Scripts\My97DatePicker\vssver2.scc" />
+    <Content Include="Scripts\My97DatePicker\开发包\vssver2.scc" />
+    <Content Include="Scripts\My97DatePicker\skin\vssver2.scc" />
+    <Content Include="Scripts\My97DatePicker\lang\vssver2.scc" />
+    <Content Include="Scripts\My97DatePicker\skin\whyGreen\vssver2.scc" />
+    <Content Include="Scripts\My97DatePicker\skin\default\vssver2.scc" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\vssver2.scc" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\whyGreen\vssver2.scc" />
+    <Content Include="Scripts\My97DatePicker\开发包\skin\default\vssver2.scc" />
+    <Content Include="Scripts\PP\ProjectPP\vssver2.scc" />
+    <Content Include="Views\Account\vssver2.scc" />
+    <Content Include="Views\CustomerService\InstallStatistics.cshtml" />
+    <Content Include="Views\FlowMeterManage\vssver2.scc" />
+    <Content Include="Views\InventoryManage\vssver2.scc" />
+    <Content Include="Views\PPManage\UpdateFKXX.cshtml" />
+    <Content Include="Views\PPManage\UpdateRKXX.cshtml" />
+    <Content Include="Views\PPManage\UpdateSHXX.cshtml" />
+    <Content Include="Views\PPManage\UpdateTHXX.cshtml" />
+    <Content Include="Views\ProjectManage\vssver2.scc" />
+    <Content Include="Views\SalesManage\vssver2.scc" />
+    <Content Include="Views\SalesRetail\ApplyMarket.cshtml" />
+    <Content Include="Views\SalesRetail\ApplyPromotion.cshtml" />
+    <Content Include="Views\SalesRetail\ApplyProperty.cshtml" />
+    <Content Include="Views\SalesRetail\ApprovalCommon.cshtml" />
+    <Content Include="Views\SalesRetail\ApprovalMarket.cshtml" />
+    <Content Include="Views\SalesRetail\ApprovalPromotion.cshtml" />
+    <Content Include="Views\SalesRetail\ApprovalProperty.cshtml" />
+    <Content Include="Views\SalesRetail\ApprovalRetail.cshtml" />
+    <Content Include="Views\SalesRetail\GetSupplier.cshtml" />
+    <Content Include="Views\SalesRetail\MarketSalesManage.cshtml" />
+    <Content Include="Views\SalesRetail\PrintInternal.cshtml" />
+    <Content Include="Views\SalesRetail\PrintPrototype.cshtml" />
+    <Content Include="Views\SalesRetail\PromotionManage.cshtml" />
+    <Content Include="Views\SalesRetail\PropertyManage.cshtml" />
+    <Content Include="Views\SalesRetail\PrototypeInfomation.cshtml" />
+    <Content Include="Views\SalesRetail\UpdateMarketApply.cshtml" />
+    <Content Include="Views\SalesRetail\UpdatePromotion.cshtml" />
+    <Content Include="Views\SalesRetail\UpdateProperty.cshtml" />
+    <Content Include="Views\SuppliesManage\ApprovalMaintain.cshtml" />
+    <Content Include="Views\SuppliesManage\ApprovalWarn.cshtml" />
+    <Content Include="Views\SuppliesManage\LookPicture.cshtml" />
+    <Content Include="Views\FlowMeterManage\QuotationSummary.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\FlowMeterManage\ScheduleDetail.cshtml" />
+    <Content Include="Views\FlowMeterManage\UpdateServicing.cshtml" />
+    <Content Include="Views\ProjectManage\DownLoadSubWork.cshtml" />
+    <Content Include="Views\FlowMeterManage\AddCardNew.cshtml" />
+    <Content Include="Views\SystemProject\BasicSet.cshtml" />
+    <Content Include="Views\FlowMeterManage\AddCheckData2.cshtml" />
+    <Content Include="Views\FlowMeterManage\CheckData2.cshtml" />
+    <Content Include="Views\FlowMeterManage\CkeckData2Detail.cshtml" />
+    <Content Include="Views\FlowMeterManage\ServicingSummary.cshtml" />
+    <Content Include="Views\FlowMeterManage\UpdateCheckData2.cshtml" />
+    <Content Include="Views\SystemProject\AddContent.cshtml" />
+    <Content Include="Views\SystemProject\UpdateContent.cshtml" />
+    <Content Include="Views\SystemManage\BasInformation.cshtml" />
+    <Content Include="Views\Main\SelectModule.cshtml" />
+    <Content Include="Views\FlowMeterManage\CheckData2Summary.cshtml" />
+    <Content Include="Views\FlowMeterManage\CheckDataSummary.cshtml" />
+    <Content Include="Views\FlowMeterManage\RepairInfoSummary.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\SalesManage\AddContractOrder.cshtml" />
+    <Content Include="Views\SalesManage\Approval.cshtml" />
+    <Content Include="Scripts\Sales\ProjectSales\vssver2.scc" />
+    <Content Include="Views\PPManage\CGKXHZ.cshtml" />
+    <Content Include="Views\PPManage\AddFile.cshtml" />
+    <Content Include="Views\PPManage\DGMX.cshtml" />
+    <Content Include="Views\PPManage\STH.cshtml" />
+    <Content Include="Views\ProduceManage\LoadTasks.cshtml" />
+    <Content Include="Views\ProduceManage\AddMaterial.cshtml" />
+    <Content Include="Views\ProduceManage\PrintTask.cshtml" />
+    <Content Include="Views\ProduceManage\RKDetail.cshtml" />
+    <Content Include="Views\ProduceManage\SGDtail.cshtml" />
+    <Content Include="Views\ProduceManage\UpdateRK.cshtml" />
+    <Content Include="Views\ProductPlanManage\UpdatePlan.cshtml" />
+    <Content Include="Views\SalesRetail\PrintShoppe.cshtml" />
+    <Content Include="Views\SalesRetail\SalesRemind.cshtml" />
+    <Content Include="Views\SystemManage\AddContent.cshtml" />
+    <Content Include="Views\SystemManage\UpdateContent.cshtml" />
+    <Content Include="Views\PPManage\SPxj.cshtml" />
+    <Content Include="Views\PPManage\SPdd.cshtml" />
+    <Content Include="Views\FlowMeterManage\EditRepairCardUT.cshtml" />
+    <Content Include="Views\FlowMeterManage\Accessory.cshtml" />
+    <Content Include="Views\FlowMeterManage\DetailCardUT.cshtml" />
+    <Content Include="Views\Main\SelectModuleYS.cshtml" />
+    <Content Include="Views\FlowMeterManage\PrintCardUT.cshtml" />
+    <Content Include="Views\FlowMeterManage\PrintWorkCardUT.cshtml" />
+    <Content Include="Views\FlowMeterManage\EditWorkCardUT.cshtml" />
+    <Content Include="Views\FlowMeterManage\DetailWorkCardUT.cshtml" />
+    <Content Include="Views\Main\SelectModuleFZ.cshtml" />
+    <Content Include="Views\FlowDAManage\DetectionCurve.cshtml" />
+    <Content Include="Views\FlowDAManage\RepeatValueReport.cshtml" />
+    <Content Include="Views\FlowDAManage\UserAnaly.cshtml" />
+    <Content Include="Views\CustomerService\AddPressureAdjustingInspection.cshtml" />
+    <Content Include="Views\CustomerService\PressureAdjustingInspection.cshtml" />
+    <Content Include="Views\CustomerService\PrintPressureAdjustingInspection.cshtml" />
+    <Content Include="Views\CustomerService\UpPressureAdjustingInspection.cshtml" />
+    <Content Include="Views\SalesManage\UpdateCashBack.cshtml" />
+    <Content Include="Views\SalesRetail\AddBasicGrid.cshtml" />
+    <Content Include="Views\SalesRetail\BasicSet.cshtml" />
+    <Content Include="Views\SalesRetail\SalesWeekStatics.cshtml" />
+    <Content Include="Views\SalesRetail\UpdateBasicGrid.cshtml" />
+    <Content Include="Views\ProduceManage\LoadBG.cshtml" />
+    <Content Include="Views\ProduceManage\LoadLL.cshtml" />
+    <Content Include="Views\ProduceManage\LoadRK.cshtml" />
+    <Content Include="Views\ProduceManage\LoadSG.cshtml" />
+    <Content Include="Views\ProduceManage\PrintLL.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\ProduceManage\PrintRK.cshtml" />
+    <Content Include="Views\ProduceManage\PrintSG.cshtml" />
+    <Content Include="Views\ProductPlanManage\PrintJH.cshtml" />
+    <Content Include="Views\FlowDAManage\ShowImgs.cshtml" />
+    <Content Include="Views\PPManage\AddConfig.cshtml" />
+    <Content Include="Views\PPManage\UpdateConfig.cshtml" />
+    <Content Include="Views\PPManage\XTSZ.cshtml" />
+    <Content Include="Views\FlowDAManage\CalibreAnaly.cshtml" />
+    <Content Include="Views\FlowMeterManage\PrintInspection.cshtml" />
+    <Content Include="Views\PPManage\TJghmx.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\FlowSystem\GroupSet.cshtml" />
+    <Content Include="Views\SalesManage\UploadFile.cshtml" />
+    <Content Include="Views\FlowSystem\UpdateGroup.cshtml" />
+    <Content Include="Views\FlowSystem\UpdateGroupUser.cshtml" />
+    <Content Include="Views\FlowSystem\AddGroup.cshtml" />
+    <Content Include="Views\FlowSystem\AddGroupUser.cshtml" />
+    <Content Include="Views\CustomerService\AddEquipmentCommissioning.cshtml" />
+    <Content Include="Views\CustomerService\AddTelephoneAnswering.cshtml" />
+    <Content Include="Views\CustomerService\AftermarketConfiguration.cshtml" />
+    <Content Include="Views\CustomerService\EquipmentCommissioning.cshtml" />
+    <Content Include="Views\CustomerService\MaintenanceTaskStatistics.cshtml" />
+    <Content Include="Views\CustomerService\PrintEquipmentCommissioning.cshtml" />
+    <Content Include="Views\CustomerService\TelephoneAnswering.cshtml" />
+    <Content Include="Views\CustomerService\UpEquipmentCommissioning.cshtml" />
+    <Content Include="Views\CustomerService\UpTelephoneAnswering.cshtml" />
+    <Content Include="Views\CustomerService\UserServiceStatistics.cshtml" />
+    <Content Include="Views\ProjectManage\addPurchase.cshtml" />
+    <Content Include="Views\FlowDAManage\CustomerAnaly.cshtml" />
+    <Content Include="Views\FlowDAManage\YearAnaly.cshtml" />
+    <None Include="Properties\PublishProfiles\BGOIWeb.pubxml" />
+    <Content Include="Views\SalesManage\AddOrderF.cshtml" />
+    <Content Include="Views\ProjectManage\ProjectPurchase.cshtml" />
+    <Content Include="Views\ProjectManage\UpdatePurchase.cshtml" />
+    <Content Include="Views\ProjectManage\PurchaseExamine.cshtml" />
+    <Content Include="Views\ProjectManage\PrintPurchase.cshtml" />
+    <Content Include="Views\SalesManage\EXSubmitApproval.cshtml" />
+    <Content Include="Views\SalesManage\EXApproval.cshtml" />
+    <Content Include="Views\SalesManage\EXOrderApprovalManage.cshtml" />
+    <Content Include="Views\SalesRetail\AddFiveMalls.cshtml" />
+    <Content Include="Views\SalesRetail\PrintInterDetail.cshtml" />
+    <Content Include="Views\SalesRetail\PrintRetail.cshtml" />
+    <Content Include="Views\SalesRetail\PrintSPInfo.cshtml" />
+    <Content Include="Views\SalesRetail\PrintWeekStatics.cshtml" />
+    <Content Include="Views\SalesRetail\SetFiveMalls.cshtml" />
+    <Content Include="Views\SalesRetail\StaticsInternal.cshtml" />
+    <Content Include="Views\SalesRetail\UpdateFiveMalls.cshtml" />
+    <Content Include="Views\SuppliesManage\PrintOK.cshtml" />
+    <Content Include="Views\SuppliesManage\BackSup.cshtml" />
+    <Content Include="Views\SuppliesManage\DetailApp.cshtml" />
+    <Content Include="Views\PPManage\UpdateGoods.cshtml" />
+    <Content Include="Views\InventoryManage\AddConfigurationInformation.cshtml" />
+    <Content Include="Views\InventoryManage\AddSpec.cshtml" />
+    <Content Include="Views\InventoryManage\ConfigurationInformation.cshtml" />
+    <Content Include="Views\InventoryManage\DefinitionOfProduct.cshtml" />
+    <Content Include="Views\InventoryManage\LowAlarm.cshtml" />
+    <Content Include="Views\InventoryManage\LowWarn.cshtml" />
+    <Content Include="Views\InventoryManage\PrintDefinitionOfProduct.cshtml" />
+    <Content Include="Views\InventoryManage\StorageRoom.cshtml" />
+    <Content Include="Views\InventoryManage\UpdateContentnew.cshtml" />
+    <Content Include="Views\InventoryManage\UPInventoryUPPro.cshtml" />
+    <Content Include="Views\PPManage\UpdateSupplier.cshtml" />
+    <Content Include="Views\SalesManage\HighVoltageCompartment.cshtml" />
+    <Content Include="Views\ProduceManage\BGLX.cshtml" />
+    <Content Include="Views\ProduceManage\THBGLX.cshtml" />
+    <Content Include="Views\SalesManage\ContractStatisticalAnalysis.cshtml" />
+    <Content Include="Views\ProduceManage\DownLoadFile.cshtml" />
+    <Content Include="Views\SalesManage\ReceivableAccount.cshtml" />
+    <Content Include="Views\ProduceManage\addupdatetask.cshtml" />
+    <Content Include="Views\InventoryManage\AddDefinitionOfProduct.cshtml" />
+    <Content Include="Views\InventoryManage\Setlowerlimit.cshtml" />
+    <Content Include="Views\InventoryManage\UpDefinitionOfProduct.cshtml" />
+    <Content Include="Views\CustomerService\AddContractnew.cshtml" />
+    <Content Include="Views\CustomerService\AddCusService.cshtml" />
+    <Content Include="Views\CustomerService\AppProcessing.cshtml" />
+    <Content Include="Views\CustomerService\BasCus.cshtml" />
+    <Content Include="Views\CustomerService\Contract.cshtml" />
+    <Content Include="Views\CustomerService\CusService.cshtml" />
+    <Content Include="Views\CustomerService\SatisfactionStatistics.cshtml" />
+    <Content Include="Views\CustomerService\TestingOfEquipmentStatistics.cshtml" />
+    <Content Include="Views\CustomerService\UpSaveCusService.cshtml" />
+    <Content Include="Views\SalesManage\OtherBusinessAnalysis.cshtml" />
+    <Content Include="Views\SalesManage\AccountsPayableStatisticalAnalysis2.cshtml" />
+    <Content Include="Views\ProduceManage\ChangeT.cshtml" />
+    <Content Include="Views\COM_Approval\ChoseGoods.cshtml" />
+    <Content Include="Views\ProduceManage\Addnewll.cshtml" />
+    <Content Include="Views\SuppliesManage\FZInnerApproval.cshtml" />
+    <Content Include="Views\SalesManage\MonthOwnProductSales.cshtml" />
+    <Content Include="Views\SuppliesManage\BackSugestionApproval.cshtml" />
+    <Content Include="Views\SuppliesManage\RemarkFile.cshtml" />
+    <Content Include="Views\SuppliesManage\RemarkCertifity.cshtml" />
+    <Content Include="Views\SalesManage\MonthOwnProductChannelsFrom.cshtml" />
+    <Content Include="Views\SalesManage\InventoryQuery.cshtml" />
+    <Content Include="Views\PPManage\ChengPin.cshtml" />
+    <Content Include="Views\PPManage\DetailsDDSan.cshtml" />
+    <Content Include="Views\PPManage\ErOrder.cshtml" />
+    <Content Include="Views\PPManage\Payments.cshtml" />
+    <Content Include="Views\PPManage\PrintSupplierTJ.cshtml" />
+    <Content Include="Views\PPManage\SanOrder.cshtml" />
+    <Content Include="Views\PPManage\SanUpdateDD.cshtml" />
+    <Content Include="Views\ProjectManage\UseSetUpProject.cshtml" />
+    <Content Include="Views\ProjectManage\UseUpdateSetUp.cshtml" />
+    <Content Include="Views\PPManage\ErAddLogistics.cshtml" />
+    <Content Include="Views\PPManage\ErLogistics.cshtml" />
+    <Content Include="Views\PPManage\PrintWL.cshtml" />
+    <Content Include="Views\PPManage\ErUpdateWL.cshtml" />
+    <Content Include="Views\ProjectManage\PCashBack.cshtml" />
+    <Content Include="Views\ProjectManage\UpdatePCashBack.cshtml" />
+    <Content Include="Views\SalesRetail\SalesProductInfo.cshtml" />
+    <Content Include="Views\InventoryManage\InventoryBill.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\CustomerService\AddBillingRecords.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\CustomerService\AddCollectionRecord.cshtml" />
+    <Content Include="Views\CustomerService\AddCon.cshtml" />
+    <Content Include="Views\CustomerService\AddCustimerOrder.cshtml" />
+    <Content Include="Views\CustomerService\BillingRecords.cshtml" />
+    <Content Include="Views\CustomerService\CashBackNew.cshtml" />
+    <Content Include="Views\CustomerService\CollectionRecord.cshtml" />
+    <Content Include="Views\CustomerService\CustimerOrder.cshtml" />
+    <Content Include="Views\CustomerService\GetSupplier.cshtml" />
+    <Content Include="Views\CustomerService\PrintBillingRecords.cshtml" />
+    <Content Include="Views\CustomerService\PrintCollectionRecord.cshtml" />
+    <Content Include="Views\CustomerService\PrintInstallStatistics.cshtml" />
+    <Content Include="Views\CustomerService\PrintMaintenanceTaskStatistics.cshtml" />
+    <Content Include="Views\CustomerService\PrintOrderInfonew.cshtml" />
+    <Content Include="Views\CustomerService\PrintSatisfactionStatistics.cshtml" />
+    <Content Include="Views\CustomerService\PrintTestingOfEquipmentStatistics.cshtml" />
+    <Content Include="Views\CustomerService\UpBillingRecords.cshtml" />
+    <Content Include="Views\CustomerService\UpCollectionRecord.cshtml" />
+    <Content Include="Views\CustomerService\UpdateCon.cshtml" />
+    <Content Include="Views\CustomerService\UpdateOrdersInfonew.cshtml" />
+    <Content Include="Views\InventoryManage\UpStorageRoom.cshtml" />
+    <Content Include="Views\SalesManage\AddOfferF.cshtml" />
+    <Content Include="Views\SalesManage\SubmitUpdateApproval.cshtml" />
+    <Content Include="Views\SalesManage\OrderTrack.cshtml" />
+    <Content Include="Views\PPManage\ADDStorageer.cshtml" />
+    <Content Include="Views\PPManage\ErDetailsDD.cshtml" />
+    <Content Include="Views\PPManage\ErUpdateDD.cshtml" />
+    <Content Include="Views\PPManage\IndexTransfer.cshtml" />
+    <Content Include="Views\PPManage\InsertCPSH.cshtml" />
+    <Content Include="Views\PPManage\InsertGoods.cshtml" />
+    <Content Include="Views\PPManage\PaymentCP.cshtml" />
+    <Content Include="Views\PPManage\Plan.cshtml" />
+    <Content Include="Views\PPManage\Production.cshtml" />
+    <Content Include="Views\PPManage\Transfer.cshtml" />
+    <Content Include="Views\PPManage\UpdateFKXXer.cshtml" />
+    <Content Include="Views\PPManage\UpdateRKXXer.cshtml" />
+    <Content Include="Views\PPManage\UpdateSHXXer.cshtml" />
+    <Content Include="Views\PPManage\Warehouse.cshtml" />
+    <Content Include="Views\SuppliesManage\YearResult.cshtml" />
+    <Content Include="Views\SuppliesManage\OutPrint.cshtml" />
+    <Content Include="Views\SuppliesManage\PrintYear.cshtml" />
+    <Content Include="Views\SalesManage\RecordInfoF.cshtml" />
+    <Content Include="Views\InventoryManage\AddProductTypeSetting.cshtml" />
+    <Content Include="Views\InventoryManage\PrintInventoryBill.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\InventoryManage\ProductTypeSetting.cshtml" />
+    <Content Include="Views\InventoryManage\UpProductTypeSetting.cshtml" />
+    <Content Include="Views\SalesManage\UpdateOrdersInfoF.cshtml" />
+    <Content Include="Views\SalesManage\SHowAppOrderXX.cshtml" />
+    <Content Include="Views\SalesManage\SHowAppOfferXX.cshtml" />
+    <Content Include="Views\SalesManage\SHowEXOrderXX.cshtml" />
+    <Content Include="Views\SuppliesManage\DetailPS.cshtml" />
+    <Content Include="Views\SalesManage\ExchangeBill.cshtml" />
+    <Content Include="Views\SalesManage\OfferBill.cshtml" />
+    <Content Include="Views\SalesManage\OrdersInfoBill.cshtml" />
+    <Content Include="Views\SalesManage\ProjectBill.cshtml" />
+    <Content Include="Views\SalesManage\ShipmentBill.cshtml" />
+    <None Include="Properties\PublishProfiles\BGOIYSOS.pubxml" />
+    <Content Include="Views\PPManage\PrintSupplier.cshtml" />
+    <Content Include="Views\SuppliesManage\AddAwardInfo.cshtml" />
+    <Content Include="Views\SuppliesManage\AddPriceInfo.cshtml" />
+    <Content Include="Views\COM_Approval\ApprovalSup.cshtml" />
+    <Content Include="Views\SalesManage\UpdateOfferF.cshtml" />
+    <Content Include="Views\SalesManage\AddExchangeGoods.cshtml" />
+    <Content Include="Views\CustomerService\BGOI_TPRBE.cshtml" />
+    <Content Include="Views\CustomerService\ChangeContracNew.cshtml" />
+    <Content Include="Views\SuppliesManage\SubmitApproval.cshtml" />
+    <Content Include="Views\SuppliesManage\ApprovalZhuRu.cshtml" />
+    <Content Include="Views\ProduceManage\CKMaterialForm.cshtml" />
+    <Content Include="Views\ProduceManage\SCMaterialForm.cshtml" />
+    <Content Include="Views\SuppliesManage\SubmitRcover.cshtml" />
+    <Content Include="Views\SuppliesManage\RecoverSupply.cshtml" />
+    <Content Include="Views\SuppliesManage\BackSupbumen.cshtml" />
+    <Content Include="Views\SuppliesManage\BumenSP.cshtml" />
+    <Content Include="Views\InventoryManage\AddInOutUpload.cshtml" />
+    <Content Include="Views\InventoryManage\InOutUpload.cshtml" />
+    <Content Include="Views\SalesManage\AddExchangeGoodsF.cshtml" />
+    <Content Include="Views\SalesManage\UpdateExchangeGoodsF.cshtml" />
+    <Content Include="Views\SalesManage\UpdateReturnGoods.cshtml" />
+    <Content Include="Views\SuppliesManage\Submithuifu.cshtml" />
+    <Content Include="Views\SuppliesManage\SubmittaotaiApproval.cshtml" />
+    <Content Include="Views\SuppliesManage\Submitzhunchu.cshtml" />
+    <Content Include="Views\COM_Approval\ApprovalzhunchuSup.cshtml" />
+    <Content Include="Views\SuppliesManage\ApprovalZhuRu1.cshtml" />
+    <Content Include="Views\SuppliesManage\ApprovalSup.cshtml" />
+    <Content Include="Views\SuppliesManage\ApprovalzhunchuSup.cshtml" />
+    <Content Include="Views\SuppliesManage\Approvalhfg.cshtml" />
+    <Content Include="Views\SuppliesManage\Approvalnd.cshtml" />
+    <Content Include="Views\CustomerService\ContractProcessing.cshtml" />
+    <Content Include="Views\InventoryManage\PrintBasicOutInvoiceList.cshtml" />
+    <Content Include="Views\InventoryManage\WarehousingCost.cshtml" />
+    <Content Include="Views\PPManage\LJSplits.cshtml" />
+    <Content Include="Views\CustomerService\AddHomeSalesInstallation.cshtml" />
+    <Content Include="Views\CustomerService\ChangeHomeSalesInstallation.cshtml" />
+    <Content Include="Views\CustomerService\HomeSalesInstallation.cshtml" />
+    <Content Include="Views\CustomerService\UpHomeSalesInstallationList.cshtml" />
+    <Content Include="Views\InventoryManage\AddHomeProductSales.cshtml" />
+    <Content Include="Views\InventoryManage\ChangeHomeProductSales.cshtml" />
+    <Content Include="Views\InventoryManage\HomeProductSales.cshtml" />
+    <Content Include="Views\InventoryManage\PrintHomeProductSales.cshtml" />
+    <Content Include="Views\SalesRetail\RetailAfterSaleManage.cshtml" />
+    <Content Include="Views\SalesRetail\RetailLibraryTubeManage.cshtml" />
+    <Content Include="Scripts\uploadify\check-exists.php" />
+    <Content Include="Scripts\uploadify\index.php" />
+    <Content Include="Scripts\uploadify\uploadify.php" />
+    <Content Include="Views\ProjectManage\DownLoadCashBack.cshtml" />
+    <Content Include="Views\Contract\DownloadFileProject.cshtml" />
+    <Content Include="Views\ProjectManage\DownLoadCompletions.cshtml" />
+    <Content Include="Views\PPManage\InsertBiddingNew.cshtml" />
+    <Content Include="Views\CustomerService\BillingRecordsProcessing.cshtml" />
+    <Content Include="Views\CustomerService\KPProcessing.cshtml" />
+    <Content Include="Views\Main\UpdatePwd.cshtml" />
+    <Content Include="Views\SalesManage\ShowProject.cshtml" />
+    <Content Include="Views\Main\ResetPwd.cshtml" />
+    <Content Include="Views\CustomerService\HTApproval.cshtml" />
+    <Content Include="Views\CustomerService\PrintXSContract.cshtml" />
+    <Content Include="Views\InventoryManage\ViewPicture.cshtml" />
+    <Content Include="Views\SalesManage\SHowReceivePayment.cshtml" />
+    <Content Include="Views\CustomerService\HTApprovalSW.cshtml" />
+    <Content Include="Views\CustomerService\PrintXSContractCG.cshtml" />
+    <Content Include="Views\ProduceManage\btnCheck.cshtml" />
+    <Content Include="Views\ProduceManage\ExchangeCheckGoods.cshtml" />
+    <Content Include="Views\ProduceManage\ExchangeGoodsManage.cshtml" />
+    <Content Include="Views\ProduceManage\SubmitApproval.cshtml" />
+    <Content Include="Views\ProduceManage\Approval.cshtml" />
+    <Content Include="Views\SuppliesManage\IsnotSuppliesPrepare.cshtml" />
+    <Content Include="Views\SuppliesManage\Addisnotsuply.cshtml" />
+    <Content Include="Views\SuppliesManage\Updateisnotsuply.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>6826</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:6064/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,92 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_CardSearch
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ScheduleDetail</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/ScheduleDetail.js")" type="text/javascript"></script>
+</head>
+@{
+    Acc_Account account = GAccount.GetAccountInfo();
+    int Rights = account.UserID;
+}
+<body>
+    @using (Html.BeginForm("ExportDataTableToExcelSchedule", "FlowMeterManage", FormMethod.Post, new { id = "GForm" }))
+    {
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">汇总统计</span>>>维修进度情况
+            </div>
+            <div style="overflow-y: hidden; overflow-x: hidden;">
+
+                <div id="search" style="height: 40px; overflow: hidden">
+                    <table class="tabSearch" cellpadding="0" cellspacing="0">
+                        <tr style="height: 30px;">
+
+                            @Html.HiddenFor(model => model.ModelType)
+                            <td>仪表类型</td>
+                            <td>@Html.DropDownList("Model", FlowMeterMan.getConfigContent3("CardType"), new { @class = "txtCss", style = "width:167px;", @onchange = "change()" })</td>
+                            <td colspan="2">
+                                <input type="button" id="CX" class="btn" value="查询" onclick="reload();" />
+                                @if (Rights != 321)
+                                {  
+                                    <input type="submit" class="btn" value="导出" />
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div style="border: 1px solid #707070; margin-left: 10px; width: 98%; height: 405px;">
+
+                <table class="tabInfo" style="text-align: center" id="list">
+                    <tr>
+                        <td class="textLeft">口径</td>
+                        <td class="textLeft">清洗完成</td>
+                        <td class="textLeft">维修完成</td>
+                        <td class="textLeft">完成总数</td>
+                        <td class="textLeft">待初测</td>
+                        <td class="textLeft">待清洗</td>
+                        <td class="textLeft">清洗中</td>
+                        <td class="textLeft">待维修</td>
+                        <td class="textLeft">维修中</td>
+                        <td class="textLeft">待测试</td>
+                        <td class="textLeft">待打压</td>
+                        <td class="textLeft">正在进行总数</td>
+                        <td class="textLeft">周转表</td>
+                        <td class="textLeft">无法维修</td>
+                        <td class="textLeft">总数</td>
+                        <td class="textLeft">待出厂</td>
+                        <td class="textLeft">已出厂</td>
+                    </tr>
+
+                </table>
+
+            </div>
+        </div>
+
+    }
+</body>
+
+</html>

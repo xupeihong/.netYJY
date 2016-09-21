@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "CashBack";
+}
+
+@using TECOCITY_BGOI;
+@model CCashBack
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Sales/CashBack.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+
+</head>
+@using (Html.BeginForm("CashBack", "Contract", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+{
+    <body>
+        @Html.Hidden("type", @ViewData["type"])
+    <div id="hole" style="overflow-y: auto;">
+        <div id="tabTitile"><span style="margin-left: 10px;">合同ID：@Model.StrCID</span></div>@Html.HiddenFor(model => model.StrCID)
+        <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+
+            <tr>
+                <td class="textLeft">回款ID</td>
+                <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrCBID, new { @class = "txtCss", @ReadOnly = "ReadOnly", onkeypress = "return !(event.keyCode==8)", onkeydown = "return !(event.keyCode==8)" })</td>
+            </tr>
+            <tr>
+                <td class="textLeft">回款次数</td>
+                <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrCurAmountNum, new { @class = "txtCss", @ReadOnly = "ReadOnly", onkeypress = "return !(event.keyCode==8)", onkeydown = "return !(event.keyCode==8)" })</td>
+            </tr>
+            <tr>
+                <td class="textLeft">回款方式</td>
+                <td class="textRight" colspan="3">@Html.DropDownListFor(model => model.StrCBMethod, EquipMan.GetNewConfigContent("CBMethod"), new { @class = "txtCss" })<span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.StrCBMethod)</td>
+            </tr>
+            <tr>
+                <td class="textLeft">回款金额</td>
+                <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrCBMoney, new { @class = "txtCss" })<span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.StrCBMoney)</td>
+            </tr>
+            <tr>
+                <td class="textLeft">汇款或支票号</td>
+                <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrCBBillNo, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.StrCBBillNo)</td>
+            </tr>
+            <tr>
+                <td class="textLeft">发票号</td>
+                <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrReceiptNo, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.StrReceiptNo)</td>
+            </tr>
+            <tr>
+                <td class="textLeft">是否符合约定的回款进度</td>
+                <td class="textRight" colspan="3">@Html.RadioButton("IsReturn", 0) 否 @Html.RadioButton("IsReturn", 1) 是<span style="color: red;">*</span></td>
+                @Html.HiddenFor(model => model.StrIsReturn)
+            </tr>
+            <tr>
+                <td class="textLeft">不符合回款进度的原因</td>
+                <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.StrNoReturnReason, new { style = "width:90%;height:100px;" }) @Html.ValidationMessageFor(model => model.StrNoReturnReason)</td>
+            </tr>
+            <tr>
+                <td class="textLeft">缴费单位</td>
+                <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrPayCompany, new { style = "width:90%" }) @Html.ValidationMessageFor(model => model.StrPayCompany)</td>
+            </tr>
+            <tr>
+                <td class="textLeft">备注</td>
+                <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.StrRemark, new { style = "width:90%;height:100px;" }) @Html.ValidationMessageFor(model => model.StrRemark)</td>
+            </tr>
+
+            <tr>
+                <td class="textLeft">回款日期</td>
+                <td class="textRight">@Html.TextBoxFor(model => model.StrCBDate, new { @class = "txtCss", onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })" })<span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.StrCBDate)</td>
+            </tr>
+        </table>
+        <div style="margin-top: 10px; margin-left: 80%">
+            <input class="btn" type="submit" id="charge" value="确定" />
+        </div>
+
+
+    </div>
+</body>
+
+}
+</html>
+

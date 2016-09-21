@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>QuotationSummary</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Print.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_PrintPageSet.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/PrintCard.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/QuotationSummary.js")" type="text/javascript"></script>
+</head>
+<body>
+
+
+    <div id="pageContent">
+        <div id="ReportContent" style="margin-top:10px; page-break-after: always;">
+            <div id="bor" style="width: 98%; margin-top: 5px; margin-left: 10px;">
+             
+                <table id="list" class="tabInfo" style="width: 100%; text-align:center">
+                    <tr>
+                        <td>登记卡号</td>
+                        <td>仪表名称</td>
+                        <td>生产厂家</td>
+                        <td>仪表型号</td>
+                        <td>口径</td>
+                        <td>字轮读数</td>
+                        <td>仪表编号</td>
+                        <td>更换部件</td>
+                        <td>清洗维修</td>
+                        <td>打压</td>
+                        <td>检测</td>
+                        <td>应收总价</td>
+                    </tr>
+                </table>
+
+            </div>
+            <div style="text-align:right; margin-top:5px; width:99%;">
+                <input type="button" id="btnPrint" value="打 印" class="btn" />
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

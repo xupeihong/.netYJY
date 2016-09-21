@@ -1,0 +1,147 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model  tk_StockOut
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PrintSecondOut</title>
+
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/CSS/Print.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_PrintPageSet.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/InventoryManage/PrintSecondOut.js")" type="text/javascript"></script>
+</head>
+<body style="margin: 0 0 0 0; background-color: white; overflow: auto;">
+    @* <div id="pageContent" style=" margin-left:2px; margin-right:2px; margin-top:2px; ">*@
+    <div id="ReportContent" style="margin-top: 10px; page-break-after: always;">
+        <div style="width: 100%; text-align: center; font-size: 18px;">北京市燕山工业燃气设备有限公司</div>
+        <div style="font-size: 22px; font-weight: bold; float: left; margin-left: 45%;">二级库出库</div>
+        <div style="margin-left: 73%; float: left;">YSGLJL-SC-F15</div>
+        <div style="margin-left: 73%; float: left;">NO: @Model.strOutID</div>
+        @*  <div style="margin-left: 73%; float: left;">编号：@Model.RecordID</div>*@
+       @* <table id="search" class="tabInfo2" style="text-align: left;">
+            <tr>
+                <td>科目</td>
+                <td colspan="2">@ViewData["Text"]</td>
+                <td>所属仓库</td>
+                <td>@ViewData["HouseName"]</td>
+                <td>状态</td>
+                <td colspan="2">@ViewData["State"]</td>
+            </tr>
+            <tr>
+                <td>出库时间</td>
+                <td colspan="3">@ViewData["strStockOutTime"]</td>
+                <td>经办人</td>
+                <td colspan="3">@Model.strCreateUser</td>
+            </tr>
+            <tr align="center" valign="middle">
+                <td style="width: 15%;" class="th">产品编号
+                </td>
+                <td style="width: 15%;" class="th">产品名称
+                </td>
+                <td style="width: 15%;" class="th">规格型号
+                </td>
+                <td style="width: 15%;" class="th">申请数量
+                </td>
+                <td style="width: 10%;" class="th">实际数量
+                </td>
+
+                <td style="width: 10%;" class="th">单位
+                </td>
+                <td style="width: 10%;" class="th">单价
+                </td>
+                <td style="width: 10%;" class="th">总价
+                </td>
+            </tr>
+            <tbody id="DetailInfo" class="tabInfoP"></tbody>
+            <tr style="height: 30px;">
+                <td>联系电话</td>
+                <td style="text-align: left;"></td>
+                <td>签字</td>
+                <td colspan="5" style="text-align: left;"></td>
+            </tr>
+            <tr>
+                <td>日期</td>
+                <td colspan="8" style="text-align: left;"></td>
+            </tr>
+        </table>*@
+      <table id="search" class="tabInfo2" style="text-align: left;">
+            <tr>
+                <td style="width: 30px">科目</td>
+                <td style="width: 120px">@ViewData["Text"]</td>
+                <td colspan="15" style="width: 570px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 
+                                  @ViewData["year"]年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    @ViewData["Month"]月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                    @ViewData["Day"]日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 对方科目:@ViewData["Use"]</td>
+            </tr>
+            <tr align="center" valign="middle">
+                <td style="width: 150px;" colspan="2" rowspan='2'>产品名称
+                </td>
+                <td style="width: 80px;" rowspan='2'>单位
+                </td>
+                <td style="width: 80px;" rowspan='2'>数量
+                </td>
+                <td style="width: 80px;" rowspan='2'>单价
+                </td>
+                <td style="width: 180px;" colspan='9'>金额
+                </td>
+                <td style="width: 180px;" colspan="3" rowspan='2'>用途或原因
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 20px;">百
+                </td>
+                <td style="width: 20px;">十
+                </td>
+                <td style="width: 20px;">万
+                </td>
+                <td style="width: 20px;">千
+                </td>
+                <td style="width: 20px;">百
+                </td>
+                <td style="width: 20px;">十
+                </td>
+                <td style="width: 20px;">元
+                </td>
+                <td style="width: 20px;">角
+                </td>
+                <td style="width: 20px;">分
+                </td>
+            </tr>
+            <tbody id="DetailInfo" class="tabInfoP"></tbody>
+            <tr style="height: 30px;">
+                <td colspan="17">主管&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                 会计&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                               保管员&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      
+                               经手人</td>
+            </tr>
+        </table>
+        <div style="text-align: right; margin-top: 5px; width: 99%;">
+            <input type="button" id="btnPrint" value="打 印" class="btn" />
+        </div>
+    </div>
+    @*</div>*@
+</body>
+</html>

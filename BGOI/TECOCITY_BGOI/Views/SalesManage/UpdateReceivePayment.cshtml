@@ -1,0 +1,119 @@
+﻿@{
+    ViewBag.Title = "UpdateReceivePayment";
+}
+@using TECOCITY_BGOI
+@model ReceivePayment
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RecordManage</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/uploadify/uploadify.css")" rel="stylesheet" type="text/css" />
+    @*<script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/uploadify/jquery.uploadify.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Sales/UpdateReceivePayment.js")" type="text/javascript"></script>
+  
+</head>
+<body>
+    <form id="form1" method="post">
+        <div id="tabTitile"><span style="margin-left: 10px; float: left;">回款编号：@Model.RID</span></div>@Html.HiddenFor(model => Model.RID)
+        <div style="height: 420px; overflow-y:auto;">
+            <table class="tabInfo" cellpadding="0" style=" width :98% ;">
+                @*<tr>
+                    <td>  合同编号：</td>
+                    <td>
+                        @ViewData["ContractID"]
+                        @Html.Hidden("ContractID", @ViewData["ContractID"])
+                    </td>
+                </tr>*@
+
+                <tr>
+                    <td>订单编号:</td>
+
+                    <td>  @Html.DropDownListFor(model => Model.OrderID, SalesManage.GetOrderID(), new { @class = "txtCss", @onchange = "GetTotal()" })</td>
+                </tr>
+
+                @*<tr>
+                    <td>合同额：</td>
+                    <td>@Html.TextBox("Total", @ViewData["Total"], new { @readonly = "readonly" })</td>
+
+                </tr>
+                <tr>
+                    <td>已回款：</td>
+                    <td> @Html.TextBox("HKAmount", @ViewData["HKAmount"], new { @readonly = "readonly" })</td>
+
+                </tr>
+                <tr>
+                    <td>欠款：</td>
+                    <td>@Html.TextBox("DebtAmount", @ViewData["DebtAmount"], new { @readonly = "readonly" })</td>
+
+                </tr>*@
+                <tr>
+                    <td>  回款方式：</td>
+                    <td> @Html.DropDownList("Methods", SalesManage.Methods())</td>
+                </tr>
+
+                <tr>
+                    <td> 回款金额：</td>
+                    <td>
+                        @Html.TextBoxFor(model => Model.Amount)
+                        <span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.Amount)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td> 支票单号：</td>
+                    <td>
+                        @Html.TextBoxFor(model => Model.ChequeID)
+                        <span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.ChequeID)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>交费单位：</td>
+                    <td>
+                        @Html.TextBoxFor(model => Model.PaymentUnit)
+                        <span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.PaymentUnit)
+                    </td>
+                </tr>
+                <tr>
+                    <td> 备     注：</td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <td>
+                        @Html.TextAreaFor(model => Model.Remark, new { style = "height:20px;width:95%" })
+                        <span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.Remark)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">已存在文件</td>
+                    <td colspan="3">
+                        <div id="unit"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>上传文件</td>
+                    <td><input id="uploadify" type="file" name="uploadify" style="margin-left: 150px;" /></td>
+                </tr>
+
+            </table>
+            <input type="button" style="margin-left: 10px;" class="btn" id="btnSaveOrder" value="保存" />
+            <input type="button" style="margin-left: 10px;" class="btn" id="btnExit" value="取消" />
+        </div>
+
+    </form>
+</body>
+</html>
+

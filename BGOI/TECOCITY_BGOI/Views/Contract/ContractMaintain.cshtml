@@ -1,0 +1,101 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+
+@model tk_ContractSearch
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ContractMaintain</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Contract/ContractMaintain.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+@{
+    Acc_Account account = GAccount.GetAccountInfo();
+    string Rights = account.Rights;
+    string unitID = account.UnitID.ToString();
+}
+<body>
+    @using (Html.BeginForm("ContractMaintain", "Contract", FormMethod.Post, new { id = "GForm" }))
+    {
+        @Html.Hidden("UnitID",unitID)
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">合同管理</span>>>合同维护</div>
+            <div id="search" style="height:65px;">
+       <div style="width:88%;float:left;height:63px;">
+         <table class="tabSearch" cellpadding="0" cellspacing="0">
+             <tr>
+                 <td>合同名称 @Html.TextBoxFor(model => model.Cname, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.Cname)
+                     &nbsp;&nbsp;&nbsp;&nbsp;项目编号 @Html.TextBoxFor(model => model.ContractID, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.ContractID)
+
+                 </td>
+             </tr>
+            
+         </table>
+        </div>
+        <div style="width:10%;height:63px;float:right;line-height:63px;"><input class="btn" style="margin-top:30px;" type="button"  value="查  询" onclick="reload()"/></div>
+    </div>
+
+            <div style="margin-top: 3px; margin-left: 10px;">
+               <input class="btn" type="button" id="XZHT" value="新增合同" />
+                <input class="btn" type="button" id="GLWJ" value="管理文件" />
+                <input class="btn" type="button" id="BGHT" value="变更合同" />
+               <input class="btn" type="button" id="TJSP" value="提交审批" />
+                <input class="btn" type="button" id="HKJL" value="回款记录" />
+                <input class="btn" type="button" id="HTJS" value="合同结算" />
+                <input class="btn" type="button" id="CKXX" value="查看详细" />
+            </div>
+
+            <div id="bor" style="width: 100%; margin-top: 3px; margin-left: 10px;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+
+             <div style="margin-top:3px;margin-left:10px;"> 
+                <input type="button" id="HKdiv" class="btnTw" style="margin-left:10px;"  value="回款记录"/> 
+                <input type="button" id="CZRZdiv"  class="btnTh" value="操作日志"/> 
+            </div>
+
+             <div id="CCashBack" style =" border:1px solid #707070;margin-left:10px;">
+         <div id="bor1" style="width:100%;margin-top:3px;margin-left:10px;">
+        <table id="list1" class="scroll" style="width:100%;"></table> 
+        <div id="pager1" class="scroll" style="text-align:center;width:100%;"></div>
+        </div>
+         </div>
+
+     <div id="UserLog" style =" border:1px solid #707070;margin-left:10px;display:none;">
+          <div id="bor2" style="width:100%;margin-top:3px;margin-left:10px;">
+        <table id="list2" class="scroll" style="width:100%;"></table> 
+        <div id="pager2" class="scroll" style="text-align:center;width:100%;"></div>
+        </div>
+    </div>
+        </div>
+    }
+</body>
+</html>

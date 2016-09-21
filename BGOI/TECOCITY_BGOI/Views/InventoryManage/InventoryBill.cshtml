@@ -1,0 +1,194 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+@model InventoryBillQuery
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>InventoryBill</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/InventoryManage/InventoryBill.js")" type="text/javascript"></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+
+
+
+        #ulGJ li:hover {
+            background: #bcf492;
+        }
+
+        .selDiv {
+            /*margin-left:-100%;*/
+            background: #f5f5f5;
+            text-align: center;
+            display: none;
+            width: 190px;
+            max-height: 116px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: absolute;
+            border: 1px solid #7f9cba;
+        }
+
+        .selDivp {
+            /*margin-left:-100%;*/
+            background: #f5f5f5;
+            text-align: center;
+            display: none;
+            width: 150px;
+            max-height: 116px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: absolute;
+            border: 1px solid #7f9cba;
+        }
+    </style>
+</head>
+
+<body>
+    @using (Html.BeginForm("InventoryToExcel", "InventoryManage", FormMethod.Post, new { id = "GForm" }))
+    {
+        <div id="pageContent">
+            <div class="mainHead" id="kczd">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">库存管理</span>>>库存账单
+            </div>
+             <div class="mainHead" id="ckhzb" style="display:none">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">统计汇总</span>>>库存汇总表
+            </div>
+            <div id="search" style="height: 100px;">
+                <table class="tabSearch" cellpadding="0" cellspacing="0" style="">
+                    <tr style="height: 30px;">
+                        <td>产品编号</td>
+                        <td>@Html.TextBox("PID", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.PID)</td>
+                        <td>产品名称</td>
+                        <td>@Html.TextBox("ProName", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ProName) </td>
+                        <td>规格型号</td>
+                        @* <td>@Html.DropDownList("Spec", InventoryMan.GetSpec(), new { @class = "txtCss", style = "width:167px;" })</td>*@
+                        <td>@Html.TextBox("Spec", "", new { style = "width:190px;" })
+                            <div id="divGJ" class="selDiv" onmouseover="isOut=false;" onmouseout="isOut=true;">
+                                <ul id="ulGJ" style="list-style: none;">
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td>开始日期：</td>
+                        <td>
+                            @Html.TextBox("start", "", new { onclick = "WdatePicker()" })
+                        </td>
+                        <td>结束日期：</td>
+                        <td>
+                            @Html.TextBox("end", "", new { onclick = "WdatePicker()" })
+                        </td>
+                        <td style="display: none">选择</td>
+                        <td style="display: none">@Html.RadioButton("SingleLibrary", "0", new { @checked = true })入库单  
+                            @Html.RadioButton("SingleLibrary", "1")出库单 
+                        </td>
+                        <td>编号</td>
+                        <td>@Html.TextBox("ListID", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ListInID)</td>
+                    </tr>
+                    <tr style="height: 30px;">
+
+                        @*  <td>出库编号</td>
+                        <td>@Html.TextBox("ListOutID", "", new { @class = "txtCss", onblur = "OnTheLibrary(this.value);" })@Html.ValidationMessageFor(model => model.ListOutID) </td>*@
+                        <td colspan="6">
+                            <input class="btn" type="button" style="float: right; margin-right: 0px; margin-bottom: 0px;" value="查  询" onclick="Search()" /></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="margin-top: 5px; margin-left: 10px;">
+                @* <input class="btn" type="submit" id="DaoOut" value="导出" />*@
+                @*<input class="btn" type="button" value="查  询" onclick="Search()" />*@
+                <input type="button" class="btn" style="float: right; margin-right: 15px;" id="btnPrint" value="打  印" />
+            </div>
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list" class="scroll" style="width: 100%;">
+                    <tr>
+                        <td>
+                            <div style="overflow-y: scroll; max-height: 300px;">
+                                <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo" border="1">
+                                    <tr align="center" valign="middle">
+                                        <td style="width: 10%;" id="n" colspan="2"></td>
+                                        <td style="width: 10%;" rowspan="2">编号
+                                        </td>
+                                        <td style="width: 10%;" rowspan="2">产品编号
+                                        </td>
+                                        <td style="width: 10%;" rowspan="2">摘要
+                                        </td>
+                                        <td style="width: 10%;" rowspan="2">产品名字
+                                        </td>
+                                        <td style="width: 10%;" rowspan="2">规格型号
+                                        </td>
+
+                                        <td style="width: 10%;" colspan="3">入库
+                                        </td>
+                                        <td style="width: 10%;" colspan="3">出库
+                                        </td>
+                                        <td style="width: 10%;" colspan="3">结余
+                                        </td>
+                                    </tr>
+                                    <tr align="center" valign="middle">
+                                        <td style="width: 5%;">月
+                                        </td>
+                                        <td style="width: 5%;">日
+                                        </td>
+
+                                        <td style="width: 5%;">数量
+                                        </td>
+                                        <td style="width: 5%;">价格
+                                        </td>
+                                        <td style="width: 5%;">金额
+                                        </td>
+
+                                        <td style="width: 5%;">数量
+                                        </td>
+                                        <td style="width: 5%;">价格
+                                        </td>
+                                        <td style="width: 5%;">金额
+                                        </td>
+
+                                        <td style="width: 5%;">数量
+                                        </td>
+                                        <td style="width: 5%;">价格
+                                        </td>
+                                        <td style="width: 5%;">金额
+                                        </td>
+                                    </tr>
+                                    <tbody id="DetailInfo">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+</body>
+</html>

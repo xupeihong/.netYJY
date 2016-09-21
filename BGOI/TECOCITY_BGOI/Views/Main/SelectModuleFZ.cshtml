@@ -1,0 +1,78 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Main</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-leftmenu.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Main/SelectModuleFZ.js")" type="text/javascript"></script>
+</head>
+<body>
+    @Html.Hidden("Role", @ViewData["Role"])   @Html.Hidden("UserID", @ViewData["UserID"])
+    <div id="pageSelectAll">
+        <div id="MHeader">
+            <div class="Header_l">
+                <img src="../images/logo.png" class="img" />
+            </div>
+            <div class="Header_ms">
+                <img src="../images/bgst.png" class="img2" />
+            </div>
+            <div class="Header_s">
+            </div>
+            <div class="Header_ls">
+                <img src="../images/stitile.png" class="img2" />
+            </div>
+            <div class="Header_sr">
+                 <img src="../images/rb1.png" class="imgsr"/> <a>系统设置</a>
+                <img src="../images/rb2.png" class="imgsr"/> <a>帮助</a>
+                <img src="../images/rb3.png" class="imgsr"/> <a>修改密码</a>
+                <img src="../images/rb4.png" class="imgsr"/> <a href='../Account/Login'>退出</a>
+            </div>
+        </div>
+        <div id="cgTitle">
+            成果转化业务
+        </div>
+        <div id="sMenu">
+             <div class="slog">当前登录:@ViewData["UserName"] </div>
+             <div class="slogunit">@ViewData["Unit"]</div>
+             <div id="ltime"></div>
+        </div>
+        <div id="Sbtn">
+            <div id="B1">
+                <input type="button" class="btnHighL" name="2" onclick="selectM(this.name, this)"/>
+            </div>
+            <div id="B2">
+                <input type="button" class="btnHighKC"name="7" onclick="selectM(this.name, this)"/>
+            </div>
+            <div id="B3">
+                <input type="button" class="btnHighJC"name="6"  onclick="selectM(this.name, this)"/>
+            </div>
+            <div id="B4">
+                <input type="button" class="btnHighYW" name="" onclick="selectM(this.name, this)"/>
+            </div>
+            @*<div id="Stop">
+                <input type="button" class="btnSelect" name="6" value="基础管理模块" onclick="selectM(this.name,this)" onmouseover="Mover(this)" onmouseout="Mout(this)"/>
+                <input type="button" class="btnSelect" name="9" value="采购模块" onclick="selectM(this.name, this)" onmouseover="Mover(this)" onmouseout="Mout(this)"/>
+                <input type="button" class="btnSelect" name="4" value="销售模块" onclick="selectM(this.name, this)" onmouseover="Mover(this)" onmouseout="Mout(this)"/>
+                <input type="button" class="btnSelect" name="10" value="售后服务模块" onclick="selectM(this.name, this)" onmouseover="Mover(this)" onmouseout="Mout(this)"/>
+            </div>
+
+            <div id="Sbottom">
+                <input type="button" class="btnSelect" name="3" value="工程项目模块" onclick="selectM(this.name, this)" onmouseover="Mover(this)" onmouseout="Mout(this)"/>
+                <input type="button" class="btnSelect" name="2" value="流量计模块" onclick="selectM(this.name, this)" onmouseover="Mover(this)" onmouseout="Mout(this)"/>
+                <input type="button" class="btnSelect" name="8" value="生产任务模块" onclick="selectM(this.name, this)" onmouseover="Mover(this)" onmouseout="Mout(this)"/>
+                <input type="button" class="btnSelect" name="7" value="库房管理模块" onclick="selectM(this.name, this)" onmouseover="Mover(this)" onmouseout="Mout(this)"/>
+            </div>*@
+        </div>
+    </div>
+</body>
+</html>
+
+

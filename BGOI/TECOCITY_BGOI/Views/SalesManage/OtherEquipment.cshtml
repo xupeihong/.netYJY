@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "OtherEquipment";
+}
+
+
+@using TECOCITY_BGOI
+@model tk_SalesGrid
+<html>
+<head>
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>Warn</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Sales/OtherEquipment.js")" type="text/javascript"></script>
+
+</head>
+
+<body>
+    @using (Html.BeginForm("OtherEquipmentTableToExcel", "SalesManage", FormMethod.Post, new { id = "GForm" }))
+    {
+
+        <div id="pageContent" style="overflow-y:hidden;">
+            <div class="mainHead"> <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color:#000099;">2014年调压器销售情况汇总表</span></div>
+            <div id="search" style="height:65px;">
+                <div style="width:88%;float:left;height:63px;">
+                    <table class="tabSearch" cellpadding="0" cellspacing="0">
+                        <tr style="height:30px;">
+                            <td>创建时间 @Html.TextBoxFor(model => model.StartDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })@Html.ValidationMessageFor(model => model.StartDate) -  @Html.TextBoxFor(model => model.EndDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" }) @Html.ValidationMessageFor(model => model.EndDate)</td>
+                        </tr>
+                        @*<tr>
+                            <td>项目名称 @Html.TextBoxFor(model => model.PlanName, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.PlanName)</td>
+                        </tr>*@
+
+                    </table>
+                </div>
+                <div style="width:10%;height:63px;float:right;line-height:63px;"><input class="btn" style="margin-top:30px;" type="button" value="查  询" id="CX" /></div>
+            </div>
+            <div>
+                <div style="width:97%;margin-left:10px;margin-top:10px;">
+                    <input type="submit" class="btn" style="float: right; margin-right: 5px;" id="btnDetail" value="导出" />
+                </div>
+            </div>
+            <div id="Sign" style="width:97%;margin-left:10px;margin-top:10px;"></div>
+
+            <div id="StaTab" style="overflow-y:auto;"></div>
+        </div>
+    }
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,178 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_WorkCard
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PrintWorkCard</title>
+
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Print.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_PrintPageSet.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/PrintWorkCard.js")" type="text/javascript"></script>
+</head>
+<body style="margin: 0 0 0 0; background-color: white; overflow: auto;">
+    <div id="pageContent" style="margin-left: 2px; margin-right: 2px; margin-top: 2px;">
+
+        <div id="ReportContent" style="margin-top: 10px; page-break-after: always;">
+            @*            <div style="width:100%; text-align:center; font-size:18px;">北京市燕山工业燃气设备有限公司</div>*@
+            <div style="font-size: 22px; font-weight: bold; float: left; margin-left: 37%;">流量计维修随工单</div>
+            <div style="margin-left: 73%; float: left;">维修编号：@ViewData["RepairID"]</div>
+            <table id="search" class="tabInfoWork">
+                @Html.HiddenFor(model => model.strRID)
+                <tr style="height: 30px;">
+                    <td>维修员</td>
+                    <td style="text-align: left;">@Model.strRepairUser</td>
+                    <td>检测员</td>
+                    <td style="text-align: left;">@Model.strCheckUser</td>
+                    <td>维修日期</td>
+                    <td colspan="3" style="text-align: left;">@Model.strRepairDate</td>
+                </tr>
+
+                <tr style="height: 30px; text-align: left;">
+                    <td colspan="2">进厂检测结果</td>
+                    <td>Qmin=@Model.strI_Qmin</td>
+                    <td>0.2Qmax=@Model.strI_2Qmax</td>
+                    <td colspan="2">0.4Qmax=@Model.strI_4Qmax</td>
+                    <td colspan="2">Qmax=@Model.strI_Qmax</td>
+                </tr>
+
+                <tr style="height: 30px; text-align: left;">
+                    <td colspan="2">进厂重复性</td>
+                    <td>@Model.strI_Repeat1</td>
+                    <td>@Model.strI_Repeat2</td>
+                    <td colspan="2">@Model.strI_Repeat3</td>
+                    <td colspan="2">@Model.strI_Repeat4</td>
+                </tr>
+
+                <tr style="height: 60px;">
+                    <td style="width: 30px;">拆卸过程故障说明</td>
+                    <td colspan="7" style="height: 60px;">
+                        @Model.strDescripComments
+                    </td>
+                </tr>
+
+                <tr style="height: 30px;">
+                    <td colspan="2" rowspan="2">
+                        <div id="YS" style="display: none;">维修意见相同 □</div>
+                        <div id="YD" style="display: none;">维修意见相同 ☑</div>
+                        @Html.HiddenFor(model => model.strIsRepairY)
+                    </td>
+                    <td colspan="2" rowspan="2">
+                        <div id="YC1" style="display: none;">更换备件 □</div>
+                        <div id="YC2" style="display: none;">更换备件 ☑</div>
+                        @Html.HiddenFor(model => model.strYChangeBak)
+                    </td>
+                    <td colspan="2" rowspan="2">
+                        <div id="YU1" style="display: none;">未更换备件 □</div>
+                        <div id="YU2" style="display: none;">未更换备件 ☑</div>
+                        @Html.HiddenFor(model => model.strYUnChangeBak)
+
+                    <td>总检验</td>
+                    <td>@Model.strTotalCheck</td>
+                </tr>
+
+                <tr style="height: 30px;">
+                    <td>维修组</td>
+                    <td>@Model.strRepairGroup</td>
+                </tr>
+
+                <tr style="height: 30px;">
+                    <td colspan="2" rowspan="2">
+                        <div id="NS" style="display: none;">维修意见不相同 □</div>
+                        <div id="ND" style="display: none;">维修意见不相同 ☑</div>
+                        @Html.HiddenFor(model => model.strIsRepairN)
+                    </td>
+                    <td colspan="2" rowspan="2">
+                        <div id="NC1" style="display: none;">更换备件 □</div>
+                        <div id="NC2" style="display: none;">更换备件 ☑</div>
+                        @Html.HiddenFor(model => model.strNChangeBak)
+                    </td>
+                    <td colspan="2" rowspan="2">
+                        <div id="NU1" style="display: none;">未更换备件 □</div>
+                        <div id="NU2" style="display: none;">未更换备件 ☑</div>
+                        @Html.HiddenFor(model => model.strNUnChangeBak)
+
+                    </td>
+                    <td>总检验</td>
+                    <td>@Model.strTotalCheck2</td>
+                </tr>
+
+                <tr style="height: 30px;">
+                    <td>维修组</td>
+                    <td>@Model.strRepairGroup2</td>
+                </tr>
+
+                <tr style="height: 30px;">
+                    <td colspan="8" style="text-align: left;">出厂测试</td>
+                </tr>
+
+                <tbody class="tabInfoWork" id="CheckItems">
+                </tbody>
+
+                <tr style="height: 30px; text-align: left;">
+                    <td colspan="2">出厂检测结果</td>
+                    <td>Qmin=@Model.strO_Qmin</td>
+                    <td>0.2Qmax=@Model.strO_2Qmax</td>
+                    <td colspan="2">0.4Qmax=@Model.strO_4Qmax</td>
+                    <td colspan="2">Qmax=@Model.strO_Qmax</td>
+                </tr>
+
+                <tr style="height: 30px; text-align: left;">
+                    <td colspan="2">出厂重复性</td>
+                    <td>@Model.strO_Repeat1</td>
+                    <td>@Model.strO_Repeat2</td>
+                    <td colspan="2">@Model.strO_Repeat3</td>
+                    <td colspan="2">@Model.strO_Repeat4</td>
+                </tr>
+                
+                <tbody class="tabInfoWork" id="ChangeBak">
+                </tbody>
+                
+                <tr style="height: 30px;">
+                    <td colspan="2">维修人员(章)</td>
+                    <td></td>
+                    <td colspan="2">库管出库(章)</td>
+                    <td></td>
+                    <td>出厂检测(章)</td>
+                    <td></td>
+                </tr>
+
+                <tr style="height: 30px;">
+                    <td colspan="2">打压合格(章)</td>
+                    <td></td>
+                    <td colspan="2">总检验(章)</td>
+                    <td></td>
+                    <td>检测合格日期</td>
+                    <td>@Model.strO_Date</td>
+                </tr>
+
+                @Html.Hidden("HTitle")
+                @Html.Hidden("HChecked")
+
+            </table>
+            <br />
+        </div>
+
+        <div style="text-align: right; margin-top: 5px; width: 99%;">
+            <input type="button" id="btnPrint" value="打 印" class="btn" />
+        </div>
+
+    </div>
+</body>
+</html>

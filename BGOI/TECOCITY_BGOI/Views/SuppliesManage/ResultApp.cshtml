@@ -1,0 +1,87 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model Tk_SupplierBas
+<!DOCTYPE html>
+
+<html>
+<head>
+    @*  <meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <title>ResultApp</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/ResultApp.js")" type="text/javascript"></script>
+</head>
+<body>
+    @using (Html.BeginForm("ResultApp", "SuppliesManage", FormMethod.Post, new { id = "ShenPiInfo", action = "ResReview", enctype = "multipart/form-data" }))
+    {
+        @Html.Hidden("msg", @ViewData["msg"])
+        @Html.Hidden("SID")
+        <div id="hole">
+            <div id="tabTitile" style="margin-left: 5px;">流水号:@Html.HiddenFor(model => model.Sid)@ViewBag.sid</div>
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">是否通过会签审批</td>
+                    <td class="textRight" colspan="6">
+                        @Html.Hidden("IsPass")@ViewData["IsPass"]
+                        @* @Html.RadioButton("IsReturn", "0", new { disabled = "disabled" }) 是
+                         @Html.RadioButton("IsReturn", "1", new { disabled = "disabled" }) 否*@
+                        <span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">会签审批意见</td>
+                    <td class="textRight" colspan="6">
+                        @Html.Hidden("Opinion") @ViewData["Opinion"]
+                        <span style="color: red;">*</span></td>
+                </tr>
+
+
+                <tr>
+                    <td class="textLeft">是否通过最终评审</td>
+                    <td class="textRight" colspan="4">
+                        @Html.RadioButton("ResState", "0") 是
+                        @Html.RadioButton("ResState", "1") 否
+                        <span style="color: red;">*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">最终意见</td>
+                    <td class="textRight" colspan="4">@Html.TextAreaFor(model => model.ApprovalRes, new { @class = "txtCss", style = "height:53px; width:97%;" })<span style="color: red;">*</span> </td>
+                </tr>
+                <tr style="margin-top: 5px;">
+                    <td class="textLeft">签字人</td>
+                    <td class="textRight">
+                        @* @Html.HiddenFor(model=>model.Approval4User)@ViewBag.user*@
+                        @Html.TextBoxFor(model => model.Approval4User, new { @class = "txtCss" }) <span style="color: red;">*</span>
+                    </td>
+                    <td class="textLeft">时间</td>
+                    <td class="textRight">
+                        @Html.TextBoxFor(model => model.AppTime, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss", @readonly = true })
+
+                    </td>
+                </tr>
+
+            </table>
+            <div style="margin-top: 10px;">
+                <table>
+                    <tr>
+                        <td>
+                            <input type="button" value="确定" id="btnok" class="btn" style="cursor: pointer" /></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    }
+</body>
+</html>

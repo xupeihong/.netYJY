@@ -1,0 +1,107 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model  tk_FeedBack
+<!DOCTYPE html>
+
+<html>
+<head>
+    @* <meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <title>BackSup</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Sales/RecordInfo.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/tk_FeedBack.js")" type="text/javascript"></script>
+
+</head>
+@using (Html.BeginForm("BackSup", "SuppliesManage", FormMethod.Post, new { id = "BackInfo", action = "FeedBackMsg", enctype = "multipart/form-data" }))
+{
+    <body>
+        @Html.Hidden("msg", @ViewData["msg"])
+        @Html.Hidden("NState", @ViewData["NState"])
+        <div id="tabTitile">流水号:@Html.HiddenFor(model => model.SID)@ViewBag.sid</div>
+        <div id="hole" style="overflow-y: auto;">
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px; text-align: left;">
+                <tr id="one">
+                    <td class="textLeft" style="width:15%;">质量管理体系得分</td>
+                    <td class="textRight" style="width:20%;">@Html.Hidden("Score1") @ViewData["Score1"]</td>
+                    <td class="textLeft" style="width:15%;">价格得分</td>
+                    <td class="textRight">@Html.Hidden("Score2") @ViewData["Score2"]</td>
+                    <td class="textLeft" style="width:15%;">供货及时率得分</td>
+                    <td class="textRight">@Html.Hidden("Score3")  @ViewData["Score3"]</td>
+                </tr>
+                <tr id="two">
+                    <td class="textLeft" style="width:15%;">服务得分</td>
+                    <td class="textRight">@Html.Hidden("Score4") @ViewData["Score4"]</td>
+                    <td class="textLeft" style="width:15%;">得分总计</td>
+                    <td class="textRight">@Html.Hidden("Score5") @ViewData["Score5"]</td>
+                    <td class="textLeft" style="width:15%;">评价结果</td>
+                    <td class="textRight">
+                        @Html.Hidden("Result", @ViewData["Result"])
+                        @Html.RadioButton("Result", "0", new { disabled = "disabled" }) 合格
+                        @Html.RadioButton("Result", "1", new { disabled = "disabled" }) 待改进
+                    </td>
+                </tr>
+                <tr id="three">
+                    <td class="textLeft" style="width:15%;">待改进意见</td>
+                    <td class="textRight" colspan="5">@Html.Hidden("ResultDesc") @ViewData["ResultDesc"] </td>
+                </tr>
+
+
+                <tr>
+                    <td class="textLeft" style="width:15%;">处理意见：</td>
+                    <td class="textright" colspan="5">
+                        @Html.Hidden("Opinions", @ViewData["Opinions"])
+                        @Html.RadioButton("Opinions", "0", new { disabled = "disabled" })
+                        停止供货
+                        @Html.RadioButton("Opinions", "1", new { disabled = "disabled" })
+                        暂停供货
+                        @Html.RadioButton("Opinions", "2", new { disabled = "disabled" })
+                        淘汰该供应商
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft" style="width:15%;">处理原因：</td>
+                    <td class="textRight" colspan="5">@Html.Hidden("OpinionsD") @ViewData["OpinionsD"]</td>
+                </tr>
+                @* <tr>
+                    <td class="textLeft" style="width: 20%">申请内容</td>
+                    <td class="textRight" style="width: 80%">@Html.TextAreaFor(model => model.FContent, new { @class = "txtRCSS" })<span style="color: red;">*</span></td>
+
+                </tr>*@
+                <tr>
+                    <td class="textLeft" style="width: 130px;">申请原因</td>
+                    <td class="textRight" colspan="5">@Html.TextAreaFor(model => model.FReason, new { @class = "txtRCSS" })<span style="color: red;">*</span></td>
+                </tr>
+                @* <tr>
+                    <td class="textLeft" style="width: 130px;">申请人</td>
+                    <td class="textRight">@Html.TextBoxFor(mdoel => Model.FName, new { @class = "txtRCSS" })<span style="color: red;">*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft" style="width: 130px;">申请时间</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.FTime, new { @class = "txtRCSS", onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })" })<span style="color: red;">*</span></td>
+
+                </tr>*@
+            </table>
+            <div style="margin-top: 10px; margin-left: 290px;">
+                <input type="button" value="确定" id="sure1" class="btn" style="cursor: pointer;margin-left:70%;" />
+            </div>
+        </div>
+
+    </body>
+}
+</html>

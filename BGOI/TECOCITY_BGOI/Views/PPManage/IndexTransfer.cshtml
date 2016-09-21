@@ -1,0 +1,65 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    <title>BasicStockIn</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/PP/ProjectPP/IndexTransfer.js")" type="text/javascript"></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    @{
+        string Rights = GAccount.GetAccountInfo().Rights;
+    }
+    <div id="pageContent" style="overflow-y:scroll;">
+        <div class="mainHead"> <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color:#000099;">零件交接单</span>>>交接单管理</div>
+
+        <hr />
+        <div style="margin-top:5px;margin-left:10px;">
+            @if (Rights.IndexOf(",Y10,") >= 0)
+            {
+                <input class="btn" type="button" id="JY" value="检验" />
+            }
+            <input class="btn" style="width:180px" type="button" id="SC" value="生产分部负责人签字" />
+            <input class="btn" style="width:180px" type="button" id="JH" value="计划供应部门负责人签字" />
+            <input class="btn" style="width:180px" type="button" id="KG" value="库管人签字" />
+        </div>
+        <div id="bor" style="width:100%;margin-top:5px;margin-left:10px;">
+            <table id="list" class="scroll" style="width:100%;"></table>
+            <div id="pager" class="scroll" style="text-align:center;width:100%;"></div>
+        </div>
+        <div style=" margin-left:10px;margin-top:3px;">
+            <input type="button" id="WP" class="btnTw" value="零件详细" />
+
+        </div>
+        <div id="bor1" style=" border: 1px solid #707070; margin-left: 10px;  ">
+            <div style="width:100%;margin-top:3px;margin-left:10px;">
+                <table id="list1" class="scroll" style="width:100%;"></table>
+                <div id="pager1" class="scroll" style="text-align:center;width:100%;"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

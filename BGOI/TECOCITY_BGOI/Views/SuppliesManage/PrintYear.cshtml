@@ -1,0 +1,62 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model  Tk_SupplierBas
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>年度评审打印</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Table_Fix.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_PrintPageSet.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/PrintYear.js")" type="text/javascript"></script>
+    <style type="text/css" media="print">
+        .Noprint {
+            DISPLAY: none;
+        }
+    </style>
+</head>
+<body style="margin: 0 0 0 0; background-color: white;">
+    <div id="pageContent" style="margin-left: 2px; margin-right: 2px; margin-top: 2px; overflow-y: auto;">
+        <div id="tabTitile">
+            <span style="margin-left: 10px;">流水号：@Model.Sid   @Model.COMNameC
+            </span>
+        </div>
+        @Html.Hidden("Result")
+        @Html.Hidden("ReviewDate")
+        @Html.HiddenFor(model => model.Sid)
+
+        <div style="margin-top: 10px; font-size: 20px; font: 900; text-align: center; font-weight: bold">
+            年度评分信息表
+        </div>
+        <div style="height: 100%; margin-left: 8px; width: 95%; margin-top: 10px;">
+            <table id="myTable" class="tabInfo" style="text-align: center;">
+                <tr style="text-align: center;">
+                    <td style="width: 20%;"><b>供应商名称</b></td>
+                    <td style="width: 15%;"><b>所属部门</b></td>
+                    <td style="width: 15%;"><b>质量管理体系分数</b></td>
+                    <td style="width: 10%;"><b>价格分数</b></td>
+                    <td style="width: 15%;"><b>供货及时率分数</b></td>
+                    <td style="width: 10%;"><b>服务分数</b></td>
+                    <td style="width: 5%;"><b>总分</b></td>
+                    <td style="width: 15%;"><b>评分结果</b></td>
+                    <td style="width: 15%;"><b>评审人姓名</b></td>
+                </tr>
+                <tbody id="DetailInfo" class="tabInfo" style="text-align: left;"></tbody>
+            </table>
+        </div>
+        <div style="text-align: right; margin-top: 15px; width: 99%;">
+            <input type="button" id="btnPrint" value="打 印" class="Noprint" />
+            <br />
+        </div>
+    </div>
+</body>
+</html>

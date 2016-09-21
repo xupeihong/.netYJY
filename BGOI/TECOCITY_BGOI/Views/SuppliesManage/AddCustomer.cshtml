@@ -1,0 +1,140 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model tk_KClientBas
+<!DOCTYPE html>
+
+<html>
+<head>
+    @*<meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>AddCustomer</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Sales/RecordInfo.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/AddCustomer.js")" type="text/javascript"></script>
+</head>
+@using (Html.BeginForm("AddCustomer", "SuppliesManage", FormMethod.Post, new { id = "CustomerInfo", action = "AddCus", enctype = "multipart/form-data" }))
+{
+    <body>
+        @Html.Hidden("msg", @ViewData["msg"])
+        <div id="tabTitile">客户编号:@Html.HiddenFor(model => model.KID)@ViewBag.kid</div>
+        <div id="hole" style="overflow-y: auto;">
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">获得用户时间</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.GainDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })<span style="color: red;">*</span> </td>
+                    <td class="textLeft">填报人</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.DeclareUser, new { @class = "txtCss" }) <span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.DeclareUser)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">负责人</td>
+                    <td class="textright">@Html.DropDownListFor(model => model.ChargeUser, SupplyManage.GetConfigType("ChargeUser"), new { @class = "txtCss" }) <span style="color: red;">*</span></td>
+                    <td class="textLeft">是否共享</td>
+                    <td class="textright">
+                        @Html.Hidden("IsShare")
+                        <input type="checkbox" name="1" class="ckb1" value="是" />
+                        是
+                        <input type="checkbox" name="0" class="ckb1" value="否" />
+                        否
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">共享单位</td>
+                    <td class="textright" colspan="3">
+                        @Html.Hidden("ShareUnits")
+                        @if (ViewBag.ShareUnits != null)
+                        {
+                            foreach (SelectListItem item in ViewBag.ShareUnits)
+                            {
+                            <input type="checkbox"   onclick="changes('unit')" name="rela1"  value="@item.Value"  />
+                            @item.Text
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">客户名称</td>
+                    <td class="textright">&nbsp;&nbsp;&nbsp;&nbsp;@Html.TextBoxFor(model => model.CName, new { @class = "txtCss" }) <span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.CName)</td>
+
+                    <td class="textLeft">客户简称</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.CShortName, new { @class = "txtCss" })<span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.CShortName) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">所属行业</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Industry, new { @class = "txtCss" })<span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.Industry)</td>
+
+                    <td class="textLeft">人员规模</td>
+                    <td class="textright">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.TextBoxFor(model => model.StaffSize, new { @class = "txtCss" })<span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.StaffSize) (人)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">意向产品</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Products, new { @class = "txtCss" })<span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.Products) </td>
+                    <td class="textLeft">客户座机</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Phone, new { @class = "txtCss" })<span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.Phone)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">传真</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.FAX, new { @class = "txtCss" })<span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.FAX)</td>
+                    <td class="textLeft">邮编</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.ZipCode, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.ZipCode)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">公司网址</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.COMWebsite, new { @class = "txtCss" })<span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.COMWebsite) </td>
+                    <td class="textLeft">公司地址</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.ComAddress, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.ComAddress)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">所属省份</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Province, new { @class = "txtCss" })<span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.Province) </td>
+                    <td class="textLeft">所属城市</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.City, new { @class = "txtCss" })<span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.City) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">客户介绍描述</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.ClientDesc, new { @class = "txtCss" })  @Html.ValidationMessageFor(model => model.ClientDesc)</td>
+                    <td class="textLeft">备注</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Remark, new { @class = "txtCss" })  @Html.ValidationMessageFor(model => model.Remark)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">客户类别</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.CType, new { @class = "txtCss" })<span style="color: red;">*</span> </td>
+                    <td class="textLeft">客户等级</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.CClass, new { @class = "txtCss" })<span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.CClass)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">客户来源</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.CSource, new { @class = "txtCss" }) <span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.CSource)</td>
+                    <td class="textLeft">客户关系</td>
+                    <td class="textright">@Html.DropDownListFor(model => model.CRelation, SupplyManage.GetConfigType("csCType"), new { @class = "txtCss" }) <span style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">成熟度</td>
+                    <td class="textright">@Html.TextBoxFor(model => model.Maturity, new { @class = "txtCss" })<span style="color: red;">*</span>  @Html.ValidationMessageFor(model => model.Maturity)</td>
+                    <td class="textLeft">客户状态</td>
+                    <td class="textright">@Html.DropDownListFor(model => model.State, SupplyManage.GetConfigType("csState"), new { @class = "txtCss" })<span style="color: red;">*</span>  </td>
+                </tr>
+            </table>
+            <div style="margin-top: 10px; margin-left: 40%;">
+                <input type="button" value="确定" id="sure" class="btn" style="cursor: pointer" />
+            </div>
+        </div>
+    </body>
+}
+</html>

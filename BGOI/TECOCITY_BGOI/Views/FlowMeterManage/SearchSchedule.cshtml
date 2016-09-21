@@ -1,0 +1,162 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_CardSearch
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SearchSchedule</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/SearchSchedule.js")" type="text/javascript"></script>
+    <style>
+        a {
+            color: red;
+        }
+
+            a:hover {
+                cursor: pointer;
+                color: #0026ff;
+            }
+    </style>
+</head>
+@{
+    Acc_Account account = GAccount.GetAccountInfo();
+    int Rights = account.UserID;
+}
+<body>
+    @using (Html.BeginForm("ExportDataTableToExcelSummary", "FlowMeterManage", FormMethod.Post, new { id = "GForm", onsubmit = "return returnConfirm();" }))
+    {   @Html.HiddenFor(model => model.RID) @Html.HiddenFor(model => model.ModelType)
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">汇总统计</span>>>维修台账
+            </div>
+            <div id="search" style="height: 100px; overflow: hidden;">
+                <table class="tabSearch" cellpadding="0" cellspacing="0">
+                    <tr style="height: 30px;">
+                        <td>维修编号</td>
+                        <td>@Html.TextBoxFor(model => model.RepairID, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.RepairID)</td>
+                        <td>客户名称</td>
+                        <td>@Html.TextBoxFor(model => model.CustomerName, new { @class = "txtCss" })</td>
+                        <td>客户地址</td>
+                        <td>@Html.TextBoxFor(model => model.CustomerAddr, new { @class = "txtCss" })</td>
+                        <td>仪表编号</td>
+                        <td colspan="2">@Html.TextBoxFor(model => model.MeterID, new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td>仪表型号</td>
+                        <td>@Html.DropDownList("Model", FlowMeterMan.getConfigContent("YBModel"), new { @class = "txtCss", style = "width:167px;" })</td>
+                        <td>仪表名称</td>
+                        <td>@Html.TextBoxFor(model => model.MeterName, new { @class = "txtCss" })</td>
+                        <td>送表日期从</td>
+                        <td>@Html.TextBoxFor(model => model.SS_Date, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })</td>
+                        <td>至</td>
+                        <td>@Html.TextBoxFor(model => model.ES_Date, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td style="text-align: center;">状态</td>
+                        <td>@Html.DropDownList("State", FlowMeterMan.getConfigState("RepairState"), new { @class = "txtCss", style = "width:167px;" })</td>
+                        <td>仪表类型</td>
+                        <td>@Html.DropDownList("CardType", FlowMeterMan.getConfigContent("CardType"), new { @class = "txtCss", style = "width:167px;" })</td>
+                        <td colspan="4">
+                            <input type="button" id="CX" class="btn" value="查询" onclick="reload();" />
+                            @if (Rights != 321)
+                            {  
+                                <input type="submit" id="DC" class="btn" value="导出" />
+                            }
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div style="width: 99%; overflow: scroll; height: 60%; margin-left: 10px">
+
+                <table id="list" class="tabInfo" style="text-align: center; width: 4000px;">
+                    <tr>
+                        <td class="textLeft" colspan="15" width="">基表信息</td>
+                        <td class="textLeft" colspan="6">修正仪（流量计算机）</td>
+                        <td class="textLeft" colspan="4">进厂数据</td>
+                        <td class="textLeft" colspan="8">进度情况</td>
+                        <td class="textLeft" colspan="3" width="300px">清洗维修情况</td>
+
+                        <td class="textLeft" colspan="4">送表信息</td>
+                        <td class="textLeft" colspan="4">取表信息</td>
+                        <td class="textLeft" colspan="2">检定信息</td>
+                    </tr>
+                    <tr id="QXtr">
+                        <td class="textLeft">维修编号</td>
+                        <td class="textLeft">送修日期  </td>
+                        <td class="textLeft">类型  </td>
+                        <td class="textLeft">厂家  </td>
+                        <td class="textLeft" style="width: 80px">规格（型号）</td>
+                        <td class="textLeft">出厂编号</td>
+                        <td class="textLeft">出厂日期(年）</td>
+                        <td class="textLeft">连接管径（DN）</td>
+                        <td class="textLeft">承压等级（MPa）</td>
+                        <td class="textLeft">流量范围（m³/h）</td>
+                        <td class="textLeft">精度等级（%）</td>
+                        <td class="textLeft">原安装地点</td>
+                        <td class="textLeft">现安装地点</td>
+                        <td class="textLeft">归属</td>
+                        <td class="textLeft">附件</td>
+                        <td class="textLeft">修正仪厂家</td>
+                        <td class="textLeft">型号</td>
+                        <td class="textLeft">编号</td>
+                        <td class="textLeft">出厂日期(年）</td>
+                        <td class="textLeft">原安装地点</td>
+                        <td class="textLeft">现安装地点</td>
+
+                        <td class="textLeft">字轮读数</td>
+                        <td class="textLeft">标况累计流量</td>
+                        <td class="textLeft">压力</td>
+                        <td class="textLeft">温度</td>
+                        <td class="textLeft">检测结果</td>
+                        <td class="textLeft">初测状态</td>
+                        <td class="textLeft">检测次数</td>
+                        <td class="textLeft">清洗维护维修内容</td>
+                        <td class="textLeft">清洗维护维修状态</td>
+                        <td class="textLeft">出厂前检测状态</td>
+
+                        <td class="textLeft">打压状态</td>
+                        <td class="textLeft">铅封号</td>
+                        <td class="textLeft">完成情况</td>
+                        <td class="textLeft">已更换配件</td>
+
+                        <td class="textLeft">故障说明</td>
+                        <td class="textLeft">客户名称</td>
+                        <td class="textLeft">送修人</td>
+                        <td class="textLeft" style="width: 120px">送修人联系方式</td>
+                        <td class="textLeft">承接人</td>
+
+                        <td class="textLeft">取表人</td>
+                        <td class="textLeft">联系电话</td>
+                        <td class="textLeft">取表日期</td>
+                        <td class="textLeft">备注</td>
+                        <td class="textLeft">检定地点</td>
+                        <td class="textLeft">送检情况</td>
+                    </tr>
+
+                </table>
+
+            </div>
+        </div>
+    }
+
+</body>
+</html>

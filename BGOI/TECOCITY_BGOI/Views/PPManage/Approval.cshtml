@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model PP_Approval
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>AddTestStockIn</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Inventory/AddStockIn.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/PP/ProjectPP/Approval.js")" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <form>
+
+        <div id="tabTitile"><span style="margin-left:10px; float:left;">审批编号：@Model.PID </span></div>@Html.HiddenFor(model => model.PID)
+
+        @*<div id="tabTitile"><span style="margin-left:10px; float:left;">请购单号：@Model.CID </span></div>@Html.HiddenFor(model => model.CID)*@
+        <div style="width: 100%;  height:120px;">
+            <table class="tabInfo" style="width: 97%;margin-left:8px;margin-top:10px;">
+                <tr>
+                    <td class="textLeft">审批内容</td>
+                    <td class="textRight">@Html.DropDownListFor(model => model.ApprovalContent, PPManage.GetTypeID(" and type ='审批内容'"), new { @class = "txtCss" })</td>
+                    <td class="textLeft">审批类型</td>
+                    <td class="textRight">@Html.DropDownListFor(model => model.ApprovalType, PPManage.GetTypeID(" and type ='审批类型'"), new { @class = "txtCss" })</td>
+                </tr>
+                @*<tr>
+                    <td class="textLeft">审批级别</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.ApprovalLevel, new { @class = "txtCss" })</td>
+                    <td class="textLeft">审批人</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Approvaler, new { @class = "txtCss" })</td>
+                </tr>*@
+                <tr>
+                    <td class="textLeft">职务</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.Job, new { @class = "txtCss" })</td>
+                    <td class="textLeft">审批日期</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.ApprovalTime, new { onclick = "WdatePicker()", @class = "txtCss" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">是否同过审批</td>
+                    <td class="textRight">@Html.DropDownListFor(model => model.IsPass, PPManage.GetTypeID(" and type ='是否通过审批'"), new { @class = "txtCss" })</td>
+                    <td class="textLeft">未通过原因</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.NoPassReason, new { @class = "txtCss" })</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">审批级别</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.ApprovalLevel, new { @class = "txtCss" })</td>
+                    <td class="textLeft">审批说明</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.ApprovalExplain, new { @class = "txtCss" })</td>
+                </tr>
+            </table>
+            <input type="text" id="TID" style="display:none;" />
+        </div>
+
+        <div style="margin-top:220px;margin-left:75%">
+            <input class="btn" type="button" id="btnSave" value="确定" />
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,73 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_InspecMain
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PrintInspection</title>
+
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Print.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Table_Fix.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/TableMergeCell.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_PrintPageSet.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/PrintInspection.js")" type="text/javascript"></script>
+</head>
+<body style="margin: 0 0 0 0; background-color: white; overflow: auto;">
+    <div id="pageContent" style="margin-left: 2px; margin-right: 2px; margin-top: 2px;">
+        <div id="ReportContent" style="margin-top: 2px;">
+            <div style="display: none;"><span style="margin-left: 10px; float: left;">送检单编号：@Model.strSID</span></div>
+            <div style="width: 98%; margin-left: 10px; margin-top: 5px; page-break-after: always;">
+                <div style="text-align: center; width: 100%;">
+                    <span style="font-weight: bold; font-size: 22px; text-align: center;">区域计量仪表送 @ViewData["Unit"]检定明细单</span>
+                </div>
+                <div style="text-align: left; margin-left: 10px; margin-top: 10px; font-weight: bold; font-size: 14px;">
+                    单位：@ViewData["UnitName"] &nbsp;&nbsp;&nbsp;&nbsp; 
+               联系人：@Model.strLinkPerson &nbsp;&nbsp;&nbsp;&nbsp; 
+               电话：@Model.strLinkTel &nbsp;&nbsp;&nbsp;&nbsp; 
+               日期：@Model.strInspecDate
+                </div>
+                <div style="margin-left: 5px;">
+                    @Html.HiddenFor(model => model.strSID)
+                    <table class="tabInfoWork" id="content" style="text-align: center; margin-top: 5px; width: 100%;" align="center">
+                        <tr style="text-align: center; height: 30px;">
+                            <td style="width: 10px;">序号</td>
+                            <td style="width: 100px;">器具名称</td>
+                            <td style="width: 150px;">生产厂家</td>
+                            <td style="width: 100px;">规格型号</td>
+                            <td style="width: 120px;">编号</td>
+                            <td style="width: 00px;">管径（DN）</td>
+                            <td style="width: 100px;">准确度</td>
+                            <td style="width: 80px;">数量</td>
+                            <td style="width: 150px;">使用地点</td>
+                            <td style="width: 150px;">第三方检测单位</td>
+                            <td style="width: 80px;">送检批次</td>
+                        </tr>
+                        <tbody id="DetailInfo" class="tabInfoWork"></tbody>
+                    </table>
+                </div>
+                <div style="text-align: right; margin-top: 5px; width: 99%;">
+                    <input type="button" id="btnPrint" value="打 印" class="btn" />
+                </div>
+                <br />
+                <br />
+            </div>
+        </div>
+    </div>
+</body>
+</html>

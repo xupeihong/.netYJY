@@ -1,0 +1,111 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+
+@model UseProjectBas
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>Warn</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/ProjectManage/UseSetUpProject.js")" type="text/javascript"></script>
+   <style>
+       .ui-jqgrid tr.jqgrow td {
+        white-space: normal !important;
+        height:auto;
+        vertical-align:text-top;
+        padding-top:2px;
+        }
+       </style>
+</head>
+   
+<body>
+    @using (Html.BeginForm("UseSetUpProject", "ProjectManage", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+    {
+        
+    <div id="pageContent" style="overflow-y:auto;">
+       
+    <div id="tabTitile"><span style="margin-left:20px;">项目编号：@Model.StrPID</span></div>@Html.HiddenFor(model => model.StrPID)
+        <table class="tabInfo" style="width: 97%;margin-left:10px;margin-top:10px;">
+        <tr>
+            <td class="textLeft" style="width:100px;">内部编号</td><td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrProID, new {@class="txtCss" }) <span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.StrProID)</td>
+        </tr>
+        <tr>
+            <td class="textLeft">项目名称</td><td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrPname, new {style="width:90%" })<span style="color:red;"> * </span> @Html.ValidationMessageFor(model => model.StrPname)</td>
+        </tr>
+        <tr>
+            <td class="textLeft">项目来源</td><td class="textRight" colspan="3">@Html.DropDownListFor(model => model.StrPsource,ProjectMan.GetNewPsource(), new {@class="txtCss" }) <span style="color:red;"> * </span> @Html.ValidationMessageFor(model => model.StrPsource)</td>
+       </tr>
+          <tr>
+            <td class="textLeft">客户名称</td><td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrCustomerName, new {style="width:90%"}) <span style="color:red;"> * </span> @Html.ValidationMessageFor(model => model.StrCustomerName)</td>
+        </tr>
+        <tr>
+            <td class="textLeft">项目目标</td><td class="textRight" colspan="3">@Html.TextAreaFor(model => model.StrGoal, new { style="width:90%;height:70px;"}) <span style="color:red;"> * </span> @Html.ValidationMessageFor(model => model.StrGoal)</td>
+        </tr>
+       <tr>
+            <td class="textLeft">项目主要内容</td><td class="textRight" colspan="3">@Html.TextAreaFor(model => model.StrMainContent, new { style="width:90%;height:70px;"}) <span style="color:red;"> * </span> @Html.ValidationMessageFor(model => model.StrMainContent)</td>
+        </tr>
+       <tr>
+            <td class="textLeft">立项编号</td><td class="textRight">@Html.TextBoxFor(model => model.StrAppID, new {@class="txtCss"})<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.StrAppID)</td>
+            <td class="textLeft">立项时间</td><td class="textRight">@Html.TextBoxFor(model => model.StrAppDate, new {onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })",@class="txtCss"})<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.StrAppDate)</td>
+        </tr>
+        <tr>
+            <td class="textLeft">建设单位</td><td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrBuildUnit, new { style="width:90%;"})@Html.ValidationMessageFor(model => model.StrBuildUnit)</td>
+        </tr>
+       <tr>
+            <td class="textLeft">联系人</td><td class="textRight">@Html.TextBoxFor(model => model.StrLinkMan, new { @class="txtCss"})@Html.ValidationMessageFor(model => model.StrLinkMan)</td>
+            <td class="textLeft">电话</td><td class="textRight">@Html.TextBoxFor(model => model.StrPhone, new { @class="txtCss"})@Html.ValidationMessageFor(model => model.StrPhone)</td>
+        </tr>
+        <tr>
+            <td class="textLeft">项目地点</td><td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrPaddress, new { style="width:90%;"})@Html.ValidationMessageFor(model => model.StrPaddress)</td>
+        </tr>   
+        <tr>
+            <td class="textLeft">项目负责人</td><td class="textRight">@Html.TextBoxFor(model => model.StrPrincipal, new {@class="txtCss"  })<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.StrPrincipal)</td>
+            <td class="textLeft">配合负责人</td><td class="textRight">@Html.TextBoxFor(model => model.StrConcertPerson, new {@class="txtCss"  })<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.StrConcertPerson)</td>
+        </tr>
+        <tr>
+            <td class="textLeft">项目合同额</td><td class="textRight">@Html.TextBoxFor(model => model.StrContractAmount, new { @class="txtCss"}) 万元 @Html.ValidationMessageFor(model => model.StrContractAmount)</td>
+            <td class="textLeft">项目前期费用（管理费、预算）</td><td class="textRight">@Html.TextBoxFor(model => model.StrBudget, new { @class="txtCss"}) 万元 @Html.ValidationMessageFor(model => model.StrBudget)</td>
+        </tr>
+        <tr>
+            <td class="textLeft">项目成本</td><td class="textRight">@Html.TextBoxFor(model => model.StrCost, new { @class="txtCss"}) 万元  @Html.ValidationMessageFor(model => model.StrCost)</td>
+            <td class="textLeft">项目利润</td><td class="textRight">@Html.TextBoxFor(model => model.StrProfit, new { @class="txtCss",onfocus = "LoadProfit()"}) 万元  @Html.ValidationMessageFor(model => model.StrProfit)</td>
+        </tr>
+     @*  <tr>
+            <td class="textLeft">当前进度</td><td class="textRight">@Html.TextBoxFor(model => model.StrSchedule, new {@class="txtCss"})  @Html.ValidationMessageFor(model => model.StrSchedule)</td>
+            <td class="textLeft">预计合同签订日期</td><td class="textRight">@Html.TextBoxFor(model => model.StrPlanSignaDate, new {onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })",@class="txtCss"})  @Html.ValidationMessageFor(model => model.StrPlanSignaDate)</td>
+        </tr>*@
+         <tr>
+            <td class="textLeft">有无合同</td>
+            <td class="textRight" colspan="3">@Html.RadioButton("IsContract", 0) 无 @Html.RadioButton("IsContract", 1) 有 <span style="color: red;">*</span></td>
+            @Html.HiddenFor(model => model.StrIsContract)
+        </tr>
+    </table>
+       <div style="margin-top:10px;margin-left:75%">
+             <input class="btn" type="submit"  id="charge" value="确定"/>
+       </div> 
+   
+    </div>
+    }
+</body>
+</html>

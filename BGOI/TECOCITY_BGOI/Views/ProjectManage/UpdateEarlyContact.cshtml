@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_Project
+
+
+<html>
+    <head>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+   <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    @* <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />*@
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/ProjectManage/UpdateEarlyContact.js")" type="text/javascript"></script>
+        
+    </head>
+@using (Html.BeginForm("UpdateEarlyContact", "ProjectManage", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+{
+<body>@Html.Hidden("EID",@ViewData["EID"])
+    <div id="tabTitile"><span style="margin-left:10px;">项目编号：@Model.StrPID</span></div>@Html.HiddenFor(model => model.StrPID)
+    <table class="tabInfo" style="width: 97%;margin-left:8px;margin-top:10px;">
+         <tr>
+            <td class="textLeft">跟踪洽谈类型</td><td class="textRight">@Html.DropDownListFor(model => model.StrJQType,ProjectMan.GetNewEarlyType("JQType"), new {@class="txtCss"  })<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.StrJQType)</td>
+       </tr>
+          <tr>
+            <td class="textLeft">内容概述</td><td class="textRight">@Html.TextAreaFor(model => model.StrPview, new { style = "width:90%;height:110px;"})<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.StrPview)</td>
+        </tr>
+         <tr>
+            <td class="textLeft">跟踪洽谈时间</td><td class="textRight">@Html.TextBoxFor(model => model.StrJQTime, new {onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })",@class="txtCss"})<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.StrJQTime)</td>
+        </tr>
+        <tr>
+            <td class="textLeft">跟踪人</td><td class="textRight">@Html.TextBoxFor(model => model.StrFollowPerson, new {@class="txtCss"})<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.StrFollowPerson)</td>
+        </tr>
+    </table>
+       <div style="margin-top:10px;margin-left:75%">
+             <input class="btn" type="submit"  id="charge" value="确定"/>
+       </div> 
+</body>
+       
+}
+</html>

@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model PP_PurchaseOrder
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>ScrapManagementOut</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Inventory/AddStockIn.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/PP/ProjectPP/DGMX.js")" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <form>
+
+
+        <div id="createAll" style="background-color: #ffffff; width: 100%; ">
+            <div id="biaoti">
+                <h1 class="title">贷款统计</h1>
+            </div>
+        </div>
+        <table class="tabSearch" cellpadding="0" cellspacing="0" style="">
+            <tr>
+                <td>
+                    供货商 @Html.TextBox("Supplier", "", new { @class = "txtCss" }) &nbsp;
+                </td>
+                <td>
+                    <input class="btn" type="button" id="btn" value="查  询"  />
+                    <input class="btn" type="button" id="DY" value="打印" />
+                </td>
+            </tr>
+            </table>
+
+            <table cellpadding="0" cellspacing="0" class="tabInfo">
+                <tr>
+                  
+                    <td>
+                        <div style="overflow-y: scroll;max-height:700px;margin-top:3px;">
+                            @*<div>
+                                <div style="float:left">自</div> <div id="End" style="float:left"></div><div style="float:left">---</div><div id="Begin" style="float:left"></div><div style="float:left">共发生采购订单</div> <div id="Amount" style="float:left"></div><div style="float:left">起,累计订购金额</div> <div id="jine" style="float:left"></div><div style="float:left">元</div>
+
+                            </div>*@
+                            <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                                <tr align="center" valign="middle">
+                                    <th class="th">
+                                        序号
+                                    </th>
+                                    <th class="th">
+                                        供货商
+                                    </th>
+                                    <th class="th">
+                                        计划数额
+                                    </th>
+                                    <th class="th">
+                                        已发生数额
+                                    </th>
+                                    <th class="th">
+                                        已付款数(元)
+                                    </th>
+                                    <th class="th">
+                                        未付款数(元)
+                                    </th>
+                                </tr>
+                                <tbody id="GXInfo"></tbody>
+                                <tbody id="GXInfo1"></tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+</form>
+</body>
+</html>

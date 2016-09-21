@@ -1,0 +1,181 @@
+﻿@using TECOCITY_BGOI
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@model OrdersInfo
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    @* <meta name="viewport" content="width=device-width" />*@
+    <title>UpdateSalesRecord</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Sales/RecordInfo.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_Tables2.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Sales/RetailSales/UpdateSalesRecord.js")" type="text/javascript"></script>
+</head>
+<body>
+    @using (Html.BeginForm("UpdateSalesRecord", "SalesRetail", FormMethod.Post, new { id = "form1" }))
+    {
+        <div id="tabTitile"><span style="margin-left: 10px; float: left;">项目编号：@Model.OrderID</span>@Html.HiddenFor(model => model.OrderID)</div>
+        <div style="height: 480px; width: 98%; overflow-y: auto;">
+            @Html.HiddenFor(model => model.State)
+        <table class="tabInfo" style="width: 99%; margin-top: 10px; height: 400px; overflow-y: auto;">
+            <tr style="text-align: center; font: bold; margin-top: 20px; font-size: 24px;">
+                <td colspan="4">业务人员日常项目登记</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="width: 25%;">
+                    销售时间：
+                </td>
+                <td colspan="2">@Html.TextBoxFor(model => model.ContractDate, new { @class = "txtCss", @readonly = "readonly", Value = String.Format("{0:yyyy-MM-dd HH:mm:ss}", Model.ContractDate), onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss'})" })</td>
+                @*<td style="width: 25%;">项目名称简述：</td>
+                <td>@Html.TextBoxFor(model => model.ProjectName, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ProjectName)</td>*@
+            </tr>
+            <tr style="background-color: #88c9e9; text-align: left;">
+                <td colspan="4">销售产品</td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="button" class="btn" value="添加产品"
+                           id="btnAdd" name="btnAdd" onclick="CheckDetail()" />&nbsp;
+                    <input type="button" id="btnDel" class="btn" onclick="DelRow();" name="btnDel" value="删除" />
+                    <div style="height: 80px; overflow-y: scroll;">
+                        <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                            <tr align="center" valign="middle">
+                                <th style="width: 5%;" class="th">
+                                    序号
+                                </th>
+                                <th style="width: 12%;" class="th">
+                                    产品编码
+                                </th>
+                                <th style="width: 13%;" class="th">
+                                    产品名称
+                                </th>
+                                <th style="width: 13%;" class="th">
+                                    规格材质
+                                </th>
+                                <th style="width: 10%;" class="th">
+                                    数量
+                                </th>
+                                <th style="width: 10%;" class="th">
+                                   单价
+                                </th>
+                                <th style="width: 10%;" class="th">
+                                    折扣
+                                </th>
+                                <th style="width: 10%;" class="th">
+                                    金额小计
+                                </th>
+                                @*<th style="width: 13%;" class="th">
+                                    款项情况
+                                </th>*@
+                                <th style="width: 13%;" class="th">
+                                    所属分公司
+                                </th>
+                                <th style="width: 13%;" class="th">
+                                    渠道
+                                </th>
+                                <th style="width: 10%;" class="th">
+                                    备注
+                                </th>
+                            </tr>
+                            <tbody id="DetailInfo"></tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>合计</td>
+                <td colspan="3">@Html.TextBoxFor(model => model.OrderTotal, new { @class = "txtCss" })</td>
+
+            </tr>
+            <tr>
+                <td>是否代收</td>
+                <td>@Html.RadioButtonFor(model => model.ISCollection, "1")是</td>
+                <td colspan="2">@Html.RadioButtonFor(model => model.ISCollection, "2", new { @checked = true })否</td>
+            </tr>
+            <tr>
+                <td style="width: 25%;">销售日期：</td>
+                <td>@Html.TextBoxFor(model => model.SupplyTime, new { @class = "txtCss", @readonly = "readonly", Value = String.Format("{0:yyyy-MM-dd HH:mm:ss}", Model.SupplyTime), onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss'})" })</td>
+                <td style="width: 25%;">安装单位：</td>
+                <td>@Html.TextBoxFor(model => model.OrderUnit, new { @class = "txtCss" })</td>
+            </tr>
+            <tr>
+                <td style="width: 25%;">客户联系人：</td>
+                <td>@Html.TextBoxFor(model => model.OrderContactor, new { @class = "txtCss" })</td>
+                <td style="width: 25%;">客户联系电话：</td>
+                <td>@Html.TextBoxFor(model => model.UseTel, new { @class = "txtCss" })</td>
+            </tr>
+            <tr>
+                <td style="width: 25%;">最终安装地址：</td>
+                <td colspan="3">@Html.TextAreaFor(model => model.UseAddress, new { @class = "txtCss", @Style = "width:80%;height:40px;" })</td>
+            </tr>
+            <tr>
+                <td style="width: 25%;">备注：</td>
+                <td colspan="3">@Html.TextAreaFor(model => model.Remark, new { @class = "txtCss", @Style = "width:80%; height:80px;" })@Html.ValidationMessageFor(model => model.Remark)</td>
+            </tr>
+            <tr style="background-color: #88c9e9; text-align: left;">
+                <td style="width: 25%;" colspan="4">销售人信息</td>
+            </tr>
+            @*@Html.Hidden("IsHK",Model.IsHK);*@
+            <tr>
+                <td style="width: 25%;">
+                    销售人：<input type="hidden" id="hdProvider" value="@Model.ProvidManager" />
+                </td>
+                <td>@Html.DropDownListFor(model => model.ProvidManager, SalesRetailMan.GetUserListitem(), new { @Style = "width:100px;" })</td>
+                <td>是否回款：</td>
+                <td>
+                    @Html.RadioButtonFor(model => model.IsHK,'y')是&nbsp;&nbsp;&nbsp;
+                    @Html.RadioButtonFor(model => model.IsHK, "n") 否
+                </td>
+            </tr>
+            @*@Html.Hidden("ISFinish", Model.ISFinish);*@
+            <tr>
+                <td>完成 </td>
+                <td>@Html.RadioButtonFor(model => model.ISFinish, 0)是
+                <td>未完成 </td>
+                <td>
+                    @Html.RadioButtonFor(model => model.ISFinish, 1)未安装
+                    @Html.RadioButtonFor(model => model.ISFinish, 2)客户不在家
+                    @Html.RadioButtonFor(model => model.ISFinish, 3)其他
+                    @*@Html.RadioButtonFor(model => model.ISFinish, "1", new { @checked = true }) 未安装&nbsp;&nbsp;&nbsp;@Html.RadioButtonFor(model => model.ISFinish, "2", new { @checked = true }) 客户不在家
+                    &nbsp;&nbsp;&nbsp;@Html.RadioButtonFor(model => model.ISFinish, "3", new { @checked = true }) 其他*@
+                </td>
+
+            </tr>
+
+
+            <tr>
+                <td style="width: 25%;">
+                    回款备注：
+                </td>
+                <td colspan="3">
+                    @Html.TextAreaFor(model => model.HKRemark, new { @class = "txtCss", @Style = "width:80%; height:80px;" })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" style="text-align: center;">
+                    <input type="button" id="btnSave" class="btn" name="btnSave" value="确 定" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    }
+</body>
+</html>

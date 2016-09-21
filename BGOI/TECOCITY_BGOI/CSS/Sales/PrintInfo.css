@@ -1,0 +1,47 @@
+﻿body
+{
+}
+
+.tabInfo
+{
+	border-right: solid 1px #000000;
+	border-top: solid 1px #000000;
+	border-collapse: collapse;
+	width: 100%;
+	font-size: 12px;
+}
+
+	.tabInfo tr
+	{
+		border: 1px solid #d1d1d1;
+	}
+
+	.tabInfo td
+	{
+		border-bottom: solid 1px #000000;
+		border-left: solid 1px #000000;
+		border-right: none;
+		border-top: none;
+		padding-left: 4px;
+		height: 28px;
+	}
+
+.btn
+{
+	height: 26px;
+	color: #fffdff;
+	border: none;
+	line-height: 26px;
+	width: 76px;
+	/*background: url(../images/btn1.png);*/
+	background-color: #3598db;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.th
+{
+	border: ridge 1px #000000;
+	background-color: #88c9e9;
+	height: 24px;
+}

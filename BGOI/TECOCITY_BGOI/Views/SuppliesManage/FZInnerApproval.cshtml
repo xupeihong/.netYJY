@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model tk_SUPSugestion
+<!DOCTYPE html>
+
+<html>
+<head>
+    @* <meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <title>FZInnerApproval</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src=" @Url.Content("~/Scripts/cmm_Tables2.js")"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")"></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/FZInnerApproval.js")" type="text/javascript"></script>
+</head>
+<body>
+    @using (Html.BeginForm("FZInnerApproval", "SuppliesManage", FormMethod.Post, new { id = "InnerInfo", action = "FZInnerApprovalSG", enctype = "multipart/form-data" }))
+    {
+       
+        @Html.Hidden("msg", @ViewData["msg"])
+        @Html.Hidden("webkey", @ViewData["webkey"])   @Html.Hidden("folderBack", @ViewData["folderBack"])  @Html.Hidden("PID", @ViewData["PID"]) @Html.Hidden("RelevanceID", @ViewData["RelevanceID"])
+@*<div id="tabTitile">&nbsp;&nbsp;&nbsp;流水号:@Html.HiddenFor(model => model.Sid)@ViewBag.sid</div>*@
+        <div id="tabTitile"><span style="margin-left: 10px;">审批编号：@ViewData["PID"]</span></div>
+        <div id="hole" style="overflow-y: scroll;">
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">是否同意通过内部评审：</td>
+                    <td class="textRight" colspan="3">
+                       
+                        @Html.RadioButton("SState", "0", new { @checked = true })是
+                        @Html.RadioButton("SState", "1")否
+                        <span style="color: red;">*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">供应商初步评审综合评价：</td>
+                    <td class="textRight" colspan="3">@Html.TextAreaFor(model => model.SContent, new { @class = "txtApproval" }) <span style="color: red;">*</span></td>
+
+                </tr>
+            </table>
+            <div style="margin-top: 10px;">
+                <table>
+                    <tr>
+                        <td>
+                            <input type="button" value="确定" id="FZSugtion" class="btn" style="cursor: pointer; margin-left: 550px;" /></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    }
+</body>
+</html>

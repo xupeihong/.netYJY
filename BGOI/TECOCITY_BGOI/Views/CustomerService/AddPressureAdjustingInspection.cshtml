@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_PressureAdjustingInspection
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>AddPressureAdjustingInspection</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Inventory/AddStockIn.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    @*   <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>*@
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/CustomerServiceManage/AddPressureAdjustingInspection.js")" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <form>
+        <div id="tabTitile"><span style="margin-left: 10px; float: left;">编号：@Model.TYID </span></div>@Html.HiddenFor(model => model.TYID)
+
+        <div style="width: 800px; height: 20px; float: left;" id="shijian">
+            <span style="margin-left: 480px; float: left;">登录日期:</span><div id="localtime" style="float: right;"></div>
+        </div>
+        <div style="width: 100%; height: 400px; text-align: left; overflow-y: scroll">
+            <table class="tabInfo" style="width: 100%; margin-left: 8px; margin-top: 10px;">
+                <tr style="text-align: center; font: bold; margin-top: 20px; font-size: 24px;">
+                    <td colspan="9">调压箱巡检记录表</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">用户名称</td>
+                    <td class="textRight" colspan="8">@Html.TextBox("UserName", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.UserName)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">用户地址</td>
+                    <td class="textRight" colspan="8">@Html.TextBox("UserAdd", "", new { @class = "txtCss", @style = "width:720px;" })@Html.ValidationMessageFor(model => model.UserAdd)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">联系人</td>
+                    <td class="textRight" colspan="2">@Html.TextBox("Users", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Users)</td>
+                    <td class="textLeft">电话</td>
+                    <td class="textRight" colspan="5">@Html.TextBox("Tel", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Tel)</td>
+                </tr>
+                <tr style="display: none">
+                    <td class="textLeft">钥匙保存单位</td>
+                    <td class="textLeft">甲方</td>
+                    <td class="textRight" colspan="3">@Html.TextBox("KeyStorageUnitJia", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.KeyStorageUnitJia)</td>
+                    <td class="textLeft">已方</td>
+                    <td class="textRight" colspan="3">@Html.TextBox("KeyStorageUnitYi", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.KeyStorageUnitYi)</td>
+                </tr>
+                @*      <tr>
+                    <td class="textLeft">用途 @Html.TextAreaFor(model => model.Uses, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Uses)</td>
+                    <td class="textLeft">锅炉</td>
+                    <td class="textRight">@Html.TextBox("Boiler", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Boiler)</td>
+                    <td class="textLeft">公福</td>
+                    <td class="textRight">@Html.TextBox("KungFu", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.KungFu)</td>
+                    <td class="textLeft">民用</td>
+                    <td class="textRight">@Html.TextBox("Civil", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Civil)</td>
+                    <td class="textLeft">其它</td>
+                    <td class="textRight">@Html.TextBox("Other", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Other)</td>
+                </tr>*@
+                <tr>
+                    <td>用途</td>
+                    <td>
+                        @Html.RadioButton("Uses", "0")锅炉 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                        @Html.RadioButton("Uses", "1")公福 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.RadioButton("Uses", "2")民用 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        @Html.RadioButton("Uses", "3")其它 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="9">
+                        <input class="btn" type="button" style="width: 100px" value="添加压力" onclick="TianJia()" /></td>
+                </tr>
+                <tr>
+                    <td colspan="9">
+                        <div style="overflow-y: scroll;">
+                            <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                                <tbody id="DetailInfo"></tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">运维时间</td>
+                    <td class="textRight" colspan="8">
+                        <input type="text" id="OperationTime" onclick="WdatePicker()" class="Wdate" style="width: 170px;" /></td>
+                    @*     <td class="textLeft" colspan="2">下午</td>
+                    <td class="textRight" colspan="2">
+                        <input type="text" id="AfternoonTime" onclick="WdatePicker()" class="Wdate" style="width: 170px;" /></td>*@
+                </tr>
+                <tr>
+                    <td class="textLeft">巡检人员</td>
+                    <td class="textRight" colspan="8">@Html.TextBox("InspectionPersonnel", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.InspectionPersonnel)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">用户签字</td>
+                    <td class="textRight" colspan="8">@Html.TextBox("UserSignature", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.UserSignature)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">备注</td>
+                    <td class="textRight" colspan="8">@Html.TextAreaFor(model => model.Remarks, new { @class = "txtCss", @style = "width:880px;height:50px;" })@Html.ValidationMessageFor(model => model.Remarks)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">登记人</td>
+                    <td class="textRight" colspan="8">@Html.TextBoxFor(model => model.CreateUser, new { @class = "txtCss", @readonly = "true" })</td>
+                </tr>
+            </table>
+        </div>
+        <div style="margin-top: 10px; margin-left: 75%">
+
+            <input class="btn" type="button" id="btnSave" value="保存" />
+            <input class="btn" type="button" id="Cancel" value="取消" />
+        </div>
+    </form>
+</body>
+</html>

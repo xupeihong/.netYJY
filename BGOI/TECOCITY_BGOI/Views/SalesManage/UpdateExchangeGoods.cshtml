@@ -1,0 +1,224 @@
+﻿@{
+    ViewBag.Title = "UpdateExchangeGoods";
+}
+
+@using TECOCITY_BGOI
+@model ExchangeGoods
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AddOffer</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    @*<script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Sales/UpdateExchangeGoods.js")" type="text/javascript"></script>
+    <style>
+        .RowClass {
+            background-color: #efd2d2;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" method="post">
+        <div id="tabTitile"><span style="margin-left: 10px; float: left;">退换货编号：@Model.EID</span></div>@Html.HiddenFor(model => Model.EID)
+        <div style="height: 400px; overflow-y:auto;">
+            <div>
+                订单单号：@Model.OrderID @Html.HiddenFor(model => Model.OrderID)
+            </div>
+            <div>
+                <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo" style=" width :98% ;">
+                    <tr style="background-color: #88c9e9; text-align: left; ">
+                        <td colspan="10">订单产品信息</td>
+                    </tr>
+                    <tr align="center" valign="middle">
+                        <th style="width:10%;" class="th">
+                            序号
+                        </th>
+                        <th style="width: 10%;" class="th">
+                            物品编号
+                        </th>
+                        <th style="width: 10%;" class="th">
+                            物品名称
+                        </th>
+                        <th style="width: 10%;" class="th">
+                            规格型号
+                        </th>
+                        <th style="width: 10%;" class="th">
+                            单位
+                        </th>
+                        <th style="width: 15%;" class="th">
+                            供应商
+                        </th>
+                        <th style="width:10%;" class="th">
+                            数量
+                        </th>
+
+                        <th style="width: 15%;" class="th">
+                            单价
+                        </th>
+                        <th style="width: 15%;" class="th">
+                            成交价
+                        </th>
+                        <th style="width:20%;" class="th">
+                            交货时间
+                        </th>
+                    </tr>
+                    <tbody id="DetailInfo"></tbody>
+                </table>
+                <input type="button" class="btn" style="float:left; margin-left: 8px;" id="AddHH" value="添加换货产品" />
+                <input type="button" class="btn" style="float: left; margin-left: 8px;" onclick="DeleteRow();" value="删除" id="btnDel" name="btnDel" />
+                <div id="HH" style=" width: 960px;overflow-x: auto;">
+                    <table id="ReturnTable" cellpadding="0" cellspacing="0" class="tabInfo" style=" width: 1340px;">
+                        <tr align="center" valign="middle">
+                            <th style="width: 60px;" class="th">
+                                序号
+                            </th>
+                            <th style="width: 90px;" class="th">
+                                物品编号
+                            </th>
+                            <th style="width: 90px;" class="th">
+                                物品名称
+                            </th>
+                            <th style="width: 90px; " class="th">
+                                规格型号
+                            </th>
+                            <th style="width: 60px; " class="th">
+                                单位
+                            </th>
+                            <th style="width: 60px;" class="th">
+                                供应商
+                            </th>
+                            <th style="width: 60px; " class="th">
+                                数量
+                            </th>
+
+                            <th style="width: 60px; " class="th">
+                                单价
+                            </th>
+                            <th style="width: 60px; " class="th">
+                                成交价
+                            </th>
+                            <th style="width: 60px; " class="th">
+                                单位成本
+                            </th>
+                            <th style="width: 60px; " class="th">
+                                累计成本
+                            </th>
+                            <th style="width: 90px; " class="th">
+                                技术要求或参数
+                            </th>
+                            <th style="width: 60px; " class="th">
+                                销售单号
+                            </th>
+                            <th style="width: 60px; " class="th">
+                                工程项目号
+                            </th>
+                            <th style="width: 60px; " class="th">
+                                工程项目名称
+                            </th>
+
+                        </tr>
+                        <tbody id="ReturnDetailInfo"></tbody>
+                    </table>
+                    </div>
+
+                    <table id="Botom" class=" tabInfo" style=" width :98% ;">
+                        <tr style="background-color: #88c9e9; text-align: left; ">
+                            <td colspan="10">  退货信息</td>
+                        </tr>
+                        <tr>
+                            <td>退货类型</td>
+                            <td>
+                                @*@Html.DropDownList("EXCType",@Model.ReturnType )*@
+                            @Html.DropDownListFor(model => Model.ReturnType, SalesManage.GetEXCType(), new { @class = "txtCss" })<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.ReturnType)
+
+                        </td>
+                        <td>退货方式</td>
+                        <td>@Html.DropDownListFor(model => Model.ReturnWay, SalesManage.GetTypeSelect("EXCWay"))<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.ReturnWay) </td>
+
+                    </tr>
+                    <tr>
+                        <td>退货约定</td>
+                        <td> @Html.TextBoxFor(model => Model.ReturnContract)<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.ReturnContract) </td>
+                        <td>退货原因</td>
+                        <td>
+                            @Html.DropDownListFor(model => Model.ReturnReason, SalesManage.GetTypeSelect("ExcReason"))
+                            <span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.ReturnReason)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>退货说明</td>
+                        <td colspan="3">@Html.TextBoxFor(model => Model.ReturnInstructions)<span style="color:red;"> * </span>@Html.ValidationMessageFor(model => model.ReturnInstructions) </td>
+                    </tr>
+                    <tr style="background-color: #88c9e9; text-align: left; ">
+                        <td colspan="10">  申请人信息</td>
+                    </tr>
+                    <tr>
+                        <td>申请人</td>
+                        <td colspan="3">@Html.TextBox("CreateUser", GAccount.GetAccountInfo().UserName)</td>
+                    </tr>
+                    @*<tr>
+                <td colspan="4"><input type="checkbox" id="ISEXc" name="ER" />是否换货</td>
+
+            </tr>*@
+                    <tr style="background-color: #88c9e9; text-align: left; ">
+                        <td colspan="10">换货信息</td>
+                    </tr>
+                </table>
+                <table id="ReturnTable" hidden="hidden" cellpadding="0" cellspacing="0" class="tabInfo" style=" width :98% ;">
+                    <tr align="center" valign="middle">
+                        <th style="width:10%;" class="th">
+                            序号
+                        </th>
+                        <th style="width: 10%;" class="th">
+                            物品编号
+                        </th>
+                        <th style="width: 20%;" class="th">
+                            物品名称
+                        </th>
+                        <th style="width: 10%;" class="th">
+                            规格型号
+                        </th>
+                        <th style="width: 10%;" class="th">
+                            单位
+                        </th>
+                        <th style="width: 15%;" class="th">
+                            供应商
+                        </th>
+                        <th style="width:10%;" class="th">
+                            数量
+                        </th>
+
+                        <th style="width: 15%;" class="th">
+                            单价
+                        </th>
+                        <th style="width: 15%;" class="th">
+                            成交价
+                        </th>
+                        <th style="width:20%;" class="th">
+                            交货时间
+                        </th>
+                    </tr>
+                    <tbody id="ReturnDetailInfo"></tbody>
+                </table>
+            </div>
+            <input type="button" class="btn" id="btnSaveExcGoods" value="保存" />
+            <input type="button" class="btn" id="btnExit" value="取消" />
+        </div>
+
+    </form>
+</body>
+</html>
+

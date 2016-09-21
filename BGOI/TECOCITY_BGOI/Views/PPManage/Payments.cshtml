@@ -1,0 +1,175 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model PP_Payment
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>ScrapManagementOut</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Inventory/AddStockIn.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/PP/ProjectPP/Payments.js")" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <form>
+        <div id="createAll" style="background-color: #ffffff; width: 100%; ">
+            <h1 class="title">新建付款单</h1>
+            <div id="danhao" class="PPtitle">
+                <span style="margin-left:10px;">付款单号：@Model.PayId</span>@Html.HiddenFor(model => model.PayId)
+              @*  <input type="button"   value="添加" onclick="AddNewBasic()" id="btnAdd" name="btnAdd" />*@ 
+            </div>
+            @*<div>
+                    <table border="0" cellpadding="0" cellspacing="0" width="98%" class="tabInfo">
+                        <tr>
+                            <td style="width: 20%">
+                                <span style="margin-left:10px;">询价单号：@Model.PayId</span>@Html.HiddenFor(model => model.PayId)
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>*@
+        </div>
+        <table cellpadding="0" cellspacing="0" class="tabInfo">
+            <tr class="PPtr">
+                <td colspan="10">   订购物品</td>
+              
+            </tr>
+            <tr>
+                <td>
+                    @*<input type="button" class="btn" value="添加" onclick="AddNewBasic()" id="btnAdd" name="btnAdd" />&nbsp;
+                        <input type="button" id="btnDel" class="btn" name="btnDel" value="删除" onclick="DelRow();" />*@
+                    <div style="overflow-y: scroll;max-height:200px;">
+                        <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                            <tr align="center" valign="middle">
+                                <th class="th">
+                                     
+                                </th>
+                                <th class="th">
+                                    序号
+                                </th>
+                                <th class="th">
+                                    物品名称
+                                </th>
+                                <th class="th">
+                                    规格型号
+                                </th>
+                                <th class="th">
+                                    物料编码
+                                </th>
+                                <th class="th">
+                                    单位
+                                </th>
+                                <th class="th">
+                                    数量
+                                </th>
+                                <th class="th">
+                                    供应商
+                                </th>
+                                <th class="th">
+                                    税前单价
+                                </th>
+                                <th class="th">
+                                    税前总价
+                                </th>
+                                <th class="th">
+                                    税后单价
+                                </th>
+                                <th class="th">
+                                    税后总价
+                                </th>
+                                <th class="th">
+                                    已付款数量
+                                </th>
+                                <th width="180px" class="th">
+                                    付款数量
+                                </th>
+                                <th width="180px" class="th">
+                                    备注
+                                </th>
+                            </tr>
+
+                            <tbody id="GXInfo"></tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+
+
+        </table>
+
+
+        <table cellpadding="0" cellspacing="0" class="tabInfo" style="margin-top:5px;">
+            <tr class="PPtr">
+                <td colspan="10">   相关约定</td>
+            </tr>
+            <tr>
+                <td>
+                    付费时间
+                </td>
+                <td>
+                    <input type="text" id="PayTime" onclick="WdatePicker()" class="Wdate" style="width:170px;" /><span style="color: red;">*</span>
+                </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <td>
+                    付费方式
+                </td>
+                <td>
+                    @Html.DropDownList("PaymentMenthod", PPManage.GetTypeID("and [type]='支付方式'"), new { @class = "txtCss" })<span style="color: red;">*</span>
+                </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </tr>
+            <tr>
+
+                <td>
+                    付费状态
+                </td>
+                <td>
+                    @Html.DropDownList("State", PPManage.GetTypeID("and [type]='付款状态'"), new { @class = "txtCss" })<span style="color: red;">*</span>
+                </td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </tr>
+        </table>
+        <div style="width: 100%; margin-top:20px; height: 30px;">
+            <table cellpadding="0" cellspacing="0" class="tabInfo"></table>
+        </div>
+        <br />
+
+        <div style="width: 100%; height: 70px;">
+            <table cellpadding="0" cellspacing="0" class="tabInfo" style="margin-top:5px;">
+                <tr class="PPtr">
+                    <td colspan="10">   订购人信息</td>
+                </tr>
+                <tr>
+                    <td class="textleft">
+                        请购人
+                    </td>
+                    <td class="textright" colspan="3">
+                        @Html.TextBox("OrderContacts", GAccount.GetAccountInfo().UserName, new { @class = "txtCss" })
+                       @* @Html.DropDownList("OrderContacts", PPManage.GetUserId(), new { @class = "txtCss" })*@
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="width: 98%; margin-right: 10px; height: 36px; text-align: right;margin-top:10px;">
+            <input id="btnSubmit" type="button" class="btn" value="保存" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            @*<input id="btnCancel" type="button" value="取  消" class="btn" />*@
+        </div>
+    </form>
+</body>
+</html>

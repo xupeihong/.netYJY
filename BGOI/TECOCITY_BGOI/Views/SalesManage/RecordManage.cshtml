@@ -1,0 +1,144 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+@model tk_SalesGrid
+<!DOCTYPE html>
+
+<html>
+<head>
+    @*  <meta name="viewport" content="width=device-width" />*@
+    <title>RecordManage</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Sales/ProjectSales/SalesManage.js")" type="text/javascript"></script>
+</head>
+@{
+    string UnitID = GAccount.GetAccountInfo().UnitID;
+    string Rights = GAccount.GetAccountInfo().Rights;
+}
+<body>
+    @using (Html.BeginForm("RecordToExcel", "SalesManage", FormMethod.Post, new { id = "GForm" }))
+    {
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">项目产品业务</span>>><span>备案管理</span>
+            </div>
+        </div>
+        <div>
+            <fieldset style="background-color: white;">
+                <legend></legend>
+                <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; margin-bottom: 5px; margin-left: 5px; margin-right: 5px; margin-top: 5px;">
+                    <tr>
+                        <td>项目名称</td>
+                        <td>@Html.TextBoxFor(model => model.PlanName, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.PlanName)</td>
+                        <td>工程编号</td>
+                        <td>@Html.TextBoxFor(model => model.PlanID, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.PlanID)</td>
+                        <td>产品名称</td>
+                        <td>@Html.TextBoxFor(model => model.MainContent, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.MainContent)</td>
+                    </tr>
+                    <tr>
+                        <td>规格型号</td>
+                        <td>@Html.TextBoxFor(model => model.SpecsModels, new { @class = "txtCss" }) @*@Html.DropDownList("SpecsModels", SalesManage.ListItem())*@</td>
+                        <td>所属区域</td>
+                        @*<td>@Html.DropDownList("BelongArea", SalesManage.GetBelongArea())</td>*@
+                        <td>@Html.TextBoxFor(model => model.BelongArea, new { @class = "txtCss" })</td>
+                        <td>备案日期</td>
+                        <td>
+                            @Html.TextBoxFor(model => model.StartDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })@Html.ValidationMessageFor(model => model.StartDate) -  @Html.TextBoxFor(model => model.EndDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" }) @Html.ValidationMessageFor(model => model.EndDate)
+                            @*@Html.TextBox("StartDate")~@Html.TextBox("EndDate")*@
+                            @*<input type="text" id="StartDate" onclick="WdatePicker()" class="Wdate" style="width:170px;" />~
+                                <input type="text" id="EndDate" onclick="WdatePicker()" class="Wdate" style="width:170px;" />*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>业务负责人</td>
+                        <td>@Html.TextBoxFor(model => model.Manager, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.Manager)</td>
+                        <td colspan="5">
+                            <a style="font-weight :bold ;font-size :14px">
+                                进度
+                            </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButton("State", "0")全部&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButton("State", "1")备案&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.RadioButton("State", "2")已报价&nbsp;&nbsp;&nbsp;&nbsp;
+                            @*@Html.RadioButton("State", "3")已签订合同&nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.RadioButton("State", "4")已发货*@@*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a style="font-weight :bold ;font-size :14px"> 回款状态</a> &nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.RadioButton("HState", "0")未回款&nbsp;&nbsp;&nbsp;&nbsp;
+                                @Html.RadioButton("HState", "1")已回款*@
+                                <input type="button" class="btn" id="btnSearch" style="float: right; margin-right: 10px;" value="查  询" />
+
+
+                            </td>
+
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div style="background-color: white; height: 36px; padding-top: 5px; margin-left: 5px;">
+                @if (Rights.IndexOf(",Y13,") >= 0)
+                {
+                    <input type="button" class="btn" id="btnRecord" value="新增备案" />
+                    <input type="button" class="btn" id="btnRecordF" value="非标备案" />}
+                <input type="button" class="btn" id="btnPrice" value="报  价" />
+                <input type="button" class="btn" id="btnPriceF" value="非标报价" />
+                @*<input type="button" class="btn" id="btnContract" value="合  同" />*@
+                <input type="button" class="btn" id="UploadContract" value="上传合同" />
+                <input type="button" class="btn" id="btnOrder" value="新增订单" />
+                <input type="button" class="btn" id="btnOrderF" value="非标订单" />
+                @*<input type="button" class="btn" id="btnSP" value="提交审批" />*@
+                <input type="submit" class="btn" style="float: right; margin-right: 15px;" id="btnExport" value="导出" />
+                <input type="button" class="btn" style="float: right; margin-right: 15px;" id="PrintProject" value="打印" />
+            </div>
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 5px;">
+                <table cellpadding="0" cellspacing="0" border="0" id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+            <div>
+                <input type="button" id="btnDetail" class="btnTw" value="产品详细" onclick="SetStyle('TW');">
+                <input type="button" id="btnBill" class="btnTh" value="相关单据" onclick="SetStyle('TH');">
+                <input type="button" id="btnRZ" class="btnTh" value="操作日志" onclick="SetStyle('RZ');">
+                <div id="WPXX" style="border: 1px solid #707070; margin-left: 10px; display: none;">
+                    <div id="div1" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                        <table id="Detaillist" class="scroll" style="width: 100%;"></table>
+                        <div id="pager1" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="XGSJ" style="border: 1px solid #707070; margin-left: 10px; display: none;">
+                    <div id="div2" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                        <table id="Billlist" class="scroll" style="width: 100%;">
+                            <tr>
+                                <th style="width: 5%;" class="th">描述</th>
+                                <th style="width: 5%;" class="th">编号</th>
+                                <th style="width: 5%;" class="th">操作</th>
+                            </tr>
+                            <tbody id="ProjectInfoBill"></tbody>
+                        </table>
+                        <div id="pager2" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+                <div id="RZDiv" style="border: 1px solid #707070; margin-left: 10px; display: none;">
+                    <div id="div3" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                        <table id="LogList" class="scroll" style="width: 100%;"></table>
+                        <div id="pager3" class="scroll" style="text-align: center; width: 100%;"></div>
+                    </div>
+                </div>
+
+
+            </div>
+    }
+</body>
+</html>

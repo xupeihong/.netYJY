@@ -1,0 +1,88 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@using TECOCITY_BGOI
+@model tk_SApproval
+<html>
+<head>
+  @*  <meta name="viewport" content="width=device-width" />*@
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <title>SubmitShenpi</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/SupplyManage/Shenpi.js")" type="text/javascript"></script>
+</head>
+<body>
+    @using (Html.BeginForm("SubmitShenpi", "SuppliesManage", FormMethod.Post, new { id = "ApproverInfo", action = "../COM_Approval/SubmitApproval", enctype = "multipart/form-data" }))
+    {
+        @Html.Hidden("msg", @ViewData["msg"])
+        <div id="tabTitile">审批编号：@Html.HiddenFor(model => model.PID) @ViewBag.pid</div>
+        <div style="margin-top: 10px;">
+            <table>
+                <tr>
+                    <td>
+                        <input type="button" value="设置" id="shezhi" class="btn" style="cursor: pointer" /></td>
+                </tr>
+            </table>
+        </div>
+        <div id="hole" style="overflow-y:scroll;">
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td class="textLeft">流水号</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.SID, new { @class = "txtCss" }) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">审批类型</td>
+                    <td class="textRight">
+                        @Html.Hidden("ApprovalType")
+                        <input type="checkbox" name="0" class="ckb" value="0" />
+                        逐级审批
+                                <input type="checkbox" name="1" class="ckb" value="1" />
+                        并列审批
+                    </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">审批级别</td>
+                    <td class="textRight">@Html.DropDownListFor(model => model.ApprovalLever,SupplyManage.GetConfigType("SPState"), new { @class = "txtCss" }) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">审批内容</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.ApprovalContent, new { @class = "txtCss" }) </td>
+                </tr>
+                <tr>
+                    <td class="textLeft">应审批人</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.ApprovalPersons, new { @class = "txtCss" }) <span style="color:red;">*</span></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">审批时间</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.ApprovalTime, new { @class = "txtCss" }) </td>
+                </tr>
+            </table>
+
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+            <div style="margin-top: 10px;">
+                <table>
+                    <tr>
+                        <td>
+                            <input type="button" value="确定" id="sure1" class="btn" style="cursor: pointer;margin-left:200px;" /></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+        
+    }
+</body>
+</html>

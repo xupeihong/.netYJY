@@ -1,0 +1,46 @@
+﻿
+.tabInfo{ border:1px solid #b2b0b1; border-collapse: collapse; width:100%; background-color:#eaeaea;font-size:12px;}
+.tabInfo td{border:1px solid #b2b0b1; padding-left:4px;height:23px;height:28px;}
+
+.textLeft
+{
+	background-color:#b36f6f;	
+	text-align:center;
+}
+.textright
+{
+	background-color:White;
+}
+
+
+.tabAlarm{ 
+    border-bottom:1px solid white;
+     border-collapse: collapse; 
+     width:100%; 
+     color:white;
+     /*background-color:#eaeaea;*/
+     font-size:14px;
+     margin-top:15px;
+
+}
+
+.tabAlarm td{
+    /*border:1px solid white ;*/ 
+    /*padding-left:4px;
+    min-height:23px;
+    min-width:120px;
+    text-align:center;*/
+
+}
+
+.textLefta
+{
+	/*background-color:#b36f6f;*/	
+	text-align:center;
+}
+/*.textrighta
+{
+	background-color:White;
+}*/
+
+

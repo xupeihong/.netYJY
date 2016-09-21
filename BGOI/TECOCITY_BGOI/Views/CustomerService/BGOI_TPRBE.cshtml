@@ -1,0 +1,55 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+<!DOCTYPE html>
+
+<html>
+<head>
+    @* <meta name="viewport" content="width=device-width" />*@
+    <title>BGOI_KAT</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/CustomerServiceManage/BGOI_TPRBE.js")" type="text/javascript"></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("BGOI_TPRBE", "CustomerServiceManage", FormMethod.Post, new { id = "GForm" }))
+    {
+        <div id="pageContent">
+            <div id="search" style="height: 50px;">
+                <table class="tabSearch" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>售后调压箱代管名称 @Html.TextBox("TaskName", "", new { @class = "txtCss" }) &nbsp;&nbsp;&nbsp;&nbsp;
+                            调压箱代管编号  @Html.TextBox("ProjectNum", "", new { @class = "txtCss" }) &nbsp;&nbsp;&nbsp;&nbsp;
+                            <input class="btn" type="button" value="查  询" onclick="reload()" /></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+
+            <div style="margin-top: 10px; margin-left: 80%">
+                <input class="btn" type="button" id="QD" value="确定" />
+            </div>
+        </div>
+    }
+</body>
+</html>

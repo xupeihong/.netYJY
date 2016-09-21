@@ -1,0 +1,62 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Left_ProduceManage</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-leftmenu.js")" type="text/javascript"></script>
+</head>
+<body>
+    
+    <dl id="wenzhang">
+        <dd>
+            <dl>
+                <dt><span>生产计划</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../ProductPlanManage/ProductPlanGrid')"><span> ▪ 计划管理</span></li>
+
+                    </ul>
+                </dd>
+                <dt><span>生产任务</span></dt>
+                <dd>
+                    <ul>
+                        
+                            <li onclick="TurnTo('../ProduceManage/Productiontasklist')"><span> ▪ 任务单管理</span></li>
+                            <li onclick="TurnTo('../ProduceManage/Materialrequisition')"><span> ▪ 领料单</span></li>
+                            <li onclick="TurnTo('../ProduceManage/withthejob')"><span> ▪ 随工单</span></li>
+                            <li onclick="TurnTo('../ProduceManage/InspectionReport')"><span> ▪ 检验报告</span></li>
+                            <li onclick="TurnTo('../ProduceManage/Productstorage')"><span> ▪ 完成入库</span></li>
+                        
+                    </ul>
+                </dd>
+                 <dt><span>退换货</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../ProduceManage/ExchangeGoodsManage')"><span> ▪ 退换货检验</span></li>
+
+                    </ul>
+                </dd>
+            </dl>
+            <dl>
+                <dt><span> ▪ 系统设置</span></dt>
+                <dd>
+                    <ul>
+                        <li onclick="TurnTo('../System/AppSet?id=BGOI_Produce/tk_AppContent')"><span> - 审批设置</span></li>
+                        <li onclick="TurnTo('../ProduceManage/BGLX')"><span> - 基本信息设置</span></li>
+                        <li onclick="TurnTo('../InventoryManage/InventoryAddPro?m=1')" id="xzhp"><span>- 新增货品</span></li>
+                        <li onclick="TurnTo('../InventoryManage/DefinitionOfProduct?n=1')" id="cpdy"><span>- 成品定义</span></li>
+                    </ul>
+                </dd>
+            </dl>
+        </dd>
+    </dl>
+</body>
+</html>

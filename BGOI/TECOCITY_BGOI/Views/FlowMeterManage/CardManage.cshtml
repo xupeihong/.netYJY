@@ -1,0 +1,146 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_CardSearch
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RepairRecordCard</title>
+
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/CardManage.js")" type="text/javascript"></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+@{
+    Acc_Account account = GAccount.GetAccountInfo();
+    int Rights = account.UserID;
+}
+<body>
+    @using (Html.BeginForm("CardManage", "FlowMeterManage", FormMethod.Post, new { id = "GForm" }))
+    {
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">流量计维修</span>>>维修登记卡管理
+            </div>
+            <div id="search" style="height: 100px;">
+                @Html.Hidden("Order")
+                <table class="tabSearch" cellpadding="0" cellspacing="0">
+                    <tr style="height: 30px;">
+                        <td>维修编号</td>
+                        <td>@Html.TextBoxFor(model => model.RepairID, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.RepairID)</td>
+                        <td>客户名称</td>
+                        <td>@Html.TextBoxFor(model => model.CustomerName, new { @class = "txtCss" })</td>
+                        <td>客户地址</td>
+                        <td>@Html.TextBoxFor(model => model.CustomerAddr, new { @class = "txtCss" })</td>
+                        <td>仪表编号</td>
+                        <td colspan="2">@Html.TextBoxFor(model => model.MeterID, new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td>仪表型号</td>
+                        <td>@Html.DropDownList("Model", FlowMeterMan.getConfigContent("YBModel"), new { @class = "txtCss", style = "width:167px;" })</td>
+                        <td>仪表名称</td>
+                        <td>@Html.TextBoxFor(model => model.MeterName, new { @class = "txtCss" })</td>
+                        <td>送表日期从</td>
+                        <td>@Html.TextBoxFor(model => model.SS_Date, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })</td>
+                        <td>至</td>
+                        <td>@Html.TextBoxFor(model => model.ES_Date, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td style="text-align: center;">状态</td>
+                        <td>@Html.DropDownList("State", FlowMeterMan.getConfigState("RepairState"), new { @class = "txtCss", style = "width:167px;" })</td>
+                        <td>仪表类型</td>
+                        <td>@Html.DropDownList("CardType", FlowMeterMan.getConfigContent("CardType"), new { @class = "txtCss", style = "width:167px;" })</td>
+                        <td colspan="4">
+                            <input type="button" id="CX" class="btn" value="查询" onclick="reload();" /></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="margin-top: 5px; margin-left: 10px;">
+                @if (Rights!=321)
+                {  
+                    <input class="btnL" type="button" id="XZDJK" value="新增登记卡" />
+                    <input class="btnL" type="button" id="XGDJK" value="修改登记卡" />
+                    <input class="btn" type="button" id="QRSH" value="确认收货" />
+                    <input class="btn" type="button" id="XFRW" value="下发任务" />
+                    <input class="btn" type="button" id="SCFJ" value="上传附件" />
+                    <input class="btn" type="button" id="CKXX" value="查看详细" style="margin-left: 20%;" />
+                    <input class="btnL" type="button" id="DYDJK" value="打印登记卡" />
+                    <input class="btnL" type="button" id="DYSGD" value="打印随工单" />
+                    <input class="btnL" type="button" id="DYLZD" value="打印流转单" />
+                }
+            </div>
+
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+
+            <div style="margin-top: 3px; margin-left: 10px;">
+                <input type="button" id="SGDdiv" class="btnTw" style="margin-left: 10px;" value="随工单" />
+                <input type="button" id="LZKdiv" class="btnTh" value="流转卡" />
+                <input type="button" id="FJdiv" class="btnTh" value="相关附件" />
+            </div>
+
+            <div id="SGDList" style="border: 1px solid #707070; margin-left: 10px;">
+                <div id="bor1" style="width: 100%; margin-top: 3px; margin-left: 10px;">
+                    <table id="list1" class="scroll" style="width: 100%;"></table>
+                    <div id="pager1" class="scroll" style="text-align: center; width: 100%;"></div>
+                </div>
+            </div>
+            <div id="SGDListUT" style="border: 1px solid #707070; margin-left: 10px; display: none;">
+                <div id="bor1UT" style="width: 100%; margin-top: 3px; margin-left: 10px;">
+                    <table id="list1UT" class="scroll" style="width: 100%;"></table>
+                    <div id="pager1UT" class="scroll" style="text-align: center; width: 100%;"></div>
+                </div>
+            </div>
+            <div id="LZKListUT" style="border: 1px solid #707070; margin-left: 10px; display: none;">
+                <div id="bor2UT" style="width: 100%; margin-top: 3px; margin-left: 10px;">
+                    <table id="list2UT" class="scroll" style="width: 100%;"></table>
+                    <div id="pager2UT" class="scroll" style="text-align: center; width: 100%;"></div>
+                </div>
+            </div>
+            <div id="LZKList" style="border: 1px solid #707070; margin-left: 10px; display: none;">
+                <div id="bor2" style="width: 100%; margin-top: 3px; margin-left: 10px;">
+                    <table id="list2" class="scroll" style="width: 100%;"></table>
+                    <div id="pager2" class="scroll" style="text-align: center; width: 100%;"></div>
+                </div>
+            </div>
+            <div id="FJList" style="border: 1px solid #707070; margin-left: 10px; display: none;">
+                <div id="bor3" style="width: 100%; margin-top: 3px; margin-left: 10px;">
+                    <table id="list3" class="scroll" style="width: 100%;"></table>
+                    <div id="pager3" class="scroll" style="text-align: center; width: 100%;"></div>
+                </div>
+            </div>
+
+        </div>
+        
+    }
+
+</body>
+</html>

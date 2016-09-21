@@ -1,0 +1,86 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_InspecSearch
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>InspectionManage</title>
+
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/InspectionManage.js")" type="text/javascript"></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+@{
+    Acc_Account account = GAccount.GetAccountInfo();
+    int Rights = account.UserID;
+}
+<body>
+    @using (Html.BeginForm("InspectionManage", "FlowMeterManage", FormMethod.Post, new { id = "GForm" }))
+    {
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">流量计维修</span>>>送检单管理
+            </div>
+            <div id="search" style="height: 70px;">
+                <table class="tabSearch" cellpadding="0" cellspacing="0">
+                    <tr style="height: 30px;">
+                        <td>送检单编号</td>
+                        <td>@Html.TextBoxFor(model => model.SID, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.SID)</td>
+                        <td>送检批次</td>
+                        <td>@Html.TextBoxFor(model => model.BathID, new { @class = "txtCss" })</td>
+                        <td>送检日期从</td>
+                        <td>@Html.TextBoxFor(model => model.SInspecDate, new { @class = "txtCss", onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })" })
+                            &nbsp;&nbsp;至&nbsp;&nbsp;
+                     @Html.TextBoxFor(model => model.EInspecDate, new { @class = "txtCss", onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })" })
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td colspan="6" style="text-align: right;">
+                            <input type="button" id="CX" class="btn" style="margin-left: 72%;" value="查询" onclick="reload();" /></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="margin-top: 5px; margin-left: 10px;">
+                @if (Rights != 321)
+                {  
+                    <input class="btnL" type="button" id="XJSJD" value="新建送检单" />
+                    <input class="btnL" type="button" id="XGSJD" value="修改送检单" />
+                    <input class="btnL" type="button" style="width: 120px; margin-left: 68%;" id="CKXX" value="查看详细并导出" />
+                }
+            </div>
+
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+        </div>
+    }
+</body>
+</html>

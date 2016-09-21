@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "购单管理";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    @*  <meta name="viewport" content="width=device-width" />*@
+    <title>RecordManage</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/PP/ProjectPP/PurchaseApplication.js")" type="text/javascript"></script>
+</head>
+<body>
+    <div id="pageContent">
+        <div class="mainHead">
+            <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">产品采购</span>>>请购管理>>
+        </div>
+    </div>
+    <div>
+        <fieldset style="background-color: white;">
+            <legend></legend>
+            <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; margin-bottom: 5px; margin-left: 5px; margin-right: 5px; margin-top: 5px;">
+                <tr>
+                    <td>项目名称</td>
+                    <td>@Html.TextBox("ProjectName")</td>
+                     <td>工程编号</td>
+                    <td>@Html.TextBox("PlanID")</td>
+                    <td>备案内容</td>
+                    <td>@Html.TextBox("RecordContent")</td>
+                </tr>
+                <tr>
+                    <td>规格型号</td>
+                    <td>@Html.TextBox("SpecsModels")</td>
+                    <td>所属区域</td>
+                    <td>@Html.TextBox("BelongArea")</td>
+                    <td>日期</td>
+                    <td>@Html.TextBox("StartDate")~@Html.TextBox("EndDate")</td>
+                </tr>
+                <tr>
+                    <td>负责人</td>
+                    <td>@Html.TextBox("WorkChief")</td>
+                    <td colspan="2">
+                        <div id="divState"></div>
+                    </td>
+                    <td colspan="2">
+                        <div id="divPayState"></div>    
+                        <input type="button" class="btn" id="btnSearch" style="float: right; margin-right: 10px;" value="查  询" />
+                    </td>
+
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <div style="background-color: white; height: 36px; padding-top: 5px; vertical-align: middle;">
+        <input type="button" class="btn" id="btnRecord" value="新建请购单" />&nbsp;&nbsp;&nbsp;<input type="button" class="btn" id="btnPrice" value="报  价" />&nbsp;&nbsp;&nbsp;<input type="button" class="btn" id="btnContract" value="合  同" />
+        <input type="button" class="btn" style="float: right;" id="btnDetail" value="详  细" />
+    </div>
+</body>
+</html>

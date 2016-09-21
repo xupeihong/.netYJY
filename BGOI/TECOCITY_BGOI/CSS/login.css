@@ -1,0 +1,268 @@
+﻿body {
+    margin:0 0 0 0 ;
+	font-size:12px;
+}
+
+#LoginAll
+{
+	width:100%;
+	height:100%;
+    background:url("../images/logB1.jpg") repeat;
+	/*background:url("../images/LoginBack.jpg") repeat;*/
+}
+
+#top
+{
+    height:50px;
+    width:100%;
+    background-color:#00b0e9;
+}
+
+#foot
+{   
+   height:50px;
+   width:100%;
+   background-color:#00b0e9;
+}
+
+
+#middle
+{
+  border:1px solid #00b0e9;
+  width:100%;
+}
+#M_left
+{
+    /*border-right:2px solid #ffffff;*/
+    /*width:48%;
+    height:100%;
+    float:left;
+    text-align:center;*/
+}
+
+#M_right
+{
+    /*width:48%;
+    height:100%;*/
+    /*float:right;*/
+}
+
+
+#fieldset
+{	
+    width:90%;
+    height:250px;
+    /*border:1px solid black;*/
+    /*position:relative;
+    top:27%;
+    left:3%*/
+    /*margin-top:3%;
+    padding-left:100px;*/
+	/*margin:25px;*/
+	/*background:url(../images/bjgB.png) no-repeat;*/
+	/*width:416px;
+	height:324px;*/
+}
+
+#bigBack
+{
+    /*border:1px solid red;*/
+    width:99%;
+    height:250px;
+    /*margin-top:20%;*/
+}
+
+.Fb
+{
+    width:1250px;
+    height:250px;
+    /*border:1px solid black;*/
+    float:right;
+    background:url(../images/bjgB.png) no-repeat;
+}
+
+.big
+{
+    /*border:1px solid red;
+    width:90%;
+    height:250px;
+    background:url(../images/bjgB.png) no-repeat;*/
+}
+
+.title
+{
+    /*border:1px solid red;*/
+    width:500px;
+    height:50px;
+    margin-left:40%;
+}
+.logo
+{   
+    width:44px;
+    height:44px;
+    background:url("../images/logo.png") no-repeat;
+    float:left;
+}
+.tm
+{
+    float:left;
+}
+.T1
+{   
+    width:143px;
+    height:14px;
+    background:url("../images/T1.png") no-repeat;
+    padding-top:5px;
+}
+.T2
+{   
+    width:173px;
+    height:14px;
+    background:url("../images/T2.png") no-repeat;
+    
+}
+.T3
+{   
+    width:197px;
+    height:23px;
+    background:url("../images/T3.png") no-repeat;
+    float:left;
+    margin-top:10px;
+    margin-left:10px;
+}
+
+#Main
+{
+    border:1px solid #acabb3;
+    width:284px;
+    height:178px;
+    margin-left:53%;
+}
+
+.lt
+{
+    width:284px;
+    height:29px;
+    /*border:1px solid blue;*/
+    margin-top:10px;
+    background:url("../images/lt.jpg") no-repeat;
+}
+
+.user
+{
+    /*border:1px solid red;*/
+    width:50px;
+    height:20px;
+    margin-top:25px;
+    margin-left:35px;
+    color:#8a9599;
+    font-weight:bold;
+    float:left;
+}
+.pass
+{
+    float:none;
+    /*border:1px solid red;*/
+    width:50px;
+    height:20px;
+    margin-top:10px;
+    margin-left:35px;
+    color:#8a9599;
+    font-weight:bold;
+    float:left;
+}
+
+.LU
+{
+    /*border:1px solid black;*/ 
+    width:284px;
+    height:50px;
+    float:none;
+}
+
+.LP
+{
+    /*border:1px solid black;*/
+    width:284px;
+    height:50px;
+    float:none;
+}
+
+.Tuser
+{
+    float:left;
+    margin-top:25px;
+}
+
+.Tp
+{   
+    float:left;
+    margin-top:10px;
+}
+
+.Ffoot
+{
+    /*border:1px solid red;*/
+    width:284px;
+    height:30px;
+}
+
+.editor-labelw
+{
+    /*margin: 1em 0 0 0;
+	position:relative;
+	top:90px;
+	left:84px;
+	overflow:hidden;
+	width:260px;
+    height:44px;
+	margin-top:4px;*/
+     /*background:url(../images/outSide.png) no-repeat;*/
+}
+
+.editor-label
+{
+    /*margin: 1em 0 0 0;
+	position:relative;
+	top:121px;
+	left:84px;
+	overflow:hidden;
+	width:260px;
+	margin-top:4px;*/
+}
+
+#logon
+{
+    margin-left:20px;
+}
+
+.btn
+{
+    width:60px;
+    height:23px;
+    /*color: #FFF;*/
+    font-size: 13px;
+    font-weight:bold;
+    line-height:21px;
+    margin-left:10px;
+    background-color:#3790d2;
+    border:none;
+    color:#d0ecf8;
+    /*background:url(../images/btn_log.png) no-repeat;*/
+}
+
+.name
+{
+    margin-top:30px;
+}
+
+.outside
+{
+     /*background:url(../images/outSide.png) no-repeat;*/
+      
+      width:260px;
+       height:44px
+ }
+
+
+

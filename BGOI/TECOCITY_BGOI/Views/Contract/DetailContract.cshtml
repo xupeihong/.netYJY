@@ -1,0 +1,31 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_PrintPageSet.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        function win() {
+            document.getElementById("dis").style.display = "none";
+            pagesetup("0.7", "0", "0.4", "0.3");
+            window.print();
+        }
+    </script>
+</head>
+@using (Html.BeginForm("DetailContract", "Contract", FormMethod.Post, new { id = "formInfoUP" }))
+{
+    <body style="overflow: auto;">
+    </body>
+       
+}
+</html>

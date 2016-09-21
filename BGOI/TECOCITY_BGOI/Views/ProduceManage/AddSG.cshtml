@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_ProductRecord
+
+<html>
+<head>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>AddTask</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Inventory/AddStockIn.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/ProduceManage/AddSG.js")" type="text/javascript"></script>
+    <style type="text/css">
+        .RowClass
+        {
+            background-color: #efd2d2;
+        }
+
+        .txtCss
+        {
+            width: 120px;
+        }
+
+        .new
+        {
+            width: 210px;
+        }
+
+         .a
+        {
+            width: 210px;
+        }
+
+        .news
+        {
+            width: 550px;
+        }
+    </style>
+</head>
+<body>
+    <form method="post">
+        <div id="search1" style="height: 400px; width: 780px;">
+            <h1>随工单</h1>
+            <div style="height: 30px;">
+                @Html.HiddenFor(model => model.SGID)
+                @Html.HiddenFor(model => Model.RWID)
+                @Html.HiddenFor(model => Model.CreateUser)
+                <table class="tabSearch" cellpadding="0" cellspacing="0" style="">
+                    <tr>
+                        <td>任务单号:@Model.RWID   &nbsp;&nbsp;
+                     编号: @Html.TextBoxFor(model => Model.ID, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.ID)&nbsp;&nbsp;
+                    @* 负责人 @Html.TextBox("SpecsModels","", new {@class="txtCss" })&nbsp;&nbsp; *@
+                           开单日期<input type="text" id="billing" onclick="WdatePicker()" class="Wdate" style="width: 100px;" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="aa" style="height: 5px"></div>
+            <div id="a" style="background-color: #0099FF; Color: white; height: 20px; width: 100%; font-size: 15px; text-align: left; line-height: 20px">产品信息</div>
+            <div style="width: 97%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <div style="overflow-y: scroll; max-height: 90px;">
+                        <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                            <tr align="center" valign="middle">
+                                <th style="width: 5%;" class="th"></th>
+                                <th style="width: 5%;" class="th">序号
+                                </th>
+                                <th style="width: 15%;" class="th">产品编码
+                                </th>
+                                <th style="width: 15%;" class="th">产品名称
+                                </th>
+                                <th style="width: 20%;" class="th">规格型号
+                                </th>
+                                <th style="width: 10%;" class="th">单位
+                                </th>
+                                <th style="width: 10%;" class="th">数量
+                                </th>
+                                <th style="width: 10%;" class="th">批次号
+                                </th>
+                                <th style="width: 10%;" class="th">备注
+                                </th>
+                            </tr>
+                            <tbody id="DetailInfo">
+                            </tbody>
+                        </table>
+                    </div>
+                </tr>
+            </div>
+
+            <div id="b1" style="height: 5px"></div>
+            <div id="bb2" style="background-color: #0099FF; Color: white; height: 20px; width: 100%; font-size: 15px; text-align: left; line-height: 20px; float: left">其他信息</div>
+            <div style="height: 100px;">
+                <table class="tabSearch" cellpadding="0" cellspacing="0" style="">
+                    <tr>
+                        <td>&nbsp;&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注
+                            <input type="text" id="Remark" style="width: 240px;" />
+                        </td>
+                        <td>库房 @Html.DropDownList("HouseID", ProduceMan.GetHouseIDs(), new { @class = "a" })
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>记&nbsp;&nbsp;录&nbsp;&nbsp;人:  @Model.CreateUser
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="margin-top: 20px; margin-left: 0%;">
+                <input class="btn" type="button" id="btnSave" value="保存" />
+                <input class="btn" type="button" id="Cancel" value="取消" />
+            </div>
+        </div>
+    </form>
+</body>
+</html>

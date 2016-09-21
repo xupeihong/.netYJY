@@ -1,0 +1,183 @@
+﻿@{
+    ViewBag.Title = "AddCustimerOrder";
+}
+@using TECOCITY_BGOI;
+@model OrdersInfo
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AddOffer</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+  @*  <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>*@
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/CustomerServiceManage/AddCustimerOrder.js")" type="text/javascript"></script>
+    <style>
+        .RowClass {
+            background-color: #efd2d2;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("AddCustimerOrder", "CustomerServiceManage", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+    {
+        <div id="tabTitile" style="width: 1000px;"><span style="margin-left: 10px; float: left;">订单编号：@Model.OrderID</span></div>
+        @Html.HiddenFor(model => Model.OrderID)
+        <div style="height: 550px; overflow-y: auto; text-align: left; width: 1000px;">
+            <table class="tabInfo" style="width: 99%; margin-left: 8px; margin-top: 10px;">
+                @* <tr style="text-align: center; font: bold; margin-top: 20px; font-size: 24px;" id="ShowPlist">
+                    <td colspan="4">备案编号：@Model.PID</td>
+                </tr>*@
+                <tr id="ShowClist">
+                    <td colspan="8">合同编号：@Model.ContractID  @Html.HiddenFor(model => Model.ContractID)</td>
+                </tr>
+                <tr>
+                    <td>订单单位:</td>
+                    <td>
+                        @Html.TextBoxFor(model => Model.OrderUnit)<span style="color: red;"> * </span>
+                    </td>
+                    <td>联系人:</td>
+                    <td>
+                        @Html.TextBoxFor(model => Model.OrderContactor)
+                    </td>
+                    <td>联系电话:</td>
+                    <td>
+                        @Html.TextBoxFor(model => Model.OrderTel)
+                        @Html.ValidationMessageFor(model => model.OrderTel)
+                    </td>
+                    <td>地址:</td>
+                    <td>
+                        @Html.TextBoxFor(model => Model.OrderAddress)
+                        @Html.ValidationMessageFor(model => model.OrderAddress)
+                    </td>
+                </tr>
+                <tr>
+                    <td>使用单位:</td>
+                    <td>
+                        @Html.TextBoxFor(model => Model.UseUnit)
+                    </td>
+                    <td>联系人:</td>
+                    <td>
+                        @Html.TextBoxFor(model => Model.UseContactor)
+                    </td>
+                    <td>联系电话:</td>
+                    <td>
+                        @Html.TextBoxFor(model => Model.UseTel)
+                    </td>
+                    <td>地址:</td>
+                    <td>
+                        @Html.TextBoxFor(model => Model.UseAddress)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="8">
+                        <input type="button" class="btn" onclick="CheckDetail()" value="添加" style="display:none" id="btnAdd" name="btnAddF" />
+                        
+                        <input type="button" class="btn" onclick="addKonghang();" value="添加"
+                            id="btnAdd1" name="btnAdd1" />&nbsp;
+                        <input type="button" class="btn" onclick="DeleteRow();" value="删除" id="btnDel" name="btnDel" />
+                        <div style="overflow-y: scroll;">
+                            <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo">
+                                <tr style="background-color: #88c9e9;" align="center" valign="middle">
+                                    <td style="width: 50px;">序号
+                                    </td>
+                                    <td style="width: 100px;">物品编号
+                                    </td>
+                                    <td style="width: 100px;">物品名称
+                                    </td>
+                                    <td style="width: 100px;">规格型号
+                                    </td>
+                                    <td style="width: 50px;">单位
+                                    </td>
+                                    <td style="width: 50px;">数量
+                                    </td>
+                                    <td style="width: 50px;">供应商
+                                    </td>
+                                    <td style="width: 50px;">单价
+                                    </td>
+                                    <td style="width: 50px;">税率
+                                    </td>
+                                    <td style="width: 50px;">小计
+                                    </td>
+                                    <td style="width:300px;">技术要求或参数
+                                    </td>
+                                    <td style="width: 100px;">交货时间
+                                    </td>
+                                </tr>
+                                <tbody id="DetailInfo"></tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>合计</td>
+                    <td colspan="7">
+                        @Html.TextBoxFor(model => Model.Total, new { style = "width:98%", @readonly = "readonly" })￥
+                    </td>
+                </tr>
+                <tr>
+                    <td>付款方式</td>
+                    <td colspan="7">
+                        @Html.DropDownListFor(model => Model.PayWay, SalesManage.Methods(), new { style = "width:100%" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>产品保修期</td>
+                    <td colspan="7">
+                        @Html.TextBoxFor(model => Model.Guarantee, new { style = "width:98%", })
+                        <span style="color: red;">* </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>预计回款日期</td>
+                    <td colspan="7">
+                        @Html.TextBoxFor(model => Model.ExpectedReturnDate, new { @class = "txtCss", style = "width:98%", @readonly = "readonly", onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})" })<span style="color: red;"> * </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">供方</td>
+                    <td>单位</td>
+                    <td colspan="3">@Html.TextBoxFor(model => Model.Provider, new { style = "width:98%" })@Html.ValidationMessageFor(model => model.Provider)</td>
+                    <td rowspan="2">需方 </td>
+                    <td>单位</td>
+                    <td>@Html.TextBoxFor(model => Model.Demand, new { style = "width:98%" })@Html.ValidationMessageFor(model => model.Demand)</td>
+                </tr>
+                <tr>
+                    <td>负责人：</td>
+                    <td colspan="3">@Html.DropDownListFor(model => Model.ProvidManager, CustomerServiceMan.GetUM_USERNEW(GAccount.GetAccountInfo().UnitID), new { style = "width:96%" })<span style="color: red;"> * </span>@*@Html.ValidationMessageFor(model => model.ProvidManager)*@</td>
+                    <td>负责人：</td>
+                    <td>@Html.TextBoxFor(model => Model.DemandManager, new { style = "width:98%" })@*@Html.ValidationMessageFor(model => model.DemandManager)*@</td>
+                </tr>
+                <tr>
+                    <td>备注：</td>
+                    <td colspan="7">@Html.TextAreaFor(model => Model.Remark, new { style = "height:20px;width:100%" })@*@Html.ValidationMessageFor(model => model.Remark)*@</td>
+                </tr>
+                <tr>
+                    <td>业务渠道：</td>
+                    <td colspan="7">@Html.TextAreaFor(model => Model.ChannelsFrom, new { style = "height:20px;width:100%" })</td>
+                </tr>
+                <tr>
+                    <td colspan="8" style="text-align: center">
+                        <input type="button" class="btn" id="btnSaveOrder" value="保存" />
+                        <input type="button" class="btn" id="btnExit" value="取消" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</body>
+</html>

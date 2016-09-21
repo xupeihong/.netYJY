@@ -1,0 +1,129 @@
+﻿@{
+    ViewBag.Title = "AddContract";
+}
+
+@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "";
+}
+@using TECOCITY_BGOI;
+@model ContractBas
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Sales/AddContract.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset=“UTF-8″></script>
+
+</head>
+@{
+    Acc_Account account = GAccount.GetAccountInfo();
+    string UnitID = account.UnitID;
+}
+@using (Html.BeginForm("AddContract", "Contract", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+{
+    <body>
+        <div id="hole" style="overflow-y: auto;">
+            @Html.Hidden("StrPID", @ViewData["StrPID"])
+            <div id="tabTitile"><span style="margin-left: 10px;">合同ID：@Model.StrCID</span></div>@Html.HiddenFor(model => model.StrCID)
+            <table class="tabInfo" style="width: 97%; margin-left: 8px; margin-top: 10px;">
+
+                <tr>
+                    <td class="textLeft">合同编号</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrContractID, new { @class = "txtCss" })<span style="color: red;">*</span>@Html.ValidationMessageFor(model => model.StrContractID)</td>
+                </tr>
+                @*<tr>
+                    <td class="textLeft">业务类型</td>
+                    <td class="textRight" colspan="3">
+                        @Html.DropDownListFor(model => model.StrBusinessType, EquipMan.GetNewConfigContentByUnit(UnitID), new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.StrBusinessType)
+                        <input class="btn" type="button" id="XZXM" value="选择项目" />
+                    </td>
+                </tr>*@
+                @*<tr>
+                    <td class="textLeft">对应项目编号</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrPID, new { @class = "txtCss", @ReadOnly = "ReadOnly", onkeypress = "return !(event.keyCode==8)", onkeydown = "return !(event.keyCode==8)" })</td>
+                </tr>*@
+                <tr>
+                    <td class="textLeft">合同名称</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrCname, new { style = "width:80%" })<span style="color: red;">*</span> @Html.ValidationMessageFor(model => model.StrCname)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">合同内容</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrContractContent, new { style = "width:80%;height:50px;" }) @Html.ValidationMessageFor(model => model.StrContractContent)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">合同开始时间</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrCStartTime, new { @class = "txtCss", onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })" }) @Html.ValidationMessageFor(model => model.StrCStartTime)</td>
+                    <td class="textLeft">合同工期</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrTimeScale, new { @class = "txtCss" }) 天 @Html.ValidationMessageFor(model => model.StrTimeScale)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">预计完工时间</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrCPlanEndTime, new { @class = "txtCss", onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })" }) @Html.ValidationMessageFor(model => model.StrCPlanEndTime)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">合同初始金额</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrCBeginAmount, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.StrCBeginAmount)</td>
+                    <td class="textLeft">履约保证金</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrMargin, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.StrMargin)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">合同签订回款次数</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrAmountNum, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.StrAmountNum)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">合同签署日期</td>
+                    <td class="textRight">@Html.TextBoxFor(model => model.StrCtime, new { @class = "txtCss", onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })" }) @Html.ValidationMessageFor(model => model.StrCtime)</td>
+                    <td class="textLeft">经办人</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrPrincipal, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.StrPrincipal)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">合同款向</td>
+                    <td class="textRight" colspan="3">@Html.DropDownListFor(model => model.StrPayOrIncome, EquipMan.GetNewConfigContent("PayOrIncome"), new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.StrPayOrIncome)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">甲方单位</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrPartyA, new { style = "width:80%" }) @Html.ValidationMessageFor(model => model.StrPartyA)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">乙方单位</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrPartyB, new { style = "width:80%" }) @Html.ValidationMessageFor(model => model.StrPartyB)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">合同状态</td>
+                    <td class="textRight" colspan="3">@Html.DropDownListFor(model => model.StrState, ContractMan.GetNewState(), new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.StrState)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">页数</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrPageCount, new { @class = "txtCss" }) @Html.ValidationMessageFor(model => model.StrPageCount)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">备注</td>
+                    <td class="textRight" colspan="3">@Html.TextBoxFor(model => model.StrRmark, new { style = "width:80%;height:50px;" }) @Html.ValidationMessageFor(model => model.StrRmark)</td>
+                </tr>
+            </table>
+            <div style="margin-top: 10px; margin-left: 80%">
+                <input class="btn" type="submit" id="charge" value="确定" />
+            </div>
+
+
+        </div>
+    </body>
+
+}
+</html>

@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "ShowProject";
+}
+@using TECOCITY_BGOI
+@model ProjectBasInfo
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RecordInfo</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    @*<script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_Tables.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Sales/ShowProject.js")" type="text/javascript"></script>
+    <style>
+        .LeftTd {
+            text-align: left;
+        }
+
+        .RowClass {
+            background-color: #efd2d2;
+        }
+    </style>
+
+</head>
+
+<body>
+    <form id="form1" method="post">
+        <div id="tabTitile"><span style="margin-left: 10px; float: left;">备案编号：@Model.PID</span></div>@Html.HiddenFor(model => Model.PID)
+        <div style="height: 545px; overflow-y:auto;">
+            <table class="tabInfo" style="width: 99%; margin-left: 8px; margin-top: 10px;">
+                <tr>
+                    <td>工程编号：</td>
+                    <td class="LeftTd">
+                        @Html.DisplayFor(model => model.PlanID)
+                    </td>
+                    <td>项目名称：</td>
+                    <td class="LeftTd">
+                        @Html.DisplayFor(model => model.PlanName)
+                    </td>
+                </tr>
+                <tr>
+                    <td>业务负责人：</td>
+                    <td class="LeftTd">
+                        @Html.DisplayFor(model => model.WorkChief)
+                    </td>
+                    <td>施工方：</td>
+                    <td class="LeftTd">
+                        @Html.DisplayFor(model => model.Constructor)
+                    </td>
+                </tr>
+                <tr>
+                    <td>电话：</td>
+                    <td class="LeftTd">
+                        @Html.DisplayFor(model => model.Tel)
+                    </td>
+                    <td>所属区域：</td>
+                    <td class="LeftTd">
+                        @Html.DisplayFor(model => model.BelongArea)
+                    </td>
+                </tr>
+                <tr>
+                    <td>预计订购时间：</td>
+                    <td class="LeftTd">
+                        @Html.DisplayFor(model => model.ExpectedTime)
+                    </td>
+                    <td>渠道来源：</td>
+                    <td class="LeftTd">
+                        @Html.DisplayFor(model => model.ChannelsFrom)
+                    </td>
+                </tr>
+                <tr>
+                    <td>备案人：</td>
+                    <td colspan=" 4" style=" text-align :left ">
+                        @Html.DisplayFor(model => model.Manager)
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>备注：</td>
+                    <td colspan=" 4" style=" text-align :left ">
+                        @Html.DisplayFor(model => model.Remark)
+                    </td>
+                </tr>
+               
+                <tr>
+                    <td colspan="4"></td>
+                </tr>
+                @*<tr>
+                    <td style="text-align :center" colspan="4">*@
+
+                @*</td>
+                    </tr>*@
+            </table>
+            <div id="bor" style="height: 250px; overflow-y:auto;" >
+                <div style="overflow-y: scroll;">
+                    <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo"></table>
+                    <div id="pager1" class="scroll" style="text-align: center; width: 100%;"></div>
+                </div>
+                <input type="button" class="btn" id="btnExit" value="取消" />
+            </div>
+        </div>
+      
+    </form>
+</body>
+</html>

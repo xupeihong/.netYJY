@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "ExchangeCheckGoods";
+}
+@using TECOCITY_BGOI
+@model Exchange_Check
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AddOffer</title>
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ProduceManage/ExchangeCheckGoods.js")" type="text/javascript"></script>
+    <style>
+        .RowClass
+        {
+            background-color: #efd2d2;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" method="post">
+        <div id="c" style="width: 50px; height: 20px;padding-top:5px;padding-left:10px">
+            <input type="button" onclick="btnCheck();" class="btn"  value="选择退换货" />&nbsp;&nbsp;&nbsp;
+        </div>
+         <div id="aa" style="height: 5px"></div>
+        <div id="tabTitile"><span style="margin-left: 10px; float: left;">退换货编号：@Html.TextBoxFor(model => Model.EID, new {@readOnly="true"})</span></div>@Html.HiddenFor(model => Model.EID)
+        <div>退货检验编号：@Model.TID  @Html.HiddenFor(model => Model.TID)</div>
+        <div style="height: 200px; overflow-y: auto;">
+            <div>
+                <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo" style="width: 98%;">
+                    <tr style="background-color: #88c9e9; text-align: left;">
+                        <td colspan="10">退货检验货品</td>
+                    </tr>
+                    <tr align="center" valign="middle">
+                        <th style="width: 10%;" class="th">货品编号
+                        </th>
+                        <th style="width: 15%;" class="th">订货内容
+                        </th>
+                        <th style="width: 15%;" class="th">规格型号
+                        </th>
+                        <th style="width: 10%;" class="th">包装折损情况
+                        </th>
+                        <th style="width: 10%;" class="th">外观折损情况
+                        </th>
+                        <th style="width: 10%;" class="th">零配件少损情况
+                        </th>
+
+                        <th style="width: 10%;" class="th">质量情况
+                        </th>
+                        <th style="width: 10%;" class="th">备注
+                        </th>
+                    </tr>
+                    <tbody id="DetailInfo"></tbody>
+                </table>
+            </div>
+
+            <div>
+                <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo" style="width: 98%;">
+                    <tr style="background-color: #88c9e9; text-align: left;">
+                        <td colspan="10">检验信息</td>
+                    </tr>
+                    <tr>
+                        <td>检验日期：</td>
+                        <td>@Html.TextBoxFor(model => Model.ChangeDate, new { @class = "txtCss", @readonly = "readonly", Value = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now), onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss'})" })<span style="color: red;"> * </span>@Html.ValidationMessageFor(model => model.ChangeDate)</td>
+                        <td>退货方式：</td>
+                        <td>@Html.DropDownList("Brokerage", SalesManage.GetEXCType())</td>
+                    </tr>
+                    <tr>
+                        <td>检验说明：</td>
+                        <td colspan=" 3">@Html.TextBoxFor(model => Model.CheckDescription)<span style="color: red;"> * </span>@Html.ValidationMessageFor(model => model.CheckDescription)</td>
+
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <div>
+            <table id="myTable" cellpadding="0" cellspacing="0" class="tabInfo" style="width: 98%;">
+                <tr style="background-color: #88c9e9; text-align: left;">
+                    <td colspan="10">记录人信息</td>
+                </tr>
+                <tr>
+                    <td>记录人：</td>
+                    <td colspan=" 3">@Html.TextBoxFor(model => Model.RememberPeople)<span style="color: red;"> * </span>@Html.ValidationMessageFor(model => model.RememberPeople)</td>
+                </tr>
+
+            </table>
+        </div>
+        <input type="button" class="btn" id="btnSaveExCheck" value="保存" />
+        <input type="button" class="btn" id="btnExit" value="取消" />
+    </form>
+</body>
+</html>
+

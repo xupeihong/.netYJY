@@ -1,0 +1,113 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_Payment
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditPayment</title>
+    
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/EditPayment.js")" type="text/javascript"></script>
+
+</head>
+<body>
+    @using (Html.BeginForm("EditPayment", "FlowMeterManage", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+    { 
+    <div id="pageContent" style="overflow-y:auto;">
+       <div style="width:98%;margin-left:10px;margin-top:5px;">
+            <table class="tabInfo" id="content" style="width:98%;" align="center" >
+                <tr style="height:30px;"> 
+                    <td colspan="2" style="text-align:center; font-size:20px; font-weight:bold;">缴费单详细信息</td>
+                </tr>
+                <tr style="height:30px;">@Html.Hidden("QIDs",ViewData["QIDs"])
+                    <td class="textLeftL">缴费单号</td>
+                    <td class="textRightL">
+                        @Html.TextBoxFor(model=>model.StrPayID, new { @class = "txtCss", @ReadOnly = "ReadOnly", onkeypress = "return !(event.keyCode==8)", onkeydown = "return !(event.keyCode==8)" })
+                        @Html.ValidationMessageFor(model => model.StrPayID)
+                    </td>
+                </tr>
+                <tr style="height:30px;">
+                    <td class="textLeftL">缴费单位</td>
+                    <td class="textRightL">
+                        @Html.DropDownListFor(model => model.StrPayUnit,FlowMeterMan.GetCustomerName(),new{@class="txtCss"})
+                        @Html.ValidationMessageFor(model => model.StrPayUnit)
+                    </td>
+                </tr>
+                <tr style="height:30px;">
+                    <td class="textLeftL">缴费人</td>
+                    <td class="textRightL">
+                        @Html.TextBoxFor(model => model.StrPayPerson,  new { @class = "txtCss" })
+                        @Html.ValidationMessageFor(model => model.StrPayPerson)
+                    </td>
+                </tr>
+                <tr style="height:30px;">
+                    <td class="textLeftL">缴费时间</td>
+                    <td class="textRightL">
+                        @Html.TextBoxFor(model => model.StrPayDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })
+                        @Html.ValidationMessageFor(model => model.StrPayDate)
+                    </td>
+                </tr>
+                <tr style="height:30px;">
+                    <td class="textLeftL">应缴费金额</td>
+                    <td class="textRightL">
+                        @Html.TextBox("TotalPriceC", ViewData["TotalPriceC"], new { @class = "txtCss", @ReadOnly = "ReadOnly", onkeypress = "return !(event.keyCode==8)", onkeydown = "return !(event.keyCode==8)" })
+                    </td>
+                </tr>
+                <tr style="height:30px;">
+                    <td class="textLeftL">实际缴费金额</td>
+                    <td class="textRightL">
+                        @Html.TextBoxFor(model => model.StrPayMount, new { @class = "txtCss" , onblur="getPrice();" })
+                        @Html.ValidationMessageFor(model => model.StrPayMount)
+                    </td>
+                </tr>
+                <tr style="height:30px;">
+                    <td class="textLeftL">欠款</td>
+                    <td class="textRightL">
+                        @Html.TextBox("LowPrice",ViewData["LowPrice"], new { @class = "txtCss", @ReadOnly = "ReadOnly", onkeypress = "return !(event.keyCode==8)", onkeydown = "return !(event.keyCode==8)" })
+                    </td>
+                </tr>
+                <tr style="height:30px;">
+                    <td class="textLeftL">备注</td>
+                    <td class="textRightL">
+                        @Html.TextBoxFor(model => model.StrComments, new { @class = "txtCss", style = "width:70%; height:70px;" })
+                    </td>
+                </tr>
+                <tr>
+                    @Html.HiddenFor(model=>model.StrQID)
+                    <td colspan="2">
+                        <div id="bor" style="width: 100%; margin-top: 5px; ">
+                            <table id="list" class="scroll" style="width: 98%;" align="center"></table>
+                            <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+                        </div><br />
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        <div style="float:right; margin-top:10px;">
+           <input type="submit" id="QRXG" class="btn" value="确认修改" style="margin-right:10px;"/> 
+            <br /><br />
+        </div>
+    </div>
+    }
+</body>
+</html>

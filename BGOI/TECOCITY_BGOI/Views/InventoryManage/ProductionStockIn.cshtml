@@ -1,0 +1,155 @@
+﻿@using TECOCITY_BGOI;
+@{
+    Layout = null;
+}
+@model ProductionStockInQuery
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    <title>ProtoStockIn</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" ></script>
+    <script src="@Url.Content("~/Scripts/InventoryManage/ProductionStockIn.js")" type="text/javascript"></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+               #ulGJ li:hover
+        {
+            background: #bcf492;
+        }
+        .selDiv
+        {           
+             /*margin-left:-100%;*/
+            background: #f5f5f5;
+            text-align:center;
+            display: none;
+            width: 190px;
+            max-height: 116px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: absolute;
+            border: 1px solid #7f9cba;
+
+        }
+        .selDivp
+        {           
+             /*margin-left:-100%;*/
+            background: #f5f5f5;
+            text-align:center;
+            display: none;
+            width: 150px;
+            max-height: 116px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: absolute;
+            border: 1px solid #7f9cba;
+
+        }
+    </style>
+    @{
+        Acc_Account unitname = GAccount.GetAccountInfo();
+        string Rights = unitname.Rights;
+        
+    }
+</head>
+
+<body>
+    @using (Html.BeginForm("ProductionStockInListToExcelFZ", "InventoryManage", FormMethod.Post, new { id = "GForm" }))
+    {
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">库存管理</span>>>生产组装入库
+            </div>
+            <div id="search" style="height: 130px;">
+                <table class="tabSearch" cellpadding="0" cellspacing="0">
+                    <tr style="height: 30px;">
+                        <td>入库单号</td>@Html.Hidden("ListInIDN","")
+                        <td>@Html.TextBox("ListInID", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ListInID)</td>
+                        <td>入库批号</td>
+                        <td>@Html.TextBox("BatchID", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.BatchID)</td>
+                         <td>规格型号</td>
+                        @* <td>@Html.DropDownList("Spec", InventoryMan.GetSpec(), new { @class = "txtCss", style = "width:167px;" })</td>*@
+                        <td>@Html.TextBox("Spec", "", new { style = "width:190px;" })
+                            <div id="divGJ" class="selDiv" onmouseover="isOut=false;" onmouseout="isOut=true;">
+                                <ul id="ulGJ" style="list-style: none;">
+                                </ul>
+                            </div>
+                        </td>
+                        @*   <td>所属仓库</td>
+                        <td>@Html.DropDownList("HouseID", InventoryMan.GetHouseSYID(), new { @class = "txtCss" })</td>*@
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td>货品库类型</td>
+                        <td>@Html.DropDownList("ProType", InventoryMan.GetProType(), new { @class = "txtCss", style = "width:167px;", @onchange = "changcollege(this.value)" })</td>
+                        <td id="one">一级仓库</td>
+                        <td>@Html.Hidden("IsHouseIDoneto","")
+                            <select id="IsHouseIDone" style="width: 167px" runat="server" onchange="chang1()">
+                                <option value="0">--请选择--</option>
+                            </select></td>
+                        <td id="two">二级仓库</td>
+                        <td>@Html.Hidden("IsHouseIDtwoto","")
+                            <select id="IsHouseIDtwo" style="width: 167px" runat="server" onchange="chang2()">
+                                <option value="0">--请选择--</option>
+                            </select></td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td>入库时间</td>
+                        <td>@Html.TextBox("Begin", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })</td>
+                        <td>至</td>
+                        <td>@Html.TextBox("End", "", new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })</td>
+                        <td>状态</td>
+                        <td>@Html.RadioButton("State", "0", new { @checked = true })未入库  
+                            @Html.RadioButton("State", "1")已入库  
+                        </td>
+                    </tr>
+                    <tr style="height: 30px;">
+                        <td colspan="6">
+                            <input type="button" id="CX" class="btn" value="查 询" style="margin-left: 90%;" onclick="SearchOut()" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="margin-top: 5px; margin-left: 10px;height:30px">
+                @if (Rights.IndexOf(",Y1,") >= 0)
+                {
+                    <input class="btnL" type="button" value="生产组装入库" onclick="AddProtoStockIn()" />
+                    <input class="btn" type="button" id="Fin" value="入库完成" />
+                }
+                <input type="button" class="btn" style="float: right; margin-right: 15px;" id="btnPrint" value="打  印" />
+                 <input type="submit" class="btn" style="float: right; margin-right: 15px; " onclick="FX()" id="excel" value="导出" />
+            </div>
+
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+
+            <div id="bor1" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list1" class="scroll" style="width: 100%;"></table>
+                <div id="pager1" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+        </div>
+    }
+</body>
+</html>

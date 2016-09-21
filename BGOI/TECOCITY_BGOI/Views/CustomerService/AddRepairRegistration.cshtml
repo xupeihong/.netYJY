@@ -1,0 +1,162 @@
+﻿@{
+    Layout = null;
+}
+
+@using TECOCITY_BGOI
+@model tk_WXRequisit
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddRepairRegistration</title>
+
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Sales/RecordInfo.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+  @*  <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>*@
+
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_Tables.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/CustomerServiceManage/AddRepairRegistration.js")" type="text/javascript"></script>
+
+</head>
+<body>
+    <form>
+        <div id="tabTitile"><span style="margin-left: 10px; float: left;">编码：@Model.BXID</span></div>@Html.HiddenFor(model => Model.BXID)
+        <div id="tabTitile2" style="width: auto; height: auto;float: left;">
+            <span style="margin-left: 10px; float: left; font-size: 15px;">报修编号:</span><div style="float: left;">@Html.TextBox("RepairID", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.RepairID)
+            </div>
+            <span style="margin-left: 230px; float: left; font-size: 15px;">登录日期:</span><div id="localtime" style="float: right;"></div>
+        </div>
+        <br />
+        <div style="height: 450px; overflow-y: auto; margin-top: 15px; text-align: left;">
+            <table class="tabInfo" style="width: 99%; margin-left: 8px; margin-top: 10px;">
+                <tr style="text-align: center; font: bold; margin-top: 20px; font-size: 24px;">
+                    <td colspan="6">报修登记</td>
+                </tr>
+                <tr style="background-color: #88c9e9; text-align: left;">
+
+                    <td colspan="6">用户及设备信息</td>
+                </tr>
+                <tr>
+                    @* <td class="textLeft">客户名称 </td>
+                    <td>@Html.DropDownListFor(model => model.Customer, CustomerServiceMan.GetKClientBas(), new { @class = "txtCss", @onchange = "GaiBian()" })</td>
+                    <td class="textLeft">联系人:</td>
+                    <td>@Html.TextBox("ContactName", "", new { @class = "txtCss", @readonly = "true" })@Html.ValidationMessageFor(model => model.ContactName)
+                    </td>
+                    <td class="textLeft">电话:</td>
+                    <td>@Html.TextBox("Tel", "", new { @class = "txtCss", @readonly = "true" })@Html.ValidationMessageFor(model => model.Tel)
+                    </td>*@
+
+                    <td class="textLeft">客户名称 </td>
+                    <td>@Html.TextBox("Customer", "", new { @class = "txtCss", @onchange = "GaiBian()"  })</td>
+                    <td class="textLeft">联系人:</td>
+                    <td>@Html.TextBox("ContactName", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ContactName)
+                    </td>
+                    <td class="textLeft">电话:</td>
+                    <td>@Html.TextBox("Tel", "", new { @class = "txtCss", @onchange = "GetTelBZID()" })@Html.ValidationMessageFor(model => model.Tel)
+                    </td>
+                </tr>
+                <tr id="bzbh" style="display: none">
+                    @*@Html.TextBox("BZID", "", new { @class = "txtCss", @readonly = "true" })*@
+                    <td class="textLeft">报装编号:</td>
+                    <td colspan="5" id="bzbhtd"></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">地址</td>
+                    <td colspan="5">@Html.TextBox("Address", "", new { @class = "txtCss", @style = "width:580px" })@Html.ValidationMessageFor(model => model.Address)
+                    </td>
+                </tr>
+               @* <tr>
+                    <td class="textLeft">产品名称 </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.DeviceName, CustomerServiceMan.GetOrderContent(), new { @class = "txtCss", @onchange = "changenew(this.value)" })</td>
+                    <td class="textLeft">产品编号 </td>
+                    <td>@Html.TextBox("DeviceID", "", new { @class = "txtCss", @readonly = "true" })@Html.ValidationMessageFor(model => model.DeviceID)
+                    </td>
+                    <td class="textLeft">产品型号 </td>
+                    <td>@Html.TextBox("DeviceType", "", new { @class = "txtCss", @readonly = "true" })@Html.ValidationMessageFor(model => model.DeviceType)
+                    </td>
+                </tr>*@
+
+                    <tr>
+                    <td class="textLeft">产品名称 </td>
+                    <td>
+                        @Html.TextBox("DeviceName", "", new { @class = "txtCss"})</td>
+                    <td class="textLeft">产品编号 </td>
+                    <td>@Html.TextBox("DeviceID", "", new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.DeviceID)
+                    </td>
+                    <td class="textLeft">产品型号 </td>
+                    <td>@Html.TextBox("DeviceType", "", new { @class = "txtCss"})@Html.ValidationMessageFor(model => model.DeviceType)
+                    </td>
+                </tr>
+
+
+              @*  <tr>
+                    <td class="textLeft">收款时间：</td>
+                    <td colspan="5">
+                        <input type="text" id="CollectionTime" onclick="WdatePicker()" class="Wdate" style="width: 170px;" /></td>
+                </tr>*@
+                <tr>
+                    <td>启用日期
+                        <input type="text" id="EnableDate" onclick="WdatePicker()" class="Wdate" style="width: 170px;" />
+                    </td>
+                    <td class="textLeft">保修期:</td>
+                    <td colspan="2">@Html.RadioButton("GuaranteePeriod", "0", new { @checked = true })保修期内  
+                                                 @Html.RadioButton("GuaranteePeriod", "1")保修期外  </td>
+                    <td class="textLeft">保修卡编号 </td>
+                    <td>@Html.DropDownListFor(model => model.BXKNum, CustomerServiceMan.GetWXGCard(), new { @class = "txtCss" })</td>
+                </tr>
+            </table>
+            <table class="tabInfo" style="width: 99%; margin-left: 8px; margin-top: 10px;">
+                <tr style="background-color: #88c9e9; text-align: left;">
+
+                    <td colspan="6">报修信息</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">报修日期：</td>
+                    <td colspan="5">
+                        <input type="text" id="RepairDate" onclick="WdatePicker()" class="Wdate" style="width: 170px;" /></td>
+                </tr>
+                <tr>
+                    <td class="textLeft">用户报修简述：</td>
+                    <td colspan="5">@Html.TextArea("RepairTheUser", "", new { @class = "txtCss", @style = "width:720px;height:50px;" })@Html.ValidationMessageFor(model => model.RepairTheUser)
+                    </td>
+                </tr>
+            </table>
+            <table class="tabInfo" style="width: 99%; margin-left: 8px; margin-top: 10px;">
+                <tr style="background-color: #88c9e9; text-align: left;">
+
+                    <td colspan="6">其他信息</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">备注</td>
+                    <td class="textRight" colspan="5">@Html.TextAreaFor(model => model.Remark, new { @class = "txtCss", @style = "width:720px;height:50px;" })@Html.ValidationMessageFor(model => model.Remark)</td>
+                </tr>
+                <tr>
+                    <td class="textLeft">登记人</td>
+                    <td class="textRight" colspan="5">@Html.TextBoxFor(model => model.CreateUser, new { @class = "txtCss", @readonly = "true" })</td>
+                </tr>
+            </table>
+        </div>
+        <div style="margin-top: 10px; margin-left: 75%;">
+            
+            <input class="btn" type="button" id="btnSave" value="保存" />
+            <input class="btn" type="button" id="Cancel" value="取消" />
+            <input type="text" id="DID" style="display: none;" />
+        </div>
+    </form>
+</body>
+</html>

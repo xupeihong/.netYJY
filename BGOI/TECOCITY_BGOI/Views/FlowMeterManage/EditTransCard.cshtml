@@ -1,0 +1,148 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model RepairCard
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    <title>EditTransCard</title>
+
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/EditTransCard.js")" type="text/javascript"></script>
+
+</head>
+<body>
+    @using (Html.BeginForm("EditTransCard", "FlowMeterManage", FormMethod.Post, new { id = "ProjectformInfo", onsubmit = "return returnConfirm();" }))
+    { 
+    <div id="pageContent" style="overflow-y:auto;">
+
+        <div style="width:98%;margin-left:10px;margin-top:5px;">
+            <table class="tabInfo" id="content" >
+                <tr style="height:30px;"> 
+                    <td class="textRightL" colspan="6" style="text-align:center; font-size:20px; font-weight:bold;">流量计维修流转卡</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textRightL" style="text-align:left;" colspan="6"> 维修基本信息（只读）</td>
+                </tr>
+                <tr style="height:30px;"> 
+                   @Html.HiddenFor(model => model.strRID) 
+                    <td class="textLeftL">客户名称</td>
+                    <td class="textRightL">@Model.strCustomerName</td>
+                    <td class="textLeftL">安装地点</td>
+                    <td colspan="3" class="textRightL">@Model.strCustomerAddr</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">维修编号</td>
+                    <td class="textRightL">@Model.strRepairID</td>
+                    <td class="textLeftL">仪表名称</td>
+                    <td class="textRightL">@Model.strMeterName</td>
+                    <td class="textLeftL">生产厂家</td>
+                    <td class="textRightL">@Model.strManufacturer</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">精度等级</td>
+                    <td class="textRightL">@Model.strPrecision</td>
+                    <td class="textLeftL">仪表型号</td>
+                    <td class="textRightL">@ViewData["Model"]</td>
+                    <td class="textLeftL">仪表编号</td>
+                    <td class="textRightL">@Model.strMeterID</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">出厂日期</td>
+                    <td class="textRightL">@Model.strFactoryDate</td>
+                    <td class="textLeftL">字轮读数</td>
+                    <td class="textRightL">@Model.strRecordNum</td>
+                    <td class="textLeftL">流量范围</td>
+                    <td class="textRightL">@Model.strFlowRange</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">承压等级</td>
+                    <td class="textRightL">@Model.strPressure</td>
+                    <td class="textLeftL">口径</td>
+                    <td class="textRightL">@Model.strCaliber</td>
+                    <td class="textLeftL">修正仪型号</td>
+                    <td class="textRightL">@ViewData["X_Model"]</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">修正仪编号</td>
+                    <td class="textRightL">@Model.strX_ID</td>
+                    <td class="textLeftL">生产厂家</td>
+                    <td class="textRightL">@Model.strX_Manufacturer</td>
+                    <td class="textLeftL">标况累计</td>
+                    <td class="textRightL">@Model.strX_Standard</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">工况累计</td>
+                    <td class="textRightL">@Model.strX_Operating</td>
+                    <td class="textLeftL">生产日期</td>
+                    <td class="textRightL">@Model.strX_FactoryDate</td>
+                    <td class="textLeftL">压力</td>
+                    <td class="textRightL">@Model.strX_Pressure</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">温度</td>
+                    <td class="textRightL">@Model.strX_Temperature</td>
+                    <td class="textLeftL">其它数据</td>
+                    <td class="textRightL" colspan="3">@Model.strX_Data</td>
+                </tr>
+                <tr>
+                    <td class="textRightL" colspan="6" style="text-align:left;">流转卡信息（可修改）</td>
+                </tr>
+                <tr style="height:30px;">@Html.Hidden("TID",@ViewData["TID"])
+                    <td class="textLeftL">送修初检测</td>
+                    <td class="textRightL">@Html.TextBox("strFirstCheck", @ViewData["FirstCheck"], new { @class = "txtCss", style = "width:80px;" })</td>
+                    <td class="textLeftL">送修</td>
+                    <td class="textRightL">@Html.TextBox("strSendRepair", @ViewData["SendRepair"], new { @class = "txtCss", style = "width:80px;" })</td>
+                    <td class="textLeftL">修后一次检测</td>
+                    <td class="textRightL">@Html.TextBox("strLastCheck", @ViewData["LastCheck"], new { @class = "txtCss", style = "width:80px;" })</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">一次返修</td>
+                    <td class="textRightL">@Html.TextBox("strOneRepair", @ViewData["OneRepair"], new { @class = "txtCss", style = "width:80px;" })</td>
+                    <td class="textLeftL">修后二次检测</td>
+                    <td class="textRightL">@Html.TextBox("strTwoCheck", @ViewData["TwoCheck"], new { @class = "txtCss", style = "width:80px;" })</td>
+                    <td class="textLeftL">二次送修</td>
+                    <td class="textRightL">@Html.TextBox("strTwoRepair", @ViewData["TwoRepair"], new { @class = "txtCss", style = "width:80px;" })</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">修后三次检测</td>
+                    <td class="textRightL">@Html.TextBox("strThreeCheck", @ViewData["ThreeCheck"], new { @class = "txtCss", style = "width:80px;" })</td>
+                    <td class="textLeftL">三次返修</td>
+                    <td colspan="3" class="textRightL">@Html.TextBox("strThreeRepair", @ViewData["ThreeRepair"], new { @class = "txtCss", style = "width:80px;" })</td>
+                </tr>
+                <tr style="height:30px;"> 
+                    <td class="textLeftL">备注</td>
+                    <td colspan="5" class="textRightL">@Html.TextBox("strComments", @ViewData["Comments"], new { @class = "txtCss", style = "width:70%; height:50px;" })</td>
+                </tr>
+
+            </table>
+        </div>
+
+       <div style="float:right; margin-top:10px;">
+           <input type="submit" id="QRXG" class="btn" value="确认修改" style="margin-right:10px;"/> 
+            <br /><br />
+       </div>
+           
+    </div>
+    
+    }
+</body>
+</html>

@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PayMentManage</title>
+
+    <link href="@Url.Content("~/CSS/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/css/ui.jqgrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/PayMentManage.js")" type="text/javascript"></script>
+    <style>
+        .ui-jqgrid tr.jqgrow td {
+            white-space: normal !important;
+            height: auto;
+            vertical-align: text-top;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+@{
+    Acc_Account account = GAccount.GetAccountInfo();
+    int Rights = account.UserID;
+}
+<body>
+    @using (Html.BeginForm("PayMentManage", "FlowMeterManage", FormMethod.Post, new { id = "GForm" }))
+    {
+        <div id="pageContent">
+            <div class="mainHead">
+                <img src="../images/house.png" class="house" />&nbsp;&nbsp;&nbsp;&nbsp;当前位置>><span style="color: #000099;">流量计维修</span>>>缴费管理
+            </div>
+            <div id="search" style="height: 40px;">
+                <table class="tabSearch" cellpadding="0" cellspacing="0">
+                    <tr style="height: 30px;">
+                        <td>客户名称&nbsp;&nbsp;&nbsp;&nbsp;
+                            @Html.DropDownList("PayUnit", FlowMeterMan.GetCustomerName(), new { @class = "txtCss" })</td>
+                        <td>
+                            <input type="button" id="CX" class="btn" value="查 询" style="margin-left: 70%;" onclick="reload();" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div style="margin-top: 5px; margin-left: 10px;">
+                @if (Rights != 321)
+                {  
+                    <input class="btnL" type="button" id="XZJFJL" value="新增缴费记录" />
+                    <input class="btnL" type="button" id="XGJFD" value="修改缴费单" />
+                    <input class="btn" type="button" id="CXJFD" value="撤销缴费" />
+                    <input class="btn" type="button" id="CKXX" value="查看详细" style="margin-left: 65%;" />
+                }
+            </div>
+            <div id="bor" style="width: 100%; margin-top: 5px; margin-left: 10px;">
+                <table id="list" class="scroll" style="width: 100%;"></table>
+                <div id="pager" class="scroll" style="text-align: center; width: 100%;"></div>
+            </div>
+            <div style="margin-top: 3px; margin-left: 10px;">
+                <input type="button" id="SBXXdiv" class="btnTw" style="margin-left: 10px;" value="设备基本信息" />
+                <input type="button" id="BJDdiv" class="btnTh" style="margin-left: 5px;" value="报价单" />
+            </div>
+            <div id="SBXXList" style="border: 1px solid #707070; margin-left: 10px;">
+                <div id="bor1" style="width: 100%; margin-top: 3px; margin-left: 10px;">
+                    <table id="list1" class="scroll" style="width: 100%;"></table>
+                    <div id="pager1" class="scroll" style="text-align: center; width: 100%;"></div>
+                </div>
+            </div>
+            <div id="BJDList" style="border: 1px solid #707070; margin-left: 10px; display: none;">
+                <div id="bor2" style="width: 100%; margin-top: 3px; margin-left: 10px;">
+                    <table id="list2" class="scroll" style="width: 100%;"></table>
+                    <div id="pager2" class="scroll" style="text-align: center; width: 100%;"></div>
+                </div>
+            </div>
+
+        </div>
+        
+    }
+
+</body>
+</html>

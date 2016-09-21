@@ -1,0 +1,218 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI;
+@model tk_CheckData
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddIncomingInspection</title>
+
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript" charset="utf-8"></script>
+    <script src="@Url.Content("~/Scripts/FlowMeterManage/AddIncomingInspection.js")" type="text/javascript"></script>
+</head>
+<body>
+    @using (Html.BeginForm("AddIncomingInspection", "FlowMeterManage", FormMethod.Post, new { id = "ProjectformInfo" }))
+    {
+
+        <div id="pageContent" style="overflow-y:auto;">
+            <div style="width:98%;margin-left:10px;margin-top:5px;">
+                <table class="tabInfo" id="content">
+                    <tr style="height:30px;">
+                        <td colspan="6" style="text-align:center; font-size:20px; font-weight:bold;">出厂检测</td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td class="textRightL" style="text-align:left;" colspan="4"> 基本信息</td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td class="textLeftL">检测人</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrCheckUser, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                        <td class="textLeftL">检测时间</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrCheckDate, new { onclick = "WdatePicker({dateFmt: 'yyyy-MM-dd' })", @class = "txtCss" })
+
+                        </td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td class="textLeftL">
+                            检测类型
+                        </td>
+                        <td class="textRightL">@Html.DropDownListFor(model => model.StrRepairType, FlowMeterMan.getConfigContent2("RepairType"), new { @class = "txtCss" })</td>
+                        <td class="textLeftL">检测方式</td>
+                        <td class="textRightL">@Html.DropDownListFor(model => model.StrRepairMethod, FlowMeterMan.getConfigContent2("RepairMethod"), new { @class = "txtCss" })</td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td class="textLeftL">流量点m3/h检测</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrQmin, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                        <td class="textLeftL">流量点m4/h检测</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrQmax1, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+
+                    </tr>
+                    <tr style="height:30px;">
+                        <td class="textLeftL">流量点m5/h检测</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrQmax2, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                        <td class="textLeftL">流量点m6/h检测</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrQmax25, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+                    <tr style="height:30px;">
+
+
+                        <td class="textLeftL">流量点m7/h检测</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrQmax4, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                        <td class="textLeftL">流量点m8/h检测</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrQmax7, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+
+                    <tr style="height:30px;">
+                        <td class="textLeftL">流量点m9/h检测</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrQmax, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                        <td class="textLeftL">平均仪表系数  1/m3</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrAvg_Qmin, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+                    <tr style="height:30px;">
+                        <td class="textLeftL">平均仪表系数  1/m4</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrAvg_Qmax1, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                        <td class="textLeftL">平均仪表系数  1/m5</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrAvg_Qmax2, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+
+                    <tr style="height:30px;">
+                        <td class="textLeftL">平均仪表系数  1/m6</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrAvg_Qmax25, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                        <td class="textLeftL">平均仪表系数  1/m7</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrAvg_Qmax4, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+
+                    <tr style="height:30px;">
+                        <td class="textLeftL">平均仪表系数  1/m8</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrAvg_Qmax7, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                        <td class="textLeftL">平均仪表系数  1/m9</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrAvg_Qmax, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+
+
+                    <tr style="height:30px;">
+                        <td class="textLeftL">重复性</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrRepeat_Qmin, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                        <td class="textLeftL">重复性</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrRepeat_Qmax1, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+
+                    <tr style="height:30px;">
+                        <td class="textLeftL">重复性</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrRepeat_Qmax2, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                        <td class="textLeftL">重复性</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrRepeat_Qmax25, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+
+                    <tr style="height:30px;">
+                        <td class="textLeftL">重复性</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrRepeat_Qmax4, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                        <td class="textLeftL">重复性</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrRepeat_Qmax7, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+
+                    <tr style="height:30px;">
+                        <td class="textLeftL">重复性</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrRepeat_Qmax, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                        <td class="textLeftL">仪表系数(1/m3)</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrRatio, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+
+
+
+                    <tr style="height:30px;">
+                        <td class="textLeftL">高频 示值误差(%)，，qt<=q<=qMax</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.Strq1, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                        <td class="textLeftL">高频 示值误差(%)，，qt<=q<=qMax</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.Strq2, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+
+                    <tr style="height:30px;">
+                        <td class="textLeftL">拍照示值误差(%)</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrPDeviation, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                        <td class="textLeftL">原仪表系数</td>
+                        <td class="textRightL">
+                            @Html.TextBoxFor(model => model.StrOratio, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+
+                    <tr style="height:30px;">
+                        <td class="textLeftL">测试结果备注</td>
+                        <td class="textRightL" colspan="3">
+                            @Html.TextAreaFor(model => model.StrRemark, new { @class = "txtCss", style = "width:93%;" })
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <div style="float:right; margin-top:10px;">
+                <input type="button" id="QD" class="btn" value="确定" style="margin-right:10px;" />
+                <br /><br />
+            </div>
+        </div>
+
+    }
+</body>
+</html>

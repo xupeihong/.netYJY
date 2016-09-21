@@ -1,0 +1,122 @@
+﻿@{
+    Layout = null;
+}
+@using TECOCITY_BGOI
+@model tk_Promotion
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+    <title>ApplyPromotion</title>
+    <link href="@Url.Content("~/CSS/main.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/Sales/RecordInfo.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery_dialog.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/CSS/jquery-ui-1.10.2.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/uploadify/uploadify.css")" rel="stylesheet" type="text/css" />
+    @*<script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"  type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jqGrid.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+    @*<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/Validate/Validate-Injection.js")" type="text/javascript"></script>*@
+    <script src="@Url.Content("~/Scripts/grid.locale-cn.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_Tables.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/cmm_ClassControl.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery_dialog.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/My97DatePicker/WdatePicker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/uploadify/jquery.uploadify.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Sales/RetailSales/ApplyPromotion.js")" type="text/javascript"></script>
+</head>
+<body>
+    @using (Html.BeginForm("ApplyPromotion", "SalesRetail", FormMethod.Post, new { id = "form1", action = "SavePromotionApply", enctype = "multipart/form-data" }))
+    {
+        <div id="tabTitile"><span style="margin-left: 10px; float: left;">申请编号：@Model.PID @Html.HiddenFor(model => model.PID)</span></div>
+        <div style="height: 480px; width: 98%; overflow-y: auto;">
+            @Html.Hidden("msg", @ViewData["msg"])
+        <table class="tabInfo" style="width: 99%; margin-top: 10px; height: 400px; overflow-y: auto;">
+            <tr style="text-align: center; font: bold; margin-top: 20px; font-size: 24px;">
+                <td colspan="4">申请信息</td>
+            </tr>
+            <tr>
+                <td>
+                    申请日期：
+                </td>
+                <td style="text-align: left; ">
+                    @*@Html.TextBoxFor(model => model.ApplyTime, new { @class = "txtCss", @readonly = "readonly", onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})" })@Html.ValidationMessageFor(model => model.ApplyTime)*@
+
+                    @Html.TextBoxFor(model => model.ApplyTime, new { @class = "txtCss", @readonly = "readonly", Value = String.Format("{0:yyyy-MM-dd HH:mm:ss}", DateTime.Now), onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss'})" })
+                </td>
+            <td>申请人：</td>
+                <td style="text-align: left; ">@Html.TextBoxFor(model => model.Applyer, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Applyer)</td>
+        </tr>
+        <tr>
+            <td>
+                活动主题：
+            </td>
+            <td style="text-align: left; ">@Html.TextBoxFor(model => model.ActionTitle, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ActionTitle)</td>
+            <td>活动金额：</td>
+            <td style="text-align: left; ">@Html.TextBoxFor(model => model.ActionProject, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ActionProject)</td>
+        </tr>
+        <tr>
+            <td>
+                活动执行时间：
+            </td>
+            <td colspan="3" style="text-align: left; ">
+                @Html.TextBoxFor(model => model.StartTime, new { @class = "txtCss", @readonly = "readonly", onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss'})" })
+                ~@Html.TextBoxFor(model => model.EndTime, new { @class = "txtCss", @readonly = "readonly", onclick = "WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss'})" })
+            </td>
+    </tr>
+    <tr>
+        <td>
+            促销活动位置：
+        </td>
+        <td style="text-align: left; ">@Html.TextBoxFor(model => model.Position, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Position)</td>
+        <td>活动宣传方式：</td>
+        <td style="text-align: left; ">@Html.TextBoxFor(model => model.ActionStyle, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.ActionStyle)</td>
+    </tr>
+    <tr>
+        <td>
+            活动参与人员：
+        </td>
+        <td colspan="3" style="text-align: left; ">@Html.TextAreaFor(model => model.PurPose, new { @class = "txtCss", @Style = "width:80%;height:50px;" })@Html.ValidationMessageFor(model => model.PurPose)</td>
+    </tr>
+    <tr>
+        <td>活动负责人：</td>
+        <td colspan="3" style="text-align: left; ">@Html.TextBoxFor(model => model.Manager, new { @class = "txtCss" })@Html.ValidationMessageFor(model => model.Manager)</td>
+    </tr>
+    <tr>
+        <td>备注</td>
+        <td colspan="3" style="text-align: left; ">
+            @Html.TextAreaFor(model => model.Remark, new { @class = "txtCss", @Style = "width:80%;height:80px;" })@Html.ValidationMessageFor(model => model.Remark)
+        </td>
+    </tr>
+    <tr style="text-align: left; font: bold; margin-top: 20px; font-size: 24px;">
+        <td colspan="4">活动方案上传</td>
+    </tr>
+    <tr style="text-align: left; ">
+        <td colspan=" 4">
+            <div style="margin-left: 8px; height: 28px; text-align: left;">
+                选择上传文件：&nbsp;@*<input name="file" type="file" multiple="multiple" id="UploadFile" class="file" />*@
+                <input id="uploadify" type="file" name="uploadify" style="margin-left: 180px;"  />
+
+            </div>
+            <div>
+                @*<input type="button" name="btnUpload" id="btnUpload" value="上 传" class="buttons" />*@
+               <div id="Progress" runat="server" style="float: right; width: 85%; color: Green; height: 24px; line-height: 24px;">
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+            <input type="button" id="btnSave" class="btn" name="btnSave" value="确 定" />
+            <input type="button" id="btnCancel" class="btn" name="btnSave" value="取 消" />
+        </td>
+    </tr>
+</table>
+</div>
+    }
+</body>
+</html>
